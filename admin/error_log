@@ -1,0 +1,235 @@
+[22-Oct-2016 13:34:32 UTC] PHP Warning:  require_once(/home/vvf/vvf.kritva.in/../pmsuser/framework/yii.php): failed to open stream: No such file or directory in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:34:32 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/vvf/vvf.kritva.in/../pmsuser/framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:40:03 UTC] PHP Warning:  require_once(/home/vvf/vvf.kritva.in/../pmsuser/framework/yii.php): failed to open stream: No such file or directory in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:40:03 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/vvf/vvf.kritva.in/../pmsuser/framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:40:10 UTC] PHP Warning:  require_once(/home/vvf/vvf.kritva.in/../pmsuser/framework/yii.php): failed to open stream: No such file or directory in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:40:10 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/vvf/vvf.kritva.in/../pmsuser/framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:40:55 UTC] PHP Warning:  require_once(/home/vvf/vvf.kritva.in/../framework/yii.php): failed to open stream: No such file or directory in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 13:40:55 UTC] PHP Fatal error:  require_once(): Failed opening required '/home/vvf/vvf.kritva.in/../framework/yii.php' (include_path='.:/opt/cpanel/ea-php56/root/usr/share/pear') in /home/vvf/vvf.kritva.in/index.php on line 12
+[22-Oct-2016 14:06:24 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Oct-2016 12:36:47 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Oct-2016 12:36:57 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Oct-2016 17:19:55 UTC] PHP Parse error:  syntax error, unexpected 'idp_request' (T_STRING) in /home/vvf/vvf.kritva.in/protected/controllers/IDPController.php on line 388
+[23-Oct-2016 17:20:06 UTC] PHP Parse error:  syntax error, unexpected 'idp_request' (T_STRING) in /home/vvf/vvf.kritva.in/protected/controllers/IDPController.php on line 388
+[23-Oct-2016 17:20:56 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/vvf/vvf.kritva.in/protected/controllers/IDPController.php on line 384
+[23-Oct-2016 17:24:07 UTC] PHP Parse error:  syntax error, unexpected ';', expecting ')' in /home/vvf/vvf.kritva.in/protected/controllers/IDPController.php on line 382
+[23-Oct-2016 17:31:20 UTC] PHP Fatal error:  Call to a member function get_idp_data() on null in /home/vvf/vvf.kritva.in/protected/controllers/IDPController.php on line 378
+[23-Oct-2016 18:02:31 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[12-Nov-2016 09:01:35 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[12-Nov-2016 09:04:42 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[15-Nov-2016 04:27:01 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[15-Nov-2016 04:27:16 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[15-Nov-2016 04:28:12 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[15-Nov-2016 07:26:51 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12597853 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[16-Nov-2016 11:51:23 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[17-Nov-2016 08:05:24 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[17-Nov-2016 10:26:13 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12521235 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[17-Nov-2016 10:26:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12521235 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[17-Nov-2016 10:26:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 12521235 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[17-Nov-2016 11:56:10 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 05:35:17 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 05:56:41 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 06:24:55 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 06:26:29 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 06:27:49 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 06:27:54 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 07:15:27 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 07:16:03 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 07:24:31 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 08:46:31 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 09:08:27 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 09:53:34 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[18-Nov-2016 11:13:21 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[19-Nov-2016 11:41:12 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[21-Nov-2016 12:45:19 UTC] PHP Parse error:  syntax error, unexpected '/' in /home/vvf/vvf.kritva.in/protected/views/site/admin_dashboard.php on line 349
+[22-Nov-2016 09:25:10 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[22-Nov-2016 09:26:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[22-Nov-2016 09:29:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[22-Nov-2016 09:29:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[22-Nov-2016 09:30:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[22-Nov-2016 09:31:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[22-Nov-2016 09:43:00 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 13027892 bytes) in /home/vvf/vvf.kritva.in/framework/web/CBaseController.php on line 127
+[23-Nov-2016 04:47:01 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Nov-2016 05:50:52 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Nov-2016 05:51:12 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Nov-2016 06:04:30 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[23-Nov-2016 13:53:36 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 367
+[23-Nov-2016 13:56:32 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 874
+[23-Nov-2016 13:56:35 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 874
+[23-Nov-2016 13:57:37 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 367
+[23-Nov-2016 14:00:03 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 367
+[23-Nov-2016 14:00:06 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 367
+[23-Nov-2016 14:03:23 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE), expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/protected/controllers/Admin_DashboardController.php on line 896
+[25-Nov-2016 12:42:13 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[28-Nov-2016 05:32:17 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/vvf/vvf.kritva.in/protected/controllers/Login_demoController.php on line 595
+[28-Nov-2016 05:33:14 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/vvf/vvf.kritva.in/protected/controllers/Login_demoController.php on line 734
+[28-Nov-2016 05:33:40 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/protected/controllers/Login_demoController.php on line 829
+[28-Nov-2016 05:34:20 UTC] PHP Parse error:  syntax error, unexpected 'public' (T_PUBLIC) in /home/vvf/vvf.kritva.in/protected/controllers/Login_demoController.php on line 595
+[30-Nov-2016 09:01:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 82 bytes) in /home/vvf/vvf.kritva.in/framework/db/CDbCommand.php on line 518
+[30-Nov-2016 09:02:08 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 82 bytes) in /home/vvf/vvf.kritva.in/framework/db/CDbCommand.php on line 518
+[30-Nov-2016 09:02:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 84 bytes) in /home/vvf/vvf.kritva.in/framework/db/CDbCommand.php on line 518
+[30-Nov-2016 09:02:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 84 bytes) in /home/vvf/vvf.kritva.in/framework/db/CDbCommand.php on line 518
+[30-Nov-2016 10:21:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/framework/db/CDbCommand.php on line 518
+[30-Nov-2016 10:21:15 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/framework/db/CDbCommand.php on line 518
+[03-Dec-2016 04:36:37 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[03-Dec-2016 09:52:33 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[03-Dec-2016 09:55:15 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[03-Dec-2016 09:58:28 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[05-Dec-2016 09:33:43 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[05-Dec-2016 12:28:37 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[05-Dec-2016 12:28:40 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[06-Dec-2016 07:38:36 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 07:44:52 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 11:09:38 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 11:09:43 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 11:09:45 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 11:09:52 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 11:29:51 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 11:30:42 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[07-Dec-2016 12:44:48 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/framework/web/helpers/CHtml.php on line 2436
+[08-Dec-2016 04:41:18 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 84 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 04:47:15 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 84 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 04:49:23 UTC] PHP Parse error:  syntax error, unexpected 'admin_location' (T_STRING), expecting ')' in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 96
+[08-Dec-2016 04:53:00 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 84 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 04:53:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 05:08:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 94 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 05:10:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 05:10:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[08-Dec-2016 05:41:35 UTC] PHP Fatal error:  Call to undefined function is_empty() in /home/vvf/vvf.kritva.in/admin/protected/views/site/admin_dashboard.php on line 475
+[08-Dec-2016 05:48:37 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/vvf/vvf.kritva.in/admin/protected/views/site/admin_dashboard.php on line 571
+[08-Dec-2016 05:51:16 UTC] PHP Parse error:  syntax error, unexpected ')', expecting ';' in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 211
+[09-Dec-2016 06:40:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:40:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:41:04 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:41:23 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:41:35 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:41:44 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:44:17 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:45:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:45:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 06:47:01 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[09-Dec-2016 07:27:41 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/admin/protected/views/site/admin_dashboard.php on line 875
+[09-Dec-2016 08:11:02 UTC] PHP Parse error:  syntax error, unexpected 'Inactive' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 68
+[09-Dec-2016 11:00:53 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 671
+[12-Mar-2017 17:01:44 UTC] PHP Parse error:  syntax error, unexpected 'Inactive' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 70
+[13-Mar-2017 03:33:18 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 90 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[13-Mar-2017 03:33:22 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 90 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[13-Mar-2017 03:44:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[13-Mar-2017 09:42:16 UTC] PHP Parse error:  syntax error, unexpected 'Kolkata' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 102
+[13-Mar-2017 10:07:51 UTC] PHP Parse error:  syntax error, unexpected '"' in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 233
+[13-Mar-2017 10:14:04 UTC] PHP Parse error:  syntax error, unexpected '"' in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 233
+[13-Mar-2017 10:19:15 UTC] PHP Parse error:  syntax error, unexpected '"' in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 267
+[13-Mar-2017 10:20:06 UTC] PHP Parse error:  syntax error, unexpected 'Kolkata' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 299
+[13-Mar-2017 10:29:35 UTC] PHP Parse error:  syntax error, unexpected '"' in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 134
+[13-Mar-2017 10:43:47 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE), expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 534
+[16-Mar-2017 08:30:17 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 508
+[17-Mar-2017 09:27:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[17-Mar-2017 09:38:07 UTC] PHP Parse error:  syntax error, unexpected 'Employee' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 342
+[17-Mar-2017 09:42:26 UTC] PHP Parse error:  syntax error, unexpected 'Employee' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 343
+[17-Mar-2017 09:45:15 UTC] PHP Parse error:  syntax error, unexpected 'where' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 349
+[17-Mar-2017 09:45:31 UTC] PHP Parse error:  syntax error, unexpected 'where' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 349
+[17-Mar-2017 09:46:18 UTC] PHP Parse error:  syntax error, unexpected 'where' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 349
+[17-Mar-2017 10:08:55 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 1345
+[17-Mar-2017 10:27:58 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 371
+[17-Mar-2017 10:28:29 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 372
+[17-Mar-2017 10:29:00 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 371
+[17-Mar-2017 10:29:31 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 371
+[17-Mar-2017 10:30:36 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 371
+[17-Mar-2017 11:19:37 UTC] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE), expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 1343
+[17-Mar-2017 12:03:29 UTC] PHP Parse error:  syntax error, unexpected '++' (T_INC) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 381
+[20-Mar-2017 05:33:16 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 05:44:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[20-Mar-2017 06:06:48 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 93 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:07:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:11:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:11:35 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:11:59 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:15:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:16:07 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:16:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:19:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:19:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:20:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:20:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:20:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:21:11 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:22:05 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:24:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:24:43 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:25:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:27:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:27:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:32:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:33:23 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 85 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:37:51 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:39:47 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 89 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:41:18 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 79 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:41:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 79 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:42:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 94 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[20-Mar-2017 06:52:13 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[23-Mar-2017 04:42:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[23-Mar-2017 05:01:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 28 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[23-Mar-2017 05:53:25 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[23-Mar-2017 07:58:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[29-Mar-2017 06:11:24 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 84 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[29-Mar-2017 11:57:28 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 90 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[31-Mar-2017 12:52:52 UTC] PHP Parse error:  syntax error, unexpected '0' (T_LNUMBER) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 122
+[31-Mar-2017 12:54:28 UTC] PHP Parse error:  syntax error, unexpected 'pms_status' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 122
+[31-Mar-2017 12:54:57 UTC] PHP Parse error:  syntax error, unexpected 'Employee_id' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/Admin_DashboardController.php on line 131
+[03-Apr-2017 06:40:27 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 85 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[03-Apr-2017 09:12:14 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 769
+[03-Apr-2017 09:12:24 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 769
+[03-Apr-2017 09:13:17 UTC] PHP Parse error:  syntax error, unexpected ''=date('' (T_CONSTANT_ENCAPSED_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 770
+[03-Apr-2017 09:13:49 UTC] PHP Parse error:  syntax error, unexpected '=>' (T_DOUBLE_ARROW) in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 773
+[03-Apr-2017 09:14:12 UTC] PHP Fatal error:  Class 'Employee1Form' not found in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 705
+[03-Apr-2017 09:14:16 UTC] PHP Fatal error:  Class 'Employee1Form' not found in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 705
+[03-Apr-2017 09:15:16 UTC] PHP Fatal error:  Class 'Employee1Form' not found in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 705
+[03-Apr-2017 09:34:42 UTC] PHP Parse error:  syntax error, unexpected '' (T_ENCAPSED_AND_WHITESPACE), expecting identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 797
+[04-Apr-2017 04:28:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 83 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[04-Apr-2017 04:37:13 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 83 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[04-Apr-2017 05:46:15 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 532
+[04-Apr-2017 05:46:25 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 532
+[04-Apr-2017 05:46:30 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 532
+[04-Apr-2017 07:08:06 UTC] PHP Parse error:  syntax error, unexpected 'required' (T_STRING), expecting ')' in /home/vvf/vvf.kritva.in/admin/protected/models/Employee1Form.php on line 75
+[04-Apr-2017 07:08:30 UTC] PHP Parse error:  syntax error, unexpected 'required' (T_STRING), expecting ')' in /home/vvf/vvf.kritva.in/admin/protected/models/Employee1Form.php on line 75
+[04-Apr-2017 07:09:01 UTC] PHP Parse error:  syntax error, unexpected 'required' (T_STRING), expecting ')' in /home/vvf/vvf.kritva.in/admin/protected/models/Employee1Form.php on line 75
+[05-Apr-2017 12:41:48 UTC] PHP Fatal error:  Call to a member function get_employee_data() on null in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 385
+[05-Apr-2017 12:50:27 UTC] PHP Fatal error:  Call to a member function get_employee_data() on null in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 385
+[05-Apr-2017 12:51:18 UTC] PHP Fatal error:  Call to a member function get_employee_data() on null in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 385
+[05-Apr-2017 12:52:23 UTC] PHP Fatal error:  Call to a member function get_employee_data() on null in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 385
+[05-Apr-2017 12:52:46 UTC] PHP Fatal error:  Call to a member function get_employee_data() on null in /home/vvf/vvf.kritva.in/admin/protected/controllers/LoginLocationController.php on line 385
+[06-Apr-2017 06:28:09 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/vvf/vvf.kritva.in/admin/protected/views/site/employee_profile.php on line 1482
+[06-Apr-2017 06:33:35 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/vvf/vvf.kritva.in/admin/protected/views/site/employee_profile.php on line 1483
+[06-Apr-2017 07:41:59 UTC] PHP Parse error:  syntax error, unexpected 'Inactive' (T_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 190
+[06-Apr-2017 07:48:39 UTC] PHP Parse error:  syntax error, unexpected 'and' (T_LOGICAL_AND) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 168
+[06-Apr-2017 10:07:15 UTC] PHP Fatal error:  Call to a member function getValidators() on string in /home/vvf/vvf.kritva.in/admin/framework/web/helpers/CHtml.php on line 2436
+[06-Apr-2017 10:13:41 UTC] PHP Fatal error:  Call to a member function getValidators() on string in /home/vvf/vvf.kritva.in/admin/framework/web/helpers/CHtml.php on line 2436
+[06-Apr-2017 10:15:05 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/admin/framework/web/helpers/CHtml.php on line 2436
+[06-Apr-2017 10:16:08 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/admin/framework/web/helpers/CHtml.php on line 2436
+[06-Apr-2017 10:16:32 UTC] PHP Fatal error:  Call to a member function getValidators() on null in /home/vvf/vvf.kritva.in/admin/framework/web/helpers/CHtml.php on line 2436
+[10-Apr-2017 10:19:21 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 26 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[10-Apr-2017 10:26:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[10-Apr-2017 11:27:31 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[10-Apr-2017 11:36:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 512 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[10-Apr-2017 11:36:58 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 512 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[10-Apr-2017 12:52:12 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 78 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[11-Apr-2017 07:53:40 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 517
+[11-Apr-2017 08:28:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[11-Apr-2017 10:21:37 UTC] PHP Parse error:  syntax error, unexpected '" `  "' (T_CONSTANT_ENCAPSED_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 382
+[11-Apr-2017 10:21:57 UTC] PHP Parse error:  syntax error, unexpected '"   "' (T_CONSTANT_ENCAPSED_STRING) in /home/vvf/vvf.kritva.in/admin/protected/models/EmployeeForm.php on line 382
+[11-Apr-2017 10:33:06 UTC] PHP Parse error:  syntax error, unexpected '$status' (T_VARIABLE) in /home/vvf/vvf.kritva.in/admin/protected/views/site/employee_profile.php on line 538
+[11-Apr-2017 10:33:30 UTC] PHP Parse error:  syntax error, unexpected '$cluster_details' (T_VARIABLE) in /home/vvf/vvf.kritva.in/admin/protected/views/site/employee_profile.php on line 536
+[11-Apr-2017 10:43:52 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/vvf/vvf.kritva.in/admin/protected/views/site/employee_profile.php on line 566
+[17-Apr-2017 06:05:06 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 93 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:07:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:07:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 93 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:07:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 32 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:07:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 512 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:07:54 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 512 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:07:55 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 512 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:13:34 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:13:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:13:41 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:14:32 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:15:00 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518
+[18-Apr-2017 06:15:03 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 90 bytes) in /home/vvf/vvf.kritva.in/admin/framework/db/CDbCommand.php on line 518

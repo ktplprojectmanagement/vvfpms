@@ -1,0 +1,959 @@
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" /> 
+<style type="text/css">
+.dataTables_empty{
+    colspan=3;
+}
+.time-frame {
+width: 300px;
+font-family: Arial;
+}
+
+.time-frame >div {
+width: 100%;
+text-align: center;
+}
+
+.dt-buttons{
+    display:none;
+}
+.btn-success
+{
+    background-color: #6da333;
+border-color: #6da333;
+}
+.btn-success:hover
+{
+    background-color: #6da333;
+border-color: #6da333;
+}
+.caption{
+    font-weight: bold;
+}
+</style>
+
+
+<style type="text/css">
+.stepwizard-step p {
+    margin-top: 10px;    
+}
+
+.stepwizard-row {
+    display: table-row;
+}
+
+.stepwizard {
+    display: table;     
+    width: 100%;
+    position: relative;
+}
+
+.stepwizard-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.stepwizard-row:before {
+    top: 14px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+    
+}
+
+.stepwizard-step {    
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+/*#sample_1_info
+{
+display : none;
+}*/
+#sample_1_length
+{
+display : none;
+}
+.dataTables_empty{
+  display: none;
+}
+</style>
+
+<?php
+  if(isset($team) && count($team)>0){
+    $team_count=count($team);
+  }
+  else{
+    $team_count=0;
+  }
+  if(isset($emp_sub) && count($emp_sub)>0){
+    $is_emp=count($emp_sub);
+
+  }
+  else{
+    $is_emp=0;
+  }
+  if(isset($is_my_gaol_pending) && count($is_my_gaol_pending)>0){
+    $is_goal_pend=count($is_my_gaol_pending);
+  }
+  else{
+    $is_goal_pend=0;
+  }
+  if(isset($emp_sub_idp) && count($emp_sub_idp)>0){
+    $is_emp_idp=count($emp_sub_idp);
+  }
+  else{
+    $is_emp_idp=0;
+  }
+?>
+<script type="text/javascript">
+$(document).ready(function(){
+ 
+ var team= <?php echo $team_count;?>;
+ var emp_sub=<?php echo $is_emp;?>;
+ var is_my_goal_pend=<?php echo $is_goal_pend;?>;
+ var is_idp_set=<?php echo $is_emp_idp ?>;
+// alert(is_idp_set);
+if(emp_sub==0){
+  $("#my_set").css("display", "none");
+}
+else{
+  $("#goal_pending").css("display", "none");
+}
+
+if(is_idp_set==0){
+ 
+   $("#my_idp").css("display","none");
+
+}
+else{
+   $("#idp_pending").css("display","none");
+}
+ $("#goal_appr").removeClass("fa-check");
+ $("#goal_appr").removeClass("fa-times");
+
+
+if(is_my_goal_pend==0){
+  $("#goal_appr").removeClass("fa-times");
+  $("#goal_appr").addClass("fa-check");
+
+  
+}
+else{
+  $("#goal_appr").removeClass("fa-check");
+  $("#goal_appr").addClass("fa-times");
+  $("#goal_appr").css("color","#cd686b");
+}
+ if(team==0){
+   $("#team_set").css("display", "none");
+   $("#team_mid").css("display", "none");  
+   $("#team_yearA").css("display", "none");
+   $("#team_yearB").css("display", "none");  
+  
+ }
+
+    var date1 = document.getElementById('set-date');
+    var goal_date = $("#set-date").val();
+    var date2 = document.getElementById('mid-date');
+    var mid_date = date2.getAttribute('value');
+    var date = new Date();
+    date.setDate(date.getDate()-1);
+    var today = new Date();
+    var date3 = document.getElementById('yearb-dt');
+    var yearb_date = date3.getAttribute('value');
+
+
+    $("#set-date").removeClass("fa fa-check");
+    $("#mid_date").removeClass("fa fa-check");
+    $("#yearb-dt").removeClass("fa fa-check");
+    $("#set-date").removeClass("btn-primary");
+    $("#mid_date").removeClass("btn-primary");
+    $("#yearb-dt").removeClass("btn-primary");
+    $("#set-date").removeClass("btn-success");
+    $("#set-date").text("1");
+    $("#mid-date").removeClass("btn-success");
+    $("#mid-date").text("2");
+    $("#yearb-dt").removeClass("btn-success");
+    $("#yearb-dt").text("3");
+ 
+if(goal_date=='' ){
+     $(".stepwizard").css("display","none"); 
+     $("#my_mid").css("display","none"); 
+     $("#team_mid").css("display","none"); 
+     $("#my_set").css("display","none"); 
+     $("#team_set").css("display","none"); 
+
+}
+
+else if(date<=process(goal_date)||(goal_date!='' && mid_date=='' && yearb_date=='')){
+  $("#set-date").addClass("btn-primary");
+  $("#my_mid").css("display","none"); 
+  $("#team_mid").css("display","none");
+     
+}
+else if(date<=process(mid_date)||(goal_date!='' && mid_date!='' && yearb_date=='')){
+     $("#mid-date").addClass("btn-primary");
+     $("#set-date").text(""); 
+     $("#set-date").addClass("fa fa-check");
+     $("#set-date").addClass("btn-success");
+     
+}
+else if(date<=process(yearb_date))
+{
+  $("#yearb-dt").addClass("btn-primary"); 
+     $("#mid-date").text("");  
+     $("#mid-date").addClass("fa fa-check");
+     $("#mid-date").addClass("btn-success");
+     $("#set-date").text(""); 
+     $("#set-date").addClass("fa fa-check");
+     $("#set-date").addClass("btn-success");
+}
+else if(date>process(yearb_date)){
+       $("#yearb-dt").text("");  
+     $("#yearb-dt").addClass("fa fa-check");
+     $("#yearb-dt").addClass("btn-success");
+     $("#mid-date").text("");  
+     $("#mid-date").addClass("fa fa-check");
+     $("#mid-date").addClass("btn-success");
+     $("#set-date").text(""); 
+     $("#set-date").addClass("fa fa-check");
+     $("#set-date").addClass("btn-success");
+}
+
+    });
+
+function process(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
+}
+function addDays(myDate,days) {
+return new Date(myDate.getTime() + days*24*60*60*1000);
+}
+function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+    return [day,mnth,date.getFullYear()].join("/");
+}
+convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
+</script>
+<script type="text/javascript">
+        $(function(){
+
+          
+         $(".chk_user_status").click(function(){
+            var id = $(this).attr('id');
+            var data = {
+                'status' : id,
+            };
+            var base_url = window.location.origin;
+            $.ajax({
+            type : 'post',
+            datatype : 'html',
+            data : data,
+            url : base_url+'/pmsuser/index.php?r=User_dashboard/statusget',
+            success : function(data)
+            {
+               // alert(data);
+                var table = $('#sample_1').DataTable();
+                table.clear().draw();
+                table.rows.add($(data)).draw();
+                jQuery("#responsive").modal('show'); 
+                $('#sample_1').DataTable();
+               
+            }
+          });
+         });
+
+         $(".chk_team_setgol_status").click(function(){
+            var id = $(this).attr('id');
+            //alert(id);
+            var data = {
+                'status' : id,
+            };
+            var base_url = window.location.origin;
+            $.ajax({
+            type : 'post',
+            datatype : 'html',
+            data : data,
+            url : base_url+'/pmsuser/index.php?r=User_dashboard/teamSetgoalstatus',
+            success : function(data)
+            {
+                //alert(data);
+                var table = $('#sample_editable_1').DataTable();
+                table.clear().draw();
+                table.rows.add($(data)).draw();
+                jQuery("#responsive1").modal('show'); 
+                $('#sample_editable_1').DataTable();
+               
+            }
+          });
+         });
+
+         $(".chk_mid_stat").click(function(){
+            var id = $(this).attr('id');
+            var data = {
+                'status' : id,
+            };
+            var base_url = window.location.origin;
+            $.ajax({
+            type : 'post',
+            datatype : 'html',
+            data : data,
+            url : base_url+'/pmsuser/index.php?r=User_dashboard/midstatusget',
+            success : function(data)
+            {
+                //alert(data);
+                var table = $('#sample_1').DataTable();
+                table.clear().draw();
+                table.rows.add($(data)).draw();
+                jQuery("#responsive").modal('show'); 
+                $('#sample_1').DataTable();
+               
+            }
+          });
+         });
+
+
+         $(".chkteam_mid_stat").click(function(){
+            var id = $(this).attr('id');
+            var data = {
+                'status' : id,
+            };
+            var base_url = window.location.origin;
+            $.ajax({
+            type : 'post',
+            datatype : 'html',
+            data : data,
+            url : base_url+'/pmsuser/index.php?r=User_dashboard/teamMidstatusget',
+            success : function(data)
+            {
+                //alert(data);
+                var table = $('#sample_editable_1').DataTable();
+                table.clear().draw();
+                table.rows.add($(data)).draw();
+                jQuery("#responsive1").modal('show'); 
+                $('#sample_editable_1').DataTable();
+               
+            }
+          });
+         });
+
+      
+    });
+</script>
+
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+  
+<div class="container-fluid">
+    <div class="page-container">
+        <div class="page-content-wrapper">
+            <div class="page-content">
+                <div class="container">
+                    <div class="portlet-body">
+                        
+                    <div class="profile">
+                        <div class="portlet box red" style="border:1px solid #4C87B9;" >
+                            <div class="portlet-title" style="background-color: #4C87B9;">
+                                <div class="caption" ></i>Employee Dashboard </div>
+                                <div class="tools"><a href="javascript:;" class="collapse"> </a></div>
+                            </div>
+                            <div class="portlet-body tabs-below" >
+                                <div class="tab-content" >
+                                 <div class="row">
+                                        <div class="col-md-12">
+                                 <div id="progress_bar" >   
+                                  
+                                  <div class="stepwizard">
+                            <div class="stepwizard-row">
+                                <div class="stepwizard-step">
+
+                                    <?php
+                                    $new_date = '';$new_date1 = '';$new_date2 = '';
+                                    if (isset($set_dates) && count($set_dates)>0){
+                                        for($i=0;$i<count($set_dates);$i++)
+                                        {
+                                            if($set_dates[$i]['setting_content']=='goal_sub_date'  ) {
+                                                $originalDate = $set_dates[$i]['setting_type'];
+                                                $time_epoch = strtotime($originalDate); //Converts the string into an epoch time
+                                                $new_date = date('d/m/Y', $time_epoch); //Creates a new string
+                                                //echo $new_date;
+                                            }  
+                                            if($set_dates[$i]['setting_content']=='mid_goal_set_tab_active-date') {
+                                                $originalDate = $set_dates[$i]['setting_type'];
+                                                $time_epoch = strtotime($originalDate); //Converts the string into an epoch time
+                                                $new_date1= date('d/m/Y', $time_epoch); //Creates a new string
+                                                //echo $new_date1;
+                                            } 
+                                            if($set_dates[$i]['setting_content']=='final_goal_set_tab_active-date') {
+                                                $originalDate = $set_dates[$i]['setting_type'];
+                                                $time_epoch = strtotime($originalDate); //Converts the string into an epoch time
+                                                $new_date2= date('d/m/Y', $time_epoch); //Creates a new string
+                                                
+                                            }                                       
+                                            
+                                        }                                     
+
+                                    }
+                                    
+                                    
+                                    ?>
+                                    <button type="button" value="<?php echo $new_date;?>" id="set-date" class="btn btn-default  btn-circle" name="<?php echo $new_date; ?>">1</button>
+                                    <p>Set Goal <?php echo "[".$new_date."]"; ?></p>
+                                </div>
+                      
+                                <div class="stepwizard-step">
+
+                                    <button type="button" value="<?php echo $new_date1;?>" id="mid-date" class="btn btn-default btn-circle" >2</button>
+                                    <p>Mid Year Review<?php echo "[".$new_date1."]"; ?></p>
+                                </div> 
+           
+                                
+                                 <div class="stepwizard-step">
+                                    
+                                    <button type="button" id="yearb-dt" value="<?php echo $new_date2;?>"class="btn btn-default btn-circle">3</button>
+                                    <p>Year End Review <?php echo "[".$new_date2."]"; ?></p>
+                                 </div> 
+       
+
+
+
+                                 
+                            </div>
+                        </div>
+                    </div>                        
+                 
+<!--Pending-->
+
+<div style="color:#bf4040;font-size:20px;font-weight:bold;padding:23px" >
+                         <div id="idp_pending" style="padding-bottom:10px" class="blink_me">Your IDP is pending</div>
+                         <div id="goal_pending" class="blink_me">Your Goal Sheet is pending </div>
+                    </div>
+<!--Pending-->
+<!--My Goalsheet status-->
+<div   style="background-color:#fff;">
+    <div class="portlet-title col-md-12" id="my_set">
+  <div class="caption " style="">
+      <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-user" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My Goal Sheet Status</span>
+  </div>
+  
+
+<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " >
+              <div class="col-lg-12" style="font-size:22px;font-weight:bold; padding-top:10px;padding-bottom:40px;padding-left:0px;padding-right:0px"><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Setgoals">Goal Sheet approved</a>&nbsp;&nbsp;
+                <i class="widget-thumb-icon  fa fa-check" style="font-size:40px;color:#6da333" id="goal_appr"></i> 
+              </div>  
+            </div>
+          </div> </div> </div></div>
+<!--My Goalsheet status-->
+
+<!--My IDP status-->
+<div class="portlet-title col-md-12" id="my_idp">
+  <div class="caption " style="">
+      <i class="icon-cursor font-dark hide"></i>
+      <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-user" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My IDP Status</span>
+  </div>
+  
+
+
+<div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " >
+              <div class="col-md-12" style="font-size:22px;font-weight:bold; padding-top:10px;padding-bottom:40px;"><a href="">Idp approved</a>&nbsp;&nbsp;
+                <i class="widget-thumb-icon  fa fa-check" style="font-size:40px;color:#6da333"></i> 
+              </div>  
+            </div>
+          </div> </div>
+<!--My Idp status-->
+
+
+<!--Begin my team members Setgoal-->
+<div  id="team_set" style="background-color:#fff;">
+    <div class="portlet-title col-md-12">
+  <div class="caption " style="">
+      <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-users" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My Team Goal Sheet Status</span>
+  </div>
+  
+</div>
+    <div class="" style="display:block ; ">
+       <div class="row widget-row" id="Setgoal" >
+        <div class="col-md-4" style="padding-top: 18px;">
+            <!-- BEGIN WIDGET THUMB -->
+            <?php
+            if (isset($team_set) && count($team_set)>0){
+                $kra_submitted=count($team_set);
+            }
+            else{
+                $kra_submitted=0;
+            }
+
+            ?>
+
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+               
+                <h4 class="widget-thumb-heading">Team members Submitted kra</h4>
+                <div class="widget-thumb-wrap">
+                    <i class="widget-thumb-icon bg-green fa fa-check" style="font-size:40px"></i>
+                    <div class="widget-thumb-body">
+
+                        <span class="widget-thumb-subtitle chk_team_setgol_status" id="teamkra_Submitted"><a href="#">Submitted</a></span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $kra_submitted?>"><?php echo $kra_submitted?></span>
+                    </div>
+                </div>
+            </div>
+            <!-- END WIDGET THUMB -->
+            </div>
+            <div class="col-md-4"  style="padding-top: 18px;">
+                <!-- BEGIN WIDGET THUMB -->
+                <?php
+                if (isset($team_pend_appr) && count($team_pend_appr)>0){
+                    $kra_pending=count($team_pend_appr);
+                }
+                else{
+                    $kra_pending=0;
+                }
+
+
+                ?>
+               <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                    <h4 class="widget-thumb-heading">Team members kra approval pending</h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon  fa fa-times" style="font-size:40px;background-color:#cd686b"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle chk_team_setgol_status" id="teamkra_Pending"><a href="#">Pending Approval</a></span>
+                            <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $kra_pending;?>"><?php echo $kra_pending;?></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END WIDGET THUMB -->
+            </div>
+            <div class="col-md-4"  style="padding-top: 18px;">
+                <!-- BEGIN WIDGET THUMB -->
+               <?php if(isset($team_kra_appr) && count($team_kra_appr)>0 ) {
+                $kra_appr=count($team_kra_appr);
+              }
+              else{
+                $kra_appr=0;
+              }
+               
+
+
+               ?>
+                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                    <h4 class="widget-thumb-heading">Team members kra approval done </h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon bg-purple fa fa-thumbs-up" style="font-size:40px"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle chk_team_setgol_status" id="teamkra_Approved"><a href="#">Approved</a></span>
+                            <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $kra_appr;?>"><?php echo $kra_appr;?></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END WIDGET THUMB -->
+            </div>
+      
+        </div>
+              
+        </div>
+    </div>
+<!--End My Team members Setgoal-->
+
+
+<!--Begin my team members Idp-->
+<div  id="team_idp" style="background-color:#fff;">
+    <div class="portlet-title col-md-12">
+  <div class="caption " style="">
+      <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-users" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My Team IDP Status</span>
+  </div>
+  
+</div>
+    <div class="" style="display:block ; ">
+       <div class="row widget-row" id="teamSetgoal" >
+        <div class="col-md-4" style="padding-top: 18px;">
+            <!-- BEGIN WIDGET THUMB -->
+            <?php
+            if (isset($team_sub_idp) && count($team_sub_idp)>0){
+                $idp_submitted=count($team_sub_idp);
+            }
+            else{
+                $idp_submitted=0;
+            }
+
+            ?>
+
+            <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+               
+                <h4 class="widget-thumb-heading">Team members Submitted IDP</h4>
+                <div class="widget-thumb-wrap">
+                    <i class="widget-thumb-icon bg-green fa fa-check" style="font-size:40px"></i>
+                    <div class="widget-thumb-body">
+
+                        <span class="widget-thumb-subtitle chk_team_setgol_status" id="teamkra_Submitted"><a href="#">Submitted</a></span>
+                        <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $idp_submitted?>"><?php echo $idp_submitted?></span>
+                    </div>
+                </div>
+            </div>
+            <!-- END WIDGET THUMB -->
+            </div>
+            <div class="col-md-4"  style="padding-top: 18px;">
+                <!-- BEGIN WIDGET THUMB -->
+                <?php
+                if (isset($team_idp_pending) && count($team_idp_pending)>0){
+                    $idp_pending=count($team_idp_pending);
+                }
+                else{
+                    $idp_pending=0;
+                }
+
+
+                ?>
+               <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                    <h4 class="widget-thumb-heading">Team members IDP approval pending</h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon  fa fa-times" style="font-size:40px;background-color:#cd686b"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle chk_team_setgol_status" id="teamidp_Pending"><a href="#">Pending Approval</a></span>
+                            <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $idp_pending;?>"><?php echo $idp_pending;?></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END WIDGET THUMB -->
+            </div>
+            <div class="col-md-4"  style="padding-top: 18px;">
+                <!-- BEGIN WIDGET THUMB -->
+               <?php if(isset($team_idp_aprroved) && count($team_idp_aprroved)>0 ) {
+                $idp_appr=count($team_idp_aprroved);
+              }
+              else{
+                $idp_appr=0;
+              }
+               
+
+
+               ?>
+                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                    <h4 class="widget-thumb-heading">Team members IDP approval done </h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon bg-purple fa fa-thumbs-up" style="font-size:40px"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle chk_team_setgol_status" id="teamid_Approved"><a href="#">Approved</a></span>
+                            <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $idp_appr;?>"><?php echo $idp_appr;?></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- END WIDGET THUMB -->
+            </div>
+      
+        </div>
+              
+        </div>
+    </div>
+<!--End My Team members Idp-->
+
+
+
+<!--Begin   MY TEAM MEMBERS MID YEAR REVIEW-->
+<div  id="team_mid" style="background-color:#fff;">
+    <div class="portlet-title col-md-12">
+  <div class="caption " style="">
+      <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-users" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My Team Mid Year Review Status</span>
+  </div>
+  
+</div>
+        <div class="portlet-body" style="display:block ; background-color:#d6dee9">
+        <div class="row widget-row" id="Mid_review" style="background-color: #fff;">
+              <div class="col-md-4"  style="padding-top: 18px;">
+                <!-- BEGIN WIDGET THUMB -->
+                <?php
+                if (isset($mid_kra_team_sub) && count($mid_kra_team_sub)>0){
+                    $mid_appr=count($mid_kra_team_sub);
+                }
+                else{
+                    $mid_appr=0;
+                }
+
+
+                ?>
+                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                    <h4 class="widget-thumb-heading">Team members Mid year review Submitted</h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon bg-purple fa fa-thumbs-up" style="font-size:40px"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle chkteam_mid_stat" id="taemmid_Submitted"><a href="#">Submitted</a></span>
+                            <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $mid_appr;?>"><?php echo $mid_appr;?></span>
+                        </div>
+                    </div>
+                </div>  
+                    <!-- END WIDGET THUMB -->
+
+            </div>
+            <div class="col-md-4" style="padding-top: 18px;">
+                    <!-- BEGIN WIDGET THUMB -->
+                    <?php
+                    if (isset($mid_team_not_sub) && count($mid_team_not_sub)>0){
+                        $yerA_pending=count($mid_team_not_sub);
+                    }
+                    else{
+                        $yerA_pending=0;
+                    }
+
+
+                    ?>
+                  <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                        <h4 class="widget-thumb-heading">Team members Mid year review not submitted</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon  fa fa-times" style="font-size:40px;background-color:#cd686b;"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-subtitle chkteam_mid_stat" id="taemmid_Pending"><a href="#">Not Submitted</a></span>
+                                <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $yerA_pending;?>"><?php echo $yerA_pending;?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<!--End MY TEAM MEMBERS MID YEAR REVIEW-->
+
+
+
+<!--Begin   MY TEAM MEMBERS MID YEAR REVIEW-->
+<div  id="team_mid_idp" style="background-color:#fff;">
+    <div class="portlet-title col-md-12">
+  <div class="caption " style="">
+      <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-users" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My Team Mid Year IDP Status</span>
+  </div>
+  
+</div>
+        <div class="portlet-body" style="display:block ; background-color:#d6dee9">
+        <div class="row widget-row" id="Mid_review" style="background-color: #fff;">
+              <div class="col-md-4"  style="padding-top: 18px;">
+                <!-- BEGIN WIDGET THUMB -->
+                <?php
+                if (isset($mid_kra_team_sub) && count($mid_kra_team_sub)>0){
+                    $mid_appr=count($mid_kra_team_sub);
+                }
+                else{
+                    $mid_appr=0;
+                }
+
+
+                ?>
+                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                    <h4 class="widget-thumb-heading">Team members Mid year review Submitted</h4>
+                    <div class="widget-thumb-wrap">
+                        <i class="widget-thumb-icon bg-purple fa fa-thumbs-up" style="font-size:40px"></i>
+                        <div class="widget-thumb-body">
+                            <span class="widget-thumb-subtitle chkteam_mid_stat" id="taemmidIdp_Submitted"><a href="#">Submitted</a></span>
+                            <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $mid_appr;?>"><?php echo $mid_appr;?></span>
+                        </div>
+                    </div>
+                </div>  
+                    <!-- END WIDGET THUMB -->
+
+            </div>
+            <div class="col-md-4" style="padding-top: 18px;">
+                    <!-- BEGIN WIDGET THUMB -->
+                    <?php
+                    if (isset($mid_team_not_sub) && count($mid_team_not_sub)>0){
+                        $yerA_pending=count($mid_team_not_sub);
+                    }
+                    else{
+                        $yerA_pending=0;
+                    }
+
+
+                    ?>
+                  <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 " style="background-color: #efefef;">
+                        <h4 class="widget-thumb-heading">Team members Mid year review not submitted</h4>
+                        <div class="widget-thumb-wrap">
+                            <i class="widget-thumb-icon  fa fa-times" style="font-size:40px;background-color:#cd686b;"></i>
+                            <div class="widget-thumb-body">
+                                <span class="widget-thumb-subtitle chkteam_mid_stat" id="taemmidIdp_Pending"><a href="#">Not Submitted</a></span>
+                                <span class="widget-thumb-body-stat" data-counter="counterup" data-value="<?php echo $yerA_pending;?>"><?php echo $yerA_pending;?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END WIDGET THUMB -->
+              </div>
+
+ <!--          </div>
+    </div>
+</div> -->
+
+<!--End MY TEAM MEMBERS MID YEAR REVIEW-->
+
+
+<!--recent activities-->
+<div>
+<div class="col-md-12" style="margin-top: 18px;">
+    <div class="row">
+      
+ <div class="col-md-12">    
+ 
+            <div class="portlet-body">
+                                            <div class="mt-element-list">
+                                                <div class="mt-list-head list-todo dark">
+                                                    <div class="list-head-title-container">
+                                                        <h3 class="list-title">My Activities</h3>
+                                                        
+                                                    </div>
+                                                    <a href="javascript:;">
+                                                        
+                                                    </a>
+                                                </div>
+                                                <div class="mt-list-container list-todo">
+                                                   
+                                                    <ul>
+                                                        <li class="mt-list-item">
+                                                            <div class="list-todo-icon bg-white font-blue-steel">
+                                                                
+                                                            </div>
+                                                            <div class="list-todo-item blue-steel">
+                                                                <a class="list-toggle-container font-white" data-toggle="collapse" href="#task-1-2" aria-expanded="false">
+                                                                    <div class="list-toggle done uppercase">
+                                                                        <div class="list-toggle-title bold">Check Activies</div>
+                                                                        
+                                                                    </div>
+                                                                </a>
+                                                                <div class="task-list panel-collapse collapse " id="task-1-2">
+                                                                    <ul>
+                                                                        <li class="task-list-item done" >
+                                            <marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5">
+                                           <?php
+                                           if(isset($my_recent_act)&& count($my_recent_act)>0){
+                                            if(count($my_recent_act)>5){
+                                                $k=5;
+                                            }
+                                            else{
+                                                $k=count($my_recent_act);
+                                            }
+                                            for($i=0;$i<$k;$i++) 
+                                           { 
+                                            ?>
+                                            <li class="task-list-item done" >
+                                            <?php  echo $my_recent_act[$i]['notification_type']?>                                          
+                                              <span style="float:right;color:#868080;font-style:italic"><?php  echo $my_recent_act[$i]['date']?></span> 
+                                            </li>
+
+                                           
+                                         <?php
+                                            }
+                                            }
+                                            ?>
+                                              </marquee>
+                                                                        
+                                                                    </ul>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+ 
+</div>
+</div>
+  </div>
+<!--recent activities-->
+
+
+
+
+
+
+
+
+
+
+                                <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+       
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+ </div>
+          
+
+
+
+
+
+
+
+
+<div id="responsive1" style="top: 20%;"  class="modal fade" tabindex="-1" data-width="760" data-backdrop="static" data-keyboard="false">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">Employee List</h4>
+        </div>
+        <div class="modal-body">
+            
+            <table  class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_editable_1">
+        <thead>
+            <tr>
+                    <th>Employee Id</th>
+                    <th>Employee Name</th>
+                    <th>Status</th>
+                    
+                    
+            </tr>
+        </thead>
+
+        <tbody id="dept_based_emp">
+
+          </tbody>
+    </table>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-outline dark">Close</button>
+            
+        </div>
+    </div>
+    <!-- stackable -->
+
+
+ </div>
+                <!-- END CONTENT BODY -->
+            </div>
+
+
+
+                           
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>       
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/scripts/profile.min.js" type="text/javascript"></script>     
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/scripts/datatable.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/scripts/table-datatables-responsive.min.js" type="text/javascript"></script>   
+

@@ -1,0 +1,6 @@
+<h1> <?php echo Yii::app()->request->baseUrl;?>/index.php?r=Login/dashboard" ?></h1>
+                                </br><h1><?php echo $_SERVER['QUERY_STRING']?></h1>
+
+
+
+http://stackoverflow.com/questions/13305519/how-to-insert-record-on-yii-framework-using-get-method

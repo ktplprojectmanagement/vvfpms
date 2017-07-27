@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name[en_IN]=MahaSecure
+Exec=/home/kritva/MahaSecure/bin/MahaSecure.sh
+Name=MahaSecure
+Icon=/home/kritva/MahaSecure/Resource/appIcon.png

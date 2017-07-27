@@ -1,0 +1,14 @@
+
+a:hover {
+    color: red;
+}
+div{
+  line-height: 40px;
+}
+hr
+{
+  border: 2px solid #747272;
+}
+a{
+   text-decoration: underline;
+}

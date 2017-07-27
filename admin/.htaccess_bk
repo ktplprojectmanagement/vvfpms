@@ -1,0 +1,7 @@
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^vvf\.kritva\.in$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.vvf\.kritva\.in$
+RewriteRule ^/?$ "https\:\/\/vvf\.kritva\.in" [R=301,L]
+

@@ -1,0 +1,26 @@
+<IfModule mod_expires.c>
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80 
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^(.*)$ https://www.vvf.kritva.in/$1 [R,L]
+AddType application/applixware aw
+AddType application/cdmi-capability cdmia
+AddType application/cdmi-container cdmic
+AddType application/cdmi-domain cdmid
+AddType application/cdmi-object cdmio
+AddType application/cdmi-queue cdmiq
+AddType message/rfc822 eml mime
+AddType application/octet-stream bin dms lrf mar so dist distz pkg bpk dump elc deploy iso dmg
+AddType application/vnd.ms-outlook msg
+ExpiresActive On
+ExpiresByType image/jpg "access 1 day"
+ExpiresByType image/jpeg "access 1 day"
+ExpiresByType image/png "access 1 day"
+ExpiresByType text/css "access 1 day"
+ExpiresByType application/pdf "access 1 day"
+ExpiresByType application/javascript "access 1 day"
+ExpiresByType application/x-javascript "access 1 day"
+ExpiresByType image/x-icon "access 1 day"
+ExpiresDefault "access 1 day"
+</IfModule>
