@@ -32,10 +32,12 @@
 <lable id="total_emp_count" style="display:none"><?php if (isset($employee_list) && count($employee_list)>0) { echo count($employee_list); } ?></lable>
                 
                   <?php
-                                                        if (isset($employee_list)) { ?>                                                        
+                                                        if (isset($employee_list) && count($employee_list)>0) { ?>                                                        
                                                            <?php 
                                                            $cnt = 0;
                                                            foreach ($employee_list as $row) {
+                                                            if(isset($row['0']))
+                                                            {
 if($row['0']['Employee_id'] != '')
 {
                                                
@@ -72,6 +74,7 @@ if($row['0']['Employee_id'] != '')
 
                                                             </tr>                                                       
                                                         <?php $cnt++;  
+                                                    }
 } }
                                                         }
                                                         else

@@ -133,6 +133,10 @@ $(document).ready(function(){
     }
 });
 </script>
+        <input type="text" value="/vvf.kritva.in" id="basepath">
+<script type="text/javascript">
+var basepath = $("#basepath").attr('value');
+</script>
         <!-- BEGIN HEADER -->
         <div class="page-header" style="z-index: 5;">
             <!-- BEGIN HEADER TOP -->

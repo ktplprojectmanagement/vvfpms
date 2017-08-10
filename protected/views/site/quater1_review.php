@@ -221,7 +221,7 @@ color: none;
                                     contentType: false,
                                     enctype : 'multipart/form-data',
                                     data : formData,
-                                    url : base_url+'/kritvapms/index.php?r=Quater1/employee_mid_review',
+                                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/employee_mid_review',
                                     success : function(data)
                                     { 
                                        //alert(data);
@@ -255,7 +255,7 @@ $.ajax({
 type : 'post',
 datatype : 'html',
 data : data,
-url : base_url+'/kritvapms/index.php?r=Checkattach/check_view2',
+url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_view2',
 success : function(data)
 {
     //alert(data);
@@ -269,7 +269,7 @@ $.ajax({
 type : 'post',
 datatype : 'html',
 data : data1,
-url : base_url+'/kritvapms/index.php?r=Checkattach/check_idp1',
+url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_idp1',
 success : function(data)
 {
     //alert("dsfdsf");
@@ -298,7 +298,7 @@ function save_detail_pdf()
                     type : 'post',
                     datatype : 'html',
                     data : data,
-                    url : base_url+'/kritvapms/index.php?r=Checkattach/check_view2',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_view2',
                     success : function(data)
                     {
                         //alert(data);
@@ -312,7 +312,7 @@ function save_detail_pdf()
                     type : 'post',
                     datatype : 'html',
                     data : data1,
-                    url : base_url+'/kritvapms/index.php?r=Checkattach/check_idp1',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_idp1',
                     success : function(data)
                     {
                         //alert(data);
@@ -2364,9 +2364,9 @@ if(isset($employee_data['0']['Emp_fname']) && isset($employee_data['0']['Emp_lna
     $emp_name = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
     echo $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']; } ?></lable>
                                         <?php 
-                                        echo CHtml::button('Approve Midyear review of '.$emp_name,array('class'=>'btn border-blue-soft update_status','style'=>'float:right;margin-bottom: 10px;')); }
+                                        echo CHtml::button('Approve Quater1 review of '.$emp_name,array('class'=>'btn border-blue-soft update_status','style'=>'float:right;margin-bottom: 10px;')); }
                                         ?>
-                                        <?php echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px','id'=>'getdata')); ?>
+                                        <?php echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px;display:none','id'=>'getdata')); ?>
                                         <?php
                                             }
                                             else
@@ -2532,7 +2532,7 @@ $(document).ready(function(){
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/kritvapms/index.php?r=Login/set_new',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Login/set_new',
                                 success : function(data)
                                 { 
                                     //alert(data);
@@ -2556,7 +2556,7 @@ $(document).ready(function(){
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/kritvapms/index.php?r=Quater1/get_mid_emp_data',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/get_mid_emp_data',
                                 success : function(data)
                                 { 
                                     var state = data.split('-');
@@ -2569,7 +2569,7 @@ $(document).ready(function(){
                                                 $.ajax({
                                                     type : 'post',
                                                     datatype : 'html',
-                                                    url : base_url+'/kritvapms/index.php?r=Quater1/goalnotification',
+                                                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/goalnotification',
                                                     success : function(data)
                                                     {
                                                         //alert(data);
@@ -2577,7 +2577,8 @@ $(document).ready(function(){
                                                         $("#err").show();  
                                                         $("#err").fadeOut(6000);
                                                         $("#error_value").text("Notification Send to appraiser");
-                                                        $("#err").addClass("alert-success");                       
+                                                        $("#err").addClass("alert-success");      
+                                                        location.reload();                 
                                                     }
                                                 });
                                         });
@@ -2610,7 +2611,7 @@ for (var i = 1; i < 3; i++) {
             
         }
         else if(($("#rel_prg_status_emp-"+k+" option:selected").text() == "Needs Attention") && ($('#rel_program_review1_by_emp-'+i).val()=="" || $('#rel_program_review1_by_emp-'+i).val()=="undefined" || $('#rel_program_review1_by_emp-'+i).val() === undefined)){
-            alert($("#rel_prg_status_emp-"+k+" option:selected").text());
+           // alert($("#rel_prg_status_emp-"+k+" option:selected").text());
             $('#rel_program_review1_by_emp-'+i).css('border','1px solid red');
             $('#rel_program_review1_by_emp-'+i).focus();
             $('#err').text("Select relationship program comments");
@@ -2669,16 +2670,16 @@ for (var i = 1; i < 3; i++) {
             $("#tot_prog_status_emp-"+i).css('border','1px solid red');
             $("#tot_prog_status_emp-"+i).focus();
             $('#err').show();
-            $('#err').text('Manager status are compulsary.');
-            err3="Manager status are compulsary";
+            $('#err').text('Employee status are compulsary.');
+            err3="Employee status are compulsary";
             break;
         }
         else if($("#tot_prog_status_emp-"+i+" option:selected").text() == "Needs Attention" && ($("#program_review_by_emp-"+i).val()=="" || $("#program_review_by_emp-"+i).val() === undefined || $("#program_review_by_emp-"+i).val() =="undefined" || $("#program_review_by_emp-"+i).val()=="NA")){
             $("#program_review_by_emp-"+i).css('border','1px solid red');
             $("#program_review_by_emp-"+i).focus();
             $('#err').show();
-            $('#err').text('Manager comments are compulsary.');   
-            err3='Manager comments are compulsary.';
+            $('#err').text('Employee comments are compulsary.');   
+            err3='Employee comments are compulsary.';
             break;
         }
         else{
@@ -2810,10 +2811,10 @@ for (var i = 1; i < 3; i++) {
                                                 $.ajax({
                                                     type : 'post',
                                                     datatype : 'html',
-                                                    url : base_url+'/kritvapms/index.php?r=Quater1/goalnotification',
+                                                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/goalnotification',
                                                     success : function(data)
                                                     {
-                                                        alert(data);
+                                                       // alert(data);
                                                         $("#show_spin").hide(); 
                                                         $("#err").show();  
                                                         $("#err").fadeOut(6000);
@@ -2896,7 +2897,7 @@ function save_detail_pdf()
                     type : 'post',
                     datatype : 'html',
                     data : data,
-                    url : base_url+'/kritvapms/index.php?r=Checkattach/check_midgoal_idp',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_midgoal_idp',
                     success : function(data)
                     {
 //alert(data);

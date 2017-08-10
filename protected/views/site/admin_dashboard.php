@@ -242,7 +242,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=Admin_Dashboard/statusget',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=Admin_Dashboard/statusget',
             success : function(data)
             {
                 
@@ -270,7 +270,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=Admin_Dashboard/statusgetMid',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=Admin_Dashboard/statusgetMid',
             success : function(data)
             { 
                 //alert(data);
@@ -295,7 +295,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=Admin_Dashboard/statusgetIdp',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=Admin_Dashboard/statusgetIdp',
             success : function(data)
             { 
               //  alert(data);
@@ -320,7 +320,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=Admin_Dashboard/getMidIdpStat',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=Admin_Dashboard/getMidIdpStat',
             success : function(data)
             { 
                 //alert(data);
@@ -347,7 +347,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/Admin_Dashboard/getYearEndStat',
+            url : base_url+$("#basepath").attr('value')+'/index.php/Admin_Dashboard/getYearEndStat',
             success : function(data)
             { 
                alert(data);
@@ -375,7 +375,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/Admin_Dashboard/getYearEndStat',
+            url : base_url+$("#basepath").attr('value')+'/index.php/Admin_Dashboard/getYearEndStat',
             success : function(data)
             { 
                // alert(data);

@@ -96,6 +96,7 @@ if ($emp_data['0']['reporting_1_change'] != '' && strtotime($emp_data['0']['repo
 		$selected_option = 'Goals';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 		$this->render('//site/set_goal_auto_save',array('model'=>$model,'kra_list'=>$kra_types,'kpi_data_edit'=>$kpi_data,'KRA_category_auto'=>$KRA_category,'kpi_data'=>$kpi_data_saved,'kpi_data1'=>$kpi_data,'emp_data'=>$emp_data,'prg_cnt'=>$prg_cnt,'goal_sub_check_flag'=>$goal_sub_check_flag,'kpi_data2'=>$kpi_data2,'edit_flag'=>""));
 		$this->render('//site/footer_view_layout');
@@ -826,18 +827,63 @@ function actionsavekpi1()
 
 	function actionsend_demo()
 	{
-		Yii::import('ext.yii-mail.YiiMailMessage');
-		$message = new YiiMailMessage;
-		$message->setBody('Message content here with HTML', 'text/html');
-		$message->subject = 'My Subject';
-		$message->addTo('demo.appraisel@gmail.com');
-		$message->from = 'kritvapms@kritva.in';
-		try {
-		  Yii::app()->mail->send($message);
-		  return true;
-		} catch(Exception $e){
-		  echo $e;
-		}
+		require 'PHPMailer-master/PHPMailerAutoload.php';
+			$mail = new PHPMailer;
+
+			//$mail->SMTPDebug = 3;      
+			$emploee_data =new EmployeeForm;
+			$Employee_id = Yii::app()->user->getState("Employee_id");	
+
+			$where = 'where Employee_id = :Employee_id';
+			$list = array('Employee_id');
+			$data = array($Employee_id);
+			$employee_data = $emploee_data->get_employee_data($where,$data,$list);                         // Enable verbose debug output
+			$params = array('mail_data'=>$employee_data);
+
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
+			$mail->SMTPAuth = true;                               // Enable SMTP authentication
+			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
+			$mail->Password = 'Dream@123';                           // SMTP password
+			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+			$mail->Port = 587;                                    // TCP port to connect to
+
+			$mail->setFrom('vvf.pms@vvfltd.com', 'Mailer');
+			// $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+			// $mail->addAddress('ellen@example.com');    
+			$message = $this->renderPartial('//site/mail/account_verification',$params,TRUE);           // Name is optional
+			$mail->addReplyTo('demo.appraisel@gmail.com', 'Information');
+			$mail->addCC('demo.appraisel@gmail.com');
+			$mail->msgHTML($message);
+			//$mail->addBCC('bcc@example.com');
+			//echo "dfsdf";die();
+			// $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			$mail->isHTML(true);                                  // Set email format to HTML
+
+			$mail->Subject = 'Here is the subject';
+			$mail->Body    = $message;
+			//$mail->AltBody = $message;
+
+			if(!$mail->send()) {
+			    echo 'Message could not be sent.';
+			    echo 'Mailer Error: ' . $mail->ErrorInfo;
+			} else {
+			    echo 'Message has been sent';
+			}
+		// $from = 'vvf.pms@vvfltd.com';
+		// Yii::import('ext.yii-mail.YiiMailMessage');
+		// $message = new YiiMailMessage;
+		// $message->setBody('Message content here with HTML', 'text/html');
+		// $message->subject = 'PMS';
+		// $message->addTo('mssadafule@gmail.com');
+		// $message->from = $from;
+		// try {
+		//   Yii::app()->mail->send($message);
+		//   return true;
+		// } catch(Exception $e){
+		//   echo $e;
+		// }
 	}
 
 	function actionkrakpi_del()
@@ -903,6 +949,7 @@ $notification_data->notification_type = 'KPI Deletion';
 				  $notification_data->Employee_id = $kpi_data['0']['Employee_id'];
 				  $notification_data->date = date('Y-m-d');
 				  $notification_data->save();	
+				 // $update = 1;
 			if ($update == 1) {
 
                                    if($employee_data1['0']['invalid_email'] != '1')
@@ -910,26 +957,33 @@ $notification_data->notification_type = 'KPI Deletion';
            if($kpi_data['0']['kra_complete_flag'] == 2)
            {
                $employee_email = Yii::app()->user->getState("employee_email");
-				//print_r($employee_data1);die();
-				Yii::import('ext.yii-mail.YiiMailMessage');
-				  $message = new YiiMailMessage;
-				  $message->view = "kpi_del_intemation";
-				  $params = array('mail_data'=>$employee_data1,'kpi_data'=>$kpi_data,'del_kpi'=>$detail[$_POST['last_id']],'last_id'=>$_POST['last_id']);
-				  $message->setBody($params, 'text/html');
-				  $message->subject = 'KPI Deletion';
-				  //$email_id = 'priyankamhadik1994@gmail.com';
-				 	//$message->addTo($employee_data1['0']['Email_id']);
-				 	$message->addTo($employee_data1['0']['Reporting_officer1_id']);
-				 	
-				  $message->addTo('vvf.pms@vvfltd.com');  
-				$message->addTo($employee_email);		  
-				  $message->from = $employee_email;
-				  	 
-				 
-				  if(Yii::app()->mail->send($message))
+				
+				require 'PHPMailer-master/PHPMailerAutoload.php';
+				$mail = new PHPMailer;
+				$mail->isSMTP();                
+				$mail->Host = 'smtp.office365.com'; 
+				$mail->SMTPAuth = true;                          
+				$mail->Username = 'vvf.pms@vvfltd.com';    
+				$mail->Password = 'Dream@123';                         
+				$mail->SMTPSecure = 'tls';                          
+				$mail->Port = 587; 
+
+				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
+
+		      	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kra_data,'employee_data1'=>$employee_data1);
+		       	$message = $this->renderPartial('//site/mail/kpi_del_intemation',$params,TRUE);
+		       	$mail->addReplyTo($employee_data1['0']['Reporting_officer1_id'], 'KPI Deletion');
+		       	$mail->addCC($employee_data1['0']['Email_id']);
+		       	$mail->msgHTML($message);
+       			$mail->isHTML(true);   
+		       	$mail->Subject = 'KPI Deletion';
+				$mail->Body    = $message;
+		      	//echo $employee_data1['0']['Email_id'];die();
+				  if($mail->send())
 				  {	  		
 				  		echo 1;die();
-				  }
+				  } 
+				
            }
            else
            {
@@ -1137,6 +1191,7 @@ $notification_data->notification_type = 'KPI Deletion';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
 		$this->render('//site/header_view_layout');
+		$this->render('//site/baseurl');
 		$this->render('//site/set_goal_auto_save',array('model'=>$model,'kra_list'=>$kra,'kpi_data'=>$kpi_data,'kpi_data_edit'=>$kpi_data_edit,'edit_flag'=>'1','KRA_category_auto'=>$KRA_category));
 		$this->render('//site/footer_view_layout');
 	}
@@ -1435,7 +1490,7 @@ if(!($emp_data['0']['Reporting_officer1_id'] == Yii::app()->user->getState("empl
 		}
 }
 else
-{
+{ 
   if (count($settings_data)>0) {
 			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
 			$list = array('Employee_id','goal_set_year');
@@ -1460,7 +1515,7 @@ else
 		}
 }
 		
-
+//print_r(Yii::app()->user->getState('financial_year_check'));die();
 		if (isset($kpi_data_edit) && count($kpi_data_edit)>0) {
 			for ($i=0; $i < count($kpi_data_edit); $i++) { 
 				$where = 'where KRA_category = :KRA_category';
@@ -1471,11 +1526,11 @@ else
 		}
 
 
-	//print_r($show_idp);die();	
+	//print_r($emp_id);die();	
 		$selected_option = 'Goals';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		//$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 
 		$this->render('//site/edit_goal_sheet1',array('model'=>$model,'kra_list'=>$kra,'kpi_data'=>$kpi_data,'kpi_data_edit'=>$kpi_data_edit,'apr_chk_flag'=>'1','KRA_category_auto'=>$KRA_category,'emp_data'=>$emp_data,'edit_flag_chk'=>1,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp));
 		$this->render('//site/footer_view_layout');
@@ -1563,8 +1618,8 @@ else
 		$data = array($kpi_data['0']['Employee_id']);
 		$employee_data1 = $emploee_data->get_employee_data($where,$data,$list);
 		$command = Yii::app()->db->createCommand();
-		// $query_result = $command->delete('kpi_auto_save', 'KPI_id=:KPI_id', array(':KPI_id'=>$_POST['KPI_id']));	
-	$query_result = 1;
+		$query_result = $command->delete('kpi_auto_save', 'KPI_id=:KPI_id', array(':KPI_id'=>$_POST['KPI_id']));	
+	//$query_result = 1;
 	
 		if($query_result == 1)
 		{
@@ -1572,31 +1627,37 @@ $notification_data->notification_type = 'KRA Deletion';
 			  $notification_data->Employee_id = $kpi_data['0']['Employee_id'];
 			  $notification_data->date = date('Y-m-d');
 			  $notification_data->save();	
-                    if(isset($employee_data1['0']['invalid_email']) && $employee_data1['0']['invalid_email'] != '1')
-       { 
+        if(isset($employee_data1['0']['invalid_email']) && $employee_data1['0']['invalid_email'] != '1')
+       	{ 
            if(isset($IDP_data['0']['set_status']) && $IDP_data['0']['set_status'] == 'Pending')
            {
-                Yii::import('ext.yii-mail.YiiMailMessage');
-    		  $employee_email = Yii::app()->user->getState("employee_email");
-    		   //print_r($employee_data1['0']['Reporting_officer1_id']);die();
-    			Yii::import('ext.yii-mail.YiiMailMessage');
-    			  $message = new YiiMailMessage;
-    			 $message->view = "kra_del_intemation";
-    			 $params = array('mail_data'=>$employee_data1,'kpi_data'=>$kpi_data);
-    			  $message->setBody($params, 'text/html');
-    			  $message->subject = 'KRA Deletion';
-    			  //$email_id = 'priyankamhadik1994@gmail.com';
-    			 	//$message->addTo($employee_data1['0']['Email_id']);
-    			 	$message->addTo($employee_data1['0']['Reporting_officer1_id']);
-    			  //$message->addTo('vvf.pms@vvfltd.com');  
-    			$message->addTo($employee_email);		 
-    			//print_r($employee_data1);die();	 
-    			  $message->from = $employee_email;
+           		require 'PHPMailer-master/PHPMailerAutoload.php';
+				$mail = new PHPMailer;
+				$mail->isSMTP();                
+				$mail->Host = 'smtp.office365.com'; 
+				$mail->SMTPAuth = true;                          
+				$mail->Username = 'vvf.pms@vvfltd.com';    
+				$mail->Password = 'Dream@123';                         
+				$mail->SMTPSecure = 'tls';                          
+				$mail->Port = 587; 
+				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname']);
+
+				$params = array('mail_data'=>$employee_data1,'kpi_data'=>$kpi_data);
+               	$message = $this->renderPartial('//site/mail/kra_del_intemation',$params,TRUE);
+
+              	$mail->addReplyTo($employee_data1['0']['Reporting_officer1_id'], 'KRA Deletion');
+              	$mail->addCC($employee_data1['0']['Email_id']);
+              	$mail->msgHTML($message);              	
+              	$mail->isHTML(true);    
+              	$mail->Subject = 'KRA Deletion';
+				$mail->Body    = $message; 			
     			 
-    			  if(Yii::app()->mail->send($message))
-    			  {	  		
-    			  		echo "Notification Send";die();
-    			  }
+    			if($mail->send()) {
+			    // echo 'Message could not be sent.';
+			    // echo 'Mailer Error: ' . $mail->ErrorInfo;
+				} else {
+				     echo "Notification Send";die();
+				}
            }
            else
            {
@@ -1777,10 +1838,10 @@ $notification_data->notification_type = 'KRA Deletion';
 			$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id',array(':KPI_id'=>$kra_data[$i]['KPI_id']));
 		}
 		
-    	$data = array(
-			'set_status' => 'Approved'
-			);
-			$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));
+   //  	$data = array(
+			// 'set_status' => 'Approved'
+			// );
+			// $update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));
 $notification_data->notification_type = 'Updated Goalsheet';
 		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
 		  $notification_data->date = date('Y-m-d');
@@ -1790,24 +1851,33 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
  if($employee_data['0']['invalid_email'] != '1')
        {
           // print_r($Employee_id);die();
-         Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		  $message->view = "goal_set_page";
-		  $params = array('mail_data'=>$employee_data,'kpi_data'=>$kra_data,'employee_data1'=>$employee_data1);
-		  $message->setBody($params, 'text/html');
-		  $message->subject = 'IDP & Goalsheet Approved';
-		  //$email_id = 'priyankamhadik1994@gmail.com';
-		  $message->addTo($mail_id);
-		  $message->addTo($Employee_id);  		  
-		  $message->from = 'testing@kritvainvestments.com';
-                  $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_docs/goalsheet_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
-		   $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_docs/IDP_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
-		  
-		//print_r($kra_data);die(); 
-		  if(Yii::app()->mail->send($message))
-		  {	  		
-		  		echo "Notification Send";die();
-		  }
+       		require 'PHPMailer-master/PHPMailerAutoload.php';
+				$mail = new PHPMailer;
+				$mail->isSMTP();                
+				$mail->Host = 'smtp.office365.com'; 
+				$mail->SMTPAuth = true;                          
+				$mail->Username = 'vvf.pms@vvfltd.com';    
+				$mail->Password = 'Dream@123';                         
+				$mail->SMTPSecure = 'tls';                          
+				$mail->Port = 587; 
+				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
+				//echo Yii::getPathOfAlias('webroot');die();
+              	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kra_data,'employee_data1'=>$employee_data1);
+               	$message = $this->renderPartial('//site/mail/goal_set_page',$params,TRUE);               	
+              	$mail->addReplyTo($mail_id, 'IDP & Goalsheet Approved');
+              	$mail->addCC($employee_data1['0']['Email_id']);
+              	$mail->msgHTML($message);
+              	$mail->isHTML(true);     
+              	$mail->Subject = 'IDP & Goalsheet Approved';
+				$mail->Body    = $message;
+              	$mail->addAttachment(Yii::getPathOfAlias('webroot')."/Goalsheet_docs/goalsheet_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf");         // Add attachments
+				$mail->addAttachment(Yii::getPathOfAlias('webroot')."/IDP_docs/IDP_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf");    // Optional name			
+    			 
+    			  if($mail->send())
+    			  {	  		
+    			  		echo "Notification Send";die();
+    			  }
+        
        }
        else
        {
@@ -1826,7 +1896,7 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
     	$Employee_id = Yii::app()->user->getState("employee_email");
     	$where1 = 'where Email_id = :Email_id';
 		$list1 = array('Email_id');
-		$data2 = array($mail_id);
+		$data2 = array($Employee_id);
 		$employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
 $notification_data->notification_type = 'Goal Approval';
 		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
@@ -1834,19 +1904,27 @@ $notification_data->notification_type = 'Goal Approval';
 		  $notification_data->save();
 if($employee_data['0']['invalid_email'] != '1')
        {
-        Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		  $message->view = "appraiser_to_emp";
-		  $params = array('mail_data'=>$employee_data);
-		  $message->setBody($params, 'text/html');
-		  $message->subject = 'Goal Approve';
-		  $message->addTo($mail_id); 
-		  $message->from = $Employee_id;
-		 
-		  if(Yii::app()->mail->send($message))
-		  {
-		  		echo "Notification Send";die();
-		  }
+       			require 'PHPMailer-master/PHPMailerAutoload.php';
+       			$mail = new PHPMailer;
+				$mail->isSMTP();                
+				$mail->Host = 'smtp.office365.com'; 
+				$mail->SMTPAuth = true;                          
+				$mail->Username = 'vvf.pms@vvfltd.com';    
+				$mail->Password = 'Dream@123';                         
+				$mail->SMTPSecure = 'tls';                          
+				$mail->Port = 587; 
+              	$params = array('mail_data'=>$employee_data);
+               	$message = $this->renderPartial('//site/mail/appraiser_to_emp',$params,TRUE);
+               	$mail->Subject = 'Goal Approve';
+				$mail->Body    = $message;
+              	$mail->addReplyTo($employee_data['0']['Reporting_officer1_id'], 'Goal Approve');
+              	$mail->setFrom($Employee_id,$employee_data['0']['Emp_fname'].' '.$employee_data['0']['Emp_lname']);
+              	$mail->isHTML(true);     
+              	
+    			  if($mail->send())
+    			  {	  		
+    			  		echo "Notification Send";die();
+    			  }       
        }
        else
        {
@@ -1886,33 +1964,47 @@ $notification_data->notification_type = 'Goal Approval_pending';
 		  $notification_data->save();
     	if($employee_data['0']['invalid_email'] != '1')
        {
-        Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		  $message->view = "goal_set_page";
-		  $params = array('mail_data'=>$employee_data,'kpi_data'=>$kra_data,'employee_data1'=>$employee_data1);
-		  $message->setBody($params, 'text/html');
-		  $message->subject = 'Approval Pending';
-		  //$email_id = 'priyankamhadik1994@gmail.com';
-		  $message->addTo($appriaser_1);
-		  $message->addTo($Employee_id);  		  
-		  // $message->from = $Employee_id;
-		 $message->from = 'kritvapms@kritva.in';
-		  $kra_update = array(
+  
+		require 'PHPMailer-master/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+
+		$mail->isSMTP();                
+		$mail->Host = 'smtp.office365.com'; 
+		$mail->SMTPAuth = true;                          
+		$mail->Username = 'vvf.pms@vvfltd.com';    
+		$mail->Password = 'Dream@123';                         
+		$mail->SMTPSecure = 'tls';                          
+		$mail->Port = 587; 		    
+
+		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);
+
+      	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kra_data,'employee_data1'=>$employee_data1);
+       	$message = $this->renderPartial('//site/mail/goal_set_page',$params,TRUE);
+       	$mail->addReplyTo($appriaser_1, 'Approval Pending');
+       	$mail->addCC($appriaser_1);
+       	$mail->msgHTML($message);
+       	$mail->isHTML(true);   
+       	$mail->Subject = 'Approval Pending';
+		$mail->Body    = $message;
+
+      	  $kra_update = array(
 		  	'KRA_status_flag' => '1', 
-		  );
-		 //print_r($kra_update);die();
-		  if(Yii::app()->mail->send($message))
-		  {
+		  );  
+      		//echo $appriaser_1;die();
+      	 
+		  if($mail->send())
+		  {	 
 		  		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));		  		
 		  		echo "Notification Send";die();
-		  }
+		  }    
+
        }
        else
        {
-$kra_update = array(
-		  	'KRA_status_flag' => '1', 
-		  );
-$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));
+			$kra_update = array(
+					  	'KRA_status_flag' => '1', 
+					  );
+			$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));
           echo "Notification Send";die();
        }
  

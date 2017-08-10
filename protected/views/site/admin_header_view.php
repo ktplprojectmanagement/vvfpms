@@ -22,6 +22,10 @@
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
+    <input type="text" value="/vvf.kritva.in" id="basepath" style="display:none">
+<script type="text/javascript">
+var basepath = $("#basepath").attr('value');
+</script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
        <script src="http://momentjs.com/downloads/moment.js" type="text/javascript"></script>
             <script type="text/javascript">
@@ -107,11 +111,11 @@
                                 <span class="title">Employee Master</span>
                             </a>
                         </li> 
-                        <li class="nav-item start ">
+                       <!--  <li class="nav-item start ">
                             <a href="<?php echo Yii::app()->createUrl("index.php/Organization_flow"); ?>" class="nav-link nav-toggle" <?php if (isset($selected_option) && $selected_option=='org_chart') { ?>style="background-color:#15535e;"<?php }?>>                                
                                 <span class="title">Organization Chart</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li class="nav-item start ">
                             <a href="<?php echo Yii::app()->createUrl("index.php/KRA/kra_create"); ?>" class="nav-link nav-toggle" <?php if (isset($selected_option) && $selected_option=='kra_set') { ?>style="background-color:#15535e;"<?php }?>>                                
                                 <span class="title">KRA</span>

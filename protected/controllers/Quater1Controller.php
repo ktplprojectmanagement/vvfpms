@@ -200,7 +200,11 @@ else
 		$emploee_data =new EmployeeForm;
 		
 		$final_status = 'Pending';
-		$all_status = explode(';',$_POST['mid_q1_KRA_final_status']);
+		if(isset($_POST['mid_q1_KRA_final_status']))
+		{
+			$all_status = explode(';',$_POST['mid_q1_KRA_final_status']);
+		}
+		
 		$pending_count = 0;
 		
 		$data = array(
@@ -223,7 +227,7 @@ else
 		$employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
 	
 		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id',array(':KPI_id'=>$_POST['KPI_id']));
-	//	print_r($data);die();
+		//print_r($update);die();
 		if ($update) {
 			echo "success";
 			//$this->actionsendmail($_POST['KPI_id']);
@@ -1058,26 +1062,32 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
 {	
  if($employee_data['0']['invalid_email'] != '1')
        {
-        //echo"ffff";die();
-        Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		 $message->view = "appraiser_to_emp2";
-		  $params = array('mail_data'=>$employee_data);
-		   $message->setBody($params, 'text/html');
-		  $message->subject = 'Mid Year Review Approved';
-		  $message->addTo($employee_data['0']['Email_id']);
-		  //$message->addTo('mssadafule@gmail.com');  
-		 //$message->addTo(Yii::app()->user->getState("employee_email"));
-		  $message->from = 'testing@kritvainvestments.com';
- //$message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_mid_docs/goalsheet_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
-		 //  $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_mid_docs/IDP_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
-		  if(Yii::app()->mail->send($message))
+       	require 'PHPMailer-master/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+		$mail->isSMTP();                
+		$mail->Host = 'smtp.office365.com'; 
+		$mail->SMTPAuth = true;                          
+		$mail->Username = 'vvf.pms@vvfltd.com';    
+		$mail->Password = 'Dream@123';                         
+		$mail->SMTPSecure = 'tls';                          
+		$mail->Port = 587; 
+		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);
+		$params = array('mail_data'=>$employee_data);
+		$message = $this->renderPartial('//site/mail/appraiser_to_emp2',$params,TRUE);
+		$mail->addReplyTo($employee_data['0']['Reporting_officer1_id'], 'Mid Year Review Approved');
+      	$mail->addCC($employee_data['0']['Email_id']);
+      	$mail->msgHTML($message);              	
+      	$mail->isHTML(true);    
+      	$mail->Subject = 'Mid Year Review Approved';
+		$mail->Body    = $message; 		
+       //echo $employee_data['0']['Email_id'];die();
+		  if($mail->send())
 		  {
 $update_flag = array(
 						'mid_status' => 'Approved',
 				  	);
 				  $update = Yii::app()->db->createCommand()->update('IDP',$update_flag,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id'])); 
-		  		echo "Mid Year Review Updation Done";die();
+		  		echo "Mid Year";die();
 		  }
        }
        else
@@ -1219,19 +1229,26 @@ $notification_data->notification_type = 'Mid Review Done';
 		// print_R($employee_data1);die();
  if($employee_data1['0']['invalid_email'] != '1')
        {
-         Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		  $message->view = "email_appraiser";
-		  $params = array('mail_data'=>$employee_data1,'mail_data1'=>$employee_data2);
-		   $message->setBody($params, 'text/html');
-		  $message->subject = 'Midreview Approval Pending';
-		  $message->addTo($appriaser_1);
-// $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_mid_docs/goalsheet_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf"));
-// 		   $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_mid_docs/IDP_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf"));
 
-		 //$message->addCC('mssadafule@gmail.com');  
-		// echo $Employee_id;die();
-		  $message->from = $Employee_id;
+       	require 'PHPMailer-master/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+		$mail->isSMTP();                
+		$mail->Host = 'smtp.office365.com'; 
+		$mail->SMTPAuth = true;                          
+		$mail->Username = 'vvf.pms@vvfltd.com';    
+		$mail->Password = 'Dream@123';                         
+		$mail->SMTPSecure = 'tls';                          
+		$mail->Port = 587; 
+		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data2['0']['Emp_fname']." ".$employee_data2['0']['Emp_lname']);
+		$params = array('mail_data'=>$employee_data1,'mail_data1'=>$employee_data2);
+		$message = $this->renderPartial('//site/mail/email_appraiser',$params,TRUE);
+		$mail->addReplyTo($employee_data2['0']['Email_id'], 'Midreview Approval Pending');
+      	$mail->addCC($employee_data1['0']['Email_id']);
+      	$mail->msgHTML($message);              	
+      	$mail->isHTML(true);    
+      	$mail->Subject = 'Midreview Approval Pending';
+		$mail->Body    = $message; 	
+        
 		  	$where1 = 'where Email_id = :Email_id';
 			$list1 = array('Email_id');
 			$data2 = array($appriaser_1);
@@ -1244,7 +1261,7 @@ $notification_data->notification_type = 'Mid Review Done';
 		  $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data_new,'Employee_id=:Employee_id',array(':Employee_id'=>$emp_id));
 		  
 		  //if ($update == 1) {
-		  	if(Yii::app()->mail->send($message))
+		  	if($mail->send())
 			  {
 			  		echo "Notification Send";die();
 			  }

@@ -73,7 +73,7 @@ if(isset($employee_data) && count($employee_data)>0){
                                                         
                                                         <td><?php echo $employee_data[$i]['company_location'];?></td>
                                                         <td>
-                                                            <a href="http://vvf.kritva.in/index.php/Location_wiseAcces/employee_profile/Employee_id/<?php echo $employee_data[$i]['Employee_id'];?>" ><button type="button" class="btn btn-primary">Check</button></a>
+                                                            <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Location_wiseAcces/employee_profile/Employee_id/<?php echo $employee_data[$i]['Employee_id'];?>" ><button type="button" class="btn btn-primary">Check</button></a>
 
                                                         </td>
                                                     </tr>

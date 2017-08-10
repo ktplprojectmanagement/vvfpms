@@ -128,16 +128,17 @@ mgr_cmt3=$('.mgr_cmt3').val();
                                         'q1_mgr_cmt3': mgr_cmt3,
                                       };
                                       $("#updation_spinner-"+id[j]).show();
-                                      console.log(data);
+                                      console.log(data);                                     
                                       var base_url = window.location.origin;
+                                      // alert(base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/midupdategoal');
                                       $.ajax({
                                         type : 'post',
                                         datatype : 'html',
                                         data : data,
-                                        url : base_url+'/index.php?r=Quater1/midupdategoal',
+                                        url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/midupdategoal',
                                         success : function(data)
                                         {
-                                            // alert(data);
+                                            //alert(data);
                                         }                    
                                       });
                               if(error[id[j]] == '')
@@ -260,7 +261,7 @@ mgr_cmt3=$('.mgr_cmt3').val();
                             'type' : 'post',
                             'datatype' : 'html',
                             'data' : detail_data,
-                            'url' : base_url+'/index.php?r=IDP2/mid_save_data',
+                            'url' : base_url+$("#basepath").attr('value')+'/index.php?r=IDP2/mid_save_data',
                             success : function(data)
                             {
                             // alert(data);
@@ -291,7 +292,7 @@ $.ajax({
 type : 'post',
 datatype : 'html',
 data : data,
-url : base_url+'/index.php?r=Checkattach/check_view2',
+url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_view2',
 success : function(data)
 {
     alert(data);
@@ -305,7 +306,7 @@ $.ajax({
 type : 'post',
 datatype : 'html',
 data : data1,
-url : base_url+'/index.php?r=Checkattach/check_idp1',
+url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_idp1',
 success : function(data)
 {
     //alert("dsfdsf");
@@ -334,7 +335,7 @@ function save_detail_pdf()
                     type : 'post',
                     datatype : 'html',
                     data : data,
-                    url : base_url+'/index.php?r=Checkattach/check_view2',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_view2',
                     success : function(data)
                     {
                         alert(data);
@@ -348,7 +349,7 @@ function save_detail_pdf()
                     type : 'post',
                     datatype : 'html',
                     data : data1,
-                    url : base_url+'/index.php?r=Checkattach/check_idp1',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_idp1',
                     success : function(data)
                     {
                         //alert("dsfdsf");
@@ -2329,7 +2330,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
                             type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=Setgoals/updategoal',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/updategoal',
                             success : function(data)
                             {
                                $("#updation_spinner-"+id[1]).hide();
@@ -2382,7 +2383,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Quater1/submitidp',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/submitidp',
                                 success : function(data)
                                 {
                                     if (data == 'success') 
@@ -2442,7 +2443,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Quater1/updateidp',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/updateidp',
                                 success : function(data)
                                 {
                                     if(data == 1)
@@ -2472,7 +2473,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
                                 type : 'post',
                                 datatype : 'json',
                                 data : data,
-                                url : base_url+'/index.php?r=Quater1/get_idp',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/get_idp',
                                 success : function(data)
                                 {
                                     var obj = $.parseJSON(data);var index = 0;
@@ -2640,7 +2641,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
 //                                         type : 'post',
 //                                         datatype : 'html',
 //                                         data : data,
-//                                       url : base_url+'/index.php?r=Quater1/midupdategoal',
+//                                       url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/midupdategoal',
 //                                         success : function(data)
 //                                         {
 //                                             // alert(data);
@@ -2978,14 +2979,14 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
 //                             'type' : 'post',
 //                             'datatype' : 'html',
 //                             'data' : detail_data,
-//                             'url' : base_url+'/index.php?r=IDP/mid_save_data',
+//                             'url' : base_url+$("#basepath").attr('value')+'/index.php?r=IDP/mid_save_data',
 //                             success : function(data)
 //                             {
 //                               $.ajax({
 //                                       type : 'post',
 //                                       datatype : 'html',
 //                                       data : emp_id,
-//                                       url : base_url+'/index.php?r=Quater1/final_goal_review1',
+//                                       url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/final_goal_review1',
 //                                       success : function(data)
 //                                       {
 //                                           alert(data);
@@ -3012,7 +3013,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
 //                                                                               type : 'post',
 //                                                                               datatype : 'html',
 //                                                                               data : emp_id,
-//                                                                               url : base_url+'/index.php?r=Quater1/sendmail',
+//                                                                               url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/sendmail',
 //                                                                               success : function(data)
 //                                                                               {
 //                                                                                  //alert(data);
@@ -3023,7 +3024,7 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
 //                                                                                   $("#err").text("Notification Sent to employee");
 //                                                                                   $("#err").addClass("alert-success"); 
 //                                                     jQuery("#static2").modal('show');                           
-//                                                     //window.location.href = base_url+'/index.php?r=Midreview';                      
+//                                                     //window.location.href = base_url+$("#basepath").attr('value')+'/index.php?r=Midreview';                      
 //                                                                               }
 //                                                                           });
 //                                                                   });
@@ -3294,7 +3295,7 @@ $(".send_for_appraisal").click(function(){
         type : 'post',
         datatype : 'html',
         data : data,
-        url : base_url+'/index.php?r=Quater1/midupdategoal',
+        url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/midupdategoal',
         success : function(data)
         {
              //alert(data);
@@ -3353,11 +3354,11 @@ else
                                                                               type : 'post',
                                                                               datatype : 'html',
                                                                               data : emp_id,
-                                                                              url : base_url+'/index.php?r=Quater1/sendmail',
+                                                                              url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/sendmail',
                                                                               success : function(data)
                                                                               {
                                                                                  
-                                                                                 alert(data);
+                                                                                 //alert(data);
                                                                                   jQuery("#static1").modal('toggle');
                                                                                   $("#show_spin").hide(); 
                                                                                   $("#err").show();  
@@ -3365,7 +3366,7 @@ else
                                                                                   $("#err").text("Notification Sent to employee");
                                                                                   $("#err").addClass("alert-success"); 
                                                     jQuery("#static2").modal('show');                           
-                                                    //window.location.href = base_url+'/index.php?r=Midreview';                      
+                                                    //window.location.href = base_url+$("#basepath").attr('value')+'/index.php?r=Midreview';                      
                                                                               }
                                                                           });
                                                                   });

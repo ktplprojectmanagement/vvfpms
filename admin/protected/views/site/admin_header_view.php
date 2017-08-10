@@ -76,6 +76,10 @@
                 </div>
             </div>
         </div>
+        <input type="text" value="/vvf.kritva.in" id="basepath">
+        <script type="text/javascript">
+        var basepath = $("#basepath").attr('value');
+        </script>
         <div class="clearfix"> </div>
         <div class="page-container">
             <div class="page-sidebar-wrapper">

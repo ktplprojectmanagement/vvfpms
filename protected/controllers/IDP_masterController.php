@@ -13,6 +13,7 @@ class IDP_masterController extends Controller
 			//print_r($program_data_result);die();
 			$selected_option = 'IDP';
 			$this->render('//site/script_file');
+			//$this->render('//site/baseurl');
 			$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 			$this->render('//site/IDP_master',array('program_data_result'=>$program_data_result));
 			$this->render('//site/admin_footer_view');
@@ -36,6 +37,7 @@ class IDP_masterController extends Controller
 		$idp_data = $model->get_kpi_data($where,$data,$list);
         //$edit_flag=$_POST['edit_flag'];
         //print_r($idp_data);die();
+        $selected_option = 'IDP';
         $this->render('//site/script_file');
 			$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 			$this->render('//site/IDP_master',array('idp_progdata'=>$idp_data,'edit_flag'=>'1'));
@@ -47,21 +49,21 @@ class IDP_masterController extends Controller
 		$model=new ProgramDataForm;
 		if ($_POST['faculty_email_id'] != '') {
 			$data_get = explode(';',$_POST['faculty_email_id']);
-			$model->faculty_email_id = $data_get[0];
-			$model->faculty_name = $data_get[1];
+			$model->faculty_email_id = isset($data_get[0]) ? $data_get[0] : '';
+			$model->faculty_name = isset($data_get[1]) ? $data_get[1] : '';
 		}
 		//print_r($_POST['faculty_email_id']);die();
 		
-		$model->program_name = $_POST['program_name'];
-		$model->faculty_type = $_POST['faculty_type'];
-		$model->amount = $_POST['amount'];
-		$model->external_name = $_POST['external_name'];		
-		$model->training_days = $_POST['training_days'];
-		$model->location=$_POST['location'];
-		$model->need=$_POST['need'];
-		$model->goal_set_year=$_POST['goal_set_year'];
-		$model->Note=$_POST['Note'];
-		print_r($model->attributes);
+		$model->program_name = isset($_POST['program_name']) ? $_POST['program_name'] : '';
+		$model->faculty_type = isset($_POST['faculty_type']) ? $_POST['faculty_type'] : '';
+		$model->amount = isset($_POST['amount']) ? $_POST['amount'] : '';
+		$model->external_name = isset($_POST['external_name']) ? $_POST['external_name'] : '';		
+		$model->training_days = isset($_POST['training_days']) ? $_POST['training_days'] : '';
+		$model->location= isset($_POST['location']) ? $_POST['location'] : '';
+		$model->need= isset($_POST['need']) ? $_POST['need'] : '';
+		$model->goal_set_year= isset($_POST['goal_set_year']) ? $_POST['goal_set_year'] : '';
+		$model->Note= isset($_POST['Note']) ? $_POST['Note'] : '';
+		//print_r($model->attributes);die();
 		if($model->save())
 	  	{
 	  		print_r("Successfully Saved");die();
@@ -80,34 +82,28 @@ class IDP_masterController extends Controller
 		$model=new ProgramDataForm;
 		if ($_POST['faculty_email_id'] != '') {
 			$data_get = explode(';',$_POST['faculty_email_id']);
-			$model->faculty_email_id = $data_get[0];
-			$model->faculty_name = $data_get[1];
-		}
-	//	print_r($_POST['faculty_email_id']);die();
-		
-// 		$model->program_name = $_POST['program_name'];
-// 		$model->faculty_type = $_POST['faculty_type'];
-// 		$model->amount = $_POST['amount'];
-// 		$model->external_name = $_POST['external_name'];		
-// 		$model->training_days = $_POST['training_days'];
-// 		$model->location=$_POST['location'];
-// 		$model->need=$_POST['need'];
-// 		$model->goal_set_year=$_POST['goal_set_year'];
-// 		$model->Note=$_POST['Note'];
+			if (isset($data_get[0])) {
+				$model->faculty_email_id = $data_get[0];
+			}
 
-//echo $_POST['id'];die();
+			if (isset($data_get[1])) {
+				$model->faculty_name = $data_get[1];
+			}		
+			
+		}
+	
 $data=array(
-    'program_name'=> $_POST['program_name'],
-    'faculty_email_id'=>$data_get[0],
-    'faculty_name'=>$data_get[1],
-    'faculty_type'=>$_POST['faculty_type'],
-    'amount'=>$_POST['amount'],
-    'external_name'=>$_POST['external_name'],
-    'training_days'=>$_POST['training_days'],
-    'location'=>$_POST['location'],
-    'need'=>$_POST['need'],
-    'goal_set_year'=>$_POST['goal_set_year'],
-    'note'=>$_POST['Note'],
+    'program_name'=> isset($_POST['program_name']) ? $_POST['program_name'] : '',
+    'faculty_email_id'=> isset($data_get[0]) ? $data_get[0] : '',
+    'faculty_name'=> isset($data_get[1]) ? $data_get[1] : '',
+    'faculty_type'=> isset($_POST['faculty_type']) ? $_POST['faculty_type'] : '',
+    'amount'=> isset($_POST['amount']) ? $_POST['amount'] : '',
+    'external_name'=> isset($_POST['external_name']) ? $_POST['external_name'] : '',
+    'training_days'=> isset($_POST['training_days']) ? $_POST['training_days'] : '',
+    'location'=> isset($_POST['location']) ? $_POST['location'] : '',
+    'need'=> isset($_POST['need']) ? $_POST['need'] : '',
+    'goal_set_year'=> isset($_POST['goal_set_year']) ? $_POST['goal_set_year'] : '',
+    'note'=> isset($_POST['Note']) ? $_POST['Note'] : '',
     );
  //print_r($data);die();
     $update = Yii::app()->db->createCommand()->update('program_data',$data,'id=:id',array(':id'=>$_POST['id']));

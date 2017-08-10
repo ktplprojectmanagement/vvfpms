@@ -376,6 +376,22 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		}
 		print_r($diff);
 	}
+
+	function actionsend_demo()
+	{
+		Yii::import('ext.yii-mail.YiiMailMessage');
+		$message = new YiiMailMessage;
+		$message->setBody('Message content here with HTML', 'text/html');
+		$message->subject = 'My Subject';
+		$message->addTo('demo.appraisel@gmail.com');
+		$message->from = 'vvf.pms@vvfltd.com';
+		try {
+		  Yii::app()->mail->send($message);
+		  return true;
+		} catch(Exception $e){
+		  echo $e;
+		}
+	}
 	
 	function actionlocation_submit()
 {

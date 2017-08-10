@@ -67,6 +67,10 @@ padding-top: 10px;
         background: #02b0e6;
       }
     </style>
+    <input type="text" value="/vvf.kritva.in" id="basepath">
+    <script type="text/javascript">
+    var basepath = $("#basepath").attr('value');
+    </script>
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
@@ -183,7 +187,7 @@ margin-left: -105px;"></label>
                     contentType: false,
                     'enctype': 'multipart/form-data',
                     'data' : formData,
-                    'url' : base_url+'/index.php?r=Export/',
+                    'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Export/',
                     success : function(data)
                     {
                         if (data == 'Successfully Uploaded') 
@@ -377,7 +381,7 @@ Employee_id : emp_id[1]
                                 dataType :'html',
                                  type :'post',
                                  data : content,
-                                 url : base_url+'/admin/index.php?r=Newemployee/subreset',
+                                 url : base_url+$("#basepath").attr('value')+'/admin/index.php?r=Newemployee/subreset',
                                  'success' : function(data) {              
                                     alert("Password Reset Successfully");                                  
                                 }
@@ -405,7 +409,7 @@ Employee_id : emp_id[1]
                                 dataType :'html',
                                  type :'post',
                                  data : content,
-                                 url : base_url+'/index.php?r=Settingpage/save',
+                                 url : base_url+$("#basepath").attr('value')+'/index.php?r=Settingpage/save',
                                  'success' : function(data) {              
                                     if (click == 0) 
                                     {

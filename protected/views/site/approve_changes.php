@@ -64,7 +64,7 @@ Yii::app()->controller->renderPartial('//site/all_js');
                                                 'type' : 'post',
                                                 'datatype' : 'html',
                                                 'data' : grade,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Designation_change',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Designation_change',
                                                
                                                 success : function(data)
                                                 {
@@ -89,7 +89,7 @@ Yii::app()->controller->renderPartial('//site/all_js');
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : cluster_value,
-                                                'url' : base_url+'/admin/index.php/Newemployee/cluster_head',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/cluster_head',
                                                
                                                 success : function(data)
                                                 {
@@ -165,6 +165,7 @@ font-weight: bold;
                                          <div class="fileinput fileinput-new" data-provides="fileinput">
                                             <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
                                              <?php 
+                                             if(isset($employee_data['0']) AND isset($employee_data_main['0'])) {
                                                      $img = '';
                                                     if (isset($employee_data['0']['Image'])) {  $img = $employee_data['0']['Image']; }else { $img = ''; }
                                                      ?>
@@ -1378,7 +1379,7 @@ $status2[$employee_data['0']['year_end_review_of_bu_head']] = array('selected' =
 
 
                                 <!-- END PAGE BASE CONTENT -->
-                                <?php $this->endWidget(); ?>                                            
+                                <?php } $this->endWidget(); ?>                                            
                                         </div>
                                 </div>
                                 </div>
@@ -1471,7 +1472,7 @@ form_data.append("retire_date",$('.retire_date').val());
                                            //alert(window.location.origin);
                                            
                                            var base_url = window.location.origin;
-                                           //alert(base_url+'pmsuser/index.php/Login/UpdateEmp_profile');
+                                           //alert(base_url+$("#basepath").attr('value')+'pmsuser/index.php/Login/UpdateEmp_profile');
                                              $.ajax({
                                                
                                                 'type' : 'post',
@@ -1479,10 +1480,10 @@ form_data.append("retire_date",$('.retire_date').val());
                                                 processData: false, 
                                                 contentType: false,
                                                 'data' : form_data,
-                                                'url' : base_url+'/index.php/Login/UpdateEmp_profile',
+                                                'url' : base_url+$("#basepath").attr('value')+'/index.php/Login/UpdateEmp_profile',
                                                 success : function(data)
                                                 { 
-                                                   alert(data);
+                                                  // alert(data);
                                                   //$("#LoadingImage").hide();
                                                    $(window).scroll(function()
                                                     {
@@ -1571,7 +1572,7 @@ else if(obj.cluster_appraiser != undefined)
                                         type : 'post',
                                         datatype : 'html',
                                         data : data,
-                                        url : base_url+'/index.php/Location_wiseAcces/del_Emp_profile',
+                                        url : base_url+$("#basepath").attr('value')+'/index.php/Location_wiseAcces/del_Emp_profile',
                                         success : function(data)
                                         {   
  $("#err").show();
@@ -1584,7 +1585,7 @@ else if(obj.cluster_appraiser != undefined)
  if(data == '1')
                                              {
                                                 
-                                             window.location.replace(base_url+'/index.php/Location_wiseAcces'); 
+                                             window.location.replace(base_url+$("#basepath").attr('value')+'/index.php/Location_wiseAcces'); 
                                             }
                                         }
 
@@ -1613,14 +1614,14 @@ else if(obj.cluster_appraiser != undefined)
                                         type : 'post',
                                         datatype : 'html',
                                         data : data,
-                                        url : base_url+'/index.php/Location_wiseAcces/del_Emp_profile',
+                                        url : base_url+$("#basepath").attr('value')+'/index.php/Location_wiseAcces/del_Emp_profile',
                                         success : function(data)
                                         {   
 
  if(data == '1')
                                              {
                                                 
-                                             window.location.replace(base_url+'/index.php/Location_wiseAcces'); 
+                                             window.location.replace(base_url+$("#basepath").attr('value')+'/index.php/Location_wiseAcces'); 
                                             }
                                         }
 
@@ -1647,7 +1648,7 @@ $("#bu").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : bu_value,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Bu_details',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Bu_details',
                                                
                                                 success : function(data)
                                                 {
@@ -1676,7 +1677,7 @@ $("#bu_head").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : bu_head,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Bu_mail',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Bu_mail',
                                                
                                                 success : function(data)
                                                 {
@@ -1722,7 +1723,7 @@ $("#location").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : location,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Plant_details',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Plant_details',
                                                
                                                 success : function(data)
                                                 {
@@ -1751,7 +1752,7 @@ $("#plant_head").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : plant_head,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Plant_mail',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Plant_mail',
                                                
                                                 success : function(data)
                                                 {

@@ -1,4 +1,7 @@
-RewriteEngine on
+﻿RewriteEngine on
+<ifModule mod_headers.c>
+    Header set Connection keep-alive
+</ifModule>
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteCond $1 !^(index\.php|assets|images|js|css|uploads|favicon.png)

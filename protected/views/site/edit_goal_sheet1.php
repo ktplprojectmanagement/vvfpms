@@ -1,6 +1,850 @@
 <?php
-Yii::app()->controller->renderPartial('//site/all_js');
+// Yii::app()->controller->renderPartial('//site/all_js');
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+                        $("body").on('click','.getapprove',function(){  
+                    var error_count = 0;var error_count1 = 0;var error_count2 = ''; 
+                    var id_value = $(this).attr('id')+';'+0;
+                    var kra_id_value1 = id_value.split(';');      
+                    var kra_des = $("#KRA_description").val();
+                    var string = /^(0[1-9]|[0-3][0-3])([/]{1})(0[1-9]|1[0-2])([/]{1})((19|20)[0-9]{2})$/;
+                    var string_num = /^([0-9])$/;var checkwt = /[-]/;
+                     var data_length = kra_des.length;var final_kpi_wt = '';
+                    var error = [];
+                    for (var j = 0; j < $("#total_kra_number").text(); j++) { error[kra_id_value1[j]] = [];
+                        var kra_num = $("#kpi_list_number"+kra_id_value1[j]).text();var kpi_list = '';var kpi_unit = '';var kpi_value = '';var kpi_total = 0;var kpi_target_total = '';var goal_status = '';var final_kpi_total1 = 0;
+                           
+                            var kpi_list_data = 0;var add_value = 0;var final_kpi_total = 0;var final_kpi_wt1 =''; var final_kpi_wt2 =''; var final_kpi_wt3 = '';    
+                            for (var i = 0; i < 1; i++) {
+                                if ($("#Weightage"+kra_id_value1[j]+i).val() != 0 && $("#kpilistyii_"+kra_id_value1[j]+i).val()!= '' && $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val()!='Select') 
+                                {
+                                    kpi_list_data = parseInt(kpi_list_data)+parseInt(1);
+                                    if (($("#kpi_target_value-"+kra_id_value1[j]+i).val() != '' && !checkwt.test($("#kpi_target_value-"+kra_id_value1[j]+i).val()) && $("#kpi_target_value-"+kra_id_value1[j]+i).val() != 0) && $.isNumeric($("#kpi_target_value-"+kra_id_value1[j]+i).val())) 
+                                        {
+                                            var kpi_wt = $("#kpi_target_value-"+kra_id_value1[j]+i).val(); 
+                                            final_kpi_wt3 = 1;
+                                            if (final_kpi_wt1 == '') 
+                                                {
+                                                    final_kpi_wt1 = $("#kpi_target_value-"+kra_id_value1[j]+i).val();
+                        final_kpi_wt2 = $("#kpi_target_value-"+kra_id_value1[j]+i).val();
+                                                }
+                                                else
+                                                {
+                                                   final_kpi_wt1 = final_kpi_wt1+';'+$("#kpi_target_value-"+kra_id_value1[j]+i).val();
+                        final_kpi_wt2 = parseFloat(final_kpi_wt2)+parseFloat($("#kpi_target_value-"+kra_id_value1[j]+i).val());
+                                                }
+                        
+                                        }
+                                         else if($("#kpi_target_value-"+kra_id_value1[j]+i).val() != '')
+                                        {
+                                            final_kpi_wt3 = 0;
+                                        error[kra_id_value1[j]] = "Please enter valid numbers in KPI Weightage field.";error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                        }
+                                }
+                                else
+                                {
+                                    error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;                               
+                                }
+                            }
+                                if($(".kra_category-"+kra_id_value1[j]).find(':selected').val() == '--Select--' || $(".kra_category-"+kra_id_value1[j]).find(':selected').val() == '' || $(".kra_category-"+kra_id_value1[j]).find(':selected').val() === undefined)
+                                {
+                                     error[kra_id_value1[j]] = 'Please Select KRA Category';error_count1 = kra_id_value1[j];error_count2 = kra_id_value1[j];break;       
+                                }
+else if($(".KRA_description-"+kra_id_value1[j]).val() == '' || $(".KRA_description-"+kra_id_value1[j]).val() === undefined)
+                                {
+                                     error[kra_id_value1[j]] = 'Please enter KRA description';error_count1 = kra_id_value1[j];error_count2 = kra_id_value1[j];break;       
+                                } 
+                              else if($("#Weightage"+kra_id_value1[j]).find(':selected').val() == '0')
+                              {
+                                 error[kra_id_value1[j]] = 'Please KRA select Weightage.';error_count1 = kra_id_value1[j];error_count2 = kra_id_value1[j];break;       
+                              }    
+                                else if (error[kra_id_value1[j]] == '') 
+                                {
+                                    
+                 $(".KRA_description-"+kra_id_value1[j]).css('border-color','');                  
+                                    for (var i = 0; i < kra_num; i++) {
+                                    var selected_unit = $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
+                                    if ($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() != 'Select' && $("#kpilistyii_"+kra_id_value1[j]+i).val() != '') 
+                                    {
+                                        var selected_value = $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
+                                         if (kpi_list == '')
+                                        {
+                                            kpi_list = $("#kpilistyii_"+kra_id_value1[j]+i).val();
+                                            kpi_unit = $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
+                                            
+                                        }
+                                        else
+                                        {
+                                            kpi_list = kpi_list+';'+$("#kpilistyii_"+kra_id_value1[j]+i).val();
+                                            kpi_unit = kpi_unit+';'+$("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
+                                            
+                                        }
+                                        if (selected_value != 'Units' && selected_value != 'Weight' && selected_value != 'Value') 
+                                        {var chk_per = /[-]/;
+                                            if(selected_value == 'Percentage')
+                                            {
+                                               //alert($(".target_need1").text());               
+//alert($(".target_value1"+kra_id_value1[j]+i).text());
+                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need1").text() != 'undefined' || $(".target_need1").text() === undefined) && (!$.isNumeric($(".target_value1"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value1"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_value1"+kra_id_value1[j]+i).text()>100 || $(".target_value1"+kra_id_value1[j]+i).attr('value')>100)
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need2").text() != 'undefined' || $(".target_need2").text() === undefined) && (!$.isNumeric($(".target_value2"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value2"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if($(".target_value2"+kra_id_value1[j]+i).text()>100 || $(".target_value2"+kra_id_value1[j]+i).attr('value')>100)
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need3").text() != 'undefined' || $(".target_need3").text() === undefined) && (!$.isNumeric($(".target_value3"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value3"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if($(".target_value3"+kra_id_value1[j]+i).text()>100 || $(".target_value3"+kra_id_value1[j]+i).attr('value')>100)
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need4").text() != 'undefined' || $(".target_need4").text() === undefined) && (!$.isNumeric($(".target_value4"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value4"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if($(".target_value4"+kra_id_value1[j]+i).text()>100 || $(".target_value4"+kra_id_value1[j]+i).attr('value')>100)
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                               else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need5").text() != 'undefined' || $(".target_need5").text() === undefined) && (!$.isNumeric($(".target_value5"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value5"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if($(".target_value5"+kra_id_value1[j]+i).text()>100 || $(".target_value5"+kra_id_value1[j]+i).attr('value')>100)
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage should contain maximum 100 value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value5"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else
+                                                {
+var val1 = '';var val2 = '';var val3 = '';var val4 = '';var val5 = '';
+                                                    error[kra_id_value1[j]] = '';
+if($(".target_value1"+kra_id_value1[j]+i).val() != '')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value2"+kra_id_value1[j]+i).val() != '')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value3"+kra_id_value1[j]+i).val() != '')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value4"+kra_id_value1[j]+i).val() != '')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value5"+kra_id_value1[j]+i).val() != '')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
+}
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
+                                                    }
+
+                                                }
+                                            }
+                                            else  if(selected_value == 'Days')
+                                            {
+                                               //alert($(".target_need1").text());               
+//alert($(".target_value1"+kra_id_value1[j]+i).text());
+                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need1").text() != 'undefined' || $(".target_need1").text() === undefined) && (!$.isNumeric($(".target_value1"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value1"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need2").text() != 'undefined' || $(".target_need2").text() === undefined) && (!$.isNumeric($(".target_value2"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value2"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need3").text() != 'undefined' || $(".target_need3").text() === undefined) && (!$.isNumeric($(".target_value3"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value3"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need4").text() != 'undefined' || $(".target_need4").text() === undefined) && (!$.isNumeric($(".target_value4"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value4"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                               else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(($(".target_need5").text() != 'undefined' || $(".target_need5").text() === undefined) && (!$.isNumeric($(".target_value5"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value5"+kra_id_value1[j]+i).attr('value'))))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+else if(chk_per.test($(".target_value5"+kra_id_value1[j]+i).text()))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else
+                                                {
+                                                    var val1 = '';var val2 = '';var val3 = '';var val4 = '';var val5 = '';
+                                                    error[kra_id_value1[j]] = '';
+if($(".target_value1"+kra_id_value1[j]+i).val() != '')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value2"+kra_id_value1[j]+i).val() != '')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value3"+kra_id_value1[j]+i).val() != '')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value4"+kra_id_value1[j]+i).val() != '')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value5"+kra_id_value1[j]+i).val() != '')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
+}
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
+                                                    }
+
+                                                }
+                                            }
+                                            else if(selected_value == 'Date')
+                                            {
+                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }                                               
+                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }                                                
+                                                if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }                                                
+                                                if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }                                                
+                                                if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }                                                
+                                                else
+                                                {
+                                                    error[kra_id_value1[j]] = '';
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value =$(".target_value1"+kra_id_value1[j]+i).val()+'-'+$(".target_value2"+kra_id_value1[j]+i).val()+'-'+$(".target_value3"+kra_id_value1[j]+i).val()+'-'+$(".target_value4"+kra_id_value1[j]+i).val()+'-'+$(".target_value5"+kra_id_value1[j]+i).val();
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+$(".target_value1"+kra_id_value1[j]+i).val()+'-'+$(".target_value2"+kra_id_value1[j]+i).val()+'-'+$(".target_value3"+kra_id_value1[j]+i).val()+'-'+$(".target_value4"+kra_id_value1[j]+i).val()+'-'+$(".target_value5"+kra_id_value1[j]+i).val();                                   
+                                                    }
+
+                                                }
+                                            }
+                                            else if(selected_value == 'Text')
+                                            {
+                                                
+                                                var chk = /[;-]/;
+                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
+                                                
+                                                {
+                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if((chk.test($(".target_value1"+kra_id_value1[1]+i).val()) || ($(".target_value1"+kra_id_value1[j]+i).val()!='' && $(".target_value1"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value1"+kra_id_value1[1]+i).attr('value')) || ($(".target_value1"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value1"+kra_id_value1[j]+i).attr('value').length>2000)))
+                                                {
+                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                               else if((chk.test($(".target_value2"+kra_id_value1[1]+i).val()) || ($(".target_value2"+kra_id_value1[j]+i).val()!='' && $(".target_value2"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value2"+kra_id_value1[1]+i).attr('value')) || ($(".target_value2"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value2"+kra_id_value1[j]+i).attr('value').length>2000)))
+                                                {
+                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                               else if((chk.test($(".target_value3"+kra_id_value1[1]+i).val()) || ($(".target_value3"+kra_id_value1[j]+i).val()!='' && $(".target_value3"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value3"+kra_id_value1[1]+i).attr('value')) || ($(".target_value3"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value3"+kra_id_value1[j]+i).attr('value').length>2000)))
+                                                {
+                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if((chk.test($(".target_value4"+kra_id_value1[1]+i).val()) || ($(".target_value4"+kra_id_value1[j]+i).val()!='' && $(".target_value4"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value4"+kra_id_value1[1]+i).attr('value')) || ($(".target_value4"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value4"+kra_id_value1[j]+i).attr('value').length>2000)))
+                                                {
+                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if((chk.test($(".target_value5"+kra_id_value1[1]+i).val()) || ($(".target_value5"+kra_id_value1[j]+i).val()!='' && $(".target_value5"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value5"+kra_id_value1[1]+i).attr('value')) || ($(".target_value5"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value5"+kra_id_value1[j]+i).attr('value').length>2000)))
+                                                {
+                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else
+                                                {
+//alert($(".target_value1"+kra_id_value1[j]+i).attr('value'));
+//alert($(".target_value2"+kra_id_value1[j]+i).attr('value'));
+//alert($(".target_value3"+kra_id_value1[j]+i).attr('value'));
+//alert($(".target_value4"+kra_id_value1[j]+i).attr('value'));
+//alert($(".target_value5"+kra_id_value1[j]+i).attr('value'));
+                                                                                   error[kra_id_value1[j]] = '';
+                                                   if($(".target_value1"+kra_id_value1[j]+i).val() != '')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value2"+kra_id_value1[j]+i).val() != '')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value3"+kra_id_value1[j]+i).val() != '')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value4"+kra_id_value1[j]+i).val() != '')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value5"+kra_id_value1[j]+i).val() != '')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
+}
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
+                                                    }
+
+
+                                                }
+                                            }
+                                            else if(selected_value == 'Ratio')
+                                            {
+                                                var ratio_chk = /^([0-9]{1,5}[:]{1}[0-9]{1,5})$/;
+                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(!ratio_chk.test($(".target_value1"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value1"+kra_id_value1[j]+i).attr('value')))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                               else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(!ratio_chk.test($(".target_value2"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value2"+kra_id_value1[j]+i).attr('value')))
+                                                {
+                                                    error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
+                                                
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                               else if(!ratio_chk.test($(".target_value3"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value3"+kra_id_value1[j]+i).attr('value')))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(!ratio_chk.test($(".target_value4"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value4"+kra_id_value1[j]+i).attr('value')))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else if(!ratio_chk.test($(".target_value5"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value5"+kra_id_value1[j]+i).attr('value')))
+                                                {
+                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                }
+                                                else
+                                                {
+                                                    error[kra_id_value1[j]] = '';
+                                                   if($(".target_value1"+kra_id_value1[j]+i).val() != '')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
+{
+val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value2"+kra_id_value1[j]+i).val() != '')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
+{
+val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value3"+kra_id_value1[j]+i).val() != '')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
+{
+val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value4"+kra_id_value1[j]+i).val() != '')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
+{
+val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
+}
+if($(".target_value5"+kra_id_value1[j]+i).val() != '')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).val();
+}
+else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
+{
+val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
+}
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                        else if(selected_value == 'Units' || selected_value == 'Weight' || selected_value == 'Value')
+                                        {
+
+                                             var string_num = /^([0-9.]{1,100})$/;
+                                            if ($("#unit_value-"+kra_id_value1[j]+i).val()=='' || $("#unit_value-"+kra_id_value1[j]+i).val() === undefined || !string_num.test($("#unit_value-"+kra_id_value1[j]+i).val())) 
+                                            {
+                                                error[kra_id_value1[j]] = 'Please Fill unit value';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                            }
+                                             else if ($("#unit_value-"+kra_id_value1[j]+i).val() == 0 || $("#unit_value-"+kra_id_value1[j]+i).val().length>6)
+                                            {
+                                                error[kra_id_value1[j]] = 'Minimum 1 and maximum 6 digits are allwed.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                            }                                             
+                                            else if (!$.isNumeric($("#unit_value-"+kra_id_value1[j]+i).val())) 
+                                            {
+                                                error[kra_id_value1[j]] = 'Only numbers are allowed for Units/Weight/Value field.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                            }
+                                            else
+                                            {
+                                               
+if($("#unit_value-"+kra_id_value1[j]+i).val() != '')
+{
+val1 = $("#unit_value-"+kra_id_value1[j]+i).val();
+}
+else if($("#unit_value-"+kra_id_value1[j]+i).attr('value') !='')
+{
+val1 = $("#unit_value-"+kra_id_value1[j]+i).attr('value');
+}
+
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value =val1;
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+val1;                                   
+                                                    }
+                                                //alert(kpi_value);
+                                            }
+                                        }
+
+                                        if($("#goal_status-"+kra_id_value1[j]).find(':selected').val() == 'Select')
+                                            {
+                                                 error[kra_id_value1[j]] = 'Please Select KRA Status';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                            }
+                                        else
+                                        {                                           
+                                            error[kra_id_value1[j]] = '';                                         
+                                            goal_status = $("#goal_status-"+kra_id_value1[j]).find(':selected').val();
+                                        } 
+                                        //alert(final_kpi_wt2);
+                                        // if (final_kpi_wt2 !='' && final_kpi_wt2 != 100) 
+                                        //     {
+                                        //         error[kra_id_value1[j]] = 'The Total of the kpi score should be 100';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                        //     }   
+                                  
+                                      
+                                    }
+                                    else
+                                    {
+                                        if ($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+kra_id_value1[j]+i).val() != '' || $("#unit_value-"+kra_id_value1[j]+i).val() != '')) 
+                                        {
+                                             error[kra_id_value1[j]] = 'Please Fill Correct KPI Details';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                        }
+                                        else  if ($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() != 'Select' && ($("#kpilistyii_"+kra_id_value1[j]+i).val() == '' || $("#unit_value-"+kra_id_value1[j]+i).val() == '')) 
+                                        {
+                                            error[kra_id_value1[j]] = 'Please Fill Correct KPI Details';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                        }
+                                        else if(($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+kra_id_value1[j]+i).val() != '' || $("#unit_value-"+kra_id_value1[j]+i).val() != '')) || ($("#kpilistyii_"+kra_id_value1[j]+i).val() == '' && $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() != 'Select'))
+                                            {
+                                                error[kra_id_value1[j]] = 'Please Fill Correct KPI Details';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                            }                   
+                                            else
+                                            {
+                                                 error[kra_id_value1[j]] = ''; 
+
+                                            }                                 
+                                    }          
+                                }                                                         
+                                } 
+                        // alert("in0");
+                       $("#show_spin2").css('display','block');
+                        if(error[kra_id_value1[j]] == '')
+                          { 
+                                            //alert("good");
+                                            var base_url = window.location.origin;
+                                            var data = { 
+                                                'target' : $("#Weightage"+kra_id_value1[j]).find(':selected').val(),                           
+                                                'target_unit' : kpi_unit,
+                                                'target_value1' : kpi_value,
+                                                'kpi_list' : kpi_list,
+                                                'KPI_target_value' : final_kpi_wt1,
+                                                'KPI_id' : kra_id_value1[j],
+                                                'goal_status' : goal_status,
+                                                'KRA_category' : $(".kra_category-"+kra_id_value1[j]).find(':selected').val(),
+                                                'KRA_description' : $(".KRA_description-"+kra_id_value1[j]).val(),
+                                                'reoprting_to' : $(".faculty_email_id1"+kra_id_value1[j]).find(':selected').val(),
+                                            };
+
+                                            $.ajax({
+                                                type : 'post',
+                                                datatype : 'html',
+                                                data : data,
+                                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/update_emp_kpi',
+                                                success : function(data)
+                                                {
+                                                    var kra_val = $("#kpi_record-"+data).parent().parent().parent().attr('id');
+//var kra_val = $("."+kra_val1).closest('div').attr('id');
+//alert(kra_val);
+                                                   $("#"+kra_val).load(location.href + " #"+kra_val);
+                                                   $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text("Changes saved successfully");
+                                    $("#err").fadeOut(6000);
+$("#"+data).parent().find('input').css('display','block');
+                                                    
+                                                }
+                                            });
+                            error_count++;
+                          }
+                          else
+                          {
+                            break; 
+                          } 
+                        }
+            $("#err").hide();
+                        //alert("in1");
+                            $("#err").hide();$("#show_spin2").css('display','none');
+                            if(error_count1 != '')
+                            {
+                                //alert(error_count2);
+                                //alert(error[error_count2]);
+                                $('body').animate({
+                                    scrollTop: ($("#kra_sheet_"+error_count2).parent().offset().top)
+                                },500);
+                if($(".kra_category-"+error_count1).find(':selected').val() == '--Select--')
+                                {
+                                    $(".kra_category-"+error_count1).css('border-color','red');
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                else if(error[error_count2] == 'Please enter KRA description')
+                                {
+                                    $(".KRA_description-"+error_count1).css('border-color','red');
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                                else if($("#Weightage"+error_count2).find(':selected').val() == 0)
+                                {
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    $("#Weightage"+error_count2).css('border-color','red');
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                                else if($("#kpilistyii_"+error_count1).val() == '')
+                                {
+                                    $("#kpilistyii_"+error_count1).css('border-color','red');
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                                else if($("#mask_number-"+error_count1).find(':selected').val() == 'Select')
+                                {
+                                    $("#mask_number-"+error_count1).css('border-color','red');
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                                else if(error[error_count2] == 'The Total for kpi score should be 100')
+                                {
+                                    $("#kpi_target_value-"+error_count1).css('border-color','red');
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                                else if(error[error_count2] == 'Please Fill unit value')
+                                {
+                                    $("#unit_value-"+error_count1).css('border-color','red');
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //alert(error_count1);
+                                }
+                                else if (error[error_count2] == 'Target 1 value is compulsory.') 
+                                {
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    $(".target_value1"+error_count1).css('border-color','red');
+                                }
+                                else if (error[error_count2] == 'Target 2 value is compulsory.') 
+                                {
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    $(".target_value2"+error_count1).css('border-color','red');
+                                }
+                                else if (error[error_count2] == 'Target 3 value is compulsory.') 
+                                {
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    $(".target_value3"+error_count1).css('border-color','red');
+                                }
+                                else if (error[error_count2] == 'Target 4 value is compulsory.') 
+                                {
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    $(".target_value4"+error_count1).css('border-color','red');
+                                }
+                                 else if (error[error_count2] == 'Target 5 value is compulsory.') 
+                                {
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    //$(".target_value5"+error_count1).css('border-color','red');
+                                }
+                                else
+                                {
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text(error[error_count2]);
+                                    //$("#error_spec"+error_count2).text(error[error_count2]);
+                                    $(".review_comment"+error_count1).css('border-color','red');
+                                }                       
+                          } 
+                          
+                });
+                    });
+</script>
             <style type="text/css">
         .page-header .page-header-menu .hor-menu .navbar-nav>li .dropdown-menu li>a:hover{
             background-color:#4B77BE; 
@@ -127,6 +971,7 @@ font-weight: bold;
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
       <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>             
             <script type="text/javascript">
+
             var j = jQuery.noConflict();
                 j(function(){     
                     j(".date_pickup").datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '2016:2017',minDate: '1/Apr/2016',maxDate: '31/Mar/2017',onSelect: function () {
@@ -149,7 +994,7 @@ font-weight: bold;
                             type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=Setgoals/kpi_del1',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/kpi_del1',
                             success : function(data)
                             {
                                 //alert(id_value[1]);
@@ -163,7 +1008,7 @@ font-weight: bold;
                                
                                 //$("#output_div_edit").load(location.href + " #output_div_edit");
                                 $("#show_goal").show();  
-                            }
+                            };
                         });
                         });                       
                     }); 
@@ -208,7 +1053,7 @@ $(this).css('display','none');
                                 type : 'post',
                                 datatype : 'json',
                                 data : selected_unit,
-                                url : base_url+'/index.php?r=Setgoals/gettarget_value1',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/gettarget_value1',
                                 success : function(data)
                                 { 
 var detail = jQuery.parseJSON(data);
@@ -255,7 +1100,7 @@ var ltr_str = get_id[1].substring(0,get_id[1].length - 1);
                                             type : 'post',
                                             datatype : 'html',
                                             data : selected_unit1,
-                                            url : base_url+'/index.php?r=Setgoals/fetch_field',
+                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/fetch_field',
                                             success : function(data)
                                             {
                                         
@@ -286,7 +1131,7 @@ var ltr_str = get_id[1].substring(0,get_id[1].length - 1);
                                             type : 'post',
                                             datatype : 'html',
                                             data : kpi_value,
-                                            url : base_url+'/index.php?r=Setgoals/kpi_list',
+                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/kpi_list',
                                             success : function(data)
                                             {
                                                 if (data != '') 
@@ -1227,7 +2072,7 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                                                     'action' => array('index.php/IDP/subordinate_idp'),
                                                                 ));
                                                                  ?>
-<?php echo CHtml::textField('emp_id',$emp_data['0']['Employee_id'],array('style'=>'display:none;')); ?>
+<?php if(isset($emp_data['0']['Employee_id'])) { echo CHtml::textField('emp_id',$emp_data['0']['Employee_id'],array('style'=>'display:none;')); } ?>
 <?php echo CHtml::textField('chk_goalsheet_flag','1',array('style'=>'display:none;')); ?>
                                                                   <?php echo CHtml::submitButton('OK',array('style'=>'float:right','class'=>'btn dark btn-outline')); ?>
 <?php 
@@ -1349,7 +2194,7 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                             type : 'post',
                                             datatype : 'html',
                                             data : number_of_kra,
-                                            url : base_url+'/index.php?r=Newemployee/getlist',
+                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Newemployee/getlist',
                                             success : function(data)
                                             {
                                                 $("#get_goal_list").html(data);
@@ -1362,8 +2207,10 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Assigndetails"><?php echo CHtml::button('Back',array('class'=>'btn border-blue-soft','style'=>'float:right;margin-right: 13px;margin-top: -64px;
 }')); ?></a>
 <?php 
-                                    if ((isset($KRA_category_auto) && count($KRA_category_auto)<=6)) {  echo CHtml::button('New KRA',array('class'=>'btn border-blue-soft','style'=>'float:left;margin-right: 13px;margin-top: -64px;
-','id'=>'show_goal')); } ?>
+                                    if ((isset($KRA_category_auto) && count($KRA_category_auto)<=6)) {  
+//                                       echo CHtml::button('New KRA',array('class'=>'btn border-blue-soft','style'=>'float:left;margin-right: 13px;margin-top: -64px;
+// ','id'=>'show_goal'));
+ } ?>
 </div>
  <div class="portlet box border-blue-soft bg-blue-soft" id="goal_emp_data" style="margin-top: 49px;display:none">
                                 <div class="portlet-title">
@@ -1416,7 +2263,7 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                                                 Reporting Manager
                                                              </td>
                                                              <td colspan=7 align="center" id="Weightage_list">
-                                                           <?php
+                                                           <?php 
                                                            $reporting_list = new EmployeeForm();
 $head_array = array();
                                             $where = 'where Employee_id = :Employee_id';
@@ -1425,25 +2272,25 @@ $head_array = array();
                                             $emp_all_detail = $reporting_list->get_employee_data($where,$data,$list);
 for($i=0;$i<4;$i++)
 {
-if($emp_all_detail['0']['reporting_1_change'] != '')
+if(isset($emp_all_detail['0']['reporting_1_change']) && $emp_all_detail['0']['reporting_1_change'] != '')
 {
 $head_array[$i] = $emp_all_detail['0']['reporting_1_change'];
 }
-else if($emp_all_detail['0']['reporting_2_change'] !='')
+else if(isset($emp_all_detail['0']['reporting_2_change']) && $emp_all_detail['0']['reporting_2_change'] !='')
 {
 $head_array[$i] = $emp_all_detail['0']['reporting_2_change'];
 }
-else if($emp_all_detail['0']['Reporting_officer2_id'] !='')
+else if(isset($emp_all_detail['0']['Reporting_officer2_id']) && $emp_all_detail['0']['Reporting_officer2_id'] !='')
 {
 $head_array[$i] = $emp_all_detail['0']['Reporting_officer2_id'];
 }
-else if($emp_all_detail['0']['Reporting_officer1_id'] !='')
+else if(isset($emp_all_detail['0']['Reporting_officer1_id']) && $emp_all_detail['0']['Reporting_officer1_id'] !='')
 {
 $head_array[$i] = $emp_all_detail['0']['Reporting_officer1_id'];
 }
 }
 $head_array['0'] = $emp_all_detail['0']['Reporting_officer1_id'];
-if($emp_all_detail['0']['Reporting_officer2_id'] != '')
+if(isset($emp_all_detail['0']['Reporting_officer2_id']) && $emp_all_detail['0']['Reporting_officer2_id'] != '')
 {
 $head_array['1'] = $emp_all_detail['0']['Reporting_officer2_id'];
 }
@@ -1472,7 +2319,7 @@ $head_array['1'] = $emp_all_detail['0']['Reporting_officer2_id'];
                                                         </td>
                                                     </tr>                                 
                                                    <tr id="other_format_text">   
-                                                   <label id="kpi_list_number" style="display: none"><?php  if($kpi_count != '')
+                                                   <label id="kpi_list_number" style="display: none"><?php  if(isset($kpi_count) && $kpi_count != '')
                                                     {
                                                         echo count($kpi_count);
                                                     }?></label>   
@@ -1527,7 +2374,8 @@ $head_array['1'] = $emp_all_detail['0']['Reporting_officer2_id'];
                                                            $format_list = array('Select' => 'Select','Days' => 'Days','Date' => 'Date','Units' => 'Units','Weight' => 'Weight','Ratio' => 'Ratio','Value' => 'Value(In Lakhs)','Percentage' => 'Percentage','Text' => 'Text');
                                                            $goal_status_list = array('Select' => 'Select','Pending' => 'Pending','Approved' => 'Approved');
                                                             $wtage = array('0'=>'0','15'=>'15','20'=>'20','25'=>'25','30'=>'30','40'=>'40','50'=>'50');
-                                                           if (isset($kpi_data_edit)) {
+                                                            //echo "fgfdg";die();
+                                                           if (isset($kpi_data_edit) && count($kpi_data_edit)>0 && isset($kpi_data_edit[$a])) {
                                                              $kpi_target = $kpi_data_edit[$a]['target'];
                                                              $goal_status_flag1 = '';
                                                                $kpi_category[$kpi_data_edit[$a]['KRA_category']] = array('selected' => 'selected');
@@ -1535,19 +2383,33 @@ $head_array['1'] = $emp_all_detail['0']['Reporting_officer2_id'];
                                                                //print_r($kpi_category);die();
                                                                $kpi_desc = $kpi_data_edit[$a]['KRA_description'];
                                                                $kpi_id = $kpi_data_edit[$a]['KPI_id'];
-                                                               $list_count = explode(';', $kpi_data_edit[$a]['target_unit']);
+                                                               if (isset($kpi_data_edit[$a]['target_unit'])) {
+                                                                   $list_count = explode(';', $kpi_data_edit[$a]['target_unit']);
+                                                               }
+                                                               if (isset($kpi_data_edit[$a]['kpi_list'])) {
+                                                                   $kpi_count = explode(';', $kpi_data_edit[$a]['kpi_list']);
+                                                               }
+                                                               if (isset($kpi_data_edit[$a]['target_unit'])) {
+                                                                  $target_unit = explode(';', $kpi_data_edit[$a]['target_unit']);
+                                                               }
+                                                               
                                                                $wtg[$kpi_data_edit[$a]['target']] = array('selected' => 'selected');
-                                                               $kpi_count = explode(';', $kpi_data_edit[$a]['kpi_list']);
-                                                               $target_unit = explode(';', $kpi_data_edit[$a]['target_unit']);
+                                                               
+                                                               
 $faculty_select[$kpi_data_edit[$a]['appraisal_id1']] = array('selected' => 'selected');
                                                                 $employee_id = $kpi_data_edit[$a]['Employee_id'];
                                                                //print_r($list_count);die();
-                                                               $target_value1 = explode(';', $kpi_data_edit[$a]['target_value1']);
-                                                               $per_kpi_wt = explode(';', $kpi_data_edit[$a]['KPI_target_value']);
+                                                                if (isset($kpi_data_edit[$a]['target_value1'])) {
+                                                                   $target_value1 = explode(';', $kpi_data_edit[$a]['target_value1']);
+                                                                }
+                                                                if (isset($kpi_data_edit[$a]['KPI_target_value'])) {
+                                                                     $per_kpi_wt = explode(';', $kpi_data_edit[$a]['KPI_target_value']);
+                                                                }
+                                                              
 $KRA_status_flag = $kpi_data_edit[$a]['KRA_status'];
                                                                $goal_status_flag = $kpi_data_edit[$a]['goal_status'];
                                                             }
-                                                            else if(isset($kpi_auto_data) && count($kpi_auto_data)>0)
+                                                            else if(isset($kpi_auto_data) && count($kpi_auto_data)>0 && isset($kpi_auto_data[$a]['0']))
                                                             {
                                                                 $kpi_target = $kpi_auto_data[$a]['0']['target'];
                                                                 $kpi_category[$kpi_auto_data[$a]['0']['KRA_category']] = array('selected' => 'selected');
@@ -1568,15 +2430,18 @@ $KRA_status_flag = $kpi_auto_data[$a]['0']['KRA_status'];
 
                                                             }
                                                            
-                                                            if (isset($KRA_category_auto[$a]['0']['minimum_kpi']) && count($list_count) == 1) {
+                                                            if (isset($KRA_category_auto[$a]['0']['minimum_kpi']) && isset($list_count) && count($list_count) == 1) {
                                                                 $list_cnt = $KRA_category_auto[$a]['0']['minimum_kpi'];
                                                             }
                                                             else
                                                             {
-                                                                $list_cnt = count($list_count);
+                                                                if (isset($list_count)) {
+                                                                    $list_cnt = count($list_count);
+                                                                }
+                                                                
                                                             }
                                                            
-                                                            if ($kpi_id_data == '') {
+                                                            if (isset($kpi_id_data) && $kpi_id_data == '') {
                                                                $kpi_id_data = $kpi_id;
                                                             }
                                                             else
@@ -1596,7 +2461,7 @@ $KRA_status_flag = $kpi_auto_data[$a]['0']['KRA_status'];
                                                              <td colspan=7 align="center" valign=bottom>                
                                                             <?php  echo CHtml::textField('KRA_description',$kpi_desc,array('style'=>'float: left;','class'=>'form-control KRA_description-'.$kpi_id)); ?>
                                                         </td>
-                                                        <label id="total_<?php echo $cnt_num; ?>" style="display: none"><?php echo $kpi_target; ?></label>
+                                                        <label id="total_<?php echo $cnt_num; ?>" style="display: none"><?php if(isset($kpi_target)) { echo $kpi_target; } ?></label>
                                                     </tr>
                                                     <tr>
                                                             <td style="">
@@ -1663,17 +2528,7 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
                                                              ?>
                                                         </td>
                                                     </tr>
-                                                   <!--  <tr>
-                                                     <td>
-                                                                KRA Status
-                                                             </td>
-                                                        <td>
-                                                        <?php
-                                                        $goal_status_flag1[$goal_status_flag] = array('selected' => 'selected');
-                                                        echo CHtml::dropDownList("goal_status",'',$goal_status_list,$htmlOptions=array('class'=>'form-control','id'=>'goal_status-'.$kpi_id,'options' => $goal_status_flag1,'style'=>'width: 150px;'));
-                                                        ?>
-                                                        </td>
-                                                    </tr>   -->  
+                                                  
 <div>                                                
                                                     <table id="kpi_record-<?php echo $kpi_id; ?>" class=" table table-striped" style="margin-top: -20px;"> 
                                                      <th style="font-weight:bold;text-align: center;"  rowspan="2"> Key Performance Indicator (KPI) description  </th>
@@ -1703,7 +2558,7 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
                                                    <label id="kpi_list_number<?php echo $kpi_id; ?>" style="display: none"><?php  if($kpi_count != '')
                                                     {
                                                         echo count($kpi_count);
-                                                    }?></label>
+                                                    } ?></label>
                                                    
                                                    <label id='min_kpi<?php echo $kpi_id; ?>' style="display: none"><?php if(isset($list_count) && $list_count != ''){ echo count($list_count); }?></label><label style="display: none" id='max_kpi<?php echo $kpi_id; ?>'></label>
                                                     <label style="display: none" class='target_need1'>1</label>
@@ -1883,14 +2738,25 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
                                 }
                                 ?>
                                 <label id="total_kra_id" style="display: none"><?php echo $kpi_id_data; ?></label>
-<?php
+<?php 
 		$employee_email = '';$appriaser_1 = '';
     	//print_r($_POST['emp_id']);die();
     	$emploee_data =new EmployeeForm;
                 $notification_data =new NotificationsForm;
     	$kra=new KpiAutoSaveForm;
     	$setting_date=new SettingsForm;
-		$where = 'where setting_content = :setting_content and year = :year';
+		
+
+		if (isset($_POST['emp_id'])) {
+			$emp_id = Yii::app()->user->setState('emp_id2',$_POST['emp_id']);
+		}
+		else
+		{
+			$emp_id = '';
+		}
+		$emp_id = Yii::app()->user->getState('emp_id2');
+
+        $where = 'where setting_content = :setting_content and year = :year';
         $list = array('setting_content','year');
         $data = array('PMS_display_format',date('Y'));             
         $settings_data = $setting_date->get_setting_data($where,$data,$list); 
@@ -1900,72 +2766,71 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
         $data = array('PMS_display_format',date("Y",strtotime("-1 year")));             
         $settings_data1 = $setting_date->get_setting_data($where,$data,$list);
 
-    	$Employee_id = Yii::app()->user->getState("employee_email");
-    	$appriaser_1 = Yii::app()->user->getState("appriaser_1");
+        $Employee_id = Yii::app()->user->getState("employee_email");
+        $appriaser_1 = Yii::app()->user->getState("appriaser_1");
 
-    	$where1 = 'where Employee_id = :Employee_id';
-		$list1 = array('Employee_id');
-		$data2 = array($_POST['emp_id']);
-		$employee_data1 = $emploee_data->get_employee_data($where1,$data2,$list1);
-		$mail_id = $employee_data1['0']['Email_id'];
-    	//print_r(Yii::app()->user->getState("employee_email"));die();
-    	$where1 = 'where Email_id = :Email_id';
-		$list1 = array('Email_id');
-		$data2 = array($mail_id);
-		$employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
+        $where1 = 'where Employee_id = :Employee_id';
+        $list1 = array('Employee_id');
+        $data2 = array($emp_id);
+        $employee_data1 = $emploee_data->get_employee_data($where1,$data2,$list1);
+        $mail_id = '';
+        if (isset($employee_data1['0']['Email_id'])) {
+             $mail_id = $employee_data1['0']['Email_id'];
+        }
+       
+        //print_r(Yii::app()->user->getState("employee_email"));die();
+        $where1 = 'where Email_id = :Email_id';
+        $list1 = array('Email_id');
+        $data2 = array($mail_id);
+        $employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
 
-		$where1 = 'where Email_id = :Email_id';
-		$list1 = array('Email_id');
-		$data2 = array(Yii::app()->user->getState("employee_email"));
-		$employee_data1 = $emploee_data->get_employee_data($where1,$data2,$list1);
+        $where1 = 'where Email_id = :Email_id';
+        $list1 = array('Email_id');
+        $data2 = array(Yii::app()->user->getState("employee_email"));
+        $employee_data1 = $emploee_data->get_employee_data($where1,$data2,$list1);
 
-		if (count($settings_data)>0) {
-        	$where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
-			$list1 = array('Employee_id','goal_set_year');
-			$data2 = array($_POST['emp_id'],$settings_data['0']['setting_type']);
-			$kra_data = $kra->get_kpi_list($where1,$data2,$list1);	
-		}
-		else if(count($settings_data1)>0)
-		{
-			$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
-        	if ($settings_data1['0']['setting_type'] == $year) {
-        		$where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
-				$list1 = array('Employee_id','goal_set_year');
-				$data2 = array($_POST['emp_id'],$settings_data1['0']['setting_type']);
-				$kra_data = $kra->get_kpi_list($where1,$data2,$list1);
-        	} 
-		}
-		else
-		{			
-			$where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
-			$list1 = array('Employee_id','goal_set_year');
-			$data2 = array($_POST['emp_id'],date('Y'));
-			$kra_data = $kra->get_kpi_list($where1,$data2,$list1);
-		}
-		
-                if (isset($_POST['chk_goalsheet_flag'])) {
-			for ($i=0; $i < count($kra_data); $i++) { 
-			$data = array(
-			'KRA_status' => 'Approved',
-			);
-			$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id',array(':KPI_id'=>$kra_data[$i]['KPI_id']));
-		}
-		
-    	//print_r($kra_data);die();
-			$notification_data->notification_type = 'Updated Goalsheet';
-		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
-		  $notification_data->date = date('Y-m-d');
-		  $notification_data->save();	
-		
-		}
-		if (isset($_POST['emp_id'])) {
-			$emp_id = Yii::app()->user->setState('emp_id2',$_POST['emp_id']);
-		}
-		else
-		{
-			$emp_id = '';
-		}
-		$emp_id = Yii::app()->user->getState('emp_id2');
+        if (isset($settings_data['0']['setting_type']) && count($settings_data)>0) {
+            $where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
+            $list1 = array('Employee_id','goal_set_year');
+            $data2 = array($emp_id,$settings_data['0']['setting_type']);
+            $kra_data = $kra->get_kpi_list($where1,$data2,$list1);  
+        }
+        else if(isset($settings_data1['0']['setting_type']) && count($settings_data1)>0)
+        {
+            $year =  date("Y",strtotime("-1 year")).'-'.date('Y');
+            if ($settings_data1['0']['setting_type'] == $year) {
+                $where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
+                $list1 = array('Employee_id','goal_set_year');
+                $data2 = array($emp_id,$settings_data1['0']['setting_type']);
+                $kra_data = $kra->get_kpi_list($where1,$data2,$list1);
+            } 
+        }
+        else
+        {           
+            $where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
+            $list1 = array('Employee_id','goal_set_year');
+            $data2 = array($emp_id,date('Y'));
+            $kra_data = $kra->get_kpi_list($where1,$data2,$list1);
+        }
+        
+        
+        if (isset($_POST['chk_goalsheet_flag']) && isset($kra_data) && count($kra_data)>0) {
+            for ($i=0; $i < count($kra_data); $i++) { 
+            $data = array(
+            'KRA_status' => 'Approved',
+            );
+            if (isset($kra_data[$i]['KPI_id'])) {                
+                $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id',array(':KPI_id'=>$kra_data[$i]['KPI_id']));
+            }
+        }
+        
+        if (isset($employee_data['0']['Employee_id'])) {
+              $notification_data->notification_type = 'Updated Goalsheet';
+              $notification_data->Employee_id = $employee_data['0']['Employee_id'];
+              $notification_data->date = date('Y-m-d');
+              $notification_data->save();   
+        }       
+        }
 		
 			$model = new LoginForm;	
 			$model1 = new KpiAutoSaveForm;
@@ -2010,12 +2875,15 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
 			$data = array($Employee_id);
 			$IDP_data = $IDPForm->get_idp_data($where,$data,$list);
 			//print_r($IDP_data);die();
-			$where = 'where Email_id = :Email_id';
-			$list = array('Email_id');
-			$data = array($emp_data['0']['Reporting_officer1_id']);
-			$mgr_data = $employee->get_employee_data($where,$data,$list);
+            if (isset($emp_data['0']['Reporting_officer1_id'])) {
+                $where = 'where Email_id = :Email_id';
+                $list = array('Email_id');
+                $data = array($emp_data['0']['Reporting_officer1_id']);
+                $mgr_data = $employee->get_employee_data($where,$data,$list);
+            }
 			
-			if (count($settings_data)>0) {
+			
+			if (isset($settings_data['0']['setting_type']) && count($settings_data)>0) {
 				$where = 'where Employee_id = :Employee_id and KRA_status =:KRA_status and goal_set_year = :goal_set_year';
 				$list = array('Employee_id','KRA_status','goal_set_year');
 				$data = array($Employee_id,'Approved',$settings_data['0']['setting_type']);
@@ -2026,7 +2894,7 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
 				$prg_cnt = 1;
 				}
 			}
-			else if (count($settings_data1)>0) {
+			else if (isset($settings_data1['0']['setting_type']) && count($settings_data1)>0) {
 			$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
 				if ($settings_data1['0']['setting_type'] == $year) {
 					$where = 'where Employee_id = :Employee_id and KRA_status =:KRA_status and goal_set_year = :goal_set_year';
@@ -2051,7 +2919,8 @@ else if($emp_all_detail['0']['Reporting_officer2_id'] != '')
 				{
 				$prg_cnt = 1;
 				}
-			}
+			} 
+
 ?>
 
 
@@ -2091,7 +2960,7 @@ $set_flag1 = "'disabled'= 'false'";
                                     <p> IDP updation done successfully. </p>
                                 </div>
                                 <div class="modal-footer">
-                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/pmsuser/index.php?r=IDP/IDP_approvegoal_list"><button type="button" class="btn border-blue-soft" id="redirect_to_master">OK</button></a>
+                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/vvf.kritva.in/index.php?r=IDP/IDP_approvegoal_list"><button type="button" class="btn border-blue-soft" id="redirect_to_master">OK</button></a>
                                 </div> 
                         </div>
                     </div>
@@ -2129,11 +2998,12 @@ $set_flag1 = "'disabled'= 'false'";
                                                                     'enableClientValidation'=>true,
                                                                     'action' => array('index.php/Setgoals/emp_kpi_edit'),
                                                                 ));
-                                                                 ?>
-<?php echo CHtml::textField('emp_id',$emp_data['0']['Employee_id'],array('style'=>'display:none')); ?>
-                                                                  <?php echo CHtml::submitButton('OK',array('style'=>'float:right','class'=>'btn dark btn-outline')); ?>
+                                                           ?>
+<?php if(isset($emp_data['0']['Employee_id'])) { echo CHtml::textField('emp_id',$emp_data['0']['Employee_id'],array('style'=>'display:none')); } ?>
+                                                                  <?php echo CHtml::submitButton('OK',array('style'=>'float:right','class'=>'btn dark btn-outline'));  ?>
 <?php 
                                         $this->endWidget(); 
+
                                         ?> 
                                   
                                     </a>
@@ -2156,11 +3026,11 @@ $set_flag1 = "'disabled'= 'false'";
                                             <lable id="compare_designation" style="display: none"><?php if(isset($designation_flag)) { echo $designation_flag; } ?></lable>
                                         </div>
                                         <lable id="Reporting_officer1_id" style="display: none">
-                                           <?php  if(isset($emp_data)&& count($emp_data)>0){
+                                           <?php if(isset($emp_data[0])&& count($emp_data)>0){
                                            echo trim($emp_data[0]['Reporting_officer1_id']);   }?> 
                                         </lable>
                                          <lable id="emp_code" style="display: none">
-                                           <?php  if(isset($emp_data)&& count($emp_data)>0){
+                                           <?php  if(isset($emp_data[0])&& count($emp_data)>0){
                                            echo trim($emp_data[0]['Employee_id']);   }?> 
                                         </lable>
                                         <div class="portlet-body form">
@@ -2173,7 +3043,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                       </div>
                                                         <div class="col-md-4">
                                                           <?php 
-                                                          if(isset($emp_data)&& count($emp_data)>0){
+                                                          if(isset($emp_data[0])&& count($emp_data)>0){
                                                                 echo $emp_data[0]['Emp_fname']." ".$emp_data[0]['Emp_lname'];
                                                                 }?>
                                                                                                            
@@ -2183,7 +3053,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                        <span class="bold">Manager’s name</span></label>
                                                       </div>
                                                         <div class="col-md-4">
-                                                        <?php if(isset($mgr_data) && count($mgr_data)>0){
+                                                        <?php if(isset($mgr_data[0]) && count($mgr_data)>0){
                                                              echo $mgr_data[0]['Emp_fname']." ".$mgr_data[0]['Emp_lname'];}
                                                         ?>
                                                         </div>
@@ -2193,7 +3063,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                         <span class="bold">Employee Code</span></label>
                                                   </div>
                                                         <div class="col-md-4">                                                        
-                                                           <?php  if(isset($emp_data)&& count($emp_data)>0){
+                                                           <?php  if(isset($emp_data[0])&& count($emp_data)>0){
                                                            echo $emp_data[0]['Employee_id'];   }?> 
                                                         </div>
                                                         
@@ -2245,6 +3115,7 @@ width: 100%;">&nbsp;&nbsp;
                                      $compulsory = '';$compulsory_cnt = 1;					
                                     if (isset($program_data_result) && count($program_data_result)>0) {
                                         for ($i=0; $i < count($program_data_result); $i++) {    
+                                        if (isset($program_data_result[$i])) {
                                           if (isset($IDP_data['0']['program_comment'])) {
                                              $cmt2 = explode(';', $IDP_data['0']['program_comment']);
                                           }
@@ -2258,7 +3129,7 @@ width: 100%;">&nbsp;&nbsp;
                                                
                                                 for ($j=0; $j < count($cmt2); $j++) {
                                                     $cmt1 = explode('?', $cmt2[$j]);
-                                                    if ($i == $cmt1[0]) {                                                            
+                                                    if (isset($cmt1[0]) && isset($cmt1[1]) && $i == $cmt1[0]) {                                                            
                                                          $cmnt = $cmt1[1];
                                                     }
                                                 }
@@ -2268,7 +3139,7 @@ width: 100%;">&nbsp;&nbsp;
                                                 $cmnt = '';
                                             }
                                                                                 
-                                            if ($program_data_result[$i]['need'] != 0) {
+                                            if (isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] != 0) {
                                                 if ($compulsory == '') {
                                                    $compulsory = $i;
                                                 }
@@ -2295,7 +3166,7 @@ else
 {
 echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i));
 }
-                                                    
+                                                
                                                 ?> </td>
                                                  <td <?php if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') { ?>style="display:none"<?php } ?>>
                                                  <?php if($program_data_result[$i]['need'] == 1 || $program_data_result[$i]['need'] == 2) { ?><?php }else if($program_data_result[$i]['need'] == 0) { ?>
@@ -2307,6 +3178,7 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                             <?php 
                                     }
                                     } 
+                                }
                                     ?>   
                                     <tr  <?php if(isset($IDP_data['0']['set_status']) && $IDP_data['0']['set_status']!='Approved')
                                                   { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?>>                                       
@@ -2316,31 +3188,36 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                             $list_prog = ''; $list_prog1 = '';$list_prog2 = '';
                                              $ProgramDataForm = new ProgramDataForm();
                                              $list_of_program = $ProgramDataForm->get_data();                                             
-                                             if (isset($IDP_data) && count($IDP_data)>0 && $IDP_data['0']['program_comment']!='') 
+                                             if (isset($IDP_data['0']) && count($IDP_data)>0 && $IDP_data['0']['program_comment']!='') 
                                              {
-                                               $list_prog = explode(';',$IDP_data['0']['program_comment']);                               
-                                                  for ($ln=0; $ln < count($list_of_program); $ln++) { 
-                                                    for ($li=0; $li < count($list_prog); $li++) {
-                                                      $list_prog2 = explode('?',$list_prog[$li]);
-                                                        if ($ln == $list_prog2[0]) 
-                                                        {
-                                                          $list_prog1[$ln] = '1'; 
-                                                          break;                                                       
-                                                        }
-                                                        else
-                                                        {
-                                                          $list_prog1[$ln] = '0';     
-                                                        }
-
-                                                     } 
-                                               }
-                                             }
+                                               $list_prog = explode(';',$IDP_data['0']['program_comment']);    
+                                                    if (isset($list_of_program) && isset($list_prog) && count($list_of_program)>0) 
+                                                    {
+                                                        for ($ln=0; $ln < count($list_of_program); $ln++) { 
+                                                            for ($li=0; $li < count($list_prog); $li++) {
+                                                                if (isset($list_prog[$li])) {
+                                                                    $list_prog2 = explode('?',$list_prog[$li]);
+                                                                    if(isset($list_prog1[$ln]) && isset($list_prog2[0]) && $ln == $list_prog2[0]) 
+                                                                    {
+                                                                      $list_prog1[$ln] = '1'; 
+                                                                      break;                                                       
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                      $list_prog1[$ln] = '0';     
+                                                                    }
+                                                                }
+                                                             } 
+                                                       }                       # code...
+                                                    }                           
+                                              
+                                             } 
                                              // print_r($list_prog1);die();
                                              $Cadre_id = array(); 
-                                             if (isset($list_of_program)) 
+                                             if (isset($list_of_program) && count($list_of_program)>0) 
                                              {
                                                 for ($l=0; $l < count($list_of_program); $l++) { 
-                                                if (isset($list_of_program[$l]['program_name']) && $list_prog1[$l] == '0') {
+                                                if (isset($list_of_program[$l]['program_name']) && isset($list_prog1[$l]) && $list_prog1[$l] == '0') {
                                                    $Cadre_id[$list_of_program[$l]['program_name'].'-'.$l] = $list_of_program[$l]['program_name'];
                                                 }
                                                    
@@ -2350,10 +3227,11 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                     </td>
                                      <td colspan="4">
                                                <?php
-                                                  if(isset($IDP_data) && count($IDP_data)>0 && $IDP_data['0']['set_status']!='Approved')
+                                                  if(isset($IDP_data['0']) && count($IDP_data)>0 && $IDP_data['0']['set_status']!='Approved')
                                                   { ?>
                                                       <button type="button" class="btn btn-primary comp_add_program" id="<?php if(isset($cmt2) && count($cmt2)>0) { echo $compulsory_cnt; } ?>" style="float: left;">Add Program</button>
                                                 <?php  }
+                                                
                                                 ?>
                                         </td>
                                     </tr>                               
@@ -2370,10 +3248,11 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                                 </div>
                                                 <?php
                                                 $count = '';$count_value = 0;
-                                                 if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
+                                                 if (isset($IDP_data['0']) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
                                                                     $count = explode(';',$IDP_data['0']['extra_topic']);
                                                                    
 //die();
+                                                                     
                                                  ?>
                                                  <div class="form-group">                                                         
                                                             <div class="col-md-4 bold">
@@ -2386,10 +3265,9 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                                   </div>
                                                   <div class="row_rfrsh">
                                                  <?php 
-                                                    if ($count !='') { 
-                                                      for ($m=0; $m < count($count); $m++) {  
-
-                                                        if ($count[$m] != '' && $count[$m] != 'undefined') {
+                                                    if (isset($count) && $count !='') { 
+                                                      for ($m=0; $m < count($count); $m++) {  die();
+                                                        if (isset($IDP_data['0']) && $count[$m] != '' && $count[$m] != 'undefined') {
                                                         $count_value++;
                                                         $topic1 = explode(';',$IDP_data['0']['extra_topic']);
                                                         $day1 = explode(';',$IDP_data['0']['extra_days']);
@@ -2421,7 +3299,7 @@ else
 {
  echo CHtml::textField('days_required'.$m,$day,$htmlOptions=array('class'=>"form-control col-md-4 days_required".$m));
 }
- 
+ die();  
  ?> 
                                                         </div>
                                                         <div class="col-md-2">
@@ -2435,7 +3313,7 @@ else
                                                                 $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
                                                              }
                                                              $Cadre_id = array(); 
-                                                             if (isset($Reporting_officer_data)) 
+                                                             if (isset($Reporting_officer_data['0'])) 
                                                              {
                                                                 for ($l=0; $l < count($Reporting_officer_data); $l++) { 
                                                                 if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
@@ -2612,7 +3490,7 @@ else
 {
  echo CHtml::textField('faculty_email_id4',$faculty4,$htmlOptions=array('class'=>"form-control col-md-4 faculty_email_id4",'id'=>'faculty_email_id4'));
 }
-                                                            
+                                                          
                                                              ?>
                                                           </div>
                                                        <div class="col-md-2">
@@ -2620,7 +3498,9 @@ else
                                                            $meet = '';
                                                           if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
                                                             $meet = explode(';',$IDP_data['0']['meeting_planned']);
-                                                            $meet = $meet[1];
+                                                            if (isset($meet[1])) {
+                                                                $meet = $meet[1];
+                                                            }                                                            
                                                           }
                                                           else
                                                           {
@@ -2850,7 +3730,7 @@ else
                                 </div>
                             </div>
 <lable id="term_condition_hide">
-<?php
+<?php 
     $header_menu =new SettingsForm;
       $menu_settings_data = '';$menu_settings_data1 = '';
       $menu_list = array('goal_sub_date','mid_goal_set_tab_active-date','final_goal_set_tab_active-date');
@@ -2876,7 +3756,7 @@ if (isset($menu_settings_data['0']['0']['setting_content']) && ($menu_settings_d
                                                     ?>
 <input name="term_condition" type="checkbox" value="term_condition" id="term_condition"/><lable id="blink_me" style="color: red;"> I confirm this goal sheet is discussed and agreed
 with <?php if(isset($emp_data['0']['Emp_fname'])) { echo $emp_data['0']['Emp_fname']." ".$emp_data['0']['Emp_lname']; } ?></lable>
-                                <?php echo CHtml::button('Approve Goal Sheet of '.$employee_name,array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>$employee_id,'onclick'=>'js:send_notification();')); ?>
+                                <?php if(isset($employee_id)) { echo CHtml::button('Approve Goal Sheet of '.$employee_name,array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>$employee_id,'onclick'=>'js:send_notification();')); } ?>
 </lable><div id="show_spin2" style="display: none;margin-top: 10px;float: right;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i></div>
 <?php  ?>
                                 <!-- END PAGE BASE CONTENT -->
@@ -2895,7 +3775,8 @@ with <?php if(isset($emp_data['0']['Emp_fname'])) { echo $emp_data['0']['Emp_fna
 
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
                 <script type="text/javascript">
-            
+                //var j = jQuery.noConflict();
+                    
                      $(function(){
                        $("body").on('click','.del_kra_kpi',function(){
                             var this_id = $(this).attr('id');
@@ -2911,7 +3792,7 @@ with <?php if(isset($emp_data['0']['Emp_fname'])) { echo $emp_data['0']['Emp_fna
                                     $.ajax({
                                     type : 'post',
                                     data : data,
-                                    url : base_url+'/index.php?r=Setgoals/krakpi_del',
+                                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/krakpi_del',
                                     success : function(data)
                                     {
                                        
@@ -3619,7 +4500,7 @@ val1 = $("#unit_value-"+kra_id_value1[j]+i).attr('value');
                                                 type : 'post',
                                                 datatype : 'html',
                                                 data : data,
-                                                url : base_url+'/index.php?r=Setgoals/update_emp_kpi',
+                                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/update_emp_kpi',
                                                 success : function(data)
                                                 {
 //alert(data);
@@ -4056,7 +4937,7 @@ if (chk_compl1 == 1)
                               'type' : 'post',
                               'datatype' : 'html',
                               'data' : detail_data,
-                              'url' : base_url+'/index.php?r=IDP/save_data_final',
+                              'url' : base_url+$("#basepath").attr('value')+'/index.php?r=IDP/save_data_final',
                             success : function(data)
                             {
                                $("#show_spin2").css('display','block');
@@ -4068,7 +4949,7 @@ if (chk_compl1 == 1)
                                     type : 'post',
                                     datatype : 'html',
                                     data : data,
-                                    url : base_url+'/index.php?r=Setgoals/final_goal_review1',
+                                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/final_goal_review1',
                                     success : function(data)
                                     {
 
@@ -4097,7 +4978,7 @@ if (chk_compl1 == 1)
                                                             type : 'post',
                                                             datatype : 'html',
                                                             data : data,
-                                                            url : base_url+'/index.php?r=Setgoals/goalapproved',
+                                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/goalapproved',
                                                             success : function(data)
                                                             {
                                                                 //alert(data);
@@ -4143,845 +5024,7 @@ $("#show_spin2").css('display','none');
                
                           } 
                 });
-$("body").on('click','.getapprove',function(){  
-                    var error_count = 0;var error_count1 = 0;var error_count2 = ''; 
-                    var id_value = $(this).attr('id')+';'+0;
-                    var kra_id_value1 = id_value.split(';');      
-                    var kra_des = $("#KRA_description").val();
-                    var string = /^(0[1-9]|[0-3][0-3])([/]{1})(0[1-9]|1[0-2])([/]{1})((19|20)[0-9]{2})$/;
-                    var string_num = /^([0-9])$/;var checkwt = /[-]/;
-                     var data_length = kra_des.length;var final_kpi_wt = '';
-                    var error = [];
-                    for (var j = 0; j < $("#total_kra_number").text(); j++) { error[kra_id_value1[j]] = [];
-                        var kra_num = $("#kpi_list_number"+kra_id_value1[j]).text();var kpi_list = '';var kpi_unit = '';var kpi_value = '';var kpi_total = 0;var kpi_target_total = '';var goal_status = '';var final_kpi_total1 = 0;
-                           
-                            var kpi_list_data = 0;var add_value = 0;var final_kpi_total = 0;var final_kpi_wt1 =''; var final_kpi_wt2 =''; var final_kpi_wt3 = '';    
-                            for (var i = 0; i < 1; i++) {
-                                if ($("#Weightage"+kra_id_value1[j]+i).val() != 0 && $("#kpilistyii_"+kra_id_value1[j]+i).val()!= '' && $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val()!='Select') 
-                                {
-                                    kpi_list_data = parseInt(kpi_list_data)+parseInt(1);
-                                    if (($("#kpi_target_value-"+kra_id_value1[j]+i).val() != '' && !checkwt.test($("#kpi_target_value-"+kra_id_value1[j]+i).val()) && $("#kpi_target_value-"+kra_id_value1[j]+i).val() != 0) && $.isNumeric($("#kpi_target_value-"+kra_id_value1[j]+i).val())) 
-                                        {
-                                            var kpi_wt = $("#kpi_target_value-"+kra_id_value1[j]+i).val(); 
-                                            final_kpi_wt3 = 1;
-                                            if (final_kpi_wt1 == '') 
-                                                {
-                                                    final_kpi_wt1 = $("#kpi_target_value-"+kra_id_value1[j]+i).val();
-                        final_kpi_wt2 = $("#kpi_target_value-"+kra_id_value1[j]+i).val();
-                                                }
-                                                else
-                                                {
-                                                   final_kpi_wt1 = final_kpi_wt1+';'+$("#kpi_target_value-"+kra_id_value1[j]+i).val();
-                        final_kpi_wt2 = parseFloat(final_kpi_wt2)+parseFloat($("#kpi_target_value-"+kra_id_value1[j]+i).val());
-                                                }
-                        
-                                        }
-                                         else if($("#kpi_target_value-"+kra_id_value1[j]+i).val() != '')
-                                        {
-                                            final_kpi_wt3 = 0;
-                                        error[kra_id_value1[j]] = "Please enter valid numbers in KPI Weightage field.";error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                        }
-                                }
-                                else
-                                {
-                                    error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;                               
-                                }
-                            }
-                                if($(".kra_category-"+kra_id_value1[j]).find(':selected').val() == '--Select--' || $(".kra_category-"+kra_id_value1[j]).find(':selected').val() == '' || $(".kra_category-"+kra_id_value1[j]).find(':selected').val() === undefined)
-                                {
-                                     error[kra_id_value1[j]] = 'Please Select KRA Category';error_count1 = kra_id_value1[j];error_count2 = kra_id_value1[j];break;       
-                                }
-else if($(".KRA_description-"+kra_id_value1[j]).val() == '' || $(".KRA_description-"+kra_id_value1[j]).val() === undefined)
-                                {
-                                     error[kra_id_value1[j]] = 'Please enter KRA description';error_count1 = kra_id_value1[j];error_count2 = kra_id_value1[j];break;       
-                                } 
-                              else if($("#Weightage"+kra_id_value1[j]).find(':selected').val() == '0')
-                              {
-                                 error[kra_id_value1[j]] = 'Please KRA select Weightage.';error_count1 = kra_id_value1[j];error_count2 = kra_id_value1[j];break;       
-                              }    
-                                else if (error[kra_id_value1[j]] == '') 
-                                {
-                                    
-                 $(".KRA_description-"+kra_id_value1[j]).css('border-color','');                  
-                                    for (var i = 0; i < kra_num; i++) {
-                                    var selected_unit = $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
-                                    if ($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() != 'Select' && $("#kpilistyii_"+kra_id_value1[j]+i).val() != '') 
-                                    {
-                                        var selected_value = $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
-                                         if (kpi_list == '')
-                                        {
-                                            kpi_list = $("#kpilistyii_"+kra_id_value1[j]+i).val();
-                                            kpi_unit = $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
-                                            
-                                        }
-                                        else
-                                        {
-                                            kpi_list = kpi_list+';'+$("#kpilistyii_"+kra_id_value1[j]+i).val();
-                                            kpi_unit = kpi_unit+';'+$("#mask_number-"+kra_id_value1[j]+i).find(':selected').val();
-                                            
-                                        }
-                                        if (selected_value != 'Units' && selected_value != 'Weight' && selected_value != 'Value') 
-                                        {var chk_per = /[-]/;
-                                            if(selected_value == 'Percentage')
-                                            {
-                                               //alert($(".target_need1").text());               
-//alert($(".target_value1"+kra_id_value1[j]+i).text());
-                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need1").text() != 'undefined' || $(".target_need1").text() === undefined) && (!$.isNumeric($(".target_value1"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value1"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_value1"+kra_id_value1[j]+i).text()>100 || $(".target_value1"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need2").text() != 'undefined' || $(".target_need2").text() === undefined) && (!$.isNumeric($(".target_value2"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value2"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if($(".target_value2"+kra_id_value1[j]+i).text()>100 || $(".target_value2"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need3").text() != 'undefined' || $(".target_need3").text() === undefined) && (!$.isNumeric($(".target_value3"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value3"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if($(".target_value3"+kra_id_value1[j]+i).text()>100 || $(".target_value3"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need4").text() != 'undefined' || $(".target_need4").text() === undefined) && (!$.isNumeric($(".target_value4"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value4"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if($(".target_value4"+kra_id_value1[j]+i).text()>100 || $(".target_value4"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                               else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need5").text() != 'undefined' || $(".target_need5").text() === undefined) && (!$.isNumeric($(".target_value5"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value5"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if($(".target_value5"+kra_id_value1[j]+i).text()>100 || $(".target_value5"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should contain maximum 100 value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value5"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else
-                                                {
-var val1 = '';var val2 = '';var val3 = '';var val4 = '';var val5 = '';
-                                                    error[kra_id_value1[j]] = '';
-if($(".target_value1"+kra_id_value1[j]+i).val() != '')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value2"+kra_id_value1[j]+i).val() != '')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value3"+kra_id_value1[j]+i).val() != '')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value4"+kra_id_value1[j]+i).val() != '')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value5"+kra_id_value1[j]+i).val() != '')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
-}
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
-                                                    }
 
-                                                }
-                                            }
-                                            else  if(selected_value == 'Days')
-                                            {
-                                               //alert($(".target_need1").text());               
-//alert($(".target_value1"+kra_id_value1[j]+i).text());
-                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need1").text() != 'undefined' || $(".target_need1").text() === undefined) && (!$.isNumeric($(".target_value1"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value1"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need2").text() != 'undefined' || $(".target_need2").text() === undefined) && (!$.isNumeric($(".target_value2"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value2"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need3").text() != 'undefined' || $(".target_need3").text() === undefined) && (!$.isNumeric($(".target_value3"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value3"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need4").text() != 'undefined' || $(".target_need4").text() === undefined) && (!$.isNumeric($(".target_value4"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value4"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                               else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(($(".target_need5").text() != 'undefined' || $(".target_need5").text() === undefined) && (!$.isNumeric($(".target_value5"+kra_id_value1[j]+i).text()) && !$.isNumeric($(".target_value5"+kra_id_value1[j]+i).attr('value'))))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-else if(chk_per.test($(".target_value5"+kra_id_value1[j]+i).text()))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Days should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else
-                                                {
-                                                    var val1 = '';var val2 = '';var val3 = '';var val4 = '';var val5 = '';
-                                                    error[kra_id_value1[j]] = '';
-if($(".target_value1"+kra_id_value1[j]+i).val() != '')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value2"+kra_id_value1[j]+i).val() != '')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value3"+kra_id_value1[j]+i).val() != '')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value4"+kra_id_value1[j]+i).val() != '')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value5"+kra_id_value1[j]+i).val() != '')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
-}
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
-                                                    }
-
-                                                }
-                                            }
-                                            else if(selected_value == 'Date')
-                                            {
-                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }                                               
-                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }                                                
-                                                if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }                                                
-                                                if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }                                                
-                                                if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }                                                
-                                                else
-                                                {
-                                                    error[kra_id_value1[j]] = '';
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value =$(".target_value1"+kra_id_value1[j]+i).val()+'-'+$(".target_value2"+kra_id_value1[j]+i).val()+'-'+$(".target_value3"+kra_id_value1[j]+i).val()+'-'+$(".target_value4"+kra_id_value1[j]+i).val()+'-'+$(".target_value5"+kra_id_value1[j]+i).val();
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+$(".target_value1"+kra_id_value1[j]+i).val()+'-'+$(".target_value2"+kra_id_value1[j]+i).val()+'-'+$(".target_value3"+kra_id_value1[j]+i).val()+'-'+$(".target_value4"+kra_id_value1[j]+i).val()+'-'+$(".target_value5"+kra_id_value1[j]+i).val();                                   
-                                                    }
-
-                                                }
-                                            }
-                                            else if(selected_value == 'Text')
-                                            {
-                                                
-                                                var chk = /[;-]/;
-                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
-                                                
-                                                {
-                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if((chk.test($(".target_value1"+kra_id_value1[1]+i).val()) || ($(".target_value1"+kra_id_value1[j]+i).val()!='' && $(".target_value1"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value1"+kra_id_value1[1]+i).attr('value')) || ($(".target_value1"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value1"+kra_id_value1[j]+i).attr('value').length>2000)))
-                                                {
-                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                               else if((chk.test($(".target_value2"+kra_id_value1[1]+i).val()) || ($(".target_value2"+kra_id_value1[j]+i).val()!='' && $(".target_value2"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value2"+kra_id_value1[1]+i).attr('value')) || ($(".target_value2"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value2"+kra_id_value1[j]+i).attr('value').length>2000)))
-                                                {
-                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                               else if((chk.test($(".target_value3"+kra_id_value1[1]+i).val()) || ($(".target_value3"+kra_id_value1[j]+i).val()!='' && $(".target_value3"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value3"+kra_id_value1[1]+i).attr('value')) || ($(".target_value3"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value3"+kra_id_value1[j]+i).attr('value').length>2000)))
-                                                {
-                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if((chk.test($(".target_value4"+kra_id_value1[1]+i).val()) || ($(".target_value4"+kra_id_value1[j]+i).val()!='' && $(".target_value4"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value4"+kra_id_value1[1]+i).attr('value')) || ($(".target_value4"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value4"+kra_id_value1[j]+i).attr('value').length>2000)))
-                                                {
-                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if((chk.test($(".target_value5"+kra_id_value1[1]+i).val()) || ($(".target_value5"+kra_id_value1[j]+i).val()!='' && $(".target_value5"+kra_id_value1[j]+i).val().length>2000)) && (chk.test($(".target_value5"+kra_id_value1[1]+i).attr('value')) || ($(".target_value5"+kra_id_value1[j]+i).attr('value')!='' && $(".target_value5"+kra_id_value1[j]+i).attr('value').length>2000)))
-                                                {
-                                                     error[kra_id_value1[j]] = 'For the free text field ;- special characters are not allowed and maximum characters allowed are 150.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else
-                                                {
-//alert($(".target_value1"+kra_id_value1[j]+i).attr('value'));
-//alert($(".target_value2"+kra_id_value1[j]+i).attr('value'));
-//alert($(".target_value3"+kra_id_value1[j]+i).attr('value'));
-//alert($(".target_value4"+kra_id_value1[j]+i).attr('value'));
-//alert($(".target_value5"+kra_id_value1[j]+i).attr('value'));
-                                                                                   error[kra_id_value1[j]] = '';
-                                                   if($(".target_value1"+kra_id_value1[j]+i).val() != '')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value2"+kra_id_value1[j]+i).val() != '')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value3"+kra_id_value1[j]+i).val() != '')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value4"+kra_id_value1[j]+i).val() != '')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value5"+kra_id_value1[j]+i).val() != '')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
-}
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
-                                                    }
-
-
-                                                }
-                                            }
-                                            else if(selected_value == 'Ratio')
-                                            {
-                                                var ratio_chk = /^([0-9]{1,5}[:]{1}[0-9]{1,5})$/;
-                                                if($(".target_need1").text() != 'undefined' && ($(".target_value1"+kra_id_value1[j]+i).text()=='' && $(".target_value1"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                    error[kra_id_value1[j]] = 'Target 1 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(!ratio_chk.test($(".target_value1"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value1"+kra_id_value1[j]+i).attr('value')))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                               else if($(".target_need2").text() != 'undefined' && ($(".target_value2"+kra_id_value1[j]+i).text()=='' && $(".target_value2"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 2 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(!ratio_chk.test($(".target_value2"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value2"+kra_id_value1[j]+i).attr('value')))
-                                                {
-                                                    error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need3").text() != 'undefined' && ($(".target_value3"+kra_id_value1[j]+i).text()=='' && $(".target_value3"+kra_id_value1[j]+i).attr('value')==''))
-                                                
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 3 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                               else if(!ratio_chk.test($(".target_value3"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value3"+kra_id_value1[j]+i).attr('value')))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need4").text() != 'undefined' && ($(".target_value4"+kra_id_value1[j]+i).text()=='' && $(".target_value4"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 4 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(!ratio_chk.test($(".target_value4"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value4"+kra_id_value1[j]+i).attr('value')))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if($(".target_need5").text() != 'undefined' && ($(".target_value5"+kra_id_value1[j]+i).text()=='' && $(".target_value5"+kra_id_value1[j]+i).attr('value')==''))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Target 5 value is compulsory.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else if(!ratio_chk.test($(".target_value5"+kra_id_value1[j]+i).text()) && !ratio_chk.test($(".target_value5"+kra_id_value1[j]+i).attr('value')))
-                                                {
-                                                     error[kra_id_value1[j]] = 'Please enter valid value in ratio field(Example 1:2).';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
-                                                else
-                                                {
-                                                    error[kra_id_value1[j]] = '';
-                                                   if($(".target_value1"+kra_id_value1[j]+i).val() != '')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value1"+kra_id_value1[j]+i).attr('value') !='')
-{
-val1 = $(".target_value1"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value2"+kra_id_value1[j]+i).val() != '')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value2"+kra_id_value1[j]+i).attr('value') !='')
-{
-val2 = $(".target_value2"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value3"+kra_id_value1[j]+i).val() != '')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value3"+kra_id_value1[j]+i).attr('value') !='')
-{
-val3 = $(".target_value3"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value4"+kra_id_value1[j]+i).val() != '')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value4"+kra_id_value1[j]+i).attr('value') !='')
-{
-val4 = $(".target_value4"+kra_id_value1[j]+i).attr('value');
-}
-if($(".target_value5"+kra_id_value1[j]+i).val() != '')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).val();
-}
-else if($(".target_value5"+kra_id_value1[j]+i).attr('value') !='')
-{
-val5 = $(".target_value5"+kra_id_value1[j]+i).attr('value');
-}
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value =val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+val1+'-'+val2+'-'+val3+'-'+val4+'-'+val5;                                   
-                                                    }
-
-                                                }
-                                            }
-                                        }
-                                        else if(selected_value == 'Units' || selected_value == 'Weight' || selected_value == 'Value')
-                                        {
-
-                                             var string_num = /^([0-9.]{1,100})$/;
-                                            if ($("#unit_value-"+kra_id_value1[j]+i).val()=='' || $("#unit_value-"+kra_id_value1[j]+i).val() === undefined || !string_num.test($("#unit_value-"+kra_id_value1[j]+i).val())) 
-                                            {
-                                                error[kra_id_value1[j]] = 'Please Fill unit value';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                            }
-                                             else if ($("#unit_value-"+kra_id_value1[j]+i).val() == 0 || $("#unit_value-"+kra_id_value1[j]+i).val().length>6)
-                                            {
-                                                error[kra_id_value1[j]] = 'Minimum 1 and maximum 6 digits are allwed.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                            }                                             
-                                            else if (!$.isNumeric($("#unit_value-"+kra_id_value1[j]+i).val())) 
-                                            {
-                                                error[kra_id_value1[j]] = 'Only numbers are allowed for Units/Weight/Value field.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                            }
-                                            else
-                                            {
-                                               
-if($("#unit_value-"+kra_id_value1[j]+i).val() != '')
-{
-val1 = $("#unit_value-"+kra_id_value1[j]+i).val();
-}
-else if($("#unit_value-"+kra_id_value1[j]+i).attr('value') !='')
-{
-val1 = $("#unit_value-"+kra_id_value1[j]+i).attr('value');
-}
-
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value =val1;
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+val1;                                   
-                                                    }
-                                                //alert(kpi_value);
-                                            }
-                                        }
-
-                                        if($("#goal_status-"+kra_id_value1[j]).find(':selected').val() == 'Select')
-                                            {
-                                                 error[kra_id_value1[j]] = 'Please Select KRA Status';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                            }
-                                        else
-                                        {                                           
-                                            error[kra_id_value1[j]] = '';                                         
-                                            goal_status = $("#goal_status-"+kra_id_value1[j]).find(':selected').val();
-                                        } 
-                                        //alert(final_kpi_wt2);
-                                        if (final_kpi_wt2 !='' && final_kpi_wt2 != 100) 
-                                            {
-                                                error[kra_id_value1[j]] = 'The Total of the kpi score should be 100';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                            }   
-                                  
-                                      
-                                    }
-                                    else
-                                    {
-                                        if ($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+kra_id_value1[j]+i).val() != '' || $("#unit_value-"+kra_id_value1[j]+i).val() != '')) 
-                                        {
-                                             error[kra_id_value1[j]] = 'Please Fill Correct KPI Details';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                        }
-                                        else  if ($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() != 'Select' && ($("#kpilistyii_"+kra_id_value1[j]+i).val() == '' || $("#unit_value-"+kra_id_value1[j]+i).val() == '')) 
-                                        {
-                                            error[kra_id_value1[j]] = 'Please Fill Correct KPI Details';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                        }
-                                        else if(($("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+kra_id_value1[j]+i).val() != '' || $("#unit_value-"+kra_id_value1[j]+i).val() != '')) || ($("#kpilistyii_"+kra_id_value1[j]+i).val() == '' && $("#mask_number-"+kra_id_value1[j]+i).find(':selected').val() != 'Select'))
-                                            {
-                                                error[kra_id_value1[j]] = 'Please Fill Correct KPI Details';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                            }                   
-                                            else
-                                            {
-                                                 error[kra_id_value1[j]] = ''; 
-
-                                            }                                 
-                                    }          
-                                }                                                         
-                                } 
-                        
-                       $("#show_spin2").css('display','block');
-                        if(error[kra_id_value1[j]] == '')
-                          { 
-                                            //alert("good");
-                                            var base_url = window.location.origin;
-                                            var data = { 
-                                                'target' : $("#Weightage"+kra_id_value1[j]).find(':selected').val(),                           
-                                                'target_unit' : kpi_unit,
-                                                'target_value1' : kpi_value,
-                                                'kpi_list' : kpi_list,
-                                                'KPI_target_value' : final_kpi_wt1,
-                                                'KPI_id' : kra_id_value1[j],
-                                                'goal_status' : goal_status,
-                                                'KRA_category' : $(".kra_category-"+kra_id_value1[j]).find(':selected').val(),
-                                                'KRA_description' : $(".KRA_description-"+kra_id_value1[j]).val(),
-                                                'reoprting_to' : $(".faculty_email_id1"+kra_id_value1[j]).find(':selected').val(),
-                                            };
-
-                                            $.ajax({
-                                                type : 'post',
-                                                datatype : 'html',
-                                                data : data,
-                                                url : base_url+'/index.php?r=Setgoals/update_emp_kpi',
-                                                success : function(data)
-                                                {
-                                                    var kra_val = $("#kpi_record-"+data).parent().parent().parent().attr('id');
-//var kra_val = $("."+kra_val1).closest('div').attr('id');
-//alert(kra_val);
-                                                   $("#"+kra_val).load(location.href + " #"+kra_val);
-                                                   $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text("Changes saved successfully");
-                                    $("#err").fadeOut(6000);
-$("#"+data).parent().find('input').css('display','block');
-                                                    
-                                                }
-                                            });
-                            error_count++;
-                          }
-                          else
-                          {
-                            break; 
-                          } 
-                        }
-            $("#err").hide();
-                        
-                            $("#err").hide();$("#show_spin2").css('display','none');
-                            if(error_count1 != '')
-                            {
-                                //alert(error_count2);
-                                //alert(error[error_count2]);
-                                $('body').animate({
-                                    scrollTop: ($("#kra_sheet_"+error_count2).parent().offset().top)
-                                },500);
-                if($(".kra_category-"+error_count1).find(':selected').val() == '--Select--')
-                                {
-                                    $(".kra_category-"+error_count1).css('border-color','red');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                else if(error[error_count2] == 'Please enter KRA description')
-                                {
-                                    $(".KRA_description-"+error_count1).css('border-color','red');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                                else if($("#Weightage"+error_count2).find(':selected').val() == 0)
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    $("#Weightage"+error_count2).css('border-color','red');
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                                else if($("#kpilistyii_"+error_count1).val() == '')
-                                {
-                                    $("#kpilistyii_"+error_count1).css('border-color','red');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                                else if($("#mask_number-"+error_count1).find(':selected').val() == 'Select')
-                                {
-                                    $("#mask_number-"+error_count1).css('border-color','red');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                                else if(error[error_count2] == 'The Total for kpi score should be 100')
-                                {
-                                    $("#kpi_target_value-"+error_count1).css('border-color','red');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                                else if(error[error_count2] == 'Please Fill unit value')
-                                {
-                                    $("#unit_value-"+error_count1).css('border-color','red');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //alert(error_count1);
-                                }
-                                else if (error[error_count2] == 'Target 1 value is compulsory.') 
-                                {
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    $(".target_value1"+error_count1).css('border-color','red');
-                                }
-                                else if (error[error_count2] == 'Target 2 value is compulsory.') 
-                                {
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    $(".target_value2"+error_count1).css('border-color','red');
-                                }
-                                else if (error[error_count2] == 'Target 3 value is compulsory.') 
-                                {
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    $(".target_value3"+error_count1).css('border-color','red');
-                                }
-                                else if (error[error_count2] == 'Target 4 value is compulsory.') 
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    $(".target_value4"+error_count1).css('border-color','red');
-                                }
-                                 else if (error[error_count2] == 'Target 5 value is compulsory.') 
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    //$(".target_value5"+error_count1).css('border-color','red');
-                                }
-                                else
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text(error[error_count2]);
-                                    //$("#error_spec"+error_count2).text(error[error_count2]);
-                                    $(".review_comment"+error_count1).css('border-color','red');
-                                }                       
-                          } 
-                          
-                });
                });
                 </script>
                 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -5326,7 +5369,7 @@ $("#"+data).parent().find('input').css('display','block');
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Setgoals/save_kpi',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/save_kpi',
                                 success : function(data)
                                 {
                                     // if (data != '') 
@@ -5809,7 +5852,7 @@ $("#"+data).parent().find('input').css('display','block');
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Setgoals/savekpi1',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/savekpi1',
                                 success : function(data)
                                 {
                                     //alert(data);
@@ -5876,7 +5919,7 @@ $("#"+data).parent().find('input').css('display','block');
                             type : 'post',
                             datatype : 'json',
                             data : selected_unit,
-                            url : base_url+'/index.php?r=Setgoals/gettarget_value',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/gettarget_value',
                             success : function(data)
                             { 
                                 //alert(detail[2]);

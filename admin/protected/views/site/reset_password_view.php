@@ -60,7 +60,10 @@ font-weight: bold;
       }
       
    </style>
-
+<input type="text" value="/vvf.kritva.in" id="basepath">
+<script type="text/javascript">
+var basepath = $("#basepath").attr('value');
+</script>
 <div class="alert alert-danger fade in" id="err" style="display: none">
                         <!-- <a href="#" class="close" data-dismiss="alert">&times;</a>      -->
                         <lable id="error_value"> A problem has been occurred while submitting your data.</lable>
@@ -105,17 +108,17 @@ font-weight: bold;
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : data,
-                                'url' : base_url+'/index.php?r=Login/check',
+                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Login/check',
                                 success : function(data)
                                 {                       
                                     if (data == 'Valid')
                                     {
-                                        window.location.href = base_url+"/index.php?r=Login/dashboard";
+                                        window.location.href = base_url+$("#basepath").attr('value')+"/index.php?r=Login/dashboard";
                                     }
                                     else if(data == 'already_login')
                                     {
                                         //$("#already_login").text("User already login");
-                                        window.location.href=base_url+'/index.php?r=Login';
+                                        window.location.href=base_url+$("#basepath").attr('value')+'/index.php?r=Login';
                                     }
                                     else
                                     {
@@ -185,7 +188,7 @@ font-weight: bold;
                         type : 'post',
                         datatype : 'html',
                         data : data,
-                        url : base_url+'/index.php?r=Reset_password/rsest',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=Reset_password/rsest',
                         success : function(data)
                         { 
                             $("#updation_spinner").css('display','none');                                                        
@@ -193,7 +196,7 @@ font-weight: bold;
 					$("#err").fadeOut(5000);
 					$("#error_value").text("Password updated successfully.");
 window.setTimeout(function() {
-    window.location.href = base_url+'/index.php/Login/User';
+    window.location.href = base_url+$("#basepath").attr('value')+'/index.php/Login/User';
 }, 1000);  
                             
                         }

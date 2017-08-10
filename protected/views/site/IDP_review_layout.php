@@ -217,22 +217,31 @@ A: Development through Instructor led training in Classroom</b></span></font></p
                 $cmnt = '';
             }
 if (isset($IDP_data['0']['mid_prgrm_cmd']) && $IDP_data['0']['mid_prgrm_cmd'] != '') 
-                                            {
-if(isset($IDP_data['0']['mid_status']))
-{
-$program_state = explode(';',$IDP_data['0']['mid_status']);
-                                              $program_cmnt = explode(';',$IDP_data['0']['mid_prgrm_cmd']);
-if (isset($program_cmnt[$i])) {
-                                                $review_state = $program_cmnt[$i];
-                                                $program_state1 = $program_state[$i];
-                                              }
-}
-                                            }
-                                            else
-                                            {
-                                              $review_state = '';
-                                              $program_state1 = '';
-                                            }    
+    {
+            if(isset($IDP_data['0']['mid_status']))
+            {
+                            $program_state = explode(';',$IDP_data['0']['mid_status']);
+                            if (isset($IDP_data['0']['mid_prgrm_cmd'])) {
+                              $program_cmnt = explode(';',$IDP_data['0']['mid_prgrm_cmd']);
+                            }                            
+                            if (isset($program_cmnt[$i])) 
+                            {
+                              $review_state = $program_cmnt[$i];
+                            }
+            }
+     }
+    else
+    {
+      $review_state = '';
+    }  
+    if (isset($program_state[$i])) 
+    {                                                
+        $program_state1 = $program_state[$i];                                             
+    }
+    else
+    {
+      $program_state1 = '';
+    }      
 
                 echo $cmnt;
             ?> </td>
@@ -241,7 +250,7 @@ if (isset($program_cmnt[$i])) {
                                                 </td>
                                                 <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
                                                 <?php 
-                                                   if($review_state) { echo $review_state; } 
+                                                   if(isset($review_state)) { echo $review_state; } 
                                                 ?> </td>
       </tr>
       <?php 

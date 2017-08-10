@@ -64,6 +64,7 @@ class NewemployeeController extends Controller
 
 		$selected_option = 'newemployee';
 		$this->render('//site/script_file');
+		//$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_registration',array('model'=>$model,'prefix_value'=>$prefix_value,'post_value'=>$post_value,'atd_prefix_value'=>$atd_prefix_value,'atd_post_value'=>$atd_post_value));
 		$this->render('//site/admin_footer_view');
@@ -203,10 +204,10 @@ class NewemployeeController extends Controller
 		$model->cluster_appraiser=$_POST['cluster_appraiser'];
 		$model->company_location=$_POST['company_location'];
 		$model->BU=$_POST['BU'];
-                $model->BU=$_POST['bu_head_name'];
-                $model->BU=$_POST['bu_head_email'];
-                $model->BU=$_POST['plant_head_name'];
-                $model->BU=$_POST['plant_head_email'];
+        $model->bu_head_name=$_POST['bu_head_name'];
+        $model->bu_head_email=$_POST['bu_head_email'];
+        $model->plant_head_name=$_POST['plant_head_name'];
+        $model->plant_head_email=$_POST['plant_head_email'];
 		$model->pms_status=$_POST['pms_status'];
 		$model->reporting_1_change=$_POST['reporting_1_change'];
 		$model->reporting_1_effective_date=$_POST['reporting_1_effective_date'];

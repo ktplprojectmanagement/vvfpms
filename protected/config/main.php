@@ -21,7 +21,7 @@ return array(
 		'ext.yii-mail.YiiMailMessage'
 	),
 
-	'timeZone' => 'Asia/Calcutta',
+	'timeZone' => 'Asia/Kolkata',
 
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
@@ -47,11 +47,11 @@ return array(
                 'class' => 'ext.yii-mail.YiiMail',
 			     'transportType'=>'smtp',
 			     'transportOptions'=>array(
-			       'host'=>'mail.kritva.in',
-                    'username'=>'kritvapms@kritva.in',
-                    'password'=>'p@$$w0rD789',
-                    'port'=>'465',
-                    'encryption' => 'ssl'
+			       'host'=>'smtp.office365.com',
+                    'username'=>'vvf.pms@vvfltd.com',
+                    'password'=>'Dream@123',
+                    'port'=>'587',
+                    // 'encryption' => 'tls'
 			     ),
 			    'viewPath' => 'application.views.mail',
         ),

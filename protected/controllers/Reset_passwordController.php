@@ -15,10 +15,12 @@ Yii::app()->user->setState("employee_email",$Email_id_data['0']['Email_id']);
 		//print_r(Yii::app()->user->getState("employee_email"));die();
 		if (Yii::app()->user->getState("employee_email")) {
 		    //print_r(Yii::app()->user->getState("employee_email"));die();
+		    $this->render('//site/baseurl');	
 			$this->render('//site/reset_password_view',array('employee_id'=>Yii::app()->user->getState("Employee_id")));
 		}
 		else if(Yii::app()->user->getState("employee_email") && count($reset_flag)>0)
 		{
+			$this->render('//site/baseurl');	
 			$this->render('//site/reset_password_view',array('employee_id'=>Yii::app()->user->getState("Employee_id")));
 		}
 		else
@@ -29,7 +31,8 @@ Yii::app()->user->setState("employee_email",$Email_id_data['0']['Email_id']);
 	}
 
 function actionreset_new($employee_id = null)
-	{		
+	{	
+		$this->render('//site/baseurl');	
 		$this->render('//site/reset_pass_view',array('employee_id'=>$employee_id));
 	}
 

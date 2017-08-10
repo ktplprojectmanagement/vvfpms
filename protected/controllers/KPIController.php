@@ -150,7 +150,8 @@ class KPIController extends Controller
 
 	public function actionkpi_del()
 	{
-		$model=new KpiListForm;
+		$model=new KpiListForm;		
+		print_r(Yii::app()->db->createCommand()->delete('kpi_list','KPI_id=:KPI_id', array(':KPI_id'=>$_POST['KPI_id'])));die();
 		$del_result = Yii::app()->db->createCommand()->delete('kpi_list','KPI_id=:KPI_id', array(':KPI_id'=>$_POST['KPI_id']));
 		print_r($del_result);die();
 	}

@@ -105,17 +105,17 @@ font-weight: bold;
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : data,
-                                'url' : base_url+'/kritvapms/index.php?r=Login/check',
+                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Login/check',
                                 success : function(data)
                                 {                       
                                     if (data == 'Valid')
                                     {
-                                        window.location.href = base_url+"/kritvapms/index.php?r=Login/dashboard";
+                                        window.location.href = base_url+$("#basepath").attr('value')+"/index.php?r=Login/dashboard";
                                     }
                                     else if(data == 'already_login')
                                     {
                                         //$("#already_login").text("User already login");
-                                        window.location.href=base_url+'/kritvapms/index.php?r=Login';
+                                        window.location.href=base_url+$("#basepath").attr('value')+'/index.php?r=Login';
                                     }
                                     else
                                     {
@@ -185,7 +185,7 @@ font-weight: bold;
                         type : 'post',
                         datatype : 'html',
                         data : data,
-                        url : base_url+'/kritvapms/index.php?r=Reset_password/rsest',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=Reset_password/rsest',
                         success : function(data)
                         { 
                             //alert(data);
@@ -196,9 +196,9 @@ font-weight: bold;
 					$("#err").fadeOut(5000);
 					$("#error_value").text("Password updated successfully.");
 window.setTimeout(function() {
-    window.location.href = base_url+'/kritvapms/index.php/Login/User';
+    window.location.href = base_url+$("#basepath").attr('value')+'/index.php/Login';
 }, 1000);  
-                                //window.location.href = base_url+'/kritvapms/index.php?r=Login/User';
+                                //window.location.href = base_url+'/index.php?r=Login/User';
                             }
                             else if(data == "error occure")
                             {

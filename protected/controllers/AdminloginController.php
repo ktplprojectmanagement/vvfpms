@@ -7,6 +7,7 @@ class AdminloginController extends Controller
 	{
 
 		$model=new LoginForm;
+		$this->render('//site/baseurl');
 		$this->render('//site/user_login_view',array('model'=>$model));
 	}
 
@@ -45,6 +46,9 @@ class AdminloginController extends Controller
 					Yii::app()->user->setState('Employee_name',$result['Emp_fname']);
 					Yii::app()->user->setState('Employee_id',$result['Employee_id']);
 					Yii::app()->user->setState('employee_email',$result['Email_id']);
+					$prev_date = date('Y').'-'.date('Y',strtotime('+1 year'));
+					//print_r($prev_date);die();
+				    Yii::app()->user->setState('financial_year_check',$prev_date);
 					$data = array(
 						'Employee_id' => $result['Employee_id'], 
 					);

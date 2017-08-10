@@ -17,6 +17,7 @@ class LoginController extends Controller
 		else
 		{
 			//print_r("HELLO");die();
+			$this->render('//site/baseurl');
 			$this->render('//site/admin_login',array('model'=>$model));
 		}
 		
@@ -79,7 +80,10 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		$kra_info=new KpiAutoSaveForm;
 		$emp_data = new EmployeeForm;
 		$cluster = new ClusterForm;
-		$year1=$settings_data['0']['setting_type'];
+		if (isset($settings_data['0']['setting_type'])) {
+			$year1=$settings_data['0']['setting_type'];
+		}
+		
 		$idp=new IDPForm;
 
 		$where='where Employee_id = :Employee_id && goal_set_year = :goal_set_year';
@@ -198,8 +202,10 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		//print_r($mid_idp_stat);die();
 		//my year idp status
 
-
-		$year1=$settings_data['0']['setting_type'];
+		if (isset($settings_data['0']['setting_type'])) {
+			$year1=$settings_data['0']['setting_type'];
+		}
+		
 		$set_goal_sub=$kra_info->get_team_members_kra_sub($array,$year1);
 		$employee_data =new EmployeeForm;
 		
@@ -212,7 +218,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		$team_pend_appr=$kra_info->get_pending_goal_team($array,$year1);
 
 
-				
+			
 		if (isset($emp_data_desc) && count($emp_data_desc)>0) {
 			$where = 'where Email_id = :Email_id';
 			$list = array('Email_id');
@@ -227,43 +233,44 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 			$data = array($emp_data_desc['0']['cluster_name']);
 			$emp_data_desc =$cluster->get_cluster_data($where,$data,$list,'department');
 		}
-		$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year';
-		$list = array('Employee_id','goal_set_year');
-		$data = array($Employee_id,$settings_data['0']['setting_type']);
-		$kra_data=$kra_info->get_kpi_data($where,$data,$list);
-
-		$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && KRA_Status=:KRA_Status ';
-		$list = array('Employee_id','goal_set_year','KRA_Status');
-		$data = array($Employee_id,$settings_data['0']['setting_type'],"Pending");
-		$kra_data_pending=$kra_info->get_kpi_data($where,$data,$list);
-
-
-		$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && KRA_status=:KRA_status ';
-		$list = array('Employee_id','goal_set_year','KRA_status');
-		$data = array($Employee_id,$settings_data['0']['setting_type'],"Approved");
-		$kra_data_appr=$kra_info->get_kpi_data($where,$data,$list);
-
-	
-		$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && mid_KRA_final_status!=:mid_KRA_final_status ';
-		$list = array('Employee_id','goal_set_year','mid_KRA_final_status');
-		$data = array($Employee_id,$settings_data['0']['setting_type'],"");
-		$kra_mid_sub=$kra_info->get_kpi_data($where,$data,$list);
-
-		$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && mid_KRA_final_status=:mid_KRA_final_status ';
-		$list = array('Employee_id','goal_set_year','mid_KRA_final_status');
-		$data = array($Employee_id,$settings_data['0']['setting_type'],"Pending");
-		$kra_mid_pending=$kra_info->get_kpi_data($where,$data,$list);
-
-		$where = 'where Employee_id = :Employee_id  && mid_KRA_status !=:mid_KRA_status && goal_set_year = :goal_set_year ';
-		$list = array('Employee_id','mid_KRA_status','goal_set_year');
-		$data = array($Employee_id,"",$settings_data['0']['setting_type']);
-		$kra_mid_appr =$kra_info->get_kpi_data($where,$data,$list);
 		
+		if (isset($settings_data['0'])) {
+			$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year';
+			$list = array('Employee_id','goal_set_year');
+			$data = array($Employee_id,$settings_data['0']['setting_type']);
+			$kra_data=$kra_info->get_kpi_data($where,$data,$list);
 
+			$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && KRA_Status=:KRA_Status ';
+			$list = array('Employee_id','goal_set_year','KRA_Status');
+			$data = array($Employee_id,$settings_data['0']['setting_type'],"Pending");
+			$kra_data_pending=$kra_info->get_kpi_data($where,$data,$list);
+
+
+			$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && KRA_status=:KRA_status ';
+			$list = array('Employee_id','goal_set_year','KRA_status');
+			$data = array($Employee_id,$settings_data['0']['setting_type'],"Approved");
+			$kra_data_appr=$kra_info->get_kpi_data($where,$data,$list);
+
+		
+			$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && mid_KRA_final_status!=:mid_KRA_final_status ';
+			$list = array('Employee_id','goal_set_year','mid_KRA_final_status');
+			$data = array($Employee_id,$settings_data['0']['setting_type'],"");
+			$kra_mid_sub=$kra_info->get_kpi_data($where,$data,$list);
+
+			$where = 'where Employee_id = :Employee_id && goal_set_year = :goal_set_year && mid_KRA_final_status=:mid_KRA_final_status ';
+			$list = array('Employee_id','goal_set_year','mid_KRA_final_status');
+			$data = array($Employee_id,$settings_data['0']['setting_type'],"Pending");
+			$kra_mid_pending=$kra_info->get_kpi_data($where,$data,$list);
+
+			$where = 'where Employee_id = :Employee_id  && mid_KRA_status !=:mid_KRA_status && goal_set_year = :goal_set_year ';
+			$list = array('Employee_id','mid_KRA_status','goal_set_year');
+			$data = array($Employee_id,"",$settings_data['0']['setting_type']);
+			$kra_mid_appr =$kra_info->get_kpi_data($where,$data,$list);
+		}
 
 ////////////////////////
 		
-		
+
 		$team_set=array();
 		$team_set=$kra_info->get_team_members_kra_sub($array,$year1);
 		
@@ -309,7 +316,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		// echo "<pre>";
 		// print_r($my_recent_act);die();
 		// echo "</pre>";
-
+		//echo "gdfg";die();		
 	 	$this->render('//site/script_file');	
 		$this->render('//site/header_view_layout');
 		$this->render('//site/user_dashboard',
@@ -392,13 +399,26 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 			$Email_id_data = $emploee_data1->get_employee_data($where1,$data2,$list1);
 	    	$notification_data =new NotificationsForm;
 	    	$Employee_id = Yii::app()->user->getState("employee_email");
-	    	Yii::import('ext.yii-mail.YiiMailMessage');
-			  $message = new YiiMailMessage;
-			  $message->setBody('Please Click on this link to reset password : '.'http://52.172.210.251'.Yii::app()->createUrl("index.php/Reset_password/Index",array("employee_id"=>$Email_id_data['0']["Employee_id"])), 'text/html');
-			  $message->subject = 'Password Reset';
-			  $message->addTo($_POST['email_id_reset']);			
-			  $message->from = 'kritvapms@kritva.in';
-			  if(Yii::app()->mail->send($message))
+
+	    	require 'PHPMailer-master/PHPMailerAutoload.php';
+			$mail = new PHPMailer;
+			$mail->isSMTP();                             
+			$mail->Host = 'smtp.office365.com';  
+			$mail->SMTPAuth = true;                         
+			$mail->Username = 'vvf.pms@vvfltd.com';            
+			$mail->Password = 'Dream@123';                      
+			$mail->SMTPSecure = 'tls';                          
+			$mail->Port = 587;     
+			$mail->setFrom('vvf.pms@vvfltd.com', 'Admin'); 
+			$message = 'Please Click on this link to reset password : '.'http://52.172.210.251'.Yii::app()->createUrl("index.php/Reset_password/Index",array("employee_id"=>$Email_id_data['0']["Employee_id"]));           // Name is optional
+			$mail->addReplyTo($_POST['email_id_reset'], 'Admin');
+			$mail->addCC($_POST['email_id_reset']);       
+			$mail->msgHTML($message);
+			$mail->isHTML(true);        
+			$mail->Subject = 'Password Reset';
+			$mail->Body    = $message;     
+
+ 			if($mail->send())
 			  {
 				Yii::app()->user->setState('employee_email',$_POST['email_id_reset']);
 			  		echo "Notification Send";die();
@@ -629,6 +649,7 @@ if ($result['reporting_1_change'] != '' && strtotime($result['reporting_1_effect
 		$selected_option = 'PMS';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('employee_data'=>$employee_data,'selected_option'=>$selected_option));
 		$this->render('//site/employee_profile',array('employee_data'=>$employee_data,'model'=>$model,'Reporting_officer_name'=>$Reporting_officer_name));
 		$this->render('//site/admin_footer_view');
@@ -719,50 +740,50 @@ function actionUpdateEmp_profile()
 			$model = new EmployeeForm;
 			$data=array(
 
-				'Employee_id'=>$_POST['Employee_id'],
-				'Employee_atd_code'=>$_POST['Employee_atd_code'],
-				'Emp_fname'=>$_POST['Emp_fname'],
-				'Emp_mname'=>$_POST['Emp_mname'],
-				'Emp_lname'=>$_POST['Emp_lname'],
-				'DOB'=>$_POST['DOB'],
-				'Email_id'=>$_POST['Email_id'],
-				'mobile_number'=>$_POST['mobile_number'],
-				'PAN_number'=>$_POST['PAN_number'],
-				'Designation'=>$_POST['Designation'],
-				'Cadre'=>$_POST['Cadre'],
-				'Gender'=>$_POST['Gender'],
-				'Nationality'=>$_POST['Nationality'],
-				'Employee_status'=>$_POST['Employee_status'],
-				'Present_address'=>$_POST['Present_address'],
-				'Permanent_address'=>$_POST['Permanent_address'],
-				'Blood_group'=>$_POST['Blood_group'],
-				'Department'=>$_POST['Department'],
-				'joining_date'=>$_POST['joining_date'],	
-				'company_location'=>$_POST['company_location'],
-'cluster_name'=>$_POST['cluster_name'],
-'cluster_appraiser'=>$_POST['cluster_appraiser'],
-				'BU'=>$_POST['BU'],
-				'pms_status'=>$_POST['pms_status'],
-				'reporting_1_change'=>$_POST['reporting_1_change'],
-				'reporting_1_effective_date'=>$_POST['reporting_1_effective_date'],
-				'reporting_2_change'=>$_POST['reporting_2_change'],
-				'reporting_2_effective_date'=>$_POST['reporting_2_effective_date'],
-				'bu_head_name'=>$_POST['bu_head_name'],
-				'bu_head_email'=>$_POST['bu_head_email'],
-				'plant_head_name'=>$_POST['plant_head_name'],
-				'plant_head_email'=>$_POST['plant_head_email'],
-                                'new_kra_till_date'=>$_POST['new_kra_till_date'],
-				'new_kra_create'=>$_POST['allow_kra'],
-'year_end_review_of_manager'=>$_POST['year_end_review_of_manager'],
-'year_end_review_of_clshead'=>$_POST['year_end_review_of_clshead'],
-'year_end_review_of_plant_head'=>$_POST['year_end_review_of_plant_head'],
-'year_end_review_of_bu_head'=>$_POST['year_end_review_of_bu_head'],
-'effective_date_promo'=>$_POST['effective_date_promo'],
-'effective_date_norm'=>$_POST['effective_date_norm'],
-'Reporting_officer1_id'=>$_POST['Reporting_officer1_id'],
-'Reporting_officer2_id'=>$_POST['reporting_2_change'],
-'retire_date'=>$_POST['retire_date'],
-'last_working_date'=>$_POST['last_working_date'],
+				'Employee_id'=> isset($_POST['Employee_id']) ? $_POST['Employee_id'] : "",
+				'Employee_atd_code'=> isset($_POST['Employee_atd_code']) ? $_POST['Employee_atd_code'] : "",
+				'Emp_fname'=> isset($_POST['Emp_fname']) ? $_POST['Emp_fname'] : "",
+				'Emp_mname'=> isset($_POST['Emp_mname']) ? $_POST['Emp_mname'] : "",
+				'Emp_lname'=> isset($_POST['Emp_lname']) ? $_POST['Emp_lname'] : "",
+				'DOB'=> isset($_POST['DOB']) ? $_POST['DOB'] : "",
+				'Email_id'=> isset($_POST['Email_id']) ? $_POST['Email_id'] : "",
+				'mobile_number'=> isset($_POST['mobile_number']) ? $_POST['mobile_number'] : "",
+				'PAN_number'=> isset($_POST['PAN_number']) ? $_POST['PAN_number'] : "",
+				'Designation'=> isset($_POST['Designation']) ? $_POST['Designation'] : "",
+				'Cadre'=>isset($_POST['Cadre']) ? $_POST['Cadre'] : "",
+				'Gender'=>isset($_POST['Gender']) ? $_POST['Gender'] : "",
+				'Nationality'=>isset($_POST['Nationality']) ? $_POST['Nationality'] : "",
+				'Employee_status'=> isset($_POST['Employee_status']) ? $_POST['Employee_status'] : "",
+				'Present_address'=>isset($_POST['Present_address']) ? $_POST['Present_address'] : "",
+				'Permanent_address'=>isset($_POST['Permanent_address']) ? $_POST['Permanent_address'] : "",
+				'Blood_group'=>isset($_POST['Blood_group']) ? $_POST['Blood_group'] : "",
+				'Department'=>isset($_POST['Department']) ? $_POST['Department'] : "",
+				'joining_date'=>isset($_POST['joining_date']) ? $_POST['joining_date'] : "",	
+				'company_location'=>isset($_POST['company_location']) ? $_POST['company_location'] : "",
+'cluster_name'=> isset($_POST['cluster_name']) ? $_POST['cluster_name'] : "",
+'cluster_appraiser'=>isset($_POST['cluster_appraiser']) ? $_POST['cluster_appraiser'] : "",
+				'BU'=>isset($_POST['BU']) ? $_POST['BU'] : "",
+				'pms_status'=>isset($_POST['pms_status']) ? $_POST['pms_status'] : "",
+				'reporting_1_change'=>isset($_POST['reporting_1_change']) ? $_POST['reporting_1_change'] : "",
+				'reporting_1_effective_date'=>isset($_POST['reporting_1_effective_date']) ? $_POST['reporting_1_effective_date'] : "",
+				'reporting_2_change'=>isset($_POST['reporting_2_change']) ? $_POST['reporting_2_change'] : "",
+				'reporting_2_effective_date'=>isset($_POST['reporting_2_effective_date']) ? $_POST['reporting_2_effective_date'] : "",
+				'bu_head_name'=>isset($_POST['bu_head_name']) ? $_POST['bu_head_name'] : "",
+				'bu_head_email'=> isset($_POST['bu_head_email']) ? $_POST['bu_head_email'] : "",
+				'plant_head_name'=>isset($_POST['plant_head_name']) ? $_POST['plant_head_name'] : "",
+				'plant_head_email'=>isset($_POST['plant_head_email']) ? $_POST['plant_head_email'] : "",
+                                'new_kra_till_date'=> isset($_POST['new_kra_till_date']) ? $_POST['new_kra_till_date'] : "",
+				'new_kra_create'=> isset($_POST['allow_kra']) ? $_POST['allow_kra']: "",
+'year_end_review_of_manager'=> isset($_POST['year_end_review_of_manager']) ? $_POST['year_end_review_of_manager'] : "" ,
+'year_end_review_of_clshead'=>isset($_POST['year_end_review_of_clshead']) ? $_POST['year_end_review_of_clshead'] : "",
+'year_end_review_of_plant_head'=> isset($_POST['year_end_review_of_plant_head']) ? $_POST['year_end_review_of_plant_head'] : "",
+'year_end_review_of_bu_head'=>isset($_POST['year_end_review_of_bu_head']) ? $_POST['year_end_review_of_bu_head'] : "",
+'effective_date_promo'=>isset($_POST['effective_date_promo']) ? $_POST['effective_date_promo'] : "",
+'effective_date_norm'=>isset($_POST['effective_date_norm']) ? $_POST['effective_date_norm'] : "",
+'Reporting_officer1_id'=>isset($_POST['Reporting_officer1_id']) ? $_POST['Reporting_officer1_id'] : "",
+'Reporting_officer2_id'=>isset($_POST['reporting_2_change']) ? $_POST['reporting_2_change'] : "",
+'retire_date'=>isset($_POST['retire_date']) ? $_POST['retire_date'] : "",
+'last_working_date'=>isset($_POST['last_working_date']) ? $_POST['last_working_date'] : "",
 				);
 				$model->Employee_id = $_POST['Employee_id'];
 				$model->Employee_atd_code = $_POST['Employee_atd_code'];
@@ -800,18 +821,20 @@ function actionUpdateEmp_profile()
 				$model->new_kra_create=$_POST['allow_kra'];
 				
 				
-				$data1=array('appraisal_id1'=>$_POST['Reporting_officer1_id']);
-				$data2=array('Reporting_officer1_id'=>$_POST['Reporting_officer1_id']);
+				$data1=array('appraisal_id1'=> isset($_POST['Reporting_officer1_id']) ? $_POST['Reporting_officer1_id'] : "");
+				$data2=array('Reporting_officer1_id'=> isset($_POST['Reporting_officer1_id']) ? $_POST['Reporting_officer1_id'] : "");
 				
 			//echo "hi";die();
 			//print_r($data);die();
 				if($model->validate())
 				{
-					$update = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['Employee_id']));
-					$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data1,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['Employee_id']));
-					$update = Yii::app()->db->createCommand()->update('IDP',$data2,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['Employee_id']));
-					$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data2,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['Employee_id']));
-					if ($update!=0) {
+					$update1 = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>isset($_POST['Employee_id']) ? $_POST['Employee_id'] : ""));
+					$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data1,'Employee_id=:Employee_id',array(':Employee_id'=>isset($_POST['Employee_id']) ? $_POST['Employee_id'] : ""));
+					$update = Yii::app()->db->createCommand()->update('IDP',$data2,'Employee_id=:Employee_id',array(':Employee_id'=>isset($_POST['Employee_id']) ? $_POST['Employee_id'] : ""));
+					$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data2,'Employee_id=:Employee_id',array(':Employee_id'=>isset($_POST['Employee_id']) ? $_POST['Employee_id'] : ""));
+					//print_r($_POST['Employee_id']);die();
+					//print_r($_POST['Employee_id']);die();
+					if ($update1=='1') {
 						print_r("success");
 					}
 				}
@@ -913,7 +936,7 @@ function actionreport_head1()
 			Yii::app()->user->setState('employee_email','');
 			Yii::app()->user->setState('appriaser_1','');
 			Yii::app()->user->setState('session_current_time','');unset($_SESSION['number']);session_destroy();
-		return $this->redirect('index');
+		return $this->redirect('/vvf.kritva.in/index.php/Login');
 	}
 	
 }

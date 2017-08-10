@@ -44,10 +44,11 @@ return array(
                 'class' => 'ext.yii-mail.YiiMail',
 			     'transportType'=>'smtp',
 			     'transportOptions'=>array(
-			       'host'=>'103.224.23.163',
-                    'username'=>'pmstest@vvf.kritva.in',
-                    'password'=>'p@$$w0rD789',
-                    'port'=>'587'
+			       'host'=>'smtp.office365.com',
+                    'username'=>'vvf.pms@vvfltd.com',
+                    'password'=>'Dream@123',
+                    'port'=>'587',
+                    // 'encryption' => 'STARTTLS'
 			     ),
 			    'viewPath' => 'application.views.mail',
         ),

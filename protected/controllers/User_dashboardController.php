@@ -307,6 +307,7 @@ $team_sub_yearEnd=array();
 
 	 	$this->render('//site/script_file');	
 		$this->render('//site/header_view_layout');
+		$this->render('//site/baseurl');
 		$this->render('//site/user_dashboard',
 		array(
 

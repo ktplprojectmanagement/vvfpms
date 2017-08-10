@@ -71,7 +71,7 @@
                                                 'type' : 'post',
                                                 'datatype' : 'html',
                                                 'data' : grade,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Designation_change',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Designation_change',
                                                
                                                 success : function(data)
                                                 {
@@ -96,7 +96,7 @@
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : cluster_value,
-                                                'url' : base_url+'/admin/index.php/Newemployee/cluster_head',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/cluster_head',
                                                
                                                 success : function(data)
                                                 {
@@ -1384,7 +1384,7 @@ form_data.append("retire_date",$('.retire_date').val());
                                            //alert(window.location.origin);
                                            
                                            var base_url = window.location.origin;
-                                           //alert(base_url+'pmsuser/index.php/Login/UpdateEmp_profile');
+                                           //alert(base_url+$("#basepath").attr('value')+'pmsuser/index.php/Login/UpdateEmp_profile');
                                              $.ajax({
                                                
                                                 'type' : 'post',
@@ -1392,7 +1392,7 @@ form_data.append("retire_date",$('.retire_date').val());
                                                 processData: false, 
                                                 contentType: false,
                                                 'data' : form_data,
-                                                'url' : base_url+'/admin/index.php/LoginLocation/UpdateEmp_profile',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/LoginLocation/UpdateEmp_profile',
                                                 success : function(data)
                                                 { 
                                                    //alert(data);
@@ -1494,17 +1494,16 @@ $("body").on('click','#continue_goal_set1',function(){
                                         };
                                          console.log(data);
                                     var base_url = window.location.origin;
-$.ajax({                            
-                                        
-type : 'post',
+                                        $.ajax({                              
+                                        type : 'post',
                                         datatype : 'html',
                                         data : data,
-                                        url : base_url+'/admin/index.php/LoginLocation/location_submit',
+                                        url : base_url+$("#basepath").attr('value')+'/admin/index.php/LoginLocation/location_submit',
                                         success : function(data)
-                                        {   
-//alert(data);
+                                        {
+                                          alert(data);
                                            if(data=="Notification Send"){
-                                            window.location.replace(base_url+'/admin/index.php/Newemployee/employee_master'); 
+                                            window.location.replace(base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/employee_master'); 
                                                     $("#err").show();
                                                     $("#err").fadeOut(6000);
                                                      $("#err").removeClass('alert-danger');
@@ -1530,13 +1529,13 @@ type : 'post',
                                         type : 'post',
                                         datatype : 'html',
                                         data : data,
-                                        url : base_url+'/admin/index.php/Login/del_Emp_profile',
+                                        url : base_url+$("#basepath").attr('value')+'/admin/index.php/Login/del_Emp_profile',
                                         success : function(data)
                                         {   
                                             if(data == '1')
                                              {
                                                 
-                                             window.location.replace(base_url+'/admin/index.php/Newemployee/employee_master'); 
+                                             window.location.replace(base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/employee_master'); 
                                             }
                                         }
 
@@ -1563,7 +1562,7 @@ $("#bu").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : bu_value,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Bu_details',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Bu_details',
                                                
                                                 success : function(data)
                                                 {
@@ -1592,7 +1591,7 @@ $("#bu_head").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : bu_head,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Bu_mail',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Bu_mail',
                                                
                                                 success : function(data)
                                                 {
@@ -1638,7 +1637,7 @@ $("#location").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : location,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Plant_details',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Plant_details',
                                                
                                                 success : function(data)
                                                 {
@@ -1667,7 +1666,7 @@ $("#plant_head").change(function(){
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : plant_head,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Plant_mail',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Plant_mail',
                                                
                                                 success : function(data)
                                                 {

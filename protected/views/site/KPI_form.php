@@ -13,17 +13,18 @@
                         'KPI_id' : id_code[1],
                     };
                     var base_url = window.location.origin;
-                    $("#continue_goal_set").click(function(){
+                    $("body").on('click','#continue_goal_set',function(){
                         $.ajax({
                         type : 'post',
                         data : data,
-                        url : base_url+'/index.php?r=KPI/kpi_del',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=KPI/kpi_del',
                         success : function(data)
                         {
-                           // alert(data);
+                           //alert(data);
                             if(data == 1)
                             {
                                 $("#ditable_1").load(location.href + " #ditable_1");
+                                $("#static").modal('hide'); 
                                 // $(".del_kra").click(function(){
 
                                 // });
@@ -144,7 +145,7 @@ padding-top: 10px;
                         </div>
                         <div class="modal-footer">
                             <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                            <button type="button" data-dismiss="modal" class="btn green" id="continue_goal_set">Continue Task</button>
+                            <button type="button" class="btn green" id="continue_goal_set">Continue Task</button>
                         </div>
                     </div>
                 </div>
@@ -178,7 +179,7 @@ padding-top: 10px;
                         type : 'post',
                         datatype : 'html',
                         data : data,
-                        url : base_url+'/index.php?r=KPI/KPI_save',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=KPI/KPI_save',
                         success : function(data)
                         {
                           if (data != 'success') 
@@ -211,6 +212,7 @@ padding-top: 10px;
                                 $("#err").addClass("alert-success");
                                 $("#ditable_1").load(location.href + " #ditable_1");
                                 $('#user-form')[0].reset();
+                                window.location.replace(base_url+$("#basepath").attr('value')+'/index.php/KPI/KPI_create'); 
                             }
                         }
                     });
@@ -296,7 +298,7 @@ margin-left: -105px;"></label>
                                             contentType: false,
                                             'enctype': 'multipart/form-data',
                                             'data' : formData,
-                                            'url' : base_url+'/yii/pmsuser/index.php?r=Export/kpi_export',
+                                            'url' : base_url+$("#basepath").attr('value')+'/yii/pmsuser/index.php?r=Export/kpi_export',
                                             success : function(data)
                                             {
                                                 $("#uploaded_file").text('');

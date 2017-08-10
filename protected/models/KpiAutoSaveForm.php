@@ -80,6 +80,36 @@ class KpiAutoSaveForm extends CActiveRecord
 		return $rows;
 	}
 	
+	function get_q1_pending_rev($year1)
+	{
+		$connection=Yii::app()->db;
+		$sql ="SELECT DISTINCT `Employee_id` from `kpi_auto_save` use index (emp_index) WHERE (`q1_KRA_final_status`='Pending' ) AND (`goal_set_year`='$year1')";
+		$command=$connection->createCommand($sql);
+		$rows=$command->queryAll();
+		return $rows;
+	}
+		function get_disinct_q1_appr($year1)
+	{
+		$connection=Yii::app()->db;
+		$sql = "SELECT DISTINCT `Employee_id` FROM `kpi_auto_save` use index (emp_index) WHERE  (`q1_KRA_final_status` = 'Approved' AND `goal_set_year`='$year1') ";
+		$command=$connection->createCommand($sql);
+		$rows=$command->queryAll();		
+		return $rows;
+	}
+	
+	
+	
+	
+	
+    function get_q1_review_submitted($year1){
+		$connection=Yii::app()->db;
+	//	$sql = "SELECT DISTINCT `Employee_id` FROM kpi_auto_save use index (emp_index) WHERE `Employee_id` NOT IN (SELECT s.`Employee_id` FROM kpi_auto_save as s WHERE `q1_KRA_final_status` = '' AND `goal_set_year`='$year1' )";
+	      $sql="SELECT distinct `Employee_id` FROM `kpi_auto_save` WHERE `q1_KRA_final_status`!='' AND `goal_set_year`='$year1' ";
+		//print_r($sql);die();
+		$command=$connection->createCommand($sql);
+		$rows=$command->queryAll();		
+		return $rows;
+	}
 	function get_kpi_data($where,$data,$list)
 	{		
 		$connection=Yii::app()->db;
@@ -109,6 +139,7 @@ class KpiAutoSaveForm extends CActiveRecord
 	{
 		$connection=Yii::app()->db;
 		$sql = "select distinct `Employee_id` from kpi_auto_save use index (emp_index) ".' '.$where;
+		//print_r($data);die();
 		$command=$connection->createCommand($sql);
 		for ($i=0; $i < count($list); $i++) { 
 			$command->bindValue(":".$list[$i],$data[$i]);
@@ -174,6 +205,7 @@ class KpiAutoSaveForm extends CActiveRecord
 	{
 		$connection=Yii::app()->db;
 		$sql ="SELECT DISTINCT `Employee_id` from `kpi_auto_save` use index (emp_index) WHERE (`KRA_status`='Pending') AND (`goal_set_year`='$year1')";
+		
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();
 		return $rows;
@@ -275,8 +307,7 @@ class KpiAutoSaveForm extends CActiveRecord
 	}
 	function get_disinct_kra_appr_team($array,$year1)
 	{
-		$connection=Yii::app()->db;
-		$flg=0;
+		$connection=Yii::app()->db;$flg=0;
 		$sql ="SELECT DISTINCT `Employee_id` from `kpi_auto_save` use index (emp_index) WHERE ((`KRA_status`='Approved') AND (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1') AND (`KRA_status_flag`> '$flg' ))";
 		//$sql = "SELECT DISTINCT `Employee_id` FROM kpi_auto_save use index (emp_index) WHERE( `Employee_id` NOT IN (SELECT s.`Employee_id` FROM kpi_auto_save as s WHERE KRA_status = 'Pending' OR KRA_status = '')) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
 		$command=$connection->createCommand($sql);

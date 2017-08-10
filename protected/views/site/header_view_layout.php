@@ -79,6 +79,10 @@
 
         </style>
         </head>
+        <input type="text" value="/vvf.kritva.in" id="basepath" style="display:none">
+<script type="text/javascript">
+var basepath = $("#basepath").attr('value');
+</script>
     <?php
       $header_menu =new SettingsForm;
       $menu_settings_data = '';$menu_settings_data1 = '';
@@ -170,7 +174,7 @@ $(document).ready(function(){
                     <!-- BEGIN LOGO -->
                     <div class="page-logo">
                         <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/User_dashboard">
-                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/Logo.png" style="height: 41px;width: 135px;margin-top: 10px;" alt="logo" class="logo-default">
+                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/Logo.png" style="height: 62px;width: 135px;margin-top: 10px;" alt="logo" class="logo-default">
                         </a>
                     </div>
                     <!-- END LOGO -->
@@ -258,7 +262,7 @@ $(document).ready(function(){
             function log_out_chk()
             {
                 var base_url = window.location.origin;
-                window.location.href=base_url+'/kritvapms/index.php/Login/employee_logout';
+                window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Login/employee_logout';
             }
                 $(function(){ 
                     $("#header_inbox_bar").click(function(){
@@ -271,7 +275,7 @@ $(document).ready(function(){
                             type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/kritvapms/index.php?r=Setgoals/update_notificationflag',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/update_notificationflag',
                             success : function(data)
                             {
                                 $("#notify_circle1").css('display','none'); 

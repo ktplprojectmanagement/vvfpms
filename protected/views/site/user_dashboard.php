@@ -399,7 +399,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=User_dashboard/teamSetgoalstatus',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=User_dashboard/teamSetgoalstatus',
             success : function(data)
             {
                 //alert(data);
@@ -425,7 +425,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=User_dashboard/teamIdpstatus',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=User_dashboard/teamIdpstatus',
             success : function(data)
             {
                // alert(data);
@@ -451,7 +451,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=User_dashboard/teamMidstatusget',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=User_dashboard/teamMidstatusget',
             success : function(data)
             {
                 //alert(data);
@@ -474,11 +474,11 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/Setgoals/emp_kpi_edit',
+            url : base_url+$("#basepath").attr('value')+'/index.php/Setgoals/emp_kpi_edit',
             success : function(data)
             {
                 var base_url = window.location.origin;
-                window.location.assign(base_url+'/index.php/Setgoals/emp_kpi_edit');
+                window.location.assign(base_url+$("#basepath").attr('value')+'/index.php/Setgoals/emp_kpi_edit');
             }
           });
          //$("#contact-form").submit();
@@ -493,11 +493,11 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/IDP/subordinate_idp',
+            url : base_url+$("#basepath").attr('value')+'/index.php/IDP/subordinate_idp',
             success : function(data)
             {
                 var base_url = window.location.origin;
-                window.location.assign(base_url+'/index.php/IDP/subordinate_idp');
+                window.location.assign(base_url+$("#basepath").attr('value')+'/index.php/IDP/subordinate_idp');
             }
           });        
         });
@@ -511,11 +511,11 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/Midreview/midreview_emp_data',
+            url : base_url+$("#basepath").attr('value')+'/index.php/Midreview/midreview_emp_data',
             success : function(data)
             {
                 var base_url = window.location.origin;
-                window.location.assign(base_url+'/index.php/Midreview/midreview_emp_data');
+                window.location.assign(base_url+$("#basepath").attr('value')+'/index.php/Midreview/midreview_emp_data');
             }
           });   
         
@@ -530,11 +530,11 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/IDP/Midyear_subordinate_idp',
+            url : base_url+$("#basepath").attr('value')+'/index.php/IDP/Midyear_subordinate_idp',
             success : function(data)
             {
                 var base_url = window.location.origin;
-                window.location.assign(base_url+'/index.php/IDP/Midyear_subordinate_idp');
+                window.location.assign(base_url+$("#basepath").attr('value')+'/index.php/IDP/Midyear_subordinate_idp');
             }
           });  
          
@@ -551,7 +551,7 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php?r=User_dashboard/teamMidIdpstatusget',
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=User_dashboard/teamMidIdpstatusget',
             success : function(data)
             {
                 //alert(data);
@@ -576,7 +576,7 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/User_dashboard/TeamYearEndstatus',
+            url : base_url+$("#basepath").attr('value')+'/index.php/User_dashboard/TeamYearEndstatus',
             success : function(data)
             {
                 //alert(data);
@@ -602,7 +602,7 @@ var data = {
             type : 'post',
             datatype : 'html',
             data : data,
-            url : base_url+'/index.php/User_dashboard/TeamYearEndsIDPtatus',
+            url : base_url+$("#basepath").attr('value')+'/index.php/User_dashboard/TeamYearEndsIDPtatus',
             success : function(data)
             {
              // alert(data);

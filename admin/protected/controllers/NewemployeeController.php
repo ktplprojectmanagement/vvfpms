@@ -61,7 +61,7 @@ class NewemployeeController extends Controller
 		{
 			$atd_post_value = 'manual';
 		}
-
+		//echo "fdsfds";die();
 		$selected_option = 'newemployee';
 		$this->render('//site/script_file');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
@@ -220,58 +220,58 @@ $data = array(
 	public function actionsave()
 	{
 		$model=new EmployeeForm();
-		$model->Employee_id=$_POST['Employee_id'];
-		$model->Employee_atd_code=$_POST['Employee_atd_code'];
-		$model->Emp_fname=$_POST['Emp_fname'];
-		$model->Emp_mname=$_POST['Emp_mname'];
-		$model->Emp_lname=$_POST['Emp_lname'];
-		$model->DOB=$_POST['DOB'];
-		$model->Email_id=$_POST['Email_id'];
-		$model->joining_date=$_POST['joining_date'];
-		$model->mobile_number=$_POST['mobile_number'];
-		$model->PAN_number=$_POST['PAN_number'];
-		$model->Gender=$_POST['Gender'];
-		$model->Nationality=$_POST['Nationality'];
+		$model->Employee_id= isset($_POST['Employee_id']) ?  $_POST['Employee_id'] : '';
+		$model->Employee_atd_code= isset($_POST['Employee_atd_code']) ?  $_POST['Employee_atd_code'] : '';
+		$model->Emp_fname= isset($_POST['Emp_fname']) ? $_POST['Emp_fname'] : '';
+		$model->Emp_mname= isset($_POST['Emp_mname']) ? $_POST['Emp_mname'] : '';
+		$model->Emp_lname= isset($_POST['Emp_lname']) ? $_POST['Emp_lname'] : '';
+		$model->DOB= isset($_POST['DOB']) ? $_POST['DOB'] : '';
+		$model->Email_id= isset($_POST['Email_id']) ? $_POST['Email_id'] : '';
+		$model->joining_date= isset($_POST['joining_date']) ? $_POST['joining_date'] : '';
+		$model->mobile_number= isset($_POST['mobile_number']) ? $_POST['mobile_number'] : '';
+		$model->PAN_number= isset($_POST['PAN_number']) ? $_POST['PAN_number'] : '';
+		$model->Gender= isset($_POST['Gender']) ? $_POST['Gender'] : '';
+		$model->Nationality= isset($_POST['Gender']) ? $_POST['Gender'] : '';
 		
-		$model->Reporting_officer1_id=$_POST['Reporting_officer1_id'];
-		$model->Employee_status	=$_POST['Employee_status'];
-		$model->Present_address=$_POST['Present_address'];
-		$model->Permanent_address=$_POST['Permanent_address'];
+		$model->Reporting_officer1_id= isset($_POST['Reporting_officer1_id']) ? $_POST['Reporting_officer1_id'] : '';
+		$model->Employee_status	= isset($_POST['Employee_status']) ? $_POST['Employee_status'] : '';
+		$model->Present_address= isset($_POST['Present_address']) ? $_POST['Present_address'] : '';
+		$model->Permanent_address= isset($_POST['Permanent_address']) ? $_POST['Permanent_address'] : '';
 		
 		
-		$model->state=$_POST['state'];
-		$model->city=$_POST['city'];
-		$model->other_city=$_POST['other_city'];
-		$model->Blood_group=$_POST['Blood_group'];
-		$model->cluster_name=$_POST['cluster_name'];
-		$model->cluster_appraiser=$_POST['cluster_appraiser'];
-		$model->company_location=$_POST['company_location'];
-		$model->BU=$_POST['BU'];
+		$model->state= isset($_POST['state']) ? $_POST['state'] : '';
+		$model->city= isset($_POST['city']) ? $_POST['city'] : '';
+		$model->other_city= isset($_POST['other_city']) ? $_POST['other_city'] : '';
+		$model->Blood_group= isset($_POST['Blood_group']) ? $_POST['Blood_group'] : '';
+		$model->cluster_name= isset($_POST['cluster_name']) ? $_POST['cluster_name'] : '';
+		$model->cluster_appraiser= isset($_POST['cluster_appraiser']) ? $_POST['cluster_appraiser'] : '';
+		$model->company_location= isset($_POST['company_location']) ? $_POST['company_location'] : '';
+		$model->BU= isset($_POST['BU']) ? $_POST['BU'] : '';
 
-                $model->bu_head_name=$_POST['bu_head_name'];
-                $model->bu_head_email=$_POST['bu_head_email'];
-                $model->plant_head_name=$_POST['plant_head_name'];
-                $model->plant_head_email=$_POST['plant_head_email'];
+                $model->bu_head_name= isset($_POST['bu_head_name']) ? $_POST['bu_head_name'] : '';
+                $model->bu_head_email= isset($_POST['bu_head_email']) ? $_POST['bu_head_email'] : '';
+                $model->plant_head_name= isset($_POST['plant_head_name']) ? $_POST['plant_head_name'] : '';
+                $model->plant_head_email= isset($_POST['plant_head_email']) ? $_POST['plant_head_email'] : '';
                 
 
 
-		$model->pms_status=$_POST['pms_status'];
+		$model->pms_status= isset($_POST['pms_status']) ? $_POST['pms_status'] : '';
 		
 		if (!($_POST['Cadre'] == 'Select' || $_POST['Cadre'] == '')) {
-			$model->Cadre=$_POST['Cadre'];
+			$model->Cadre= isset($_POST['Cadre']) ? $_POST['Cadre'] : '';
 			//print_r($_POST['Cadre']);die();
 		}
 		if (!($_POST['Department'] == 'Select' || $_POST['Department'] == '')) {
-			$model->Department=$_POST['Department'];
+			$model->Department= isset($_POST['Department']) ? $_POST['Department'] : '';
 		}
 		if (!($_POST['Designation'] == 'Select' || $_POST['Designation'] == '')) {
-			$model->Designation=$_POST['Designation'];
+			$model->Designation= isset($_POST['Designation']) ? $_POST['Designation'] : '';
 		}
 		if (!($_POST['company_location'] == 'Select' || $_POST['company_location'] == '')) {
-			$model->company_location=$_POST['company_location'];
+			$model->company_location= isset($_POST['company_location']) ? $_POST['company_location'] : '';
 		}
 		if (!($_POST['BU'] == 'Select' || $_POST['BU'] == '')) {
-			$model->BU=$_POST['BU'];
+			$model->BU= isset($_POST['BU']) ? $_POST['BU'] : '';
 		}
 
 		$imagename = '';
@@ -289,15 +289,15 @@ $data = array(
 		
 
 		$login_save =new LoginForm;
- 		$login_save->username = $_POST['Email_id'];
+ 		$login_save->username = isset($_POST['Email_id']) ? $_POST['Email_id'] : '';
  		$login_save->password = md5('123456');
  		$login_save->role_id = '3';
-                $login_save->Employee_id = $_POST['Employee_id'];
-                $login_save->status = $_POST['pms_status'];
+                $login_save->Employee_id = isset($_POST['Employee_id']) ? $_POST['Employee_id'] : '';
+                $login_save->status = isset($_POST['pms_status']) ? $_POST['pms_status'] : '';
  			 if($model->validate())
         	{ 
 	        	  	
-	       	//print_r($model->attributes);die();
+	       	
         		$gender='';$nationality='';$bld_grp='';
         		if ($_POST['Nationality'] == 'Indian' && ($_POST['state']=='Select' || $_POST['state']=='')) {
         			print_r("Please Select State.");die();
@@ -330,9 +330,10 @@ $data = array(
         			if ($model->BU == '') {
         				$model->BU = 'NULL';
         			}
-        		
+        		//print_r($login_save->attributes);die();
         			if($model->save()) {
         	                $login_save->save();
+
         			$this->actiongetmail($_POST['Email_id']);
         			$this->actiongetmail1($_POST['Email_id']);
 	        		print_r('success');die();
@@ -358,16 +359,32 @@ $data = array(
 		$list1 = array('Email_id');
 		$data2 = array($mail_id);
 		$employee_data = $model->get_employee_data($where1,$data2,$list1);
-		//print_r($employee_data['0']['Reporting_officer1_id']);die();
-		$message            = new YiiMailMessage;
-		
-		$message->view = 'account_verification';
-        $message->subject    = 'Account Created';
-        $message->setBody(array('mail_data' => $employee_data), 'text/html');
-        $message->addTo($mail_id);
-        $message->from = 'mssadafule@gmail.com'; 
-        
-        Yii::app()->mail->send($message);
+		//print_r($employee_data);die();
+		require 'PHPMailer-master/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+		$mail->isSMTP();                
+		$mail->Host = 'smtp.office365.com'; 
+		$mail->SMTPAuth = true;                          
+		$mail->Username = 'vvf.pms@vvfltd.com';    
+		$mail->Password = 'Dream@123';                         
+		$mail->SMTPSecure = 'tls';                          
+		$mail->Port = 587; 
+		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);
+		$params = array('mail_data'=>$employee_data);
+		$message = $this->renderPartial('//site/mail/account_verification',$params,TRUE);
+		$mail->addReplyTo($mail_id, 'Account Created');
+      	$mail->addCC($mail_id);
+      	$mail->msgHTML($message);              	
+      	$mail->isHTML(true);    
+      	$mail->Subject = 'Account Created';
+		$mail->Body    = $message; 	   
+		$mail->send();     
+   //      if(!$mail->send()) {
+			//     echo 'Message could not be sent.';
+			//     echo 'Mailer Error: ' . $mail->ErrorInfo;
+			// } else {
+			//     echo 'Message has been sent';
+			// }
 	}
 
 	public function actiongetmail1($mail_id = NULL)
@@ -378,13 +395,25 @@ $data = array(
 		$data2 = array($mail_id);
 		$employee_data = $model->get_employee_data($where1,$data2,$list1);
 		
-        $message1           = new YiiMailMessage;
-		$message1->view = 'account_verification';
-        $message1->subject    = 'New Subordinate';
-        $message1->setBody(array('mail_data' => $employee_data), 'text/html');
-        $message1->addTo($employee_data['0']['Reporting_officer1_id']);
-        $message1->from = 'vvf.pms@vvfltd.com'; 
-        Yii::app()->mail->send($message1);
+		require 'PHPMailer-master/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+		$mail->isSMTP();                
+		$mail->Host = 'smtp.office365.com'; 
+		$mail->SMTPAuth = true;                          
+		$mail->Username = 'vvf.pms@vvfltd.com';    
+		$mail->Password = 'Dream@123';                         
+		$mail->SMTPSecure = 'tls';                          
+		$mail->Port = 587; 
+		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);
+		$params = array('mail_data'=>$employee_data);
+		$message = $this->renderPartial('//site/mail/account_verification',$params,TRUE);
+		$mail->addReplyTo($employee_data['0']['Reporting_officer1_id'], 'New Subordinate');
+      	$mail->addCC($employee_data['0']['Reporting_officer1_id']);
+      	$mail->msgHTML($message);              	
+      	$mail->isHTML(true);    
+      	$mail->Subject = 'New Subordinate';
+		$mail->Body    = $message; 	        
+        $mail->send();       
 	}
 
 	function get_emp_data($where,$data,$list)

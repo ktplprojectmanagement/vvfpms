@@ -20,15 +20,15 @@ class Download_goalsheetController extends Controller
 		$data = array('PMS_display_format',date("Y",strtotime("-1 year")));             
 		$settings_data1 = $setting_date->get_setting_data($where,$data,$list);
 
-		if (count($settings_data)>0) {
+		if (isset($settings_data['0']['setting_type']) && count($settings_data)>0) {
 			$where = 'where goal_set_year = :goal_set_year';
 			$list = array('goal_set_year');
 			$data = array($settings_data['0']['setting_type']);
 			$kpi_data = $model1->get_emp_id_list($where,$data,$list);
 
-			if (count($kpi_data)>0) {
+			if (isset($kpi_data) && count($kpi_data)>0 && isset($settings_data['0']['setting_type'])) {
 				for ($i=0; $i < count($kpi_data); $i++) { 
-                                        $emploee_data =new EmployeeForm;
+                    $emploee_data =new EmployeeForm;
 					$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year';
 					$list = array('Employee_id','goal_set_year');
 					$data = array($kpi_data[$i]['Employee_id'],$settings_data['0']['setting_type']);
@@ -42,7 +42,7 @@ class Download_goalsheetController extends Controller
 			}
 
 		}
-		else if (count($settings_data1)>0) {
+		else if (isset($settings_data1['0']['setting_type']) && count($settings_data1)>0) {
         	$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
 			if ($settings_data1['0']['setting_type'] == $year) {
 				$where = 'where goal_set_year = :goal_set_year';
@@ -73,7 +73,7 @@ class Download_goalsheetController extends Controller
 			$data = array(date('Y'));
 			$kpi_data = $model1->get_emp_id_list($where,$data,$list);
 
-			if (count($kpi_data)>0) {
+			if (isset($settings_data['0']['setting_type']) && count($kpi_data)>0) {
 				for ($i=0; $i < count($kpi_data); $i++) { 
 					$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year';
 					$list = array('Employee_id','goal_set_year');

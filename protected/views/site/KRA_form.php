@@ -3,7 +3,7 @@
              <script type="text/javascript">
              var $j = jQuery.noConflict();
                  $j(function(){
-                    $j(".assign_kra").click(function(){
+                    $j("body").on('click','.assign_kra',function(){
                     $j('#large').modal({backdrop:'static',keyboard:false, show:true});
                     var id = $(this).attr('id');
                     $("#kra_id_value").text(id);
@@ -91,7 +91,7 @@ padding-top: 10px;
                         $.ajax({
                         type : 'post',
                         data : data,
-                        url : base_url+'/index.php?r=KRA/kra_del',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/kra_del',
                         success : function(data)
                         {
                             if(data == 1)
@@ -123,7 +123,7 @@ padding-top: 10px;
                     type : 'post',
                     datatype : 'html',
                     data : dept_name,
-                    url : base_url+'/index.php?r=KRA/getdata',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/getdata',
                     success : function(data)
                     {
                        $('#dept_based_emp').html(data);  
@@ -149,7 +149,7 @@ padding-top: 10px;
                 type : 'post',
                 datatype : 'html',
                 data : dept_name,
-                url : base_url+'/index.php?r=KRA/getdata',
+                url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/getdata',
                 success : function(data)
                 {
                    $('#dept_based_emp').html(data);  
@@ -211,7 +211,7 @@ padding-top: 10px;
                     type : 'post',
                     datatype : 'html',
                     data : data,
-                    url : base_url+'/index.php?r=KRA/kra_requst',
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/kra_requst',
                     success : function(data)
                     {
                        if (data !=0) 
@@ -268,7 +268,7 @@ $("#err").text("");
                         $.ajax({
                             type : 'post',
                             data : data,
-                            url : base_url+'/index.php?r=KRA/kra_update',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/kra_update',
                             success : function(data)
                             {
                                // alert(data);
@@ -336,10 +336,10 @@ $("#err").text("");
                                                     $.ajax({
                                                         type : 'post',
                                                         data : data,
-                                                        url : base_url+'/index.php?r=KRA/kra_update',
+                                                        url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/kra_update',
                                                         success : function(data)
                                                         {
-                                                            alert(data);
+                                                            //alert(data);
                                                             $("#err").show();
                                                             $("#err").fadeOut(6000);
                                                             $("#err").text("Successfully Submit");
@@ -354,97 +354,11 @@ $("#err").text("");
                                         }
                             }
                         });
-                    //     console.log(data);
-                    //     var base_url = window.location.origin;
-                    //     $.ajax({
-                    //         type : 'post',
-                    //         data : data,
-                    //         url : base_url+'/index.php?r=KRA/kra_update',
-                    //         success : function(data)
-                    //         {
-                    //             $("#err").text('');                                                        
-                    //                     if (data != 'success' && data != 1) 
-                    //                     {
-                    //                         $("#err").show();  
-                    //                         $("#err").fadeOut(6000);
-                    //                         var obj = jQuery.parseJSON(data);
-                    //                         if (obj.KRA_category != undefined) 
-                    //                             {
-                    //                                  $("#err").text(obj.KRA_category);
-                    //                                  $("#err").addClass("alert-danger");
-                                                     
-                    //                             }
-                    //                         else if (obj.No_of_KPI != undefined) 
-                    //                             {
-                    //                                  $("#err").text(obj.No_of_KPI);
-                    //                                  $("#err").addClass("alert-danger");
-                    //                             }
-                    //                         else if (obj.minimum_kpi != undefined) 
-                    //                             {
-                    //                                  $("#err").text(obj.minimum_kpi);
-                    //                                  $("#err").addClass("alert-danger");
-                    //                             }
-                    //                             // else if (obj.Cadre != undefined) 
-                    //                             // {
-                    //                             //      $("#err").text("Please Select the cadre");
-                    //                             //      $("#err").addClass("alert-danger");
-                    //                             // }
-                    //                             // else if (obj.targetlist != undefined) 
-                    //                             // {
-                    //                             //      $("#err").text("Please Check requried target");
-                    //                             //      $("#err").addClass("alert-danger");
-                    //                             // }
-                    //                     }
-                    //                     else
-                    //                     {  
-                    //                         $("#err").show();  
-                    //                         $("#err").fadeOut(6000); 
-                    //                          if($("#No_of_KPI_edit").val()>10)
-                    //                         {
-                    //                          $("#err").text("Please enter Number upto 10 in No of KPI field");
-                    //                          $("#err").addClass("alert-danger");
-                    //                         }
-                    //                         else if(parseInt($("#minimum_kpi").val())>parseInt($("#No_of_KPI_edit").val()))
-                    //                         {
-                    //                          $("#err").text("Please enter valid Number in Minimum KPI field");
-                    //                          $("#err").addClass("alert-danger");
-                    //                         }                                            
-                    //                         else
-                    //                         {
-                    //                             data = {
-                    //                                'catergory' : $("#KRA_category_edit").val(),
-                    //                                 'kpi_number' : $("#No_of_KPI_edit").val(),
-                    //                                 'minimum_kpi' : $("#minimum_kpi").val(),
-                    //                                 'Cadre' : $("#minimum_kpi").val(),
-                    //                                 'TargetList' : $("#minimum_kpi").val(),
-                    //                                 'KRA_id' : $("#KRA_id").val(),
-                    //                                 'validation_flag' : 1  
-                    //                             };
-                                                
-                    //                                 var base_url = window.location.origin;
-                    //                                 $.ajax({
-                    //                                     type : 'post',
-                    //                                     data : data,
-                    //                                     url : base_url+'/index.php?r=KRA/kra_update',
-                    //                                     success : function(data)
-                    //                                     {
-                    //                                         alert(data);
-                    //                                         $("#err").show();
-                    //                                         $("#err").fadeOut(6000);
-                    //                                         $("#err").text("Successfully Submit");
-                    //                                         $("#err").addClass("alert-success");
-                    //                                        if(data == 1)
-                    //                                         {
-                    //                                             $("#sample_1").load(location.href + " #sample_1");
-                    //                                         }
-                    //                                     }
-                    //                                 });
-                    //                         }
-                    //                     }
-                    //         }
+                 
                         });
 });
-        $("#kra_submit").click(function(){
+            $(function(){
+                    $("#kra_submit").click(function(){
             $("#err").text("");
                     $("#err").removeClass("alert-success"); 
                     $("#err").removeClass("alert-danger"); 
@@ -465,12 +379,14 @@ $("#err").text("");
                         };
                         console.log(data);
                         var base_url = window.location.origin;
+
                         $.ajax({
                             type : 'post',
                             data : data,
-                            url : base_url+'/index.php?r=KRA/kra_update',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/kra_update',
                             success : function(data)
                             {
+                                //alert(data);
                                 $("#err").show();
                                 $("#err").fadeOut(6000);
                                 $("#err").text("Successfully Updated");
@@ -495,22 +411,25 @@ $("#err").text("");
                                 targetlist = targetlist+';'+$('#Target'+i+':checked').val();
                             }
                         }
-                        var data = {                                    
-                            'catergory_name':$("#KRA_category_0").val(),   
-                            'no_of_KPI':$("#No_of_KPI0").val(),
-                            'min_kpi':$("#minimum_kpi0").val(),
-                            'Cadre':$("#selected_cader").find(':selected').val(),      
-                            'TargetList':targetlist,
-                       };
+                       data = {
+                            'catergory' : $("#KRA_category_0").val(),
+                            'kpi_number' : $("#No_of_KPI0").val(),
+                            'minimum_kpi' : $("#minimum_kpi0").val(),
+                            'targetlist' : targetlist,
+                            'min_kpi_wt' : $("#minimum_kpi_wt0").val(),
+                            'Cadre' : $("#selected_cader").find(':selected').val(),                            
+                            'validation_flag' : 1  
+                        };
                        var base_url = window.location.origin;
+
                                  $.ajax({
                                     'type' : 'post',
                                     'datatype' : 'json',
                                     'data' : data,
-                                    'url' : base_url+'/index.php?r=KRA/save_kra',
+                                    'url' : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/save_kra',
                                      success : function(data)
                                      {
-                                        alert(data);
+                                       // alert(data);
                                          $("#err").text('');                                                        
                                         if (data != 'success' && data != 1) 
                                         {
@@ -551,19 +470,23 @@ $("#err").text("");
                                             else
                                             {
                                               $("#err").hide();
-                                                var data = {                                    
-                                                        'catergory_name':$("#KRA_category_0").val(),   
-                                                        'no_of_KPI':$("#No_of_KPI0").val(),
-                                                        'min_kpi':$("#minimum_kpi0").val(),
-                                                        'validation_flag' : 1        
-                                                   };
+                                                 data = {
+                                                        'catergory' : $("#KRA_category_0").val(),
+                                                        'kpi_number' : $("#No_of_KPI0").val(),
+                                                        'minimum_kpi' : $("#minimum_kpi0").val(),
+                                                        'targetlist' : targetlist,
+                                                        'min_kpi_wt' : $("#minimum_kpi_wt0").val(),
+                                                        'Cadre' : $("#selected_cader").find(':selected').val(),                            
+                                                        'validation_flag' : 1  
+                                                    };
                                                     var base_url = window.location.origin;
                                                     $.ajax({
                                                         type : 'post',
                                                         data : data,
-                                                        url : base_url+'/index.php?r=KRA/save_kra',
+                                                        url : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/save_kra',
                                                         success : function(data)
                                                         {
+                                                            //alert(data);
                                                             $("#err").show();
                                                             $("#err").fadeOut(6000);
                                                             $("#err").text("Successfully Submit");
@@ -582,6 +505,8 @@ $("#err").text("");
                     }
 
         });
+            });
+        
 
 
             
@@ -779,6 +704,7 @@ if($('.applicable_to').find(":selected").val() == 'Custom')
                                                         <td>
                                                          <?php
                                                              if (isset($kra_edit_result)) {
+
                                                                 $minimum_kpi = $kra_edit_result['0']['min_kpi_wt'];
                                                              }                                                                   
                                                              echo CHtml::textField("min_kpi_wt",$minimum_kpi,$htmlOptions=array('class'=>"form-control",'id'=>'min_kpi_wt'));

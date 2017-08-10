@@ -104,17 +104,17 @@ font-weight: bold;
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : data,
-                                'url' : base_url+'/index.php?r=Login/check',
+                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Login/check',
                                 success : function(data)
                                 {                       
                                     if (data == 'Valid')
                                     {
-                                        window.location.href = base_url+"/index.php?r=Login/dashboard";
+                                        window.location.href = base_url+$("#basepath").attr('value')+"/index.php?r=Login/dashboard";
                                     }
                                     else if(data == 'already_login')
                                     {
                                         //$("#already_login").text("User already login");
-                                        window.location.href=base_url+'/index.php?r=Login';
+                                        window.location.href=base_url+$("#basepath").attr('value')+'/index.php?r=Login';
                                     }
                                     else
                                     {
@@ -131,7 +131,7 @@ font-weight: bold;
                 <h3 class="font-green">Reset Password </h3>
                 <div class="form-group">
                 <label id="emp_id_value" style="display: none"><?php if(isset($employee_id)) { echo $employee_id; }?></label>
-                <label>Reset Password </label>
+                <label>Enter New Password </label>
                    <?php echo CHtml::passwordField('password','',array('class'=>'form-control placeholder-no-fix email_reset password_value')); ?>
                 <label>Confirm Password </label>
                    <?php echo CHtml::passwordField('confirm_password','',array('class'=>'form-control placeholder-no-fix password_value1')); ?>
@@ -184,7 +184,7 @@ font-weight: bold;
                         type : 'post',
                         datatype : 'html',
                         data : data,
-                        url : base_url+'/index.php?r=Reset_password/rsest1',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=Reset_password/rsest1',
                         success : function(data)
                         { 
                             $("#updation_spinner").css('display','none');                                                        
@@ -194,9 +194,9 @@ font-weight: bold;
 					$("#err").fadeOut(5000);
 					$("#error_value").text("Password updated successfully.");
 window.setTimeout(function() {
-    window.location.href = base_url+'/index.php/Adminlogin';
+    window.location.href = base_url+$("#basepath").attr('value')+'/index.php/Adminlogin';
 }, 1000);  
-                                //window.location.href = base_url+'/index.php?r=Adminlogin';
+                                //window.location.href = base_url+$("#basepath").attr('value')+'/index.php?r=Adminlogin';
                             }
                             else if(data == "error occure")
                             {

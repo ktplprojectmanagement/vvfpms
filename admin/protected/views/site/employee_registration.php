@@ -40,6 +40,10 @@ font-weight: bold;
       }
       
    </style>
+   <input type="text" value="/vvf.kritva.in" id="basepath" style="display:none">
+<script type="text/javascript">
+var basepath = $("#basepath").attr('value');
+</script>
    <script type="text/javascript">
                 $(function(){
                     $("body").on('keyup','.validate_field',function(){
@@ -294,10 +298,10 @@ font-weight: bold;
                                                 contentType: false,
                                                 'enctype': 'multipart/form-data',
                                                 'data' : form_data,
-                                                'url' : base_url+'/admin/index.php/Newemployee/save',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/save',
                                                 success : function(data)
                                                 {     
-                                                //alert(data);
+                                               // alert(data);
 
                                                    $("#error_value").text('');
                                                      $("#err").hide(); 
@@ -481,7 +485,7 @@ font-weight: bold;
                                                 'type' : 'post',
                                                 'datatype' : 'json',
                                                 'data' : cluster_value,
-                                                'url' : base_url+'/admin/index.php/Newemployee/cluster_head',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/cluster_head',
                                                
                                                 success : function(data)
                                                 {
@@ -503,7 +507,7 @@ font-weight: bold;
                                                 'type' : 'post',
                                                 'datatype' : 'html',
                                                 'data' : grade,
-                                                'url' : base_url+'/admin/index.php/Newemployee/Designation_change',
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/Designation_change',
                                                
                                                 success : function(data)
                                                 {
@@ -721,21 +725,7 @@ font-weight: bold;
                                         </div>
                                     </div>
  
-<!--                                        <div class="form-group">
-                                       <label class="control-label col-md-3">Select Cluster<span class="required"> * </span></label>
-                                         <div class="col-md-4">
-                                         <?php 
-                                         $cluster_name_models = new ClusterForm();
-                                         $records = $cluster_name_models->get_list('cluster_name');
-                                         //print_r($records);die();
-                                        $list = CHtml::listData($records,'cluster_name', 'cluster_name'); 
-                                           
-                                        echo CHtml::activeDropDownList($cluster_name_models,'cluster_name',$list,array('class'=>'form-control cluster_name','empty'=>'Select')); ?>
-
-                                        </div>
-                                    </div>-->
-
-                                        <div class="form-group">
+   <div class="form-group">
                                        <label class="control-label col-md-3">Select Cluster<span class="required"> * </span></label>
                                          <div class="col-md-4">
                                          <?php 
@@ -744,43 +734,13 @@ font-weight: bold;
                                           $records=$cluster_name_model->get_cluster_list();
                                         // print_r($records);die();
                                         $list = CHtml::listData($records,'cluster_name', 'cluster_name'); 
-                                           
-                                        echo CHtml::activeDropDownList($cluster_name_models,'cluster_name',$list,array('class'=>'form-control cluster_name','empty'=>'Select')); ?>
+                                        //print_r($records);die();   
+                                        echo CHtml::activeDropDownList($cluster_name_model,'cluster_name',$list,array('class'=>'form-control cluster_name','empty'=>'Select')); ?>
 
                                         </div>
                                     </div>
 
-                                    <!--<div class="form-group">
-                                       <label class="control-label col-md-3">Select Cluster Appraiser<span class="required"> * </span></label>
-                                         <div class="col-md-4" id='cluster_appraiser'>
-                                         <?php 
-                                         $cluster_name_models = new ClusterForm();
-                                         $records = $cluster_name_models->get_list('cluster_appraiser');
-                                       
-                                        $reporting_list = new EmployeeForm();
-                                         //$records = $reporting_list->get_appraiser_list();
-                                         for ($k=0; $k < count($records); $k++) { 
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($records[$k]['cluster_appraiser']);
-                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                         }
-                                        // print_r( $Reporting_officer_data);die();
-                                         $Cadre_id = array();                                 
-                                       for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                        if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                           $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                        }
-                                           //print_r($Cadre_id);die();                
-                                       }    
-                                       echo CHtml::dropDownList('cluster_appraiser','',$Cadre_id,$htmlOptions=array('class'=>"form-control target_value",'empty'=>'Select'));                    
-                                        //echo CHtml::activeDropDownList($cluster_name_models,'cluster_appraiser',$Cadre_id,array('class'=>'form-control cluster_appraiser','empty'=>'Select')); ?>
-                                        </div>
-                                    </div> -->     
-
-
-
-
+                                    
 <div class="form-group">
                                        <label class="control-label col-md-3">Select Cluster Appraiser<span class="required"> * </span></label>
                                           <div class="col-md-4" id="cluster_appraiser">
@@ -809,68 +769,7 @@ font-weight: bold;
                                     </div>    
 
 
-                                     <!--<div class="form-group">
-                                        <label class="control-label col-md-3">Select Cadre/Grade<span class="required"> * </span></label>
-                                         <div class="col-md-4">
-                                        <?php 
-                                        $records=array();
-                                        $cluster_name_models = new ClusterForm();
-                                        $records = $cluster_name_models->get_list('grade');
-                                        $cluster_details=$records['0']['grade'];
-                                        $cluster1=explode(';',$cluster_details);
-                                        echo CHtml::dropDownList("cadre",'',$cluster1,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
-                                       ?>
-
-                                         </div>
-                                    </div>-->
-
-
-
-                                          <!--<div class="form-group">
-                                       <label class="control-label col-md-3">Select Cadre/Grade<span class="required"> * </span></label>
-                                         <div class="col-md-4">
-                                         <?php 
-                                         $cluster_name_models = new ClusterForm();
-                                         $cluster_name_model = new EmployeeForm();
-                                       // $records = $cluster_name_models->get_list('cluster_name');
-                                          //$list = array('cluster_name');
-                                          $records=$cluster_name_model->get_cadre_list();
-                                         // print_r($records);die();
-                                         $list = CHtml::listData($records,'Cadre', 'Cadre'); 
-                                         $arr_clus = array();
-                                         $arr_clus[$employee_data['0']['Cadre']] = array('selected' => true);  
-                                         if($employee_data['0']['Cadre']==""){
-                                            echo CHtml::activeDropDownList($cluster_name_model,'Cadre',$list,array('class'=>'form-control Cadre','empty'=>'Select')); 
-                                         }
-                                         else{
-                                            echo CHtml::activeDropDownList($cluster_name_model,'Cadre',$list,array('class'=>'form-control Cadre','options'=>$arr_clus)); 
-                                         }
-                                         ?>
-                                        </div>
-                                    </div>-->
-                               <!--<div class="form-group">
-                                       <label class="control-label col-md-3">Select Cadre/Grade<span class="required"> * </span></label>
-                                         <div class="col-md-4">
-                                         <?php 
-                                         $cluster_name_models = new ClusterForm();
-                                         $cluster_name_model = new EmployeeForm();
-                                       // $records = $cluster_name_models->get_list('cluster_name');
-                                          //$list = array('cluster_name');
-                                          $records=$cluster_name_model->get_cadre_list();
-                                         // print_r($records);die();
-                                         $list = CHtml::listData($records,'Cadre', 'Cadre'); 
-                                         $arr_clus = array();
-                                         $arr_clus[$employee_data['0']['Cadre']] = array('selected' => true);  
-                                         if($employee_data['0']['Cadre']==""){
-                                            echo CHtml::activeDropDownList($cluster_name_model,'Cadre',$list,array('class'=>'form-control Cadre','empty'=>'Select')); 
-                                         }
-                                         else{
-                                            echo CHtml::activeDropDownList($cluster_name_model,'Cadre',$list,array('class'=>'form-control Cadre','options'=>$arr_clus)); 
-                                         }
-                                         ?>
-                                        </div>
-                                    </div>-->
-
+                                   
                                      <div class="form-group">
                                        <label class="control-label col-md-3">Select Cadre/Grade<span class="required"> * </span></label>
                                          <div class="col-md-4">
@@ -883,8 +782,11 @@ font-weight: bold;
                                          // print_r($records);die();
                                          $list = CHtml::listData($records,'Cadre', 'Cadre'); 
                                          $arr_clus = array();
-                                         $arr_clus[$employee_data['0']['Cadre']] = array('selected' => true);  
-                                         if($employee_data['0']['Cadre']==""){
+                                         if (isset($employee_data['0']['Cadre'])) {
+                                             $arr_clus[$employee_data['0']['Cadre']] = array('selected' => true);  
+                                         }
+                                         
+                                         if(isset($employee_data['0']['Cadre']) && $employee_data['0']['Cadre']==""){
                                             echo CHtml::activeDropDownList($cluster_name_model,'Cadre',$list,array('class'=>'form-control cadre','empty'=>'Select')); 
                                          }
                                          else{
@@ -934,8 +836,11 @@ font-weight: bold;
                                           //print_r($records);die();
                                          $list = CHtml::listData($records,'Department', 'Department'); 
                                          $arr_clus = array();
-                                         $arr_clus[$employee_data['0']['Department']] = array('selected' => true);  
-                                         if($employee_data['0']['Department']==""){
+                                         if (isset($employee_data['0']['Department'])) {
+                                            $arr_clus[$employee_data['0']['Department']] = array('selected' => true); 
+                                         }
+                                          
+                                         if(isset($employee_data['0']['Department']) && $employee_data['0']['Department']==""){
                                             echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('class'=>'form-control department','empty'=>'Select')); 
                                          }
                                          else{
@@ -955,8 +860,11 @@ font-weight: bold;
                                           //print_r($records);die();
                                          $list = CHtml::listData($records,'Designation', 'Designation'); 
                                          $arr_clus = array();
-                                         $arr_clus[$employee_data['0']['Designation']] = array('selected' => true);  
-                                         if($employee_data['0']['Designation']==""){
+                                         if (isset($employee_data['0']['Designation'])) {
+                                            $arr_clus[$employee_data['0']['Designation']] = array('selected' => true);  
+                                         }
+                                         
+                                         if(isset($employee_data['0']['Designation']) && $employee_data['0']['Designation']==""){
                                             echo CHtml::activeDropDownList($cluster_name_model,'Designation',$list,array('class'=>'form-control designation','empty'=>'Select')); 
                                          }
                                          else{
@@ -1029,20 +937,6 @@ font-weight: bold;
                                     </div>
                                       
 
-                                    <!--<div class="form-group">
-                                        <label class="control-label col-md-3">Select BU<span class="required"> * </span></label>
-                                        <div class="col-md-4">
-                                        <?php 
-                                        $records=array();
-                                        $cluster_name_models = new ClusterForm();
-                                        $records = $cluster_name_models->get_list('BU');
-                                        $bu_details=$records['0']['BU'];
-                                        $bu1=explode(';',$bu_details);
-                                        echo CHtml::dropDownList("bu",'',$bu1,$htmlOptions=array('class'=>"form-control bu",'empty'=>'Select'));
-                                       ?>
-
-                                        </div>
-                                    </div> -->
 
                                    <div class="form-group">
                                        <label class="control-label col-md-3">Select BU<span class="required"> * </span></label>
@@ -1055,8 +949,10 @@ font-weight: bold;
                                           //print_r($records);die();
                                          $list = CHtml::listData($records,'BU', 'BU'); 
                                          $arr_clus = array();
-                                         $arr_clus[$employee_data['0']['BU']] = array('selected' => true);  
-                                         if($employee_data['0']['BU']==""){
+                                         if (isset($employee_data['0']['BU'])) {
+                                             $arr_clus[$employee_data['0']['BU']] = array('selected' => true);  
+                                         }                                         
+                                         if(isset($employee_data['0']['BU']) && $employee_data['0']['BU']==""){
                                             echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('class'=>'form-control bu','empty'=>'Select')); 
                                          }
                                          else{
@@ -1217,7 +1113,7 @@ font-weight: bold;
                                  dataType :'html',
                                  type :'post',
                                  data : state_name,
-                                 url : base_url+'/admin/index.php/Newemployee/city_list',
+                                 url : base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/city_list',
                                  success : function(data) {              
                                     $('#city_list').html(data);                              
                                 }

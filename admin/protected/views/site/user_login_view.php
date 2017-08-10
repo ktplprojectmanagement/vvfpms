@@ -99,12 +99,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : data,
-                                'url' : base_url+'/admin/index.php?r=Adminlogin/check',
+                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php?r=Adminlogin/check',
                                 success : function(data)
                                 {                 
                                     if (data == 'Valid')
                                     {
-                                        window.location.href = base_url+"/admin/index.php?r=Admin_Dashboard";
+                                        window.location.href = base_url+$("#basepath").attr('value')+"/admin/index.php?r=Admin_Dashboard";
                                     }
                                     else
                                     {
@@ -115,7 +115,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     });
                 });
         </script>
-           
+            <input type="text" value="/vvf.kritva.in" id="basepath" style="display:none">
+            <script type="text/javascript">
+            var basepath = $("#basepath").attr('value');
+            </script>
             <div id="login_window">
                 <h3 class="form-title font-green">Sign In</h3>
                 <div class="alert alert-danger display-hide">

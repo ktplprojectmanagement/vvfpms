@@ -59,21 +59,7 @@ if ($('.faculty_type:checked').val() == 'External')
                         });
                     });
                     </script>
-                    <style media="all" type="text/css">
-      
-     /* #err, #error { 
-       position: absolute; 
-       top: 0; right: 20; 
-       z-index: 10; 
-    width: 226px;
-height: 50px;
-border: 1px solid #4C9ED9;
-text-align: center;
-padding-top: 10px;*/
-      
-      }
-      
-   </style>
+                   
                     <?php $form=$this->beginWidget('CActiveForm', array(
                        'id'=>'user-form',                                                            
                         // 'action' => $this->createUrl('KRA/save_kra'),
@@ -116,15 +102,15 @@ padding-top: 10px;*/
                     </div>
                     <div class="portlet-body">                    
                         <div class="table-responsive">
-                 <lable id="program_id" style="display:none" ><?php echo $idp_progdata['0']['id']; ?></lable>
+                 <lable id="program_id" style="display:none" ><?php if(isset($idp_progdata['0']['id'])) { echo $idp_progdata['0']['id']; } ?></lable>
                             <table class="table table-striped table-hover table-bordered" >
                             <tbody>
                                 <tr>
                                   <td> Program Name </td>
                                     <td>
-                                     <?php
+                                     <?php 
                                     //print_r($idp_progdata);
-                                          if( isset($idp_progdata)){       
+                                          if(isset($idp_progdata['0']['program_name'])){       
                                              // echo $idp_progdata['0']['program_name'];die();
                                          echo CHtml::textField("program_name",$idp_progdata['0']['program_name'],$htmlOptions=array('class'=>"form-control",'id'=>'program_name','style'=>'width: 803px;'));
                                           }
@@ -136,18 +122,6 @@ padding-top: 10px;*/
                                 </tr>
                                 <tr>
                                   <td> Faculty Type </td>
-                                    <!--<td>-->
-                                   
-                                             
-                                     <?php
-                                        // echo CHtml::RadioButton('faculty_type', 'faculty_type', array(
-                                        //     'value'=>'External','class'=>'faculty_type', 'uncheckValue'=>null
-                                        // )).' External ';
-                                        // echo CHtml::RadioButton('faculty_type', 'faculty_type', array(
-                                        //     'value'=>'Internal','class'=>'faculty_type','uncheckValue'=>null
-                                        // )).' Internal '; 
-                                        ?>
-                                    <!--</td>-->
                                     
                                     <td>
                               
@@ -467,13 +441,8 @@ padding-top: 10px;*/
                                         
                                         
                                         
+                                    </td>   
                                     </td>
-                                        
-                                        
-                                        
-                                    </td>
-                                    
-                                    
                                 </tr>
                                 <tr>
                                     <td>Note(If any):</td>
@@ -515,11 +484,11 @@ padding-top: 10px;*/
                         </div>
                     </div>
                     </div>
-                    <?php $this->endWidget();?>
-                    <div class="portlet-body tabs-below">
+                    <?php $this->endWidget();?> 
+                     <div class="portlet-body tabs-below">
                     <div class="tab-content">                         
                         <div class="table-responsive">
-                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="output_div_edit"   <?php if(isset($edit_flag) && $edit_flag=='1'){ ?> style="display:none;" <?} ?>>
+                         <table class="table table-striped table-bordered table-hover table-checkable order-column" id="output_div_edit"   <?php if(isset($edit_flag) && $edit_flag=='1'){ ?> style="display:none;" <?php } ?>>
                             <thead>
                                 <tr>                                                                        
                                     <th>Program Name</th>
@@ -560,7 +529,7 @@ padding-top: 10px;*/
                                     }
                                 ?>                                                       
                             </tbody>
-                    </table>
+                    </table>   
                     </div>
                      </div> </div>
                 </div>
@@ -585,7 +554,7 @@ padding-top: 10px;*/
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=IDP_master/del_record',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=IDP_master/del_record',
                                 success : function(data)
                                 {
                                     //alert(data);
@@ -648,7 +617,7 @@ padding-top: 10px;*/
                     } 
                     else
                     {
-                        
+                        //alert("in");
                         var data = {
                             'program_name' : $("#program_name").val(),
                             'faculty_type' : $(".faculty_type:checked").val(),
@@ -668,10 +637,10 @@ padding-top: 10px;*/
                             type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=IDP_master/add',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=IDP_master/add',
                             success : function(data)
                             {
-                                //alert(data);
+                               // alert(data);
                                if (data) 
                                {
                                     $("#error").show();  
@@ -709,7 +678,7 @@ padding-top: 10px;*/
           type:'post',
           datatype:'html',
           data:data,
-          url:base_url+'/index.php/IDP_master/edit',
+          url:base_url+$("#basepath").attr('value')+'/index.php/IDP_master/edit',
           success:function(data)
           {
               alert(data);
@@ -720,7 +689,7 @@ padding-top: 10px;*/
     
 </script>
 <script>
-    $("#program_update").click(function(){
+    $("body").on('click','#program_update',function(){
                //alert($('#program_id').text());
                      var favorite = [];
             $.each($("input[name='location']:checked"), function(){            
@@ -764,6 +733,7 @@ padding-top: 10px;*/
                     }
                     else if($("#training_days").val() == '')
                     {
+                        alert($("#training_days").val());
                         $("#error").show();  
                         //$("#error").fadeOut(6000);
                         $("#error").text("Please enter valid number of days for training.");
@@ -771,6 +741,7 @@ padding-top: 10px;*/
                     } 
                     else
                     {
+                        //alert("Sdsadsa");
                         
                         var data = {
                             'program_name' : $("#program_name").val(),
@@ -792,10 +763,10 @@ padding-top: 10px;*/
                             type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=IDP_master/update',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=IDP_master/update',
                             success : function(data)
                             {
-                                //alert(data);
+                               // alert(data);
                                if (data) 
                                {
                                     $("#error").show();  

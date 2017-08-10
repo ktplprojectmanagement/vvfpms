@@ -207,9 +207,12 @@ class KRAController extends Controller
 		$model=new KRAStructureForm;
 				
 					$model=new KRAStructureForm;
-					$model->KRA_category = $_POST['catergory_name'];
-					$model->No_of_KPI = $_POST['no_of_KPI'];
-					$model->minimum_kpi = $_POST['min_kpi'];		
+					$model->KRA_category = $_POST['catergory'];
+					$model->No_of_KPI = $_POST['kpi_number'];
+					$model->minimum_kpi = $_POST['minimum_kpi'];
+					$model->Cadre = $_POST['Cadre'];
+					$model->TargetList = $_POST['targetlist'];
+					$model->min_kpi_wt = $_POST['min_kpi_wt'];	
 					$model->KRA_id = uniqid();	
 					$model->KRA_creation_date = date('Y-m-d');
 					if($model->validate())

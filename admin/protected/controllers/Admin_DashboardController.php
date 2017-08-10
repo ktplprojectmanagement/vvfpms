@@ -44,49 +44,51 @@ ini_set('memory_limit', '-1');
 		$list = array('setting_content','year');
 		$data = array('PMS_display_format',date('Y'));             
 		$settings_data = $setting_date->get_setting_data($where,$data,$list);
-		$year1=$settings_data['0']['setting_type'];
+		if (isset($settings_data['0']['setting_type'])) {
+			$year1=$settings_data['0']['setting_type'];
+		}		
 		
 		$recent_act=$recent_ac->get_notificationdata();
 		$recent_act1=$recent_ac->get_pending_notificationdata();
 		$recent_act2=$recent_ac->get_approve_notificationdata();
 		$recent_act3=$recent_ac->get_submitted_notificationdata();
-                if(isset($recent_act1) && count($recent_act1)>0)
-{
-for($i=0;$i<count($recent_act1);$i++){
-		$Employee_id=$recent_act1[$i]['Employee_id'];
-		$where = 'where Employee_id = :Employee_id';
-		$list = array('Employee_id');
-		$data = array($recent_act1[$i]['Employee_id']);
-		$recent_emp1[$i]=$employee_data->get_employee_data($where,$data,$list);
-		
+        if(isset($recent_act1) && count($recent_act1)>0)
+		{
+		for($i=0;$i<count($recent_act1);$i++){
+				$Employee_id=$recent_act1[$i]['Employee_id'];
+				$where = 'where Employee_id = :Employee_id';
+				$list = array('Employee_id');
+				$data = array($recent_act1[$i]['Employee_id']);
+				$recent_emp1[$i]=$employee_data->get_employee_data($where,$data,$list);
+				
+				}
 		}
-}
-		
-		
-if(isset($recent_act2) && count($recent_act2)>0)
-{
-for($i=0;$i<count($recent_act2);$i++){
-		$Employee_id=$recent_act2[$i]['Employee_id'];
-		$where = 'where Employee_id = :Employee_id';
-		$list = array('Employee_id');
-		$data = array($recent_act2[$i]['Employee_id']);
-		$recent_emp2[$i]=$employee_data->get_employee_data($where,$data,$list);
-		
+				
+				
+		if(isset($recent_act2) && count($recent_act2)>0)
+		{
+		for($i=0;$i<count($recent_act2);$i++){
+				$Employee_id=$recent_act2[$i]['Employee_id'];
+				$where = 'where Employee_id = :Employee_id';
+				$list = array('Employee_id');
+				$data = array($recent_act2[$i]['Employee_id']);
+				$recent_emp2[$i]=$employee_data->get_employee_data($where,$data,$list);
+				
+				}
 		}
-}
-		
+				
 
-		if(isset($recent_act3) && count($recent_act3)>0)
-{
-for($i=0;$i<count($recent_act3);$i++){
-		$Employee_id=$recent_act3[$i]['Employee_id'];
-		$where = 'where Employee_id = :Employee_id';
-		$list = array('Employee_id');
-		$data = array($recent_act3[$i]['Employee_id']);
-		$recent_emp3[$i]=$employee_data->get_employee_data($where,$data,$list);
-		
+				if(isset($recent_act3) && count($recent_act3)>0)
+		{
+		for($i=0;$i<count($recent_act3);$i++){
+				$Employee_id=$recent_act3[$i]['Employee_id'];
+				$where = 'where Employee_id = :Employee_id';
+				$list = array('Employee_id');
+				$data = array($recent_act3[$i]['Employee_id']);
+				$recent_emp3[$i]=$employee_data->get_employee_data($where,$data,$list);
+				
+				}
 		}
-}
 
 		$kpi_sub = $model->get_distinct_list('Employee_id','where `goal_set_year`="'.$year1.'"');
 		
@@ -100,24 +102,22 @@ for($i=0;$i<count($recent_act3);$i++){
 				
 			}
 
-		$kpi_pending=$model->get_pending_goal($year1);
-		
 
-	
-$kpi_pend=array();$cnt = 0;$location= Yii::app()->user->getState('admin_location');
-		for ($i=0; $i < count($kpi_pending); $i++) { 
+	$kpi_pending=$model->get_pending_goal($year1);
+		
+			for ($i=0; $i < count($kpi_pending); $i++) { 
 			
-				$where = 'where Employee_id = :Employee_id AND pms_status = :pms_status';
+				$employee_data =new EmployeeForm;
+				$where = 'where Employee_id = :Employee_id and pms_status != :pms_status';
 				$list = array('Employee_id','pms_status');
-				$data = array($kpi_pending[$i]['Employee_id'],'pms_status');
+				$data = array($kpi_pending[$i]['Employee_id'],'Inactive');
 				$kpi_pend1[$i] = $employee_data->get_employee_data($where,$data,$list);
-if(!($kpi_pend1[$i]['0']['pms_status'] == 'Inactive'))
-{
-$kpi_pend[$cnt] = $kpi_pend1[$i];
-$cnt++;
-}
-//print_r($kpi_pend1);die();		
+
+				
 			}
+			$kpi_pend=array_filter($kpi_pend1);
+		//	echo count($kpi_pend1);die();
+		//	print_r(array_filter($kpi_pend1));die();
 
 			$kpi_appr_data=array();
 		$kpi_appr=$model->get_disinct_kra_appr($year1);
@@ -133,7 +133,7 @@ $cnt++;
 				$data = array($kpi_appr[$i]['Employee_id']);
 				$kpi_appr_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
 				
-                               if(!($kpi_appr_data1[$i]['0']['pms_status'] == 'Inactive'))
+                               if(isset($kpi_appr_data1[$i]['0']['pms_status']) && !($kpi_appr_data1[$i]['0']['pms_status'] == 'Inactive'))
 {
 $kpi_appr_data[$cnt] = $kpi_appr_data1[$i];
 $cnt++;
@@ -163,7 +163,9 @@ $kpi_emp_not_sub = Yii::app()->db->createCommand()->select('*')->from('Employee'
 }
 else
 {
-$kpi_emp_not_sub = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and company_location="'.Yii::app()->user->getState('admin_location').'" and Employee_id NOT IN ('.$emp_id_array.') ')->queryAll();
+$location= Yii::app()->user->getState('admin_location');
+$kpi_emp_not_sub = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and Employee_id NOT IN ('.$emp_id_array.') and company_location="'.$location.'" ')->queryAll();
+//	$kpi_data1 = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and Employee_id NOT IN ('.$emp_id_array.') and company_location="'.$location.'" ')->queryAll();
 }
 		
 		$mid_sub_data=array();
@@ -176,7 +178,7 @@ $kpi_emp_not_sub = Yii::app()->db->createCommand()->select('*')->from('Employee'
 				$list = array('Employee_id','pms_status');
 				$data = array($mid_sub[$i]['Employee_id'] , 'Active');
 				$mid_sub_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
-if($mid_sub_data1[$i]['0']['pms_status'] != 'Inactive')
+if(isset($mid_sub_data1[$i]['0']['pms_status']) && $mid_sub_data1[$i]['0']['pms_status'] != 'Inactive')
 {
 	$mid_sub_data[$i] = $mid_sub_data1[$i];
 }
@@ -418,6 +420,7 @@ $yearEnd_rev2=0;
 $tot_count=array();
 		$tot_count=$employee_data->getdata();
 		$this->actionchk_state();
+		//echo "111";die();
 //print_r($kpi_emp_not_sub);die();	
 		$this->render('//site/script_file');
 		$this->render('//site/admin_header_view');
@@ -465,34 +468,39 @@ $tot_count=array();
     		
     		for($e=0;$e<count($resign_emp1);$e++)
     		{
-    		   
-    		    if($resign_emp1[$e]['joining_date'] !="#N/A" and date('Y-m-d',strtotime($resign_emp1[$e]['joining_date']))>$today_date_val1)
-    			{
-    			    $resign_emp[$cnt_num] = $chk_user_cls11[$e];
-    			    $cnt_num++;
-    			}
-    			else
-    			{
-    			    $resign_emp[$cnt_num] = $chk_user_cls11[$e];
-    			    $cnt_num++;
-    			}
-    			
+    		  	if(isset($chk_user_cls11[$e]))
+    		  	{
+    		  		if($resign_emp1[$e]['joining_date'] !="#N/A" and date('Y-m-d',strtotime($resign_emp1[$e]['joining_date']))>$today_date_val1)
+	    			{
+	    			    $resign_emp[$cnt_num] = $chk_user_cls11[$e];
+	    			    $cnt_num++;
+	    			}
+	    			else
+	    			{
+	    			    $resign_emp[$cnt_num] = $chk_user_cls11[$e];
+	    			    $cnt_num++;
+	    			}
+    		  	}
     		}
     		
     		for($j=0;$j<count($resign_emp2);$j++)
     		{
-    		    $data=array(
+    			if (isset($resign_emp2[$j])) {
+    				$data=array(
     				'pms_status'=>'Inactive',
     		        );
-    		    $update = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$resign_emp2[$j]['Employee_id']));
+    		    	$update = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$resign_emp2[$j]['Employee_id']));
+    			}    		    
     		}
     		
     		for($j=0;$j<count($resign_emp);$j++)
     		{
-    		    $data=array(
+    			if (isset($resign_emp[$j])) {
+    				$data=array(
     				'pms_status'=>'Inactive',
     		        );
-    		    $update = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$resign_emp[$j]['Employee_id']));
+    		    	$update = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$resign_emp[$j]['Employee_id']));
+    			}    		    
     		}
 	}
 
@@ -523,12 +531,13 @@ $tot_count=array();
 				$data = array($kpi_sub[$i]['Employee_id']);
 				$kpi_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
 			}
-			//print_r($kpi_data1);die();
+		print_r($kpi_data1);die();
 			
 		}
 		else if($value[1] == 'Pending')
 		{
 			$kpi_pending=$model->get_pending_goal($year1);
+		
 			for ($i=0; $i < count($kpi_pending); $i++) { 
 			
 				$employee_data =new EmployeeForm;
@@ -536,24 +545,23 @@ $tot_count=array();
 				$list = array('Employee_id','pms_status');
 				$data = array($kpi_pending[$i]['Employee_id'],'Inactive');
 				$kpi_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
-//print_r($kpi_data1);die();
+
 				
 			}
+	//		print_r($kpi_data1);die();
+	//	print_R(count($kpi_data1));die();
 		}
 		else if($value[1] == 'Approved')
 		{  
 			$kpi_appr=$model->get_disinct_kra_appr($year1);
-			//print_r($kpi_appr);die();
+// 			print_r($kpi_appr);die();
 			for($i=0;$i<count($kpi_appr);$i++){
-				$Employee_id=$kpi_appr[$i]['Employee_id'];
+				$employee_data =new EmployeeForm;
 				$where = 'where Employee_id = :Employee_id and pms_status != :pms_status';
 				$list = array('Employee_id','pms_status');
 				$data = array($kpi_appr[$i]['Employee_id'],'Inactive');
 				$kpi_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
-if($kpi_data1[$i]['0'] != '')
-{
-//print_r($kpi_data1[$i]['0']);die();
-}
+
 				
 			}
 //print_r($kpi_data1);die();
@@ -562,10 +570,11 @@ if($kpi_data1[$i]['0'] != '')
 		else if($value[1] == 'Pendingemp')
 		{
 			$model = new KpiAutoSaveForm;
-			$emp_list = $model->get_distinct_list('Employee_id','where `goal_set_year`="'.$year1.'"');
+		 $emp_list = $model->get_distinct_list('Employee_id','where (`goal_set_year`="'.$year1.'") ');
 
 			//print_r($emp_list);die();
 			$emp_all_data = $employee_data->get_distinct_emplist();
+		//print_r($emp_all_data);die();
 			$emp_id_array = '';
 			for ($m=0; $m < count($emp_list); $m++) { 
 
@@ -584,11 +593,12 @@ if($location=="Corporate"){
 $kpi_data1 = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and company_location IN ("Kolkata", "Corporate", "chennai", "kutch-II", "palanpur", "raipur") and Employee_id NOT IN ('.$emp_id_array.') ')->queryAll();
 }
 else{
-
-$kpi_data1 = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and company_location IN (".$location.") and Employee_id NOT IN ('.$emp_id_array.') ')->queryAll();
+//print_r($location);die();
+//$kpi_data1 = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and company_location IN (".$location.") and Employee_id NOT IN ('.$emp_id_array.') ')->queryAll();
+	$kpi_data1 = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and Employee_id NOT IN ('.$emp_id_array.') and company_location="'.$location.'" ')->queryAll();
 }
-		//print_r($kpi_data1);die();
 		
+	//print_r($kpi_data1);die();	
 		}
 
 		$content = '';	
