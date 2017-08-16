@@ -1,5 +1,6 @@
 <script>
     $(document).ready(function(){
+        $("#back_btn").removeAttr('disabled');
    $("input").attr("disabled", "disabled");
    $("textarea").prop('disabled', true);
    $(".fa-trash-o").css('display','none');
@@ -1623,13 +1624,11 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                 </script>
                                     
                                 <div class="col-md-12"><?php echo Yii::app()->user->getState('emp_id'); ?>
-                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Setgoals/approvegoal_list"><?php echo CHtml::button('Back',array('class'=>'btn border-blue-soft','style'=>'float:right;margin-right: 13px;margin-top: -64px;display:none
-}')); ?></a>
-<?php 
+                                <?php 
                                     if ((isset($KRA_category_auto) && count($KRA_category_auto)<=6)) {  echo CHtml::button('New KRA',array('class'=>'btn border-blue-soft','style'=>'float:left;margin-right: 13px;margin-top: -64px;display:none
 ','id'=>'show_goal')); } ?>
 </div>
-<div class="form-group col-xs-3" style="margin-top: -77px;padding-right: 170px;float: right;">
+<div class="form-group col-xs-3" style="margin-top: -77px;padding-right: 170px;">
       <label>Select Year</label>
         <select class="form-control " name="financial_year" id="financial_year">
             <option>--Select--</option>
@@ -1637,6 +1636,8 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
             <option <?php if(Yii::app()->user->getState('financial_year_check') == "2017-2018") { echo "selected"; } ?>>2017-2018</option>
         </select>
     </div>
+    <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Setgoals/approvegoal_list"><input type="button" id="back_btn" value="Back" class="btn border-blue-soft" style="float:right;margin-right: 13px;margin-top: -64px;"></a>
+
  <div class="portlet box border-blue-soft bg-blue-soft" id="goal_emp_data" style="margin-top: 49px;display:none">
                                 <div class="portlet-title">
                                     <div class="caption">
@@ -3402,10 +3403,10 @@ else if($(".KRA_description-"+kra_id_value1[j]).val() == '' || $(".KRA_descripti
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-                                                else if($(".target_value1"+kra_id_value1[j]+i).text()>100 || $(".target_value1"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+                                                // else if($(".target_value1"+kra_id_value1[j]+i).text()>100 || $(".target_value1"+kra_id_value1[j]+i).attr('value')>100)
+                                                // {
+                                                //      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                // }
 else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -3418,10 +3419,10 @@ else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value2"+kra_id_value1[j]+i).text()>100 || $(".target_value2"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value2"+kra_id_value1[j]+i).text()>100 || $(".target_value2"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -3434,10 +3435,10 @@ else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value3"+kra_id_value1[j]+i).text()>100 || $(".target_value3"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value3"+kra_id_value1[j]+i).text()>100 || $(".target_value3"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -3450,10 +3451,10 @@ else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value4"+kra_id_value1[j]+i).text()>100 || $(".target_value4"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value4"+kra_id_value1[j]+i).text()>100 || $(".target_value4"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -4632,10 +4633,10 @@ else if($(".KRA_description-"+kra_id_value1[j]).val() == '' || $(".KRA_descripti
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-                                                else if($(".target_value1"+kra_id_value1[j]+i).text()>100 || $(".target_value1"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+                                                // else if($(".target_value1"+kra_id_value1[j]+i).text()>100 || $(".target_value1"+kra_id_value1[j]+i).attr('value')>100)
+                                                // {
+                                                //      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+                                                // }
 else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -4648,10 +4649,10 @@ else if(chk_per.test($(".target_value1"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value2"+kra_id_value1[j]+i).text()>100 || $(".target_value2"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value2"+kra_id_value1[j]+i).text()>100 || $(".target_value2"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -4664,10 +4665,10 @@ else if(chk_per.test($(".target_value2"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value3"+kra_id_value1[j]+i).text()>100 || $(".target_value3"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value3"+kra_id_value1[j]+i).text()>100 || $(".target_value3"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -4680,10 +4681,10 @@ else if(chk_per.test($(".target_value3"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value4"+kra_id_value1[j]+i).text()>100 || $(".target_value4"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value4"+kra_id_value1[j]+i).text()>100 || $(".target_value4"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage cannot exceed 100%';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -7044,6 +7045,9 @@ if (chk_compl1 == 1)
                     
                 });
              });
+$(function(){
+    $("#back_btn").removeAttr('disabled');
+})
          </script>
              
     

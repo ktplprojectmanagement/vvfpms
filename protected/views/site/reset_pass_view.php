@@ -187,6 +187,7 @@ font-weight: bold;
                         url : base_url+$("#basepath").attr('value')+'/index.php?r=Reset_password/rsest1',
                         success : function(data)
                         { 
+                            //alert(data);
                             $("#updation_spinner").css('display','none');                                                        
                             if (data == "success")
                             {

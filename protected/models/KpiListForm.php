@@ -29,7 +29,7 @@ class KpiListForm extends CActiveRecord
 			array('kpi_name, kpi_description, department', 'required'),
 			array('kpi_name', 'length', 'max'=>100),
 			array('kpi_description', 'length', 'max'=>300),
-			array('department', 'length', 'max'=>50),
+			array('department', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('kpi_name, kpi_description, department', 'safe', 'on'=>'search'),

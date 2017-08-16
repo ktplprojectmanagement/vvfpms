@@ -1501,7 +1501,7 @@ $("body").on('click','#continue_goal_set1',function(){
                                         url : base_url+$("#basepath").attr('value')+'/admin/index.php/LoginLocation/location_submit',
                                         success : function(data)
                                         {
-                                          alert(data);
+                                          //alert(data);
                                            if(data=="Notification Send"){
                                             window.location.replace(base_url+$("#basepath").attr('value')+'/admin/index.php/Newemployee/employee_master'); 
                                                     $("#err").show();

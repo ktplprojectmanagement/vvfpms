@@ -2960,7 +2960,7 @@ $set_flag1 = "'disabled'= 'false'";
                                     <p> IDP updation done successfully. </p>
                                 </div>
                                 <div class="modal-footer">
-                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/vvf.kritva.in/index.php?r=IDP/IDP_approvegoal_list"><button type="button" class="btn border-blue-soft" id="redirect_to_master">OK</button></a>
+                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/pms/index.php?r=IDP/IDP_approvegoal_list"><button type="button" class="btn border-blue-soft" id="redirect_to_master">OK</button></a>
                                 </div> 
                         </div>
                     </div>

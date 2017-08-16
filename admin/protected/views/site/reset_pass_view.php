@@ -60,7 +60,7 @@ font-weight: bold;
       }
       
    </style>
-<input type="text" value="/vvf.kritva.in" id="basepath">
+<input type="text" value="/pms" id="basepath" style="display:none">
             <script type="text/javascript">
             var basepath = $("#basepath").attr('value');
             </script>
@@ -131,10 +131,10 @@ font-weight: bold;
            
             
             <div id="forget_window">
-                <h3 class="font-green">Reset Password </h3>
+                <h3 class="font-green">Enter New Password </h3>
                 <div class="form-group">
                 <label id="emp_id_value" style="display: none"><?php if(isset($employee_id)) { echo $employee_id; }?></label>
-                <label>Reset Password </label>
+                <label>Enter New Password </label>
                    <?php echo CHtml::passwordField('password','',array('class'=>'form-control placeholder-no-fix email_reset password_value')); ?>
                 <label>Confirm Password </label>
                    <?php echo CHtml::passwordField('confirm_password','',array('class'=>'form-control placeholder-no-fix password_value1')); ?>

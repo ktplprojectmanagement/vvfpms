@@ -473,7 +473,7 @@ if ($('.faculty_type:checked').val() == 'External')
                              <?php    
                              if(isset($edit_flag) && $edit_flag==1){
                                  echo CHtml::button('Update',array('class'=>'btn green','style'=>'float:right;background-color: rgb(51, 122, 183);','id'=>'program_update'));?>
-                             <a href='<?php echo Yii::app()->createUrl("index.php/IDP_master"); ?>'><button class="btn border-blue-soft">Back</button></a>    
+                             <a href='<?php echo Yii::app()->request->baseUrl.'/index.php/IDP_master'; ?>'>Go Back</a>    
                         <?php
                              }
                              else

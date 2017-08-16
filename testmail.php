@@ -1,5 +1,7 @@
 <?php
 
+
+echo "in";die();
 require 'PHPMailer-master/PHPMailerAutoload.php';
 
 $mail = new PHPMailer;

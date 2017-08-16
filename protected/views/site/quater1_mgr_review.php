@@ -780,7 +780,7 @@ echo CHtml::textArea("review_comment",$apr_comment,$htmlOptions=array('class'=>"
                                                                <?php 
        if (isset($kpi_data['0']['mid_year_goalsheet_doc']) && $kpi_data['0']['mid_year_goalsheet_doc'] != '') {
 ?>
-<a href="<?php echo 'http://vvf.kritva.in/data(proof)/'.$kpi_data['0']['mid_year_goalsheet_doc']; ?>" target="_new"><label style="margin-top: -64px;
+<a href="<?php echo 'http://52.172.210.251/pms/data(proof)/'.$kpi_data['0']['mid_year_goalsheet_doc']; ?>" target="_new"><label style="margin-top: -64px;
 margin-left: 15px;"><?php echo "Goalsheet Document"; ?></label></a>
 <?php } ?>
 <?php

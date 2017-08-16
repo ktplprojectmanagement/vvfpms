@@ -1,9 +1,9 @@
-<script src="https://www.vvf.kritva.in/local/jquery.min.js"></script>
-<script src="https://www.vvf.kritva.in/local/bootstrap.min.js"></script>
-<link href="https://www.vvf.kritva.in/local_css/jquery-ui.css" rel="stylesheet">
-<script src="https://www.vvf.kritva.in/local/jquery-1.10.2.js"></script>
-<script src="https://www.vvf.kritva.in/local/jquery-ui.js"></script>
-<script src="https://www.vvf.kritva.in/local/moment.js"></script>
+<script src="https://52.172.210.251/pms/local/jquery.min.js"></script>
+<script src="https://52.172.210.251/pms/local/bootstrap.min.js"></script>
+<link href="https://52.172.210.251/pms/local_css/jquery-ui.css" rel="stylesheet">
+<script src="https://52.172.210.251/pms/local/jquery-1.10.2.js"></script>
+<script src="https://52.172.210.251/pms/local/jquery-ui.js"></script>
+<script src="https://52.172.210.251/pms/local/moment.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/scripts/datatable.js" type="text/javascript"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>

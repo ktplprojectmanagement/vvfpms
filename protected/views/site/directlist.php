@@ -114,7 +114,7 @@
                                                                    $color = "color:green";
                                                                 }
                                                                $html = "<ol class='tree'>";
-                                                               $html .= "<img src='https://www.vvf.kritva.in/images/folder.png'> <label for='subfolder2'><a href='".Yii::app()->createUrl('index.php/Directreport/appraiser_end_review',array('Employee_id'=>$emp_data[$i]['0']['Employee_id'],'apr_data'=>$emp_data[$i]['0']['Reporting_officer1_id']))."'  target='_new' style='".$color."'>".$emp_data[$i]['0']['Emp_fname']." ".$emp_data[$i]['0']['Emp_lname']."</a></label> (".$emp_data[$i]['0']['Department'].")</li>"; 
+                                                               $html .= "<img src='https://52.172.210.251/pms/images/folder.png'> <label for='subfolder2'><a href='".Yii::app()->createUrl('index.php/Directreport/appraiser_end_review',array('Employee_id'=>$emp_data[$i]['0']['Employee_id'],'apr_data'=>$emp_data[$i]['0']['Reporting_officer1_id']))."'  target='_new' style='".$color."'>".$emp_data[$i]['0']['Emp_fname']." ".$emp_data[$i]['0']['Emp_lname']."</a></label> (".$emp_data[$i]['0']['Department'].")</li>"; 
                                                                 $html .= "</ol>";
                                                                  echo $html;  
                                                                  //$html .= "</li>";

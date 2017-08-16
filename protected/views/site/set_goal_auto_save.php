@@ -450,7 +450,7 @@ function save_idp_data()
                                    $("output_div_"+id_value[1]).load(location.href + " .output_div"); 
                                    $("#del_goal").modal('hide');
                                    $("#del_goal_set_kra").modal('hide');
-                                   //location.reload();
+                                   location.reload();
                                 }
 
                             }
@@ -6146,7 +6146,9 @@ function save_detail_pdf()
 display:none;
 }
 </style>
-<?php echo Yii::app()->request->baseUrl; ?>
+<?php 
+//echo Yii::app()->request->baseUrl; 
+?>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>

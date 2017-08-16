@@ -418,7 +418,7 @@ $("#err").text("");
                             'targetlist' : targetlist,
                             'min_kpi_wt' : $("#minimum_kpi_wt0").val(),
                             'Cadre' : $("#selected_cader").find(':selected').val(),                            
-                            'validation_flag' : 1  
+                            //'validation_flag' : 1  
                         };
                        var base_url = window.location.origin;
 
@@ -429,9 +429,9 @@ $("#err").text("");
                                     'url' : base_url+$("#basepath").attr('value')+'/index.php?r=KRA/save_kra',
                                      success : function(data)
                                      {
-                                       // alert(data);
+                                       //alert("in");
                                          $("#err").text('');                                                        
-                                        if (data != 'success' && data != 1) 
+                                        if (data != 'success' && data != '1') 
                                         {
                         $("#err").show();  
                                             $("#err").fadeOut(6000);
@@ -776,7 +776,7 @@ if($('.applicable_to').find(":selected").val() == 'Custom')
                                                     <div class="col-md-5" style="float:right">
                                                     <?php                                  
                                                     echo CHtml::button('Update',array('class'=>'btn green','style'=>'float:right;background-color: rgb(51, 122, 183);','id'=>'kra_edit')); ?>
-                                                    <a href='<?php echo Yii::app()->request->baseUrl; ?>/pmsuser/index.php?r=KRA/kra_create'><?php  
+                                                    <a href='<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=KRA/kra_create'><?php  
                                                     echo CHtml::button('Back',array('class'=>'btn green','style'=>'background-color: rgb(51, 122, 183);width: 75px;'));  
                                                     ?></a>
                                                 </div>

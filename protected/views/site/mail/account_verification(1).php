@@ -74,7 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="invoice">
                                     <div class="row invoice-logo">
                                         <div class="col-xs-6 invoice-logo-space">
-                                            <img src="http://52.172.210.251/vvf.kritva.in/Logo.png" alt="vvf" style="max-width: 8%;"></div>
+                                            <img src="http://52.172.210.251/pms/Logo.png" alt="vvf" style="max-width: 8%;"></div>
                                     </div>
                                     <hr/>
                                     <div class="row">  

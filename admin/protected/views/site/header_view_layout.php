@@ -133,7 +133,7 @@ $(document).ready(function(){
     }
 });
 </script>
-        <input type="text" value="/vvf.kritva.in" id="basepath">
+        <input type="text" value="/pms" id="basepath">
 <script type="text/javascript">
 var basepath = $("#basepath").attr('value');
 </script>

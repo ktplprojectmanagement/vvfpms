@@ -33,7 +33,7 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://52.172.210.251/vvf.kritva.in/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="http://52.172.210.251/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label><?php if(isset($mail_data['0']['Emp_fname']) && isset($mail_data['0']['Emp_lname'])) { echo $mail_data['0']['Emp_fname'].' '.$mail_data['0']['Emp_lname']; }?></label>,<br/>
@@ -117,11 +117,11 @@ label{
                                                                                 ?>
                                                                                 <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($kpi_list_target[$i])) { echo $kpi_list_target[$i]; } ?></td>
                                                                                 <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?></td>
-                                                                                <td style="border: 1px solid black;font-size: 14px;"></td>
-                                                                                <td style="border: 1px solid black;font-size: 14px;"></td>
-                                                                                <td style="border: 1px solid black;font-size: 14px;"></td>
-                                                                                <td style="border: 1px solid black;font-size: 14px;"></td>
-                                                                                <td style="border: 1px solid black;font-size: 14px;"></td>
+                                                                                <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($kpi_list_target[$i])) { echo '< '.round($kpi_list_target[$i]*0.69,2); } ?></td>
+                                                                                <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*0.70,2)." to ".round($kpi_list_target[$i]*0.95,2); }?></td>
+                                                                                <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*0.96,2)." to ".round($kpi_list_target[$i]*1.05,2); }?></td>
+                                                                                <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.06,2)." to ".round($kpi_list_target[$i]*1.29,2); }?></td>
+                                                                                <td style="border: 1px solid black;font-size: 14px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.39,2); }?></td>
                                                                         <?php
                                                                             }
                                                                             else
@@ -167,7 +167,7 @@ label{
 Kindly login to PMS portal thru link below, review the same and take necessary action if required. 
 <br>
 <span> Click on the link below to check the status:<br>
-  <a href="http://52.172.210.251/vvf.kritva.in/Logo.png">PMS Login</a>
+  <a href="http://52.172.210.251/pms/Logo.png">PMS Login</a>
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>

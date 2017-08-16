@@ -3463,3 +3463,517 @@ Stack trace:
 REQUEST_URI=/vvf.kritva.in/admin/index.php/Newemployee/save
 HTTP_REFERER=http://52.172.210.251/vvf.kritva.in/admin/index.php?r=Newemployee
 ---
+2017/08/14 09:43:04 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/08/14 09:43:05 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/08/14 09:44:37 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 09:45:49 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/LoginController.php:604)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/pms/admin/framework/web/CController.php(286): LoginController->runAction()
+#3 /var/www/html/pms/admin/framework/web/CController.php(265): LoginController->runActionWithFilters()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): LoginController->run()
+#5 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#6 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#7 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Login/employee_profile/Employee_id/favicon.ico
+2017/08/14 09:46:22 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "Bu_mail". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('Bu_mail')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('Bu_mail')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/Bu_...')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/Bu_mail
+HTTP_REFERER=http://52.172.210.251/pms/admin/index.php/Login/employee_profile/Employee_id/vvf598834624dcf2
+---
+2017/08/14 09:46:28 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "Plant_mail". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('Plant_mail')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('Plant_mail')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/Pla...')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/Plant_mail
+HTTP_REFERER=http://52.172.210.251/pms/admin/index.php/Login/employee_profile/Employee_id/vvf598834624dcf2
+---
+2017/08/14 09:47:03 [error] [exception.Swift_TransportException] Swift_TransportException: Expected response code 250 but got code "530", with message "530 5.7.57 SMTP; Client was not authenticated to send anonymous mail during MAIL FROM [BM1PR01CA0078.INDPRD01.PROD.OUTLOOK.COM]
+" in /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/AbstractSmtpTransport.php:406
+Stack trace:
+#0 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/AbstractSmtpTransport.php(290): Swift_Transport_AbstractSmtpTransport->_assertResponseCode('530 5.7.57 SMTP...', Array)
+#1 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/EsmtpTransport.php(197): Swift_Transport_AbstractSmtpTransport->executeCommand('MAIL FROM: <pms...', Array, Array)
+#2 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/EsmtpTransport.php(267): Swift_Transport_EsmtpTransport->executeCommand('MAIL FROM: <pms...', Array)
+#3 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/AbstractSmtpTransport.php(441): Swift_Transport_EsmtpTransport->_doMailFromCommand('pmstest@vvf.kri...')
+#4 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/AbstractSmtpTransport.php(477): Swift_Transport_AbstractSmtpTransport->_doMailTransaction(Object(Swift_Message), 'pmstest@vvf.kri...', Array, Array)
+#5 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Transport/AbstractSmtpTransport.php(168): Swift_Transport_AbstractSmtpTransport->_sendTo(Object(Swift_Message), 'pmstest@vvf.kri...', Array, Array)
+#6 /var/www/html/pms/admin/protected/extensions/yii-mail/vendors/swiftMailer/classes/Swift/Mailer.php(77): Swift_Transport_AbstractSmtpTransport->send(Object(Swift_Message), Array)
+#7 /var/www/html/pms/admin/protected/extensions/yii-mail/YiiMail.php(133): Swift_Mailer->send(Object(Swift_Message), Array)
+#8 /var/www/html/pms/admin/protected/controllers/LoginLocationController.php(418): YiiMail->send(Object(YiiMailMessage))
+#9 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): LoginLocationController->actionlocation_submit()
+#10 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('location_submit')
+#14 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('LoginLocation/l...')
+#15 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#16 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/pms/admin/index.php/LoginLocation/location_submit
+HTTP_REFERER=http://52.172.210.251/pms/admin/index.php/Login/employee_profile/Employee_id/vvf598834624dcf2
+---
+2017/08/14 09:51:12 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/fav...')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/favicon.ico
+---
+2017/08/14 09:51:14 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/fav...')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/favicon.ico
+---
+2017/08/14 09:54:01 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "Plant_details". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('Plant_details')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('Plant_details')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/Pla...')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/Plant_details
+HTTP_REFERER=http://52.172.210.251/pms/admin/index.php/Login/employee_profile/Employee_id/vvf598bda408939d
+---
+2017/08/14 09:58:03 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/NewemployeeController.php:372)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): NewemployeeController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): NewemployeeController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): NewemployeeController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Newemployee/save
+2017/08/14 09:59:37 [error] [php] Undefined offset: 1 (/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 09:59:46 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:842)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 10:00:00 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:891)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 10:00:21 [error] [php] Undefined index: Reporting_officer1_id (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1008)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetMid
+2017/08/14 10:00:42 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1144)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/getMidIdpStat
+2017/08/14 10:01:10 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1331)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Admin_Dashboard/getYearEndStat
+2017/08/14 10:01:24 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1331)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Admin_Dashboard/getYearEndStat
+2017/08/14 10:01:34 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:662)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 10:01:49 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 10:01:53 [error] [php] Undefined offset: 1 (/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 10:02:05 [error] [php] Undefined offset: 1 (/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 11:38:54 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/08/14 11:39:47 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/LoginController.php:604)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/pms/admin/framework/web/CController.php(286): LoginController->runAction()
+#3 /var/www/html/pms/admin/framework/web/CController.php(265): LoginController->runActionWithFilters()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): LoginController->run()
+#5 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#6 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#7 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Login/employee_profile/Employee_id/favicon.ico
+2017/08/14 12:19:16 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('KPI/favicon.ico')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/KPI/favicon.ico
+---
+2017/08/14 12:30:56 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:31:01 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:662)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:31:04 [error] [php] Undefined offset: 1 (/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:31:07 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:842)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 12:31:12 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:842)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 12:31:21 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:891)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 12:31:24 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:891)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 12:31:35 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/08/14 12:31:45 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1144)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/getMidIdpStat
+2017/08/14 12:31:48 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:31:55 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:31:57 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:662)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:31:59 [error] [php] Undefined offset: 1 (/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:35:22 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/NewemployeeController.php:372)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): NewemployeeController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): NewemployeeController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): NewemployeeController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Newemployee/save
+2017/08/14 12:39:03 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:39:05 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:39:10 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:39:11 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:662)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:39:14 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:662)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:39:15 [error] [php] Undefined offset: 1 (/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/08/14 12:39:23 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:842)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 12:39:29 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:891)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/08/14 12:39:46 [error] [php] Undefined index: Reporting_officer1_id (/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1008)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetMid
+2017/08/14 12:45:10 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/NewemployeeController.php:372)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /var/www/html/pms/admin/framework/web/CController.php(286): NewemployeeController->runAction()
+#2 /var/www/html/pms/admin/framework/web/CController.php(265): NewemployeeController->runActionWithFilters()
+#3 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): NewemployeeController->run()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Newemployee/save
+2017/08/14 12:46:17 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '22' for key 'Employee_atd_code_UNIQUE'. The SQL statement executed was: INSERT INTO `Employee` (`Employee_id`, `Employee_atd_code`, `Emp_fname`, `Emp_mname`, `Emp_lname`, `DOB`, `Email_id`, `joining_date`, `mobile_number`, `PAN_number`, `Gender`, `Nationality`, `Reporting_officer1_id`, `Employee_status`, `Present_address`, `Permanent_address`, `state`, `city`, `other_city`, `Blood_group`, `cluster_name`, `cluster_appraiser`, `company_location`, `BU`, `bu_head_name`, `bu_head_email`, `plant_head_name`, `plant_head_email`, `pms_status`, `Cadre`, `Department`, `Designation`, `Image`, `invalid_email`) VALUES (:yp0, :yp1, :yp2, :yp3, :yp4, :yp5, :yp6, :yp7, :yp8, :yp9, :yp10, :yp11, :yp12, :yp13, :yp14, :yp15, :yp16, :yp17, :yp18, :yp19, :yp20, :yp21, :yp22, :yp23, :yp24, :yp25, :yp26, :yp27, :yp28, :yp29, :yp30, :yp31, :yp32, :yp33).
+2017/08/14 12:46:17 [error] [exception.CDbException] CDbException: CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '22' for key 'Employee_atd_code_UNIQUE' in /var/www/html/pms/admin/framework/db/CDbCommand.php:358
+Stack trace:
+#0 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(1080): CDbCommand->execute()
+#1 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(809): CActiveRecord->insert(NULL)
+#2 /var/www/html/pms/admin/protected/controllers/NewemployeeController.php(334): CActiveRecord->save()
+#3 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): NewemployeeController->actionsave()
+#4 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#5 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#6 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#7 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('save')
+#8 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/sav...')
+#9 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#10 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#11 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/save
+HTTP_REFERER=http://52.172.210.251/pms/admin/index.php?r=Newemployee
+---
+2017/08/14 12:48:22 [error] [php] Undefined offset: 0 (/var/www/html/pms/admin/protected/controllers/LoginController.php:604)
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#1 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#2 /var/www/html/pms/admin/framework/web/CController.php(286): LoginController->runAction()
+#3 /var/www/html/pms/admin/framework/web/CController.php(265): LoginController->runActionWithFilters()
+#4 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): LoginController->run()
+#5 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#6 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#7 /var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Login/employee_profile/Employee_id/favicon.ico
+2017/08/14 12:48:52 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "Plant_mail". in /var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('Plant_mail')
+#1 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('Plant_mail')
+#2 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Newemployee/Pla...')
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/Newemployee/Plant_mail
+HTTP_REFERER=http://52.172.210.251/pms/admin/index.php/Login/employee_profile/Employee_id/123456
+---

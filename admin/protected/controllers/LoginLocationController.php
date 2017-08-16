@@ -402,23 +402,49 @@ $where = 'where Employee_id = :Employee_id';
 		$Employee_details = $model->get_employee_data($where,$data,$list);
           
                 if(isset($Employee_details) && count($Employee_details)>0){
-//print_r($data_value);die();
-$Email_id="pmstest@vvf.kritva.in";
-     Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		  $message->view = "admin_approval_mail";
-		  $params = array('mail_data'=>$Employee_details);
-		  $message->setBody($params, 'text/html');
-		  $message->subject = 'Location Wise Request';
-		  $message->addTo('ritesh.prajapati@vvfltd.com'); 
-		  //$message->AddCC('amit.sanas@vvfltd.com');
-                  $message->AddBCC('amit.sanas@vvfltd.com'); 
-		  $message->from = $Email_id;
-//print_r($Employee_details);die();
- if(Yii::app()->mail->send($message))
-		  {
-		  		echo "Notification Send";die();
-		  }
+                	require 'PHPMailer-master/PHPMailerAutoload.php';
+					$mail = new PHPMailer;
+					$mail->isSMTP();                                      // Set mailer to use SMTP
+					$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
+					$mail->SMTPAuth = true;                               // Enable SMTP authentication
+					$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
+					$mail->Password = 'Dream@123';                           // SMTP password
+					$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+					$mail->Port = 587;                                    // TCP port to connect to
+					$mail->setFrom('vvf.pms@vvfltd.com', 'Location Wise Request');
+					$params = array('mail_data'=>$Employee_details);
+					$message = $this->renderPartial('//site/mail/admin_approval_mail',$params,TRUE);           // Name is optional
+					$mail->addReplyTo('amit.sanas@vvfltd.com', 'Location Wise Request');
+					$mail->addCC('ritesh.prajapati@vvfltd.com');
+					//$mail->addCC('demo.appraisel@gmail.com');
+					$mail->msgHTML($message);
+					$mail->isHTML(true); 
+					$mail->Subject = 'Location Wise Request';
+					$mail->Body    = $message;
+					if(!$mail->send()) {
+					    echo 'Message could not be sent.';
+					    echo 'Mailer Error: ' . $mail->ErrorInfo;
+					} else {
+					    echo 'Message has been sent';
+					}
+
+// //print_r($data_value);die();
+// $Email_id="pmstest@vvf.kritva.in";
+//      Yii::import('ext.yii-mail.YiiMailMessage');
+// 		  $message = new YiiMailMessage;
+// 		  $message->view = "admin_approval_mail";
+// 		  $params = array('mail_data'=>$Employee_details);
+// 		  $message->setBody($params, 'text/html');
+// 		  $message->subject = 'Location Wise Request';
+// 		  $message->addTo('ritesh.prajapati@vvfltd.com'); 
+// 		  //$message->AddCC('amit.sanas@vvfltd.com');
+//                   $message->AddBCC('amit.sanas@vvfltd.com'); 
+// 		  $message->from = $Email_id;
+// //print_r($Employee_details);die();
+//  if(Yii::app()->mail->send($message))
+// 		  {
+// 		  		echo "Notification Send";die();
+// 		  }
 }
 }
 

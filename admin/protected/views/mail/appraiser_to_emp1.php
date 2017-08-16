@@ -33,7 +33,7 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://vvf.kritva.in/images/Logo.png" alt="VVF" style="max-width: 8%;">
+<img src="http://52.172.210.251/pms/images/Logo.png" alt="VVF" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label><?php if(isset($mail_data['0']['Emp_fname'])) { echo $mail_data['0']['Emp_fname']; }?></label>,<br/>
@@ -41,7 +41,7 @@ label{
  The Final year Goals for the year <label><?php echo date('Y').'-'.date('Y', strtotime('+1 year')); ?></label> has been approved.</span> Kindly login to PMS Online to review the same and further actions.<br/>
 
 <span> Please click the link below to check status:<br>
-  <a href="https://vvf.kritva.in/index.php/PMSlogin/yearenda">https://vvf.kritva.in/index.php/Login</a>
+  <a href="https://52.172.210.251/pms/index.php/PMSlogin/yearenda">https://52.172.210.251/pms/index.php/Login</a>
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>

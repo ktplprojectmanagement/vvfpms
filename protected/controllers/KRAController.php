@@ -204,7 +204,7 @@ class KRAController extends Controller
 
 	public function actionsave_kra()
 	{
-		$model=new KRAStructureForm;
+		//$model=new KRAStructureForm;
 				
 					$model=new KRAStructureForm;
 					$model->KRA_category = $_POST['catergory'];
@@ -220,9 +220,9 @@ class KRAController extends Controller
 						if (isset($_POST['validation_flag'])) 
 						{
 							if ($model->save()) {
-								print_r('1'); 
+								print_r('1');die(); 
 							}
-						  	
+						  	//print_r('1'); die();
 						}  
 						else
 						{

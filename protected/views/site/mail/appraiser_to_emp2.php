@@ -33,7 +33,7 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://52.172.210.251/vvf.kritva.in/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="http://52.172.210.251/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label><?php if(isset($mail_data['0']['Emp_fname'])) { echo $mail_data['0']['Emp_fname']; }?></label>,<br/>
@@ -41,7 +41,7 @@ label{
  I have reviewed Mid year goal sheet for the year <label><?php echo date('Y').'-'.date('Y', strtotime('+1 year')); ?></label>.</span> Kindly login to PMS portal through link below and check.<br/>
 
 <span> click the link below to check status:<br>
-  <a href="http://52.172.210.251/vvf.kritva.in/index.php/Login">PMS Login</a>
+  <a href="http://52.172.210.251/pms/index.php/Login">PMS Login</a>
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>

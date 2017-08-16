@@ -1653,6 +1653,7 @@ $notification_data->notification_type = 'KRA Deletion';
 				$mail->Body    = $message; 			
     			 
     			if($mail->send()) {
+    				echo "Notification Send";die();
 			    // echo 'Message could not be sent.';
 			    // echo 'Mailer Error: ' . $mail->ErrorInfo;
 				} else {
@@ -1870,8 +1871,8 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
               	$mail->isHTML(true);     
               	$mail->Subject = 'IDP & Goalsheet Approved';
 				$mail->Body    = $message;
-              	$mail->addAttachment(Yii::getPathOfAlias('webroot')."/Goalsheet_docs/goalsheet_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf");         // Add attachments
-				$mail->addAttachment(Yii::getPathOfAlias('webroot')."/IDP_docs/IDP_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf");    // Optional name			
+              	$mail->addAttachment(Yii::getPathOfAlias('webroot')."/Goalsheet_docs/goalsheet_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].Yii::app()->user->getState('financial_year_check').".pdf");         // Add attachments
+				//$mail->addAttachment(Yii::getPathOfAlias('webroot')."/IDP_docs/IDP_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf");    // Optional name			
     			 
     			  if($mail->send())
     			  {	  		

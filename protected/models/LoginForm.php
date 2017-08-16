@@ -135,14 +135,17 @@ $command->bindValue(":Employee_id",$data['username'],PDO::PARAM_STR);
 
 	public function check_login_user($data)
 	{
-		//print_r($data);die();
+
 		$connection=Yii::app()->db;
-		$sql = "select * from login where username = :username";
+		$sql = "select * from login where Employee_id = :Employee_id";
 		$command=$connection->createCommand($sql);
-		$command->bindValue(":username",$data['username'],PDO::PARAM_STR);
+		if (isset($data['username'])) {
+			$command->bindValue(":Employee_id",$data['username'],PDO::PARAM_STR);
+		}		
 		//$command->bindValue(":password",md5($data['password']),PDO::PARAM_STR);
 		//$result = $command->execute();
 		$find_result = $command->queryRow();
+		//print_r($find_result);die();
 		return $find_result;
 	}
 

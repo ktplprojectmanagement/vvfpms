@@ -66,16 +66,16 @@ function actionrsest1()
 //print_r($Email_id_data);die();
 		$data = array(
 			'password' => md5($_POST['password_value']), 
-			'first_login_flag' => 1,
+			//'first_login_flag' => 1,
 		);		
 		$update = Yii::app()->db->createCommand()->update('login',$data,'username=:username',array(':username'=>$Email_id_data['0']['Email_id']));
-		
+		//print_r($update);die();
 		if ($update == 1) {
-			echo "success";
+			echo "error occure";
 		}
 		else
 		{
-			echo "error occure";
+			echo "success";
 		}
 	}		
 	

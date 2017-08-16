@@ -1,3 +1,4 @@
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <script>
 
 $(function(){
@@ -2364,7 +2365,7 @@ if(isset($employee_data['0']['Emp_fname']) && isset($employee_data['0']['Emp_lna
     $emp_name = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
     echo $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']; } ?></lable>
                                         <?php 
-                                        echo CHtml::button('Approve Quater1 review of '.$emp_name,array('class'=>'btn border-blue-soft update_status','style'=>'float:right;margin-bottom: 10px;')); }
+                                        echo CHtml::button('Send Quater1 review For Approval',array('class'=>'btn border-blue-soft update_status','style'=>'float:right;margin-bottom: 10px;')); }
                                         ?>
                                         <?php echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px;display:none','id'=>'getdata')); ?>
                                         <?php
@@ -2814,7 +2815,7 @@ for (var i = 1; i < 3; i++) {
                                                     url : base_url+$("#basepath").attr('value')+'/index.php?r=Quater1/goalnotification',
                                                     success : function(data)
                                                     {
-                                                       // alert(data);
+                                                       //alert(data);
                                                         $("#show_spin").hide(); 
                                                         $("#err").show();  
                                                         $("#err").fadeOut(6000);
@@ -2913,7 +2914,9 @@ function save_detail_pdf()
 display:none;
 }
 </style>
-<?php echo Yii::app()->request->baseUrl; ?>
+<?php 
+//echo Yii::app()->request->baseUrl; 
+?>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>

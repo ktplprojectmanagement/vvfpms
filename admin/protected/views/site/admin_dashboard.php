@@ -419,7 +419,7 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
                             <div class="stepwizard-row">
                                 <div class="stepwizard-step">
 
-                                    <?php 
+                                    <?php
                                     $new_date = '';$new_date1 = '';$new_date2 = '';
                                     if (isset($set_dates) && count($set_dates)>0){
                                         for($i=0;$i<count($set_dates);$i++)

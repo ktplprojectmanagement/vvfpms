@@ -39,8 +39,8 @@ class Reset_user_passwordController extends Controller
 		//print_r($_POST['username']);die();
 		$model = new LoginForm;	
 		$emploee_data1 =new EmployeeForm;
-		$where1 = 'where Email_id = :Email_id';
-		$list1 = array('Email_id');
+		$where1 = 'where Employee_id = :Employee_id';
+		$list1 = array('Employee_id');
 		$data2 = array($_POST['username']);
 		$Email_id_data = $emploee_data1->get_employee_data($where1,$data2,$list1);
 
@@ -52,14 +52,17 @@ class Reset_user_passwordController extends Controller
 		if (isset($login_data) && count($login_data)>0) {
 
 			if($login_data['password'] == md5($_POST['password']))
-			{
+			{	
+			$update = 0;			
 				$data = array(
-				'password' => md5($_POST['password_value']), 
+				'password' => isset($_POST['password_value']) ? md5($_POST['password_value']) : '123456', 
 				'first_login_flag' => 1,
 				);
-				//print_r($_POST['username']);die();
-				$update = Yii::app()->db->createCommand()->update('login',$data,'username=:username',array(':username'=>$Email_id_data['0']['Email_id']));
-
+				if (isset($Email_id_data) && count($Email_id_data)>0 && isset($Email_id_data['0']['Email_id'])) {
+					
+					$update = Yii::app()->db->createCommand()->update('login',$data,'username=:username',array(':username'=>$Email_id_data['0']['Email_id']));
+				}
+				
 				if ($update != 0) {
 					echo "success";
 				}
