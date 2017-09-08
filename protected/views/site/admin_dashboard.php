@@ -230,6 +230,36 @@ convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)");
                     }
                     ?>
 <script type="text/javascript">
+
+$(function(){
+        $(".chk_user_IDPprg").click(function(){
+            var id = $(this).attr('id');
+           //alert(id);
+            var data = {
+                'status' : id,
+            };
+            var base_url = window.location.origin;
+            $.ajax({
+            type : 'post',
+            datatype : 'html',
+            data : data,
+            url : base_url+$("#basepath").attr('value')+'/index.php?r=Admin_Dashboard/idp_prgStat',
+            success : function(data)
+            {
+                
+                //alert(data);
+                var table = $('#sample_1').DataTable();
+                table.clear().draw();
+                table.rows.add($(data)).draw();
+                jQuery("#responsive").modal('show'); 
+                $('#sample_1').DataTable();
+               
+            }
+          });
+        });
+    });
+    
+    
  $(function(){
         $(".chk_user_status").click(function(){
             var id = $(this).attr('id');
@@ -661,7 +691,7 @@ $emp_pend_kra++;
                                                     <div class="panel panel-default" id="set_idp_goal">
                                                         <div class="panel-heading">
                                                             <h4 class="panel-title" style="background-color:#005F68; color:#fff;font-weight:bold">
-                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_2"> IDP Stats </a>
+                                                                <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_2" style="display:none"> IDP Stats </a>
                                                             </h4>
                                                         </div>
                                                         <div id="collapse_3_2" class="panel-collapse collapse">
@@ -1268,6 +1298,56 @@ if(isset($yearEnd_rev1) && count($yearEnd_rev1)>0){
 
 
 
+<div class="panel panel-default" id="set_idp_prog">
+    <div class="panel-heading">
+        <h4 class="panel-title" style="background-color:#005F68; color:#fff;font-weight:bold">
+         <a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_6"> IDP Programs Stats </a> 
+        <!--<a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_6" aria-expanded="true"> IDP Programs Stats </a>-->
+        </h4>
+    </div>
+ <div id="collapse_3_6" class="panel-collapse collapse"> 
+<!--<div id="collapse_3_6" class="panel-collapse collapse in" aria-expanded="true" style="">-->
+    <div class="panel-body">
+        <div class="row">
+          <?php 
+
+    $setting_date=new SettingsForm;
+    $where = 'where setting_content = :setting_content and year = :year';
+    $list = array('setting_content','year');
+    $data = array('PMS_display_format',date('Y'));             
+    $settings_data = $setting_date->get_setting_data($where,$data,$list);
+    $year1=$settings_data['0']['setting_type'];
+
+          $program_data =new ProgramDataForm;  
+                                    $where = 'where  goal_set_year =:goal_set_year';
+                                    $list = array('goal_set_year');
+                                    $data = array($year1);
+                                    $program_data_result = $program_data->get_kpi_data($where,$data,$list); 
+                                   // print_r($program_data_result);?>
+             <?php for ($i=0; $i <count(($program_data_result)) ; $i++) { 
+              $k=$i+1;?>
+              
+                   
+              <div class="col-lg-3">
+              <div class="dashboard-stat2 " style="background-color:#efefef">
+              <div class="display">
+              <div class="number">
+              <h3 class="font-blue-sharp">
+              
+              
+              </h3>
+              <small style="font-weight: unset;color: #686E72;font-size:15px" id="program_<?php echo $i;?>" class="chk_user_IDPprg">
+              <a style="color:black" href="javascript:doSomething();"><b><?php echo $k.") ".$program_data_result[$i]['program_name'];?></b></a>
+              </small>
+              </div>
+              </div>
+              </div>
+              </div> 
+<?php }?>   
+
+
+
+
 
 
 
@@ -1305,186 +1385,91 @@ if(isset($yearEnd_rev1) && count($yearEnd_rev1)>0){
 
 
 
-                     <div class="col-md-12">
-                      <div class="portlet light " style="border:1px solidgreen">
-                                    <div class="portlet light portlet-fit border-blue-soft">                                        
-                                        <div class="portlet-body">
-                                            <div class="mt-element-list">
-                                                <div class="mt-list-head list-todo red" style="background-color:#031f4e">
-                                                    <div class="list-head-title-container">
-                                                        <h3 class="list-title">Recent Activities
-                                                        </h3>                                                        
-                                                    </div>                                                    
-                                                </div>
-                                                <div class="mt-list-container list-todo" style="border: 1px solid rgb(3, 31, 78);">
-                                                    <div class="list-todo-line"></div>                                                    
-                                                    <ul>
-                                                        <li class="mt-list-item">                                                            
-                                                            <div class="list-todo-item dark">
-                                                                <a class="list-toggle-container" data-toggle="collapse" href="#task-1" aria-expanded="false">
-                                                                    <div class="list-toggle done uppercase" style="background-color:#005F68">
-                                                                        <div class="list-toggle-title bold">Goalsheet or Review settings</div>
+                   <!--  <div class="col-md-12">-->
+                   <!--   <div class="portlet light " style="border:1px solidgreen">-->
+                   <!--                 <div class="portlet light portlet-fit border-blue-soft">                                        -->
+                   <!--                     <div class="portlet-body">-->
+                   <!--                         <div class="mt-element-list">-->
+                   <!--                             <div class="mt-list-head list-todo red" style="background-color:#031f4e">-->
+                   <!--                                 <div class="list-head-title-container">-->
+                   <!--                                     <h3 class="list-title">Recent Activities-->
+                   <!--                                     </h3>                                                        -->
+                   <!--                                 </div>                                                    -->
+                   <!--                             </div>-->
+                   <!--                             <div class="mt-list-container list-todo" style="border: 1px solid rgb(3, 31, 78);">-->
+                   <!--                                 <div class="list-todo-line"></div>                                                    -->
+                   <!--                                 <ul>-->
+                   <!--                                     <li class="mt-list-item">                                                            -->
+                   <!--                                         <div class="list-todo-item dark">-->
+                   <!--                                             <a class="list-toggle-container" data-toggle="collapse" href="#task-1" aria-expanded="false">-->
+                   <!--                                                 <div class="list-toggle done uppercase" style="background-color:#005F68">-->
+                   <!--                                                     <div class="list-toggle-title bold">Goalsheet or Review settings</div>-->
                                                                      
-                                                                    </div>
-                                                                </a>
-                                                                <div class="task-list panel-collapse collapse" id="task-1">
+                   <!--                                                 </div>-->
+                   <!--                                             </a>-->
+                   <!--                                             <div class="task-list panel-collapse collapse" id="task-1">-->
 
-                                                                 <ul><marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" >
+                   <!--                                              <ul><marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" >-->
                                                                        
-                                                                           <?php if (isset($recent_act3) && count($recent_act3)>0) { 
-                                                                               
-                                                                                $pending='';
-                                                                                if(count($recent_act3)>5)
-                                                                                {
-                                                                                    $k=5;
-                                                                                }
-                                                                                else{
-                                                                                    $k=count($recent_act3);
-                                                                                }
-                                                                               for($i=0;$i<$k;$i++)
-                                                                               {
-                                                                                ?>
-                                                                                <li class="task-list-item done" style="border-bottom:1px solid #eee">
+                                                                           
+                   <!--                                                             <li class="task-list-item done" style="border-bottom:1px solid #eee">-->
                                                                                  
-                                                                                     <?php
-                                                                                       
-                                                                                        $emp_nm = '';
-                                                                                        if (isset($recent_emp3) && count($recent_emp3)>0 && isset( $recent_emp3[$i]['0']['Emp_fname'])) {
-                                                                                            //print_r($recent_emp);die();
-                                                                                       $emp_nm =  $recent_emp3[$i]['0']['Emp_fname']."  ".$recent_emp3[$i]['0']['Emp_lname'];
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                        $emp_nm='';
-                                                                                        }
-                                                                                        echo $emp_nm."'s"."&nbsp;&nbsp;&nbsp;";
-                                                                                        echo $recent_act3[$i]['notification_type']."&nbsp;&nbsp;&nbsp;";
-                                                                                        ?>
-                                                                                        <label style="float:right;color:#868080;font-style:italic" >
-                                                                                        <?php
-                                                                                        echo $recent_act3[$i]['date'];
-                                                                                        ?></label>
-                                                                                        <?php
-                                                                                        }
-                                                                                    }?>                                                                    
-                                                                        </li></marquee>
+                                                                                                                                                 
+                   <!--                                                     </li></marquee>-->
                                                                         
-                                                                    </ul>   
+                   <!--                                                 </ul>   -->
                                                                    
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="mt-list-item">                                                            
-                                                            <div class="list-todo-item dark">
-                                                                <a class="list-toggle-container" data-toggle="collapse" href="#task-2" aria-expanded="false">
-                                                                    <div class="list-toggle done uppercase" style="background-color:#005F68">
-                                                                        <div class="list-toggle-title bold">Goal or Review approved </div>
+                   <!--                                             </div>-->
+                   <!--                                         </div>-->
+                   <!--                                     </li>-->
+                   <!--                                     <li class="mt-list-item">                                                            -->
+                   <!--                                         <div class="list-todo-item dark">-->
+                   <!--                                             <a class="list-toggle-container" data-toggle="collapse" href="#task-2" aria-expanded="false">-->
+                   <!--                                                 <div class="list-toggle done uppercase" style="background-color:#005F68">-->
+                   <!--                                                     <div class="list-toggle-title bold">Goal or Review approved </div>-->
                                                       
-                                                                    </div>
-                                                                </a>
-                                                                <div class="task-list panel-collapse collapse" id="task-2">
-                                                                    <ul><marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" >
+                   <!--                                                 </div>-->
+                   <!--                                             </a>-->
+                   <!--                                             <div class="task-list panel-collapse collapse" id="task-2">-->
+                   <!--                                                 <ul><marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" >-->
                                                                        
-                                                                           <?php if (isset($recent_act2) && count($recent_act2)>0) { 
-                                                                                //print_r($recent_act1);die();
-                                                                                $pending='';
-                                                                                if(count($recent_act2)>5)
-                                                                                {
-                                                                                    $k=5;
-                                                                                }
-                                                                                else{
-                                                                                    $k=count($recent_act2);
-                                                                                }
-                                                                               for($i=0;$i<$k;$i++)
-                                                                               {
-                                                                                ?>
-                                                                                <li class="task-list-item done" style="border-bottom:1px solid #eee">
+                                                                           
+                                                                                <!--<li class="task-list-item done" style="border-bottom:1px solid #eee">-->
                                                                                  
-                                                                                     <?php
-                                                                                       
-                                                                                        $emp_nm = '';
-                                                                                        if (isset($recent_emp2) && count($recent_emp2)>0 && isset($recent_emp2[$i]['0']['Emp_fname'])) {
-                                                                                        $emp_nm =  $recent_emp2[$i]['0']['Emp_fname']."  ".$recent_emp2[$i]['0']['Emp_lname'];
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                        $emp_nm='';
-                                                                                        }
-                                                                                        echo $emp_nm."'s"."&nbsp;&nbsp;&nbsp;";
-                                                                                        echo $recent_act2[$i]['notification_type']."&nbsp;&nbsp;&nbsp;";
-                                                                                        ?>
-                                                                                        <label style="float:right;color:#868080;font-style:italic" >
-                                                                                        <?php
-                                                                                        echo $recent_act2[$i]['date'];
-                                                                                        ?></label>
-                                                                                        <?php
-                                                                                        }
-                                                                                    }?>                                                                    
-                                                                        </li></marquee>
+                                                                                                                                                
+                   <!--                                                     </li></marquee>-->
                                                                         
-                                                                    </ul>
+                   <!--                                                 </ul>-->
                                                                     
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="mt-list-item">                                                            
-                                                            <div class="list-todo-item dark">
-                                                                <a class="list-toggle-container font-white" data-toggle="collapse" href="#task-3" aria-expanded="false">
-                                                                    <div class="list-toggle done uppercase" style="background-color:#005F68">
-                                                                        <div class="list-toggle-title bold">Goal or review pending</div>
+                   <!--                                             </div>-->
+                   <!--                                         </div>-->
+                   <!--                                     </li>-->
+                   <!--                                     <li class="mt-list-item">                                                            -->
+                   <!--                                         <div class="list-todo-item dark">-->
+                   <!--                                             <a class="list-toggle-container font-white" data-toggle="collapse" href="#task-3" aria-expanded="false">-->
+                   <!--                                                 <div class="list-toggle done uppercase" style="background-color:#005F68">-->
+                   <!--                                                     <div class="list-toggle-title bold">Goal or review pending</div>-->
                                                   
-                                                                    </div>
-                                                                </a>
-                                                                <div class="task-list panel-collapse collapse" id="task-3">
-                                                                    <ul><marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" >
+                   <!--                                                 </div>-->
+                   <!--                                             </a>-->
+                   <!--                                             <div class="task-list panel-collapse collapse" id="task-3">-->
+                   <!--                                                 <ul><marquee style="position: relative;" behavior="scroll" align="center" direction="up" scrollamount="2" scrolldelay="5" >-->
                                                                        
-                                                                           <?php if (isset($recent_act1) && count($recent_act1)>0) { 
-                                                                                //print_r($recent_act1);die();
-                                                                                $pending='';
-                                                                                if(count($recent_act1)>5)
-                                                                                {
-                                                                                    $k=5;
-                                                                                }
-                                                                                else{
-                                                                                    $k=count($recent_act1);
-                                                                                }
-                                                                               for($i=0;$i<$k;$i++)
-                                                                               {
-                                                                                ?>
-                                                                                <li class="task-list-item done" style="border-bottom:1px solid #eee">
+                                                                          
+                   <!--                                                             <li class="task-list-item done" style="border-bottom:1px solid #eee">-->
                                                                                  
-                                                                                     <?php
-                                                                                       
-                                                                                        $emp_nm = '';
-                                                                                        //print_r($recent_emp1);die();
-                                                                                        if (isset($recent_emp1[$i]['0']['Emp_fname']) && count($recent_emp1)>0) {
-                                                                                        $emp_nm =  $recent_emp1[$i]['0']['Emp_fname']."  ".$recent_emp1[$i]['0']['Emp_lname'];
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                        $emp_nm='';
-                                                                                        }
-                                                                                        echo $emp_nm."'s"."&nbsp;&nbsp;&nbsp;";
-                                                                                        echo $recent_act1[$i]['notification_type']."&nbsp;&nbsp;&nbsp;";
-                                                                                        ?>
-                                                                                        <label style="float:right;color:#868080;font-style:italic" >
-                                                                                        <?php
-                                                                                        echo $recent_act1[$i]['date'];
-                                                                                        ?></label>
-                                                                                        <?php
-                                                                                        }
-                                                                                    }?>                                                                    
-                                                                        </li></ul></marquee></div></div></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                                                                                                               
+                   <!--                                                     </li></ul></marquee></div></div></li>-->
+                   <!--                                 </ul>-->
+                   <!--                             </div>-->
+                   <!--                         </div>-->
+                   <!--                     </div>-->
+                   <!--                 </div>-->
 
-                                </div>
-                        </div>
-                     </div>
-                   </div>
+                   <!--             </div>-->
+                   <!--     </div>-->
+                   <!--  </div>-->
+                   <!--</div>-->
 
                                            
 <div id="responsive"  class="modal fade" tabindex="-1" data-width="1058px" data-backdrop="static" data-keyboard="false" style="width: 1058px;margin-left: -485px;">

@@ -205,7 +205,10 @@ window.setTimeout(function() {
                             {
                                 $("#err").css('display','block');
 				$("#err").fadeOut(5000);
-				$("#error_value").text("Old password should not match with current password");
+				$("#error_value").text("Password updated successfully.");
+                window.setTimeout(function() {
+    window.location.href = base_url+$("#basepath").attr('value')+'/admin/index.php/Adminlogin';
+}, 1000); 
                             }
                             
                         }

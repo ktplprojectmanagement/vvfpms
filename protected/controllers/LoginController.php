@@ -476,7 +476,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 	public function actioncheck()
 	{
 		$model = new LoginForm;
-		 session_start();
+		session_start();
 		$setting_date=new SettingsForm;
 		$where = 'where setting_content = :setting_content and year = :year';
 		$list = array('setting_content','year');

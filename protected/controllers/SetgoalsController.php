@@ -896,10 +896,22 @@ function actionsavekpi1()
 		$list = array('KPI_id');
 		$data = array($_POST['kra_id']);$detail3 = '';
 		$kpi_data = $model->get_kpi_list($where,$data,$list);
+
+		$where = 'where KPI_id = :KPI_id and KRA_status_flag = :KRA_status_flag';
+		$list = array('KPI_id','KRA_status_flag');
+		$data = array($_POST['kra_id'],1);$detail3 = '';
+		$kpi_data11 = $model->get_kpi_list($where,$data,$list);
+
 		$where = 'where Employee_id = :Employee_id';
 		$list = array('Employee_id');
 		$data = array($kpi_data['0']['Employee_id']);
 		$employee_data1 = $emploee_data->get_employee_data($where,$data,$list);
+
+		$where = 'where Email_id = :Email_id';
+		$list = array('Email_id');
+		$data = array($employee_data1['0']['Reporting_officer1_id']);
+		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
+//print_r($employee_data);die();
         //print_r($kpi_data);die();
 		if (isset($kpi_data) && count($kpi_data)>0) {
 			$detail = explode(';',$kpi_data['0']['kpi_list']);
@@ -954,7 +966,8 @@ $notification_data->notification_type = 'KPI Deletion';
 
                                    if($employee_data1['0']['invalid_email'] != '1')
        {
-           if($kpi_data['0']['kra_complete_flag'] == 2)
+       	//print_r($kpi_data11);die();
+           if(isset($kpi_data11) && count($kpi_data11)>0)
            {
                $employee_email = Yii::app()->user->getState("employee_email");
 				
@@ -970,7 +983,7 @@ $notification_data->notification_type = 'KPI Deletion';
 
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
 
-		      	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kra_data,'employee_data1'=>$employee_data1);
+		      	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kpi_data,'employee_data1'=>$employee_data1);
 		       	$message = $this->renderPartial('//site/mail/kpi_del_intemation',$params,TRUE);
 		       	$mail->addReplyTo($employee_data1['0']['Reporting_officer1_id'], 'KPI Deletion');
 		       	$mail->addCC($employee_data1['0']['Email_id']);
@@ -978,7 +991,7 @@ $notification_data->notification_type = 'KPI Deletion';
        			$mail->isHTML(true);   
 		       	$mail->Subject = 'KPI Deletion';
 				$mail->Body    = $message;
-		      	//echo $employee_data1['0']['Email_id'];die();
+		      	
 				  if($mail->send())
 				  {	  		
 				  		echo 1;die();

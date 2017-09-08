@@ -438,6 +438,7 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
         //print_r($yearEnd_rev);die();
 		$this->render('//site/script_file');
 		$this->render('//site/admin_header_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_dashboard',array(
 			'kpi_data1'=>$kpi_data1,
 			'kpi_pend'=>$kpi_pend,
@@ -469,6 +470,109 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
 		$this->render('//site/admin_footer_view');
 		
 	}
+
+	function actionidp_prgStat()
+	{
+		//print_r("hi");die();
+	$status = $_POST['status'];
+	$value=explode('_', $status);
+		
+    $setting_date=new SettingsForm;
+    $where = 'where setting_content = :setting_content and year = :year';
+    $list = array('setting_content','year');
+    $data = array('PMS_display_format',date('Y'));             
+    $settings_data = $setting_date->get_setting_data($where,$data,$list);
+    $year1=$settings_data['0']['setting_type'];
+
+	$program_data =new ProgramDataForm;  
+	$where = 'where  goal_set_year =:goal_set_year';
+	$list = array('goal_set_year');
+	$data = array($year1);
+	$program_data_result = $program_data->get_kpi_data($where,$data,$list); 
+	
+	for ($i=0; $i < count($program_data_result); $i++) { 
+		if($i == $value['1']){
+
+			$idp=new IDPForm;
+			$employee_data =new EmployeeForm;
+			$idp_sub=array();
+			//SELECT * FROM `IDP` WHERE `program_comment` LIKE '%6?%' AND `goal_set_year` = '2017-2018' 
+			$where = "where program_comment LIKE '%".$i."?%' AND goal_set_year =:goal_set_year";
+			$list = array('goal_set_year');
+			$data = array($year1);
+			$idp_prg=$idp->get_idp_data($where,$data,$list);
+
+			
+			//print_r($idp_prg);die();
+			//echo $program_data_result[$i]['program_name'];die();
+		}
+
+		// $where = 'where Employee_id = :Employee_id ';
+		// 	$list = array('Employee_id');
+		// 	$data = array($idp_prg[$i]['Employee_id']);
+		// 	$prg_list = $employee_data->get_employee_data($where,$data,$list);
+	}
+// print_r($idp_prg);die();
+			
+			
+			for ($j=0; $j < count($idp_prg); $j++) { 
+			$where = 'where Employee_id = :Employee_id ';
+			$list = array('Employee_id');
+			$data = array($idp_prg[$j]['Employee_id']);
+			$prg_list[$j] = $employee_data->get_employee_data($where,$data,$list);
+	}
+
+ $content = '';
+ if (isset($prg_list) && count($prg_list)>0) {
+	for ($j=0; $j < count($program_data_result); $j++) { 
+		
+		if ($value[1] == $j) {
+		//print_r($value[1])	;die();
+						for ($i=0; $i < count($prg_list); $i++) { 
+				
+								if(isset($prg_list[$i]['0']['Reporting_officer1_id']) && $prg_list[$i]['0']['Reporting_officer1_id']!=''){
+								$where = 'where Email_id = :Email_id';
+								$list = array('Email_id');
+								$data = array($prg_list[$i]['0']['Reporting_officer1_id']);
+								$apr_name = $employee_data->get_employee_data($where,$data,$list);	
+								}
+			
+								if(isset($prg_list[$i]) && $prg_list[$i]!=array()){
+					
+									if($content == '')
+									{	
+
+										$apr_name_data = '';
+										if (isset($apr_name['0']['Emp_fname'])) {
+											$apr_name_data = $apr_name['0']['Emp_fname']." ".$apr_name['0']['Emp_lname'];
+										}
+										$content = '<tr>'.'<td>'.$prg_list[$i]['0']['Employee_id'].'</td>'.'<td>'.$prg_list[$i]['0']['Emp_fname']." ".$prg_list[$i]['0']['Emp_mname']."  ".$prg_list[$i]['0']['Emp_lname'].'</td>'.'<td>'.$prg_list[$i]['0']['Gender'].'</td>'.'<td>'.$prg_list[$i]['0']['Designation'].'</td>'.'<td>'.$prg_list[$i]['0']['Department'].'<td>'.$prg_list[$i]['0']['Cadre'].'</td>'.'<td>'.$prg_list[$i]['0']['joining_date'].'</td>'.'<td>'.$prg_list[$i]['0']['DOB'].'</td>'.'<td>'.$prg_list[$i]['0']['Present_address'].'<td>'.$prg_list[$i]['0']['state'].'</td>'.'<td>'.$prg_list[$i]['0']['PAN_number'].'</td>'.'<td>'.$prg_list[$i]['0']['Email_id'].'</td>'.'<td>'.$prg_list[$i]['0']['cluster_name'].'</td>'.'<td>'.$prg_list[$i]['0']['BU'].'</td>'.'<td>'.$apr_name_data.'</td>'.'<td>'.$prg_list[$i]['0']['company_location'].'</td>'.'</tr>';
+										
+									}
+									else
+									{
+
+										$apr_name_data = '';
+										if (isset($apr_name['0']['Emp_fname'])) {
+											$apr_name_data = $apr_name['0']['Emp_fname']." ".$apr_name['0']['Emp_lname'];
+										}
+										$content = $content.'<tr>'.'<td>'.$prg_list[$i]['0']['Employee_id'].'</td>'.'<td>'.$prg_list[$i]['0']['Emp_fname']." ".$prg_list[$i]['0']['Emp_mname']."  ".$prg_list[$i]['0']['Emp_lname'].'</td>'.'<td>'.$prg_list[$i]['0']['Gender'].'</td>'.'<td>'.$prg_list[$i]['0']['Designation'].'</td>'.'<td>'.$prg_list[$i]['0']['Department'].'<td>'.$prg_list[$i]['0']['Cadre'].'</td>'.'<td>'.$prg_list[$i]['0']['joining_date'].'</td>'.'<td>'.$prg_list[$i]['0']['DOB'].'</td>'.'<td>'.$prg_list[$i]['0']['Present_address'].'<td>'.$prg_list[$i]['0']['state'].'</td>'.'<td>'.$prg_list[$i]['0']['PAN_number'].'</td>'.'<td>'.$prg_list[$i]['0']['Email_id'].'</td>'.'<td>'.$prg_list[$i]['0']['cluster_name'].'</td>'.'<td>'.$prg_list[$i]['0']['BU'].'</td>'.'<td>'.$apr_name_data.'</td>'.'<td>'.$prg_list[$i]['0']['company_location'].'</td>'.'</tr>';
+										
+									}
+								}
+
+							}
+			// }
+			// else
+			// {
+			// 	$content = "No Record Found";
+			// }
+			print_r($content);die();
+
+		}
+}
+}
+}
 
 	function actionstatusget()
 	{

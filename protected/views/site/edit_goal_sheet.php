@@ -880,35 +880,35 @@ $("body").on('scroll','.validate_field',function(){
                                         $(this).css('border','1px solid #999');
                                     }
                                 }
-else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage')
-                                {
-                                    if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage' && $(this).val()>100) 
-                                    {
-                                        $("#err").css('display','block');
-                                        $("#err").addClass("alert-danger"); 
-                                        $(this).css('border','1px solid red');
-                                        $("#error_value").text("Percentage should contain maximum 100 value.");
-                                    }
-                                 else if (chk_per.test($(this).val())) 
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text("Please enter valid number in percentage");
-                                }
-                                    else if (!$.isNumeric($(this).val())) 
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text("Only numbers are allowed");
-                                }
-                                    else
-                                    {
-                                         $("#err").css('display','none');
-                                        $(this).css('border','1px solid #999');
-                                    }
-                                }
+// else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage')
+//                                 {
+//                                     if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage' && $(this).val()>100) 
+//                                     {
+//                                         $("#err").css('display','block');
+//                                         $("#err").addClass("alert-danger"); 
+//                                         $(this).css('border','1px solid red');
+//                                         $("#error_value").text("Percentage should contain maximum 100 value.");
+//                                     }
+//                                  else if (chk_per.test($(this).val())) 
+//                                 {
+//                                     $("#err").css('display','block');
+//                                     $("#err").addClass("alert-danger"); 
+//                                     $(this).css('border','1px solid red');
+//                                     $("#error_value").text("Please enter valid number in percentage");
+//                                 }
+//                                     else if (!$.isNumeric($(this).val())) 
+//                                 {
+//                                     $("#err").css('display','block');
+//                                     $("#err").addClass("alert-danger"); 
+//                                     $(this).css('border','1px solid red');
+//                                     $("#error_value").text("Only numbers are allowed");
+//                                 }
+//                                     else
+//                                     {
+//                                          $("#err").css('display','none');
+//                                         $(this).css('border','1px solid #999');
+//                                     }
+//                                 }
 else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                 {
                                     if (chk_per.test($(this).val())) 
@@ -1071,35 +1071,35 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                         $(this).css('border','1px solid #999');
                                     }
                                 }
-else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage')
-                                {
-                                    if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage' && $(this).val()>100) 
-                                    {
-                                        $("#err").css('display','block');
-                                        $("#err").addClass("alert-danger"); 
-                                        $(this).css('border','1px solid red');
-                                        $("#error_value").text("Percentage should contain maximum 100 value.");
-                                    }
-                                     else if (chk_per.test($(this).val())) 
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text("Please enter valid number in percentage");
-                                }
-                                    else if (!$.isNumeric($(this).val())) 
-                                {
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $(this).css('border','1px solid red');
-                                    $("#error_value").text("Only numbers are allowed");
-                                }
-                                    else
-                                    {
-                                         $("#err").css('display','none');
-                                        $(this).css('border','1px solid #999');
-                                    }
-                                }
+// else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage')
+//                                 {
+//                                     if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Percentage' && $(this).val()>100) 
+//                                     {
+//                                         $("#err").css('display','block');
+//                                         $("#err").addClass("alert-danger"); 
+//                                         $(this).css('border','1px solid red');
+//                                         $("#error_value").text("Percentage should contain maximum 100 value.");
+//                                     }
+//                                      else if (chk_per.test($(this).val())) 
+//                                 {
+//                                     $("#err").css('display','block');
+//                                     $("#err").addClass("alert-danger"); 
+//                                     $(this).css('border','1px solid red');
+//                                     $("#error_value").text("Please enter valid number in percentage");
+//                                 }
+//                                     else if (!$.isNumeric($(this).val())) 
+//                                 {
+//                                     $("#err").css('display','block');
+//                                     $("#err").addClass("alert-danger"); 
+//                                     $(this).css('border','1px solid red');
+//                                     $("#error_value").text("Only numbers are allowed");
+//                                 }
+//                                     else
+//                                     {
+//                                          $("#err").css('display','none');
+//                                         $(this).css('border','1px solid #999');
+//                                     }
+//                                 }
 else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                 {
                                     if (chk_per.test($(this).val())) 
@@ -1395,35 +1395,35 @@ else if($("#mask_number-"+last_id_value).find(':selected').val() == 'Days')
                                         $(this).css('border','1px solid #999');
                                     }
                                 }
-      else if($("#mask_number-"+last_id_value[1]).find(':selected').val() == 'Percentage')
-                                {
-                                    if ($("#mask_number-"+last_id_value[1]).find(':selected').val() == 'Percentage' && $(this).val()>100) 
-                                    {
-                                        $("#err").css('display','block');
-                                        $("#err").addClass("alert-danger"); 
-                                        $(this).css('border','1px solid red');
-                                        $("#error_value").text("Percentage should contain maximum 100 value.");
-                                    }
-                                    else if (chk_per.test($(this).val())) 
-                                    {
-                                        $("#err").css('display','block');
-                                        $("#err").addClass("alert-danger"); 
-                                        $(this).css('border','1px solid red');
-                                        $("#error_value").text("Please enter valid number in percentage");
-                                    }                                
-                                    else if (!$.isNumeric($(this).val())) 
-                                    {
-                                        $("#err").css('display','block');
-                                        $("#err").addClass("alert-danger"); 
-                                        $(this).css('border','1px solid red');
-                                        $("#error_value").text("Only numbers are allowed");
-                                    }
-                                    else
-                                    {
-                                         $("#err").css('display','none');
-                                        $(this).css('border','1px solid #999');
-                                    }
-                                }
+      // else if($("#mask_number-"+last_id_value[1]).find(':selected').val() == 'Percentage')
+      //                           {
+      //                               if ($("#mask_number-"+last_id_value[1]).find(':selected').val() == 'Percentage' && $(this).val()>100) 
+      //                               {
+      //                                   $("#err").css('display','block');
+      //                                   $("#err").addClass("alert-danger"); 
+      //                                   $(this).css('border','1px solid red');
+      //                                   $("#error_value").text("Percentage should contain maximum 100 value.");
+      //                               }
+      //                               else if (chk_per.test($(this).val())) 
+      //                               {
+      //                                   $("#err").css('display','block');
+      //                                   $("#err").addClass("alert-danger"); 
+      //                                   $(this).css('border','1px solid red');
+      //                                   $("#error_value").text("Please enter valid number in percentage");
+      //                               }                                
+      //                               else if (!$.isNumeric($(this).val())) 
+      //                               {
+      //                                   $("#err").css('display','block');
+      //                                   $("#err").addClass("alert-danger"); 
+      //                                   $(this).css('border','1px solid red');
+      //                                   $("#error_value").text("Only numbers are allowed");
+      //                               }
+      //                               else
+      //                               {
+      //                                    $("#err").css('display','none');
+      //                                   $(this).css('border','1px solid #999');
+      //                               }
+      //                           }
                                 else if($("#mask_number-"+last_id_value[1]).find(':selected').val() == 'Days')
                                 {
                                     if (chk_per.test($(this).val())) 
@@ -3467,10 +3467,10 @@ else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value5"+kra_id_value1[j]+i).text()>100 || $(".target_value5"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should contain maximum 100 value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value5"+kra_id_value1[j]+i).text()>100 || $(".target_value5"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage should contain maximum 100 value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value5"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
@@ -4697,10 +4697,10 @@ else if(chk_per.test($(".target_value4"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Only numbers are allowed for Days/Percentage.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
                                                 }
-else if($(".target_value5"+kra_id_value1[j]+i).text()>100 || $(".target_value5"+kra_id_value1[j]+i).attr('value')>100)
-                                                {
-                                                     error[kra_id_value1[j]] = 'Percentage should contain maximum 100 value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
-                                                }
+// else if($(".target_value5"+kra_id_value1[j]+i).text()>100 || $(".target_value5"+kra_id_value1[j]+i).attr('value')>100)
+//                                                 {
+//                                                      error[kra_id_value1[j]] = 'Percentage should contain maximum 100 value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;
+//                                                 }
 else if(chk_per.test($(".target_value5"+kra_id_value1[j]+i).text()))
                                                 {
                                                      error[kra_id_value1[j]] = 'Percentage should not contain negative value.';error_count1 = kra_id_value1[j]+i;error_count2 = kra_id_value1[j];break;

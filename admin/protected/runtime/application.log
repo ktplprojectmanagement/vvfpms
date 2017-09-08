@@ -3977,3 +3977,217 @@ Stack trace:
 REQUEST_URI=/pms/admin/index.php/Newemployee/Plant_mail
 HTTP_REFERER=http://52.172.210.251/pms/admin/index.php/Login/employee_profile/Employee_id/123456
 ---
+2017/08/16 04:23:11 [error] [exception.CDbException] SQLSTATE[HY000] [2013] Lost connection to MySQL server at 'reading initial communication packet', system error: 111
+2017/08/16 04:23:11 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection. in /var/www/html/pms/admin/framework/db/CDbConnection.php:405
+Stack trace:
+#0 /var/www/html/pms/admin/framework/db/CDbConnection.php(347): CDbConnection->open()
+#1 /var/www/html/pms/admin/framework/db/CDbConnection.php(325): CDbConnection->setActive(true)
+#2 /var/www/html/pms/admin/framework/base/CModule.php(394): CDbConnection->init()
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(459): CModule->getComponent('db')
+#4 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(637): CApplication->getDb()
+#5 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(2386): CActiveRecord->getDbConnection()
+#6 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(LoginForm))
+#7 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#8 /var/www/html/pms/admin/protected/controllers/AdminloginController.php(8): CActiveRecord->__construct()
+#9 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): AdminloginController->actionIndex()
+#10 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Adminlogin')
+#15 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#16 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/pms/admin/index.php/Adminlogin
+---
+2017/08/18 11:53:26 [error] [exception.CDbException] SQLSTATE[HY000] [2003] Can't connect to MySQL server on '52.172.200.192' (4)
+2017/08/18 11:53:26 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection. in /var/www/html/pms/admin/framework/db/CDbConnection.php:405
+Stack trace:
+#0 /var/www/html/pms/admin/framework/db/CDbConnection.php(347): CDbConnection->open()
+#1 /var/www/html/pms/admin/framework/db/CDbConnection.php(325): CDbConnection->setActive(true)
+#2 /var/www/html/pms/admin/framework/base/CModule.php(394): CDbConnection->init()
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(459): CModule->getComponent('db')
+#4 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(637): CApplication->getDb()
+#5 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(2386): CActiveRecord->getDbConnection()
+#6 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(LoginForm))
+#7 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#8 /var/www/html/pms/admin/protected/controllers/AdminloginController.php(8): CActiveRecord->__construct()
+#9 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): AdminloginController->actionIndex()
+#10 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Adminlogin')
+#15 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#16 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/pms/admin/index.php/Adminlogin
+---
+2017/08/18 11:54:44 [error] [exception.CDbException] SQLSTATE[HY000] [2003] Can't connect to MySQL server on '52.172.200.192' (4)
+2017/08/18 11:54:44 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection. in /var/www/html/pms/admin/framework/db/CDbConnection.php:405
+Stack trace:
+#0 /var/www/html/pms/admin/framework/db/CDbConnection.php(347): CDbConnection->open()
+#1 /var/www/html/pms/admin/framework/db/CDbConnection.php(325): CDbConnection->setActive(true)
+#2 /var/www/html/pms/admin/framework/base/CModule.php(394): CDbConnection->init()
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(459): CModule->getComponent('db')
+#4 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(637): CApplication->getDb()
+#5 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(2386): CActiveRecord->getDbConnection()
+#6 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(LoginForm))
+#7 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#8 /var/www/html/pms/admin/protected/controllers/AdminloginController.php(8): CActiveRecord->__construct()
+#9 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): AdminloginController->actionIndex()
+#10 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Adminlogin')
+#15 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#16 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/pms/admin/index.php/Adminlogin
+---
+2017/08/18 12:06:00 [error] [exception.CDbException] SQLSTATE[HY000] [2003] Can't connect to MySQL server on '52.172.200.192' (4)
+2017/08/18 12:06:00 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection. in /var/www/html/pms/admin/framework/db/CDbConnection.php:405
+Stack trace:
+#0 /var/www/html/pms/admin/framework/db/CDbConnection.php(347): CDbConnection->open()
+#1 /var/www/html/pms/admin/framework/db/CDbConnection.php(325): CDbConnection->setActive(true)
+#2 /var/www/html/pms/admin/framework/base/CModule.php(394): CDbConnection->init()
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(459): CModule->getComponent('db')
+#4 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(637): CApplication->getDb()
+#5 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(2386): CActiveRecord->getDbConnection()
+#6 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(LoginForm))
+#7 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#8 /var/www/html/pms/admin/protected/controllers/AdminloginController.php(8): CActiveRecord->__construct()
+#9 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): AdminloginController->actionIndex()
+#10 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Adminlogin')
+#15 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#16 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/pms/admin/index.php/Adminlogin
+---
+2017/08/18 12:54:39 [error] [exception.CDbException] SQLSTATE[HY000] [2003] Can't connect to MySQL server on '52.172.200.192' (4)
+2017/08/18 12:54:39 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection. in /var/www/html/pms/admin/framework/db/CDbConnection.php:405
+Stack trace:
+#0 /var/www/html/pms/admin/framework/db/CDbConnection.php(347): CDbConnection->open()
+#1 /var/www/html/pms/admin/framework/db/CDbConnection.php(325): CDbConnection->setActive(true)
+#2 /var/www/html/pms/admin/framework/base/CModule.php(394): CDbConnection->init()
+#3 /var/www/html/pms/admin/framework/base/CApplication.php(459): CModule->getComponent('db')
+#4 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(637): CApplication->getDb()
+#5 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(2386): CActiveRecord->getDbConnection()
+#6 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(411): CActiveRecordMetaData->__construct(Object(LoginForm))
+#7 /var/www/html/pms/admin/framework/db/ar/CActiveRecord.php(79): CActiveRecord->getMetaData()
+#8 /var/www/html/pms/admin/protected/controllers/AdminloginController.php(8): CActiveRecord->__construct()
+#9 /var/www/html/pms/admin/framework/web/actions/CInlineAction.php(49): AdminloginController->actionIndex()
+#10 /var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#11 /var/www/html/pms/admin/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#12 /var/www/html/pms/admin/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#13 /var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('')
+#14 /var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('Adminlogin')
+#15 /var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#16 /var/www/html/pms/admin/index.php(13): CApplication->run()
+#17 {main}
+REQUEST_URI=/pms/admin/index.php/Adminlogin
+---
+2017/09/08 06:42:59 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/09/08 06:44:53 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/09/08 06:46:03 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:662)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/09/08 06:46:23 [error] [php] Undefined offset: 1 (/backup/test/var/www/html/pms/admin/protected/models/EmployeeForm.php:123)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#4 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#5 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#6 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/09/08 06:46:59 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:688)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusget
+2017/09/08 06:47:15 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:842)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/09/08 06:47:48 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:891)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetIdp
+2017/09/08 06:49:48 [error] [php] Undefined index: Reporting_officer1_id (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1008)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/statusgetMid
+2017/09/08 06:50:11 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1144)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php?r=Admin_Dashboard/getMidIdpStat
+2017/09/08 06:51:39 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1331)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Admin_Dashboard/getYearEndStat
+2017/09/08 06:52:36 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/Admin_DashboardController.php:1331)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): Admin_DashboardController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): Admin_DashboardController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): Admin_DashboardController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/Admin_Dashboard/getYearEndStat

@@ -20,7 +20,7 @@
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+        <!-- <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" /> -->
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
        
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/layouts/layout3/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
@@ -30,6 +30,10 @@
       
         <link rel="shortcut icon" href="favicon.ico" />
             <style type="text/css">
+            .btn
+            {
+                border: 1px solid #5eebfc;
+            }
            .page-header .page-header-menu .hor-menu .navbar-nav > li > a, .page-header .page-header-menu .hor-menu .navbar-nav > li > a > i {
     
     color: #fff;
@@ -173,9 +177,9 @@ $(document).ready(function(){
                 <div class="container">
                     <!-- BEGIN LOGO -->
                     <div class="page-logo">
-                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/User_dashboard">
+                        <!-- <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/User_dashboard">
                             <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/Logo.png" style="height: 62px;width: 135px;margin-top: 10px;" alt="logo" class="logo-default">
-                        </a>
+                        </a> -->
                     </div>
                     <!-- END LOGO -->
                     <!-- BEGIN RESPONSIVE MENU TOGGLER -->

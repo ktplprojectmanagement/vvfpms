@@ -32,7 +32,7 @@ class User_dashboardController extends Controller
 
 
 	    //print_r(Yii::app()->user->getState('financial_year_check'));die();
-		$set_dates=new SettingsForm;
+		$set_dates=new SettingsForm;$Reporting_officer1_id='';
 
 		$set_dates=$set_dates->get_all_data();
 		$Employee_id = Yii::app()->user->getState("Employee_id");
@@ -49,9 +49,11 @@ class User_dashboardController extends Controller
 		$kra_info=new KpiAutoSaveForm;
 		$emp_data = new EmployeeForm;
 		$cluster = new ClusterForm;
-		$year1=$settings_data['0']['setting_type'];
+		if (isset($settings_data['0']['setting_type'])) {
+			$year1=$settings_data['0']['setting_type'];
+		}
+		
 		$idp=new IDPForm;
-
 		$where='where Employee_id = :Employee_id && goal_set_year = :goal_set_year';
 		$list=array('Employee_id','goal_set_year');
 		$data=array($Employee_id,$year1);
@@ -68,8 +70,12 @@ class User_dashboardController extends Controller
 		$list = array('Employee_id');
 		$data = array($Employee_id);
 		$emp_data_desc =$emp_data->get_employee_data($where,$data,$list);
-	
-		$Reporting_officer1_id=$emp_data_desc['0']['Email_id'];
+		//print_r($emp_data_desc);die();
+		if (isset($emp_data_desc['0']['Email_id'])) 
+		{
+			$Reporting_officer1_id=$emp_data_desc['0']['Email_id'];
+		}
+		
 		$where= 'where Reporting_officer1_id=:Reporting_officer1_id';
 		$list= array('Reporting_officer1_id');
 		$data= array($Reporting_officer1_id);
@@ -208,7 +214,7 @@ $team_sub_yearEnd=array();
 
 
 				
-		if (isset($emp_data_desc) && count($emp_data_desc)>0) {
+		if (isset($emp_data_desc) && count($emp_data_desc)>0  && isset($emp_data_desc['0']['cluster_appraiser'])) {
 			$where = 'where Email_id = :Email_id';
 			$list = array('Email_id');
 			$data = array($emp_data_desc['0']['cluster_appraiser']);
@@ -216,7 +222,7 @@ $team_sub_yearEnd=array();
 		}
 		
 		$Employee_id = Yii::app()->user->getState("Employee_id");
-		if (isset($emp_data_desc) && count($emp_data_desc)>0) {
+		if (isset($emp_data_desc) && count($emp_data_desc)>0 && isset($emp_data_desc['0']['cluster_name'])) {
 			$where = 'where cluster_name = :cluster_name';
 			$list = array('cluster_name');
 			$data = array($emp_data_desc['0']['cluster_name']);
@@ -253,10 +259,6 @@ $team_sub_yearEnd=array();
 		$list = array('Employee_id','mid_KRA_status','goal_set_year');
 		$data = array($Employee_id,"",Yii::app()->user->getState('financial_year_check'));
 		$kra_mid_appr =$kra_info->get_kpi_data($where,$data,$list);
-		
-
-
-
 		
 		
 		$team_set=array();
@@ -307,7 +309,6 @@ $team_sub_yearEnd=array();
 
 	 	$this->render('//site/script_file');	
 		$this->render('//site/header_view_layout');
-		$this->render('//site/baseurl');
 		$this->render('//site/user_dashboard',
 		array(
 

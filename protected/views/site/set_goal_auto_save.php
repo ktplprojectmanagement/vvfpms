@@ -6076,7 +6076,7 @@ $("body").on('click','.del_kra_kpi',function(){
                             };
                             $("#continue_del_krakpi").click(function(){
                                 $("#show_spin_kpi").css('display','block');
-                                            $.ajax({
+                                    $.ajax({
                                     type : 'post',
                                     data : data,
                                     url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/krakpi_del',

@@ -13,7 +13,7 @@
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+        
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
@@ -39,7 +39,11 @@
     <!-- END HEAD -->
 
     <body class=" login" >
-                <style media="all" type="text/css">      
+                <style media="all" type="text/css"> 
+                .btn
+            {
+                border: 1px solid #5eebfc;
+            }     
       #err { 
        position: absolute; 
        top: 0; right: 20; 
@@ -91,10 +95,10 @@ font-weight: bold;
              
                  <div id="login_window">
                 <h3 class="form-title font-green">Sign In</h3>
-                <div class="alert alert-danger display-hide">
+                <!-- <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button>
                     <span> Enter any username and password. </span>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
                      <?php echo $form->textField($model,'username',array('class'=>'form-control username','placeholder'=>'Email or Employee ID')); ?>
@@ -144,7 +148,7 @@ color: rgb(50, 197, 210);">Forgot Password?</a></div>
             <!-- END FORGOT PASSWORD FORM -->
           
         </div>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-notific8/jquery.notific8.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/scripts/ui-notific8.min.js" type="text/javascript"></script>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-notific8/jquery.notific8.min.css" rel="stylesheet" type="text/css" />
@@ -159,7 +163,7 @@ var key = e.which;
                                 'password' : $(".password").val(),
                             };
 var base_url = window.location.origin;
-//alert(base_url);
+//alert($("#basepath").attr('value'));
                            $.ajax({
                                 'type' : 'post',
                                 'datatype' : 'html',
@@ -167,7 +171,7 @@ var base_url = window.location.origin;
                                 'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Login/check',
                                 success : function(data)
                                 {
-                                
+                                    //alert(data);
                                         if (data == '1')
                                         {
                                             window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Setgoals";
@@ -235,7 +239,7 @@ var base_url = window.location.origin;
                                 'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Login/check',
                                 success : function(data)
                                 {
-                                    //alert(data);
+                                   //alert(data);
                                 $("#err").css('display','none');
                                          if (data == '1')
                                         {
@@ -358,34 +362,7 @@ var base_url = window.location.origin;
 
         </div>
 
-        <!-- END : LOGIN PAGE 5-2 -->
-        <!--[if lt IE 9]>
-<script src="../assets/global/plugins/respond.min.js"></script>
-<script src="../assets/global/plugins/excanvas.min.js"></script> 
-<![endif]-->
-        <!-- BEGIN CORE PLUGINS -->
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-        <!-- END CORE PLUGINS -->
-        <!-- BEGIN PAGE LEVEL PLUGINS -->
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
-        
-        <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN THEME GLOBAL SCRIPTS -->
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/scripts/app.min.js" type="text/javascript"></script>
-        <!-- END THEME GLOBAL SCRIPTS -->
-        <!-- BEGIN PAGE LEVEL SCRIPTS -->
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/scripts/login-5.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-notific8/jquery.notific8.min.js" type="text/javascript"></script>
-        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/scripts/ui-notific8.min.js" type="text/javascript"></script>
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-notific8/jquery.notific8.min.css" rel="stylesheet" type="text/css" />
+       
         <script type="text/javascript">
                 var j = jQuery.noConflict();
                 function get_notify(e)
