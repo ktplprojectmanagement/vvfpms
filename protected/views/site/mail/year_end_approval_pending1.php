@@ -33,7 +33,7 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://52.172.210.251/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="http://kritva.in/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label> <?php if(Yii::app()->user->getState("Employee_name") && Yii::app()->user->getState("Employee_name")!='') { print_r(Yii::app()->user->getState("Employee_name")); }?></label>,<br/>

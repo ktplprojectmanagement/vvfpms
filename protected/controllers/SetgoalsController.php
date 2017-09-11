@@ -979,11 +979,17 @@ $notification_data->notification_type = 'KPI Deletion';
 				$mail->Username = 'vvf.pms@vvfltd.com';    
 				$mail->Password = 'Dream@123';                         
 				$mail->SMTPSecure = 'tls';                          
-				$mail->Port = 587; 
-
+				$mail->Port = 587; 				
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
-
-		      	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kpi_data,'employee_data1'=>$employee_data1);
+				if(isset($_POST['last_id']))
+				{
+					$value_ch = $_POST['last_id'];
+				}
+				else
+				{
+					$value_ch = '';
+				}
+		      	$params = array('mail_data'=>$employee_data,'kpi_data'=>$kpi_data,'employee_data1'=>$employee_data1,'last_id'=>$value_ch);
 		       	$message = $this->renderPartial('//site/mail/kpi_del_intemation',$params,TRUE);
 		       	$mail->addReplyTo($employee_data1['0']['Reporting_officer1_id'], 'KPI Deletion');
 		       	$mail->addCC($employee_data1['0']['Email_id']);

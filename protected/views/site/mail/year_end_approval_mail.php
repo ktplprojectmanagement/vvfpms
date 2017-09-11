@@ -33,7 +33,7 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://52.172.210.251/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="http://kritva.in/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label><?php if(isset($mail_data['0']['Emp_fname']) && isset($mail_data['0']['Emp_lname'])) { echo $mail_data['0']['Emp_fname'].' '.$mail_data['0']['Emp_lname']; }?></label>,<br/>
@@ -41,7 +41,7 @@ label{
   Please be informed the final year goalsheet for year <label><?php echo date('Y',strtotime('-1 year')).'-'.date('Y'); ?></label>  has been approved.</span> Kindly login to PMS Online to review the same and further actions.<br/>
 
 <span> Please click the link below to check status:<br>
-  <a href="http://52.172.210.251/pms/index.php/Login">PMS Login</a>
+  <a href="http://kritva.in/pms/index.php/Login">PMS Login</a>
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>

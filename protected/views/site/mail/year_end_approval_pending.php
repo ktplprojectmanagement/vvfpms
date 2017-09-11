@@ -33,7 +33,7 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://52.172.210.251/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="http://kritva.in/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label><?php if(isset($mail_data1['0']['Emp_fname']) && isset($mail_data1['0']['Emp_lname'])) { echo $mail_data1['0']['Emp_fname'].' '.$mail_data1['0']['Emp_lname']; }?></label>,<br/>

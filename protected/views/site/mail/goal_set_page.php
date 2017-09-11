@@ -33,14 +33,14 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://52.172.210.251/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="http://kritva.in/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
   Dear <label><?php if(isset($mail_data['0']['Emp_fname'])) { echo $mail_data['0']['Emp_fname']; }?></label>,<br/>
 
  <?php if(isset($employee_data1['0']['Emp_fname']) && isset($employee_data1['0']['Emp_lname'])) { echo $employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']; }?> has submitted his/her IDP and goal sheet for your review.<br/>
 
-<span> Please login to <a href="http://52.172.210.251/pms/index.php/Login">PMS Login</a>and approve them after you have reviewed them.</span>
+<span> Please login to <a href="http://kritva.in/pms/index.php/Login">PMS Login</a>and approve them after you have reviewed them.</span>
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>

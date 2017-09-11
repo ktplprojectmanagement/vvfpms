@@ -74,7 +74,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="invoice">
                                     <div class="row invoice-logo">
                                         <div class="col-xs-6 invoice-logo-space">
-                                            <img src="http://52.172.210.251/pms/Logo.png" alt="VVF" style="max-width: 8%;"></div>
+                                            <img src="http://kritva.in/pms/Logo.png" alt="VVF" style="max-width: 8%;"></div>
                                     </div>
                                     <hr/>
                                     <div class="row">  
@@ -86,7 +86,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                        <p>Welcome <?php if(isset($mail_data['0']['Emp_fname']) && isset($mail_data['0']['Emp_lname'])) { echo $mail_data['0']['Emp_fname']."  ".$mail_data['0']['Emp_lname']; } ?>,</p>
                                        <p>
                                            You can use the following credentials to access the PMS portal to view information covering your performance, account and appraisal process.
-                                            Click here to login https://52.172.210.251/pms/index.php/Login/</p>
+                                            Click here to login https://kritva.in/pms/index.php/Login/</p>
                                             <p>
                                             Your username is : <?php if(isset($mail_data['0']['Email_id'])) { echo $mail_data['0']['Email_id']; }?><br>
                                             Your password is : 123456
