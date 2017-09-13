@@ -212,7 +212,7 @@ $team_sub_yearEnd=array();
 		$team_pend_appr=array();
 		$team_pend_appr=$kra_info->get_pending_goal_team($array,$year1);
 
-
+		$cluster_head = '';
 				
 		if (isset($emp_data_desc) && count($emp_data_desc)>0  && isset($emp_data_desc['0']['cluster_appraiser'])) {
 			$where = 'where Email_id = :Email_id';

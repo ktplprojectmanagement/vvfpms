@@ -28,7 +28,7 @@
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css_extended/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css_extended/blue-steel.min.css" rel="stylesheet" type="text/css" />
       
-        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="shortcut icon" href="52.172.210.251/pms/favicon.ico" />
             <style type="text/css">
             .btn
             {
@@ -144,7 +144,7 @@ var basepath = $("#basepath").attr('value');
         $notifications_pending = $notification_data->get_notifications($where1,$data2,$list1);
         //print_r($menu_settings_data1);die();
     ?>
-    <body class="page-container-bg-solid"  onload="set_interval()" onmousemove="reset_interval()" onclick="reset_interval()" onkeypress="reset_interval()" onscroll="reset_interval()" >
+    <body class="page-container-bg-solid">
 <style>
 .fixed {
     position: fixed;
