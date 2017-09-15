@@ -785,24 +785,28 @@ $where = 'where Email_id = :Email_id';
 						$apr_name = $employee_data->get_employee_data($where,$data,$list);
 }
 						
-if($kpi_data1[$i]['0']['Employee_id'] != '')
+if(isset($kpi_data1[$i]['0']['Employee_id']) && $kpi_data1[$i]['0']['Employee_id'] != '')
 {
 						//print_r($apr_name);die();
 						if($content == '')
 						{
 							$apr_name_data = '';
-							if (isset($apr_name['0']['Emp_fname'])) {
+							if (isset($apr_name['0']['Emp_fname']) && isset($apr_name['0']['Emp_lname'])) {
 								$apr_name_data = $apr_name['0']['Emp_fname']." ".$apr_name['0']['Emp_lname'];
 							}	
-							$content = '<tr>'.'<td>'.$kpi_data1[$i]['0']['Employee_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Emp_fname']." ".$kpi_data1[$i]['0']['Emp_mname']."  ".$kpi_data1[$i]['0']['Emp_lname'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Gender'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Designation'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Department'].'<td>'.$kpi_data1[$i]['0']['Cadre'].'</td>'.'<td>'.$kpi_data1[$i]['0']['joining_date'].'</td>'.'<td>'.$kpi_data1[$i]['0']['DOB'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Present_address'].'<td>'.$kpi_data1[$i]['0']['state'].'</td>'.'<td>'.$kpi_data1[$i]['0']['PAN_number'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Email_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['cluster_name'].'</td>'.'<td>'.$kpi_data1[$i]['0']['BU'].'</td>'.'<td>'.$apr_name_data.'</td>'.'<td>'.$kpi_data1[$i]['0']['company_location'].'</td>'.'</tr>';
+							if (isset($kpi_data1[$i]['0']['Employee_id']) && isset($kpi_data1[$i]['0']['Emp_fname']) && isset($kpi_data1[$i]['0']['Emp_lname']) && isset($kpi_data1[$i]['0']['Emp_mname']) && isset($kpi_data1[$i]['0']['Gender']) && isset($kpi_data1[$i]['0']['Designation']) && isset($kpi_data1[$i]['0']['Department']) && isset($kpi_data1[$i]['0']['Cadre']) && isset($kpi_data1[$i]['0']['joining_date']) && isset($kpi_data1[$i]['0']['DOB']) && isset($kpi_data1[$i]['0']['Present_address']) && isset($kpi_data1[$i]['0']['DOB']) && isset($kpi_data1[$i]['0']['state']) && isset($kpi_data1[$i]['0']['PAN_number']) && isset($kpi_data1[$i]['0']['Email_id']) && isset($kpi_data1[$i]['0']['cluster_name']) && isset($kpi_data1[$i]['0']['BU']) && isset($apr_name_data) && isset($kpi_data1[$i]['0']['company_location'])) {
+								$content = '<tr>'.'<td>'.$kpi_data1[$i]['0']['Employee_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Emp_fname']." ".$kpi_data1[$i]['0']['Emp_mname']."  ".$kpi_data1[$i]['0']['Emp_lname'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Gender'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Designation'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Department'].'<td>'.$kpi_data1[$i]['0']['Cadre'].'</td>'.'<td>'.$kpi_data1[$i]['0']['joining_date'].'</td>'.'<td>'.$kpi_data1[$i]['0']['DOB'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Present_address'].'<td>'.$kpi_data1[$i]['0']['state'].'</td>'.'<td>'.$kpi_data1[$i]['0']['PAN_number'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Email_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['cluster_name'].'</td>'.'<td>'.$kpi_data1[$i]['0']['BU'].'</td>'.'<td>'.$apr_name_data.'</td>'.'<td>'.$kpi_data1[$i]['0']['company_location'].'</td>'.'</tr>';
+							}							
 						}
 						else
 						{
 							$apr_name_data = '';
-							if (isset($apr_name['0']['Emp_fname'])) {
+							if (isset($apr_name['0']['Emp_fname']) && isset($apr_name['0']['Emp_lname'])) {
 								$apr_name_data = $apr_name['0']['Emp_fname']." ".$apr_name['0']['Emp_lname'];
 							}
-							$content = $content.'<tr>'.'<td>'.$kpi_data1[$i]['0']['Employee_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Emp_fname']." ".$kpi_data1[$i]['0']['Emp_mname']."  ".$kpi_data1[$i]['0']['Emp_lname'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Gender'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Designation'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Department'].'<td>'.$kpi_data1[$i]['0']['Cadre'].'</td>'.'<td>'.$kpi_data1[$i]['0']['joining_date'].'</td>'.'<td>'.$kpi_data1[$i]['0']['DOB'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Present_address'].'<td>'.$kpi_data1[$i]['0']['state'].'</td>'.'<td>'.$kpi_data1[$i]['0']['PAN_number'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Email_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['cluster_name'].'</td>'.'<td>'.$kpi_data1[$i]['0']['BU'].'</td>'.'<td>'.$apr_name_data.'</td>'.'<td>'.$kpi_data1[$i]['0']['company_location'].'</td>'.'</tr>';
+							if (isset($kpi_data1[$i]['0']['Employee_id']) && isset($kpi_data1[$i]['0']['Emp_fname']) && isset($kpi_data1[$i]['0']['Emp_lname']) && isset($kpi_data1[$i]['0']['Emp_mname']) && isset($kpi_data1[$i]['0']['Gender']) && isset($kpi_data1[$i]['0']['Designation']) && isset($kpi_data1[$i]['0']['Department']) && isset($kpi_data1[$i]['0']['Cadre']) && isset($kpi_data1[$i]['0']['joining_date']) && isset($kpi_data1[$i]['0']['DOB']) && isset($kpi_data1[$i]['0']['Present_address']) && isset($kpi_data1[$i]['0']['DOB']) && isset($kpi_data1[$i]['0']['state']) && isset($kpi_data1[$i]['0']['PAN_number']) && isset($kpi_data1[$i]['0']['Email_id']) && isset($kpi_data1[$i]['0']['cluster_name']) && isset($kpi_data1[$i]['0']['BU']) && isset($apr_name_data) && isset($kpi_data1[$i]['0']['company_location'])) {
+								$content = $content.'<tr>'.'<td>'.$kpi_data1[$i]['0']['Employee_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Emp_fname']." ".$kpi_data1[$i]['0']['Emp_mname']."  ".$kpi_data1[$i]['0']['Emp_lname'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Gender'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Designation'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Department'].'<td>'.$kpi_data1[$i]['0']['Cadre'].'</td>'.'<td>'.$kpi_data1[$i]['0']['joining_date'].'</td>'.'<td>'.$kpi_data1[$i]['0']['DOB'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Present_address'].'<td>'.$kpi_data1[$i]['0']['state'].'</td>'.'<td>'.$kpi_data1[$i]['0']['PAN_number'].'</td>'.'<td>'.$kpi_data1[$i]['0']['Email_id'].'</td>'.'<td>'.$kpi_data1[$i]['0']['cluster_name'].'</td>'.'<td>'.$kpi_data1[$i]['0']['BU'].'</td>'.'<td>'.$apr_name_data.'</td>'.'<td>'.$kpi_data1[$i]['0']['company_location'].'</td>'.'</tr>';
+							}							
 						}
 }
 					}	
@@ -1360,7 +1364,7 @@ if($content == '')
 		$year1=$settings_data['0']['setting_type'];
 		$apr_name = '';
 		$mid_sub=$model->get_mid_review_submitted($year1);
-		
+		//print_r($value[1]);die();
 		if ($value[1] == 'Submitted') {	
 			
 				for($i=0;$i<count($mid_sub);$i++){
@@ -1404,10 +1408,12 @@ if($content == '')
 			if (isset($mid_data) && count($mid_data)>0) {
 
 				for ($i=0; $i < count($mid_data); $i++) { 
+					if (isset($mid_data[$i]['Reporting_officer1_id'])) {
 					$where = 'where Email_id = :Email_id';
 					$list = array('Email_id');
 					$data = array($mid_data[$i]['Reporting_officer1_id']);
-					$apr_name = $employee_data->get_employee_data($where,$data,$list);					
+					$apr_name = $employee_data->get_employee_data($where,$data,$list);		
+					}			
 					if ($value[1] == 'Pendingemp') {
 						if($mid_data[$i]['Employee_id'] != '')
 {
@@ -1432,12 +1438,15 @@ if($content == '')
 					}
 					else if($value[1] == 'Submitted')
 					{
-                                        $where = 'where Email_id = :Email_id';
-					$list = array('Email_id');
-					$data = array($mid_data[$i]['0']['Reporting_officer1_id']);
-					$apr_name = $employee_data->get_employee_data($where,$data,$list);
-						//print_r($mid_data);die();
-                                        if($mid_data[$i]['0']['Employee_id'] != '')
+						if (isset($mid_data[$i]['0']['Reporting_officer1_id'])) {
+							$where = 'where Email_id = :Email_id';
+							$list = array('Email_id');
+							$data = array($mid_data[$i]['0']['Reporting_officer1_id']);
+							$apr_name = $employee_data->get_employee_data($where,$data,$list);
+						}
+                                        
+						
+                                        if(isset($mid_data[$i]['0']['Employee_id']) && $mid_data[$i]['0']['Employee_id'] != '')
 {
 						if($content == '')
 						{	
@@ -1609,7 +1618,10 @@ function actiongetYearEndStat(){
 		$data = array('PMS_display_format',date('Y'));             
 		$settings_data = $setting_date->get_setting_data($where,$data,$list);
 		//print_r($settings_data);die();
-		$year1=$settings_data['0']['setting_type'];
+		if (isset($settings_data['0']['setting_type'])) {
+			$year1=$settings_data['0']['setting_type'];
+		}
+		
 		$yearEnd=new Yearend_reviewbForm;
 		$employee_data=new EmployeeForm;
 		$yearEnd_data=array();
@@ -1620,9 +1632,9 @@ function actiongetYearEndStat(){
 //print_r($yearEnd_sub);die();
                 $tot_count=array();
 		$tot_count=$employee_data->getdata();
-//print_r(count($tot_count));die();
+//print_r($value[1]);die();
 if($value[1]=="allsub"){
-
+//print_r("sadsads");die();
 		$where='where year_end_reviewb_status =:year_end_reviewb_status AND goal_set_year = :goal_set_year ';
 		$list = array('year_end_reviewb_status','goal_set_year');
 		$data = array('1',$year1);
@@ -1723,25 +1735,26 @@ $content = '';
 
 				for ($i=0; $i < count($yearEnd_data); $i++) { 
 if($yearEnd_data[$i] != "" && count($yearEnd_data[$i])>0){
-
-					$where = 'where Email_id = :Email_id';
-					$list = array('Email_id');
-					$data = array($yearEnd_data[$i]['0']['Reporting_officer1_id']);
-					$apr_name = $employee_data->get_employee_data($where,$data,$list);	
-
-
-
-					$where = 'where Email_id = :Email_id';
-					$list = array('Email_id');
-					$data = array($yearEnd_data[$i]['0']['cluster_appraiser']);
-					$clusterapr_name = $employee_data->get_employee_data($where,$data,$list);	
-                                    
-                                        $where = 'where Email_id = :Email_id';
-					$list = array('Email_id');
-					$data = array($yearEnd_data[$i]['0']['bu_head_email']);
-					$bu_head_name = $employee_data->get_employee_data($where,$data,$list);	
+					if (isset($yearEnd_data[$i]['0']['Reporting_officer1_id'])) {
+						$where = 'where Email_id = :Email_id';
+						$list = array('Email_id');
+						$data = array($yearEnd_data[$i]['0']['Reporting_officer1_id']);
+						$apr_name = $employee_data->get_employee_data($where,$data,$list);
+					}
+					if (isset($yearEnd_data[$i]['0']['cluster_appraiser'])) {
+						$where = 'where Email_id = :Email_id';
+						$list = array('Email_id');
+						$data = array($yearEnd_data[$i]['0']['cluster_appraiser']);
+						$clusterapr_name = $employee_data->get_employee_data($where,$data,$list);
+					}
+					if (isset($yearEnd_data[$i]['0']['bu_head_email'])) {
+						$where = 'where Email_id = :Email_id';
+						$list = array('Email_id');
+						$data = array($yearEnd_data[$i]['0']['bu_head_email']);
+						$bu_head_name = $employee_data->get_employee_data($where,$data,$list);
+					}          	
                                 
-                         if($yearEnd_data[$i]['0']['Reporting_officer2_id'] != '')
+                         if(isset($yearEnd_data[$i]['0']['Reporting_officer2_id']) && $yearEnd_data[$i]['0']['Reporting_officer2_id'] != '')
 {
 $where = 'where Email_id = :Email_id';
 					$list = array('Email_id');
@@ -1750,7 +1763,7 @@ $where = 'where Email_id = :Email_id';
 }               
 
 
-//print_r($yearEnd_data[$i]['0']['Reporting_officer2_id']);die();
+//print_r($yearEnd_data);die();
 
 if($value[1]=="allsub"){
 

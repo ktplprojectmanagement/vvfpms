@@ -8,8 +8,9 @@ $f_year=Yii::app()->user->getState('financial_year_check');
 
 
 $f_year_comp=explode('-',$f_year);
-// echo count($kpi_data);
-if((((date('Y')== $f_year_comp['1'] && date('m')< 3) || (date('Y') == $f_year_comp['0'] && date('m') > 3))) && (count($kpi_data) < 5 || $edit_flag=="1")){?>
+// echo count($kpi_data);die();
+if(isset($f_year_comp['1']) && $f_year_comp['0']) {
+if((((date('Y')== $f_year_comp['1'] && date('m')< 3) || (date('Y') == $f_year_comp['0'] && date('m') > 3))) && (count($kpi_data) < 5 || $edit_flag=="1")){ ?>
 <script>
 $(document).ready(function(){
     
@@ -17,7 +18,7 @@ $(document).ready(function(){
     
 });
 </script>   
-<?php }
+<?php } }
 else
 { ?>
 

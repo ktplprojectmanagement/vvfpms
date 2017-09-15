@@ -182,54 +182,54 @@ var base_url = window.location.origin;
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : data,
-                                'url' : base_url+'/index.php?r=Account_test/check',
+                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Account_test/check',
                                 success : function(data)
                                 {
                                 
                                         if (data == '1')
                                         {
-                                            window.location.href = base_url+"/index.php/Setgoals";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Setgoals";
                                         }
                                         else if (data == '0')
                                         {
-                                            window.location.href = base_url+"/index.php/Setgoals/approvegoal_list";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Setgoals/approvegoal_list";
                                         }
                                         else if (data == '2')
                                         {
-                                            window.location.href = base_url+"/index.php/Midreview";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Midreview";
                                         }
                                         else if (data == '3')
                                         {
-                                            window.location.href = base_url+"/index.php/setbyemployee";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/setbyemployee";
                                         }
                                         else if (data == '4')
                                         {
-                                            window.location.href = base_url+"/index.php/IDP";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/IDP";
                                         }
                                         else if (data == '5')
                                         {
-                                            window.location.href = base_url+"/index.php/IDP_approvegoal_list";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/IDP_approvegoal_list";
                                         }
                                         else if (data == '6')
                                         {
-                                            window.location.href = base_url+"/index.php/Midyear_subordinate_idp1";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Midyear_subordinate_idp1";
                                         }
                                         else if (data == '7')
                                         {
-                                            window.location.href = base_url+"/index.php/IDP/IDP_Mid_approvegoal_list";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/IDP/IDP_Mid_approvegoal_list";
                                         }
                                         else if (data == 'Valid')
                                         {
-                                            window.location.href = base_url+"/index.php/User_dashboard";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/User_dashboard";
                                         }                                        
                                         else if(data == 'already_login')
                                         {
                                             //$("#already_login").text("User already login");
-                                            window.location.href=base_url+'/index.php/Login';
+                                            window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Login';
                                         }
                                         else if(data == 'reset_pending')
                                         {
-                                            window.location.href=base_url+'/index.php/Reset_password/Index/';
+                                            window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Reset_password/Index/';
                                         }
                                         else
                                         {
@@ -250,55 +250,55 @@ var base_url = window.location.origin;
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : data,
-                                'url' : base_url+'/index.php?r=Account_test/check',
+                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Account_test/check',
                                 success : function(data)
                                 {
-//alert(data);
+alert(data);
                                 $("#err").css('display','none');
                                          if (data == '1')
                                         {
-                                            window.location.href = base_url+"/index.php/Setgoals";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Setgoals";
                                         }
                                         else if (data == '0')
                                         {
-                                            window.location.href = base_url+"/index.php/Setgoals/approvegoal_list";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Setgoals/approvegoal_list";
                                         }
                                         else if (data == '2')
                                         {
-                                            window.location.href = base_url+"/index.php/Midreview";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Midreview";
                                         }
                                         else if (data == '3')
                                         {
-                                            window.location.href = base_url+"/index.php/setbyemployee";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/setbyemployee";
                                         }
                                         else if (data == '4')
                                         {
-                                            window.location.href = base_url+"/index.php/IDP";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/IDP";
                                         }
                                         else if (data == '5')
                                         {
-                                            window.location.href = base_url+"/index.php/IDP_approvegoal_list";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/IDP_approvegoal_list";
                                         }
                                         else if (data == '6')
                                         {
-                                            window.location.href = base_url+"/index.php/Midyear_subordinate_idp1";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/Midyear_subordinate_idp1";
                                         }
                                         else if (data == '7')
                                         {
-                                            window.location.href = base_url+"/index.php/IDP/IDP_Mid_approvegoal_list";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/IDP/IDP_Mid_approvegoal_list";
                                         }
                                         else if (data == 'Valid')
                                         {
-                                            window.location.href = base_url+"/index.php/User_dashboard";
+                                            window.location.href = base_url+$("#basepath").attr('value')+"/index.php/User_dashboard";
                                         }                                        
                                         else if(data == 'already_login')
                                         {
                                             //$("#already_login").text("User already login");
-                                            window.location.href=base_url+'/index.php/Login';
+                                            window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Login';
                                         }
                                         else if(data == 'reset_pending')
                                         {
-                                            window.location.href=base_url+'/index.php/Reset_password/Index/';
+                                            window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Reset_password/Index/';
                                         }
                                         else
                                         {
@@ -329,7 +329,7 @@ var base_url = window.location.origin;
                         type : 'post',
                         datatype : 'html',
                         data : data,
-                        url : base_url+'/index.php?r=Login/reset_password',
+                        url : base_url+$("#basepath").attr('value')+'/index.php?r=Login/reset_password',
                         success : function(data)
                         { 
                         $("#updation_spinner").css('display','none'); 

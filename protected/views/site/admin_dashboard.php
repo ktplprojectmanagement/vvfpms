@@ -408,7 +408,7 @@ $(function(){
             url : base_url+$("#basepath").attr('value')+'/index.php/Admin_Dashboard/getYearEndStat',
             success : function(data)
             { 
-               // alert(data);
+               //alert(data);
                 var table = $('#sample_2').DataTable();
                 table.clear().draw();
                 table.rows.add($(data)).draw();
