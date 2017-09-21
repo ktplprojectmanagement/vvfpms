@@ -8,8 +8,9 @@ $f_year=Yii::app()->user->getState('financial_year_check');
 
 
 $f_year_comp=explode('-',$f_year);
-// echo count($kpi_data);
-if((((date('Y')== $f_year_comp['1'] && date('m')< 3) || (date('Y') == $f_year_comp['0'] && date('m') > 3))) && (count($kpi_data) < 5 || $edit_flag=="1")){?>
+// echo count($kpi_data);die();
+if(isset($f_year_comp['1']) && $f_year_comp['0']) {
+if((((date('Y')== $f_year_comp['1'] && date('m')< 3) || (date('Y') == $f_year_comp['0'] && date('m') > 3))) && (count($kpi_data) < 5 || $edit_flag=="1")){ ?>
 <script>
 $(document).ready(function(){
     
@@ -17,7 +18,7 @@ $(document).ready(function(){
     
 });
 </script>   
-<?php }
+<?php } }
 else
 { ?>
 
@@ -44,7 +45,7 @@ $year1=Yii::app()->user->getState('financial_year_check');
 $kategory_cnt=$model->get_kra_category($Employee_id,$year1);
 
 $counts = array_count_values(array_column($kategory_cnt, 'KRA_category'));
-
+//print_r($counts);
 $cnt=0;$cnt_cat=0;
 if(isset($counts['People']) && $counts['People']>2){
     $cnt=1;
@@ -154,7 +155,7 @@ if(isset($counts['Business'])){
         
 
                                                            
-<label id='edit1'  style="display:none" ><?php echo $edit_flag; die();?></label>
+<label id='edit1'  style="display:none" ><?php echo $edit_flag; ?></label>
        <label id='emp_dept_name' style="display:none"><?php if(isset($emp_data['0']['Department'])) { echo $emp_data['0']['Department']; } ?></label>
       <label id='emp_dept_name' style="display:none"><?php if(isset($emp_data['0']['Cadre'])) { echo $emp_data['0']['Cadre']; } ?></label>
       <script type="text/javascript">
@@ -779,7 +780,6 @@ $("body").on('scroll','.validate_field',function(){
                     });
                 });
             </script>
-
             <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
       <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -6134,7 +6134,7 @@ function save_detail_pdf()
                     url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_goal_idp',
                     success : function(data)
                     {
-
+                        //alert(data);
                         location.href = base_url+$("#basepath").attr('value')+'/Goalsheet_docs/goalsheet'+'_'+$("#femp_name").text()+'_'+$("#lemp_name").text()+$('#yr').text()+'.pdf'; 
                     }
                     });                 
@@ -6360,7 +6360,6 @@ $where = 'where Email_id = :Email_id';
                                         </body>
                                        
                                        </html>
-                                       
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
@@ -7128,3 +7127,5 @@ C: Development through action learning projects</b></font></p>
                                        
                                        </html>
 
+
+ 

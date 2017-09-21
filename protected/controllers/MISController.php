@@ -8,6 +8,7 @@ class MISController extends Controller
 	    $selected_option = 'rules_for_goalsheet';
 	    $this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/mis');
 		$this->render('//site/admin_footer_view');
@@ -38,6 +39,7 @@ class MISController extends Controller
 				'Emp_lname'=> $_POST['lname'],
 				'Emp_mname'=> $_POST['mname'],
 				'email'=> $_POST['email'],
+				'contact'=>$_POST['contact'],
 				'Permanent_address'=> $_POST['perm_add'],
 				'Pincode'=> $_POST['pin'],
 				'Basic_qualification'=> $_POST['quali'],
@@ -73,6 +75,7 @@ class MISController extends Controller
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];
 		 $model->email = $_POST['email'];
+		 $model->contact = $_POST['contact'];
 		 $model->Permanent_address = $_POST['perm_add'];
 		 $model->Pincode = $_POST['pin'];
 		 $model->Basic_qualification = $_POST['quali'];
@@ -169,8 +172,8 @@ class MISController extends Controller
 		//echo $_POST['u_id'];die();
 		$data=array(
 			  'Position_code'=>$_POST['pos_code'],
-			  'Designation'=>$_POST['desgn'],
-			  'Department'=>$_POST['dept'],
+			   'Designation'=>$_POST['desgn'],
+			   'Department'=>$_POST['dept'],
 			  'Sub_department'=>$_POST['sub_dept'],
 			  'BU'=>$_POST['bu'],
 			  'Cadre'=>$_POST['cadre'],
@@ -247,8 +250,9 @@ class MISController extends Controller
 
 	function actionpromo_details(){
 		$data = array(
+
 			'Promotion_date'=>$_POST['promo_dt'],
-			'Designation_before_promotion'=>$_POST['desgn_bfr_promo'],
+			'Designation_before_promotion'=>$_POST['desg_bfr_promo'],
 			'Cadre_before_promotion'=>$_POST['cdre_bfr_promo'],
 			'Previous_grade'=>$_POST['prev_cadre'],
 			'Redesignation_date'=>$_POST['redesgn_dt'],
@@ -341,6 +345,7 @@ class MISController extends Controller
 		$data = $model->getdata();
 		$selected_option = 'employee_master1';
 		$this->render('//site/script_file');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_details',array('model'=>$data));
 		$this->render('//site/admin_footer_view');
@@ -351,6 +356,7 @@ class MISController extends Controller
 		$data = $model->getdata();
 		$selected_option = 'employee_master1';
 		$this->render('//site/script_file');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_details_loc_req',array('model'=>$data));
 		$this->render('//site/admin_footer_view');
@@ -373,6 +379,7 @@ class MISController extends Controller
 		$selected_option = 'rules_for_goalsheet';
 	    $this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/mis_update',array('employee_data'=>$employee_data));
 		$this->render('//site/admin_footer_view');
@@ -394,6 +401,7 @@ class MISController extends Controller
 		$selected_option = 'rules_for_goalsheet';
 	    $this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/mis_update_loc_req',array('employee_data'=>$employee_data));
 		$this->render('//site/admin_footer_view');
@@ -416,6 +424,7 @@ class MISController extends Controller
 				'Emp_lname'=> $_POST['lname'],
 				'Emp_mname'=> $_POST['mname'],
 				'email'=> $_POST['email'],
+				'contact'=>$_POST['contact'],
 				'Permanent_address'=> $_POST['perm_add'],
 				'Pincode'=> $_POST['pin'],
 				'Basic_qualification'=> $_POST['quali'],
@@ -511,6 +520,7 @@ class MISController extends Controller
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];
 		 $model->email = $_POST['email'];
+		 $model->contact = $_POST['contact'];
 		 $model->Permanent_address = $_POST['perm_add'];
 		 $model->Pincode = $_POST['pin'];
 		 $model->Basic_qualification = $_POST['quali'];
@@ -587,10 +597,15 @@ class MISController extends Controller
 		 $model->Cost_centre_codes=$_POST['cost_center'];
 		 $model->Cost_centre_description=$_POST['cost_cenr_descr'];
 		 $model->Employee_status=$_POST['emp_sta'];
-		 
+		 //print_r($model->attributes);die();
 		if($model->save())
 	  	{
-	  		
+	  		$data=array(
+
+					'u_id'=>$_POST['u_id']
+				);
+			$command = Yii::app()->db->createCommand();
+			$query_result = $command->delete('Employee_master2', 'u_id=:u_id', array(':u_id'=>$_POST['u_id']));
 	  		print_r("Successfully Saved");die();
 
 	  	}

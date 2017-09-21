@@ -86,7 +86,7 @@ font-weight: bold;
 
                 <div class="col-md-5 login-container bs-reset" >
                    <img style="height: 50px;top:20px;left:10px;" class="login-logo login-6" src="<?php echo Yii::app()->request->baseUrl; ?>/images/Logo.png">
-                            <div class="content" style="border: 1px solid rgb(50, 197, 210); margin-top: 131px;">
+                            <div class="content" style="border: 1px solid rgb(50, 197, 210); margin-top: 131px;width:407px">
             <!-- BEGIN LOGIN FORM -->
             <?php 
         $form=$this->beginWidget('CActiveForm', array(
@@ -132,6 +132,9 @@ font-weight: bold;
                     <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a> -->
                     <div class="col-md-6" ><a href="javascript:;" id="forget-password" class="forget-password" style="text-decoration: none;
 color: rgb(50, 197, 210);">Forgot Password?</a></div>
+<div class="col-md-12" style="border-top: 0.5px solid #32c5d2;margin-top: 35px;"><a href="https://kritva.in/pms/index.php/Adminlogin" id="forget-password" class="forget-password" style="text-decoration: none;float: left;
+color: rgb(50, 197, 210);">Admin Login</a><a href="https://kritva.in/pms/admin/index.php/Adminlogin" id="forget-password" class="forget-password" style="text-decoration: none;float: right;
+color: rgb(50, 197, 210);">Locationwise Admin Login</a></div>
                 </div>
                 </div>
                 <div id="forget_window" style="display: none">
@@ -367,8 +370,7 @@ alert(data);
                     </div>
 
          </div>  
-                <div class="col-md-7 bs-reset">
-                    <div class="login-bg" style="background-image:url(<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/img/login/Test1.jpg)"> </div>
+                <div class="col-md-7 bs-reset"><div class="login-bg" style="background-image:url(<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/img/login/Test1.jpg)"> </div>
                         
                 </div>
 

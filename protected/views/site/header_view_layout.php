@@ -162,6 +162,14 @@ var basepath = $("#basepath").attr('value');
         //print_r($menu_settings_data1);die();
     ?>
     <body class="page-container-bg-solid">
+<?php
+require_once 'vendor/autoload.php';
+$telemetryClient = new \ApplicationInsights\Telemetry_Client();
+$telemetryClient->getContext()->setInstrumentationKey('67ce25de-bdd5-419f-babc-dd23f18c662f');
+$telemetryClient->trackEvent('name of your event');
+$telemetryClient->trackMetric('myMetric', 42.0, \ApplicationInsights\Channel\Contracts\Data_Point_Type::Aggregation, 5, 0, 1, 0.2, ['InlineProperty' => 'test_value']);
+$telemetryClient->flush();
+?>
 <style>
 .fixed {
     position: fixed;

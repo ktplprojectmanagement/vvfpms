@@ -142,7 +142,7 @@ public function actioncheck_goal_idp()
 		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
+//print_r($employee_data);die();
 		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 		    require_once(dirname(__FILE__).'/lang/eng.php');
 		    $pdf->setLanguageArray($l);
@@ -150,8 +150,12 @@ public function actioncheck_goal_idp()
                //print_r($_POST['doc']);die();
 		$pdf->SetFont('helvetica', '', 9);
 		$pdf->AddPage();
+		//print_r($employee_data);die();	
 //print_r($_POST['doc']);die();
-		$pdf->writeHTML($_POST['doc'], true, 0, true, 0);
+		if (isset($_POST['doc'])) {
+			$pdf->writeHTML($_POST['doc'], true, 0, true, 0);
+		}
+		print_r($employee_data);die();	
 		$pdf->lastPage();
 		$pdf->Output($filename, 'F');print_r($_POST['doc']);die();
 		
