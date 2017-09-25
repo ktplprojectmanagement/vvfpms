@@ -29,23 +29,69 @@
   <script>
   $( function() {
      $("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
-            var newdate = ($("#dob").val()).split("-").reverse().join("-");
-           // alert(newdate);
-           // alert(this.val());
+//             var newdate = ($("#dob").val()).split("-").reverse().join("-");
+//            // alert(newdate);
+//            // alert(this.val());
 
-            var age = getAge(this);
+//             var age = getAge(this);
+//             var months=age.split("years");
+//             //alert(months);
+//           $('#age_yrs').val(months[0]+'Years');
+//           $('#age_mnt').val(months[1]);
+//             console.log(age);
+//             //alert(age);
+// $('#dob').val(newdate);
+            var yrs=$("#dob").val().split("-");
+            var yr=parseInt(yrs[0])+60;
+            var retire_dt= yrs[2]+"-"+yrs[1]+"-"+yr;
+            $('#dt_retire').val(retire_dt);
+            var newdate = ($("#dob").val()).split("-").reverse().join("-");
+            var age = getAge($("#dob").val());
             var months=age.split("years");
-            //alert(months);
-          $('#age_yrs').val(months[0]+'Years');
-          $('#age_mnt').val(months[1]);
+            $('#age_yrs').val(months[0]+''+'Years');
+            $('#age_mnt').val(months[1]);
             console.log(age);
-            //alert(age);
-$('#dob').val(newdate);
+            $('#dob').val(newdate);
 
         });
     $( "#date_confrm_trn").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#date_confrm_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
-    $( "#doj_vvf" ).datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
+    // $( "#doj_vvf" ).datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
+    $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
+            // var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            // var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
+
+            // var exp = getAge(this);
+            // var exp_yr=exp.split("years");
+            // var other_exp= 0 ;
+            // $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            // $('#doj_vvf').val(newdate1);
+            // if ($('#othr_exp').val()!='') {
+            //     other_exp=$('#othr_exp').val(); 
+               
+            // };
+            var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var exp = getAge($("#doj_vvf").val());
+            var exp_yr=exp.split("years");
+           
+            var other_exp= 0 ;
+            $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            $('#doj_vvf').val(newdate1);
+            if ($('#othr_exp').val()!='') {
+                other_exp=$('#othr_exp').val(); 
+               
+            };
+            var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+           var arr = doj.split("/");
+           var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
+           var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
+           var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
+           var fin_trn_prob = convert(trn_prob);
+           $('#due_date_trn_prob').val(fin_trn_prob);
+           var dt_of_con = convert(fin_dt);
+           $('#confirm_due_date').val(dt_of_con);
+    });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#confirm_due_date" ).datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -61,7 +107,7 @@ $('#dob').val(newdate);
     
    function getAge(dateVal) {
             var
-                birthday = new Date(dateVal.value),
+                birthday = new Date(dateVal),
                 today = new Date(),
                 ageInMilliseconds = new Date(today - birthday),
                 years = ageInMilliseconds / (24 * 60 * 60 * 1000 * 365.25 ),
@@ -71,7 +117,36 @@ $('#dob').val(newdate);
             return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
 
         }
+        function process(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
+}
+   function getAge(dateVal) {
+    //alert(dateVal);
+            var
+                birthday = new Date(dateVal),
+                today = new Date(),
+                ageInMilliseconds = new Date(today - birthday),
+                years = ageInMilliseconds / (24 * 60 * 60 * 1000 * 365.25 ),
+                months = 12 * (years % 1),
+                days = Math.floor(30 * (months % 1));
+                //alert(today);
+
+                return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
+
+        }
   </script>  
+  <script type="text/javascript">
+ 
+
+
+  function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+    return [day,mnth,date.getFullYear()].join("-");
+}
+  </script> 
   <script>
                        $(function(){
 
@@ -306,7 +381,51 @@ $(document).ready(function(){
         var aadhar_no = $('#aadhar').val();
         var contact = $('#contact').val();
         var u_id=$('#u_id').val();
-        if($('#fname').val()==""){
+        var comp_nm= $('option:selected',$('#comp_nm')).val();
+        var per_email =$('#per_email').val();
+        var nm = /^([a-zA-Z]{1,40})*$/;
+        var eml = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+        var con_no = /^[\d]{10}$/;
+        var pin_no = /^[1-9][0-9]{5}$/;
+        var adr = /^[1-9][0-9]{11}$/;
+        var pan_no = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+        $('#fname').css('border','');
+        $('#lname').css('border','');
+        $('#mname').css('border','');
+        $('#email').css('border','');
+        $('#perm_add').css('border','');
+        $('#state').css('border','');
+        $('#city').css('border','');
+        $('#pin').css('border','');
+        $('#quali').css('border','');
+        $('#marital_stat').css('border','');
+        $('#no_of_depend').css('border','');
+        $('#bld_grp').css('border','');
+        $('#pan').css('border','');
+        $('#dob').css('border','');
+        $('#age_yrs').css('border','');
+        $('#contact').css('border','');
+        $('#comp_nm').css('border','');
+
+        if($('#comp_nm').val()==""){
+            $('#err').text("Please Select Company name");
+            $('#err').show();
+            $('#comp_nm').css('border','1px solid red');
+            $('#comp_nm').focus();
+        }
+        else if(!nm.test($('#fname').val())){
+            $("#err").css('display','block');
+            $('#fname').focus();
+            $('#fname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
+        }
+        else if(!nm.test($('#mname').val())){
+            $("#err").css('display','block');
+            $('#mname').focus();
+            $('#mname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
+        }
+        else if($('#fname').val()==""){
             $('#err').text("Please enter first name");
             $('#err').show();
             $('#fname').css('border','1px solid red');
@@ -318,20 +437,44 @@ $(document).ready(function(){
             $('#lname').css('border','1px solid red');
             $('#lname').focus();
         }
-        else if($('#mname').val()==""){
-            $('#err').text("Please enter middle name");
-            $('#err').show();
-            $('#mname').css('border','1px solid red');
-            $('#mname').focus();
+        else if(!nm.test($('#lname').val())){
+            $("#err").css('display','block');
+            $('#lname').focus();
+            $('#lname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
         }
+        // else if($('#mname').val()==""){
+        //     $('#err').text("Please enter middle name");
+        //     $('#err').show();
+        //     $('#mname').css('border','1px solid red');
+        //     $('#mname').focus();
+        // }
         else if($('#email').val()==""){
             $('#err').text("Please enter Email id");
             $('#err').show();
             $('#email').css('border','1px solid red');
             $('#email').focus();
         }
+        else if(!eml.test($('#email').val())){
+            $("#err").css('display','block');
+            $('#email').focus();
+            $('#email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
+        else if(!eml.test($('#per_email').val())){
+            $("#err").css('display','block');
+            $('#per_email').focus();
+            $('#per_email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
+            $('#err').show();
+            $('#contact').css('border','1px solid red');
+            $('#contact').focus();
+        }
+        else if(!con_no.test($('#contact').val())){
+            $('#err').text("Please enter valid Contact number");
             $('#err').show();
             $('#contact').css('border','1px solid red');
             $('#contact').focus();
@@ -360,6 +503,12 @@ $(document).ready(function(){
             $('#pin').css('border','1px solid red');
             $('#pin').focus();
         }
+        else if(!pin_no.test($('#pin').val())){
+            $('#err').text("Please enter valid Pin code");
+            $('#err').show();
+            $('#pin').css('border','1px solid red');
+            $('#pin').focus();
+        }
         else if($('#quali').val()==""){
             $('#err').text("Please enter Basic qualification");
             $('#err').show();
@@ -384,11 +533,23 @@ $(document).ready(function(){
             $('#bld_grp').css('border','1px solid red');
             $('#bld_grp').focus();
         }
-        else if($('#pan').val()==""){
-            $('#err').text("Please enter Basic qualification");
+        // else if($('#pan').val()==""){
+        //     $('#err').text("Please enter Basic qualification");
+        //     $('#err').show();
+        //     $('#pan').css('border','1px solid red');
+        //     $('#pan').focus();
+        // }
+        else if(!pan_no.test($('#pan').val())){
+            $('#err').text("Please enter valid Pan Card number");
             $('#err').show();
             $('#pan').css('border','1px solid red');
             $('#pan').focus();
+        }
+        else if(!adr.test($('#aadhar').val())){
+            $('#err').text("Please enter valid Aadhar number");
+            $('#err').show();
+            $('#aadhar').css('border','1px solid red');
+            $('#aadhar').focus();
         }
         else if($('#dob').val()==""){
             $('#err').text("Please enter Basic qualification");
@@ -455,6 +616,8 @@ $(document).ready(function(){
                 add_edu:add_edu,
                 aadhar_no:aadhar_no,
                 sap:sap,
+                comp_nm:comp_nm,
+                per_email:per_email,
                 u_id:u_id,
                 };
 
@@ -481,6 +644,16 @@ $(document).ready(function(){
         }
     });
     $('#genrl_info').click(function(){
+        $('#pos_code').css('border','');
+        $('#desgn').css('border','');
+        $('#dept').css('border','');
+        $('#sub_dept').css('border','');
+        $('#bu').css('border','');
+        $('#cadre').css('border','');
+        $('#grade').css('border','');
+        $('#loc_work').css('border','');
+        $('#loc_pay').css('border','');
+        $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
         var desgn = $('option:selected', $('#desgn')).val();
         var dept = $('option:selected', $('.Department')).val();
@@ -591,6 +764,12 @@ $(document).ready(function(){
     });
     
     $("#reprt_detls").click(function(){
+        $('#report_mgr_sap').css('border','');
+        $('#rep1_attd').css('border','');
+        $('#rep1_appr').css('border','');
+        $('#dot_mgr').css('border','');
+        $('#mgr_mgr').css('border','');
+        $('#clust_hd').css('border','');
         var report_mgr_sap=$("#report_mgr_sap").val();
         // var rep1_attd = $('option:selected', $('#rep1_attd')).val();
         // var rep1_appr = $('option:selected', $('#rep1_appr')).val();
@@ -674,6 +853,21 @@ $(document).ready(function(){
     });
     
     $("#join_detals").click(function(){
+        $('#trainee').css('border','');
+        $('#trn_dept').css('border','');
+        $('#date_confrm_trn').css('border','');
+        $('#date_confrm_prob').css('border','');
+        $('#aftr_trn_confrm').css('border','');
+        $('#prev_emplyr').css('border','');
+        $('#doj_vvf').css('border','');
+        $('#othr_exp').css('border','');
+        $('#vvf_exp').css('border','');
+        $('#tot_exp').css('border','');
+        $('#due_date_trn_prob').css('border','');
+        $('#act_date_trn_prob').css('border','');
+        $('#confirm_due_date').css('border','');
+        $('#confrm_extn_dt').css('border','');
+        $('#confrm_actl_dt').css('border','');
         var trainee = $('option:selected', $('#trainee')).val();
         var trn_dept = $('option:selected', $('#trn_dept')).val();
         var date_confrm_trn = $('#date_confrm_trn').val();
@@ -729,43 +923,49 @@ $(document).ready(function(){
                 $('#date_confrm_prob').focus();
             }
             else if(confirm_due_date==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Due Date  ");
                 $('#confirm_due_date').css('border','1px solid red');
                 $('#err').show();
                 $('#confirm_due_date').focus();
             }
             else if(confrm_extn_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation extention date ");
                 $('#confrm_extn_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_extn_dt').focus();
             }
             else if(confrm_actl_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Actual Date ");
                 $('#confrm_actl_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_actl_dt').focus();
             }
+            else{
+                $('#err').text("");
+                $('#err').hide();
+            }
         }
-        
-        if(prev_emplyr==''){
-           $('#err').text("Please Enter Previous Employer ");
-           $('#prev_emplyr').css('border','1px solid red');
-           $('#err').show();
-           $('#prev_emplyr').focus(); 
-        }
-        else if(doj_vvf==''){
+       
+        if(trainee == ""){
+        // if(prev_emplyr==''){
+        //    $('#err').text("Please Enter Previous Employer ");
+        //    $('#prev_emplyr').css('border','1px solid red');
+        //    $('#err').show();
+        //    $('#prev_emplyr').focus(); 
+        // }
+        // else
+         if(doj_vvf==''){
            $('#err').text("Please Enter Date of Joining VVF ");
            $('#doj_vvf').css('border','1px solid red');
            $('#err').show();
            $('#doj_vvf').focus(); 
         }
-        else if(othr_exp==''){
-           $('#err').text("Please Enter Other Experience ");
-           $('#othr_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#othr_exp').focus(); 
-        }
+        // else if(othr_exp==''){
+        //    $('#err').text("Please Enter Other Experience ");
+        //    $('#othr_exp').css('border','1px solid red');
+        //    $('#err').show();
+        //    $('#othr_exp').focus(); 
+        // }
         else if(vvf_exp==''){
            $('#err').text("Please Enter VVF Experience");
            $('#vvf_exp').css('border','1px solid red');
@@ -779,6 +979,12 @@ $(document).ready(function(){
            $('#tot_exp').focus(); 
         }
         else{
+                $('#err').text("");
+                $('#err').hide();
+            }
+
+    }
+        if(trainee == ""){
 
             $('#err').hide();
             $('#err').text('');
@@ -810,19 +1016,29 @@ $(document).ready(function(){
                     alert(data);
                 }
             }); 
-             $("#join_detals").attr("href", "#tab_1_5");
+            $("#join_detals").attr("href", "#tab_1_6");
             $('#li1').removeClass("active");
             $('#li2').removeClass("active");
             $('#li3').removeClass("active");
             $('#li4').removeClass("active");
             $('#li5').addClass("active");
-            $('#li6').removeClass("active");
+            $('#li6').addClass("active");
             $('#li7').removeClass("active");
             $('#li8').removeClass("active");
         }
     });
 
     $("#promo_detals").click(function(){
+        $('#promo_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#cdre_bfr_promo').css('border','');
+        $('#prev_cadre').css('border','');
+        $('#redesgn_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#desg_bfr_redesgn').css('border','');
+        $('#cdr_bfr_redesgn').css('border','');
+        $('#grd_bfr_redgn').css('border','');
+        $('#desgn_bfr_promo').css('border','');
         var promo_dt = $('#promo_dt').val();
         var degn_bfr_promo = $('option:selected', $('#desg_bfr_promo')).val();
         var cdre_bfr_promo = $('option:selected', $('#cdre_bfr_promo')).val();
@@ -928,6 +1144,12 @@ $(document).ready(function(){
     });
 
     $('#trans_dtls').click(function(){
+        $('#trnsfr_frm_loc').css('border','');
+        $('#tranr_wef_loc').css('border','');
+        $('#transfr_frm_old_data_loc').css('border','');
+        $('#transfr_old_data_wef_loc').css('border','');
+        $('#transfr_frm_dept').css('border','');
+        $('#tranr_wef_dept').css('border','');
         var trnsfr_frm_loc = $('option:selected', $('#trnsfr_frm_loc')).val();
         var tranr_wef_loc = $('option:selected', $('#tranr_wef_loc')).val();
         var transfr_frm_old_data_loc = $('option:selected', $('#transfr_frm_old_data_loc')).val();
@@ -1005,6 +1227,14 @@ $(document).ready(function(){
     });
 
     $('#leave_dtls').click(function(){
+        $('#dt_retire').css('border','');
+        $('#lst_wrk_dt').css('border','');
+        $('#arrt_prd').css('border','');
+        $('#redesign_dt').css('border','');
+        $('#reasn_leave').css('border','');
+        $('#ext_cat').css('border','');
+        $('#remark').css('border','');
+        $('#attr_type').css('border','');
         var dt_retire = $('#dt_retire').val();
         var lst_wrk_dt = $('#lst_wrk_dt').val();
         var arrt_prd = $('#arrt_prd').val();
@@ -1092,6 +1322,9 @@ $(document).ready(function(){
     });
     
     $('#save_data').click(function(){
+        $('#cost_center').css('border','');
+        $('#cost_cenr_descr').css('border','');
+        $('#emp_sta').css('border','');
         //alert("hi");
         var cost_center = $('#cost_center').val();
         var cost_cenr_descr = $('#cost_cenr_descr').val();
@@ -1135,12 +1368,81 @@ $(document).ready(function(){
             });
         }
     });
+
+    $('#report_mgr_sap').focusout(function(){
+        //alert("hello");
+        var rep_sap=$('#report_mgr_sap').val();
+        //alert(rep_sap);
+        var rep_mgr_data={
+            rep_sap:rep_sap,
+        };
+        $.ajax({
+                'type' : 'post',
+                'datatype' : 'html',
+                'data' : rep_mgr_data,
+                'url' : base_url+$("#basepath").attr('value')+'/index.php/MIS_loc/ReprtngMgr',
+                success : function(data)
+                {
+                    //$("#rep1_attd").val(data);
+                    var report=data.split('-');
+                    $("#rep1_attd").val(report['0']);
+                    $("#rep1_appr").val(report['0']);
+                    $("#mgr_mgr").val(report['1']);
+                    //alert(report);
+                }
+            });
+    });
+
+
+        $("#grade").change(function(){
+                                                var grade = {
+                                                    'grade' :$(this).find(':selected').text(),
+                                                };
+                                                //alert($(this).find(':selected').text());
+                                                var base_url = window.location.origin;
+                                                $.ajax({
+                                                    'type' : 'post',
+                                                    'datatype' : 'html',
+                                                    'data' : grade,
+                                                    'url' : base_url+$("#basepath").attr('value')+'/index.php/MIS_loc/Designation_change',
+                                                   
+                                                    success : function(data)
+                                                    {
+                                                        //alert(data);
+                                                        $('#desgn').html(data);
+                                                    }
+                                                });
+                                            }); 
+
+
+
+        $("#cost_center").change(function () {
+            
+        var cost_center = {
+                        'cost_center' :$(this).find(':selected').text(),
+                    };
+                    var base_url = window.location.origin;
+                    $.ajax({
+                        'type' : 'post',
+                        'datatype' : 'html',
+                        'data' : cost_center,
+                        'url' : base_url+$("#basepath").attr('value')+'/index.php/MIS_loc/costCenter_change',
+                       
+                        success : function(data)
+                        {
+                        //alert(data);
+                            $('#cost_cenr_descr').val(data);
+                        }
+                    });
+        });
 });
   </script>
 
-  <script type="text/javascript">
+ <script type="text/javascript">
 $(document).ready(function(){
     $('.save_data').click(function(){
+        var comp_nm= $('option:selected',$('#comp_nm')).val();
+        var per_email =$('#per_email').val();
         var fname = $('#fname').val();
         var lname = $('#lname').val();
         var mname = $('#mname').val();
@@ -1216,6 +1518,8 @@ $(document).ready(function(){
         var emp_sta = $('option:selected', $('#emp_sta')).val();
         var contact = $('#contact').val();
         var emp_data = {
+                comp_nm:comp_nm,
+                per_email:per_email,
                 fname : fname,
                 lname : lname,
                 mname : mname,
@@ -1303,7 +1607,86 @@ $(document).ready(function(){
     });
 });
   </script>
+<script type="text/javascript">
+ $(function(){
+var d = new Date(2017, 09, 01);
 
+
+
+        //     if($('#dob').val() != ''){
+
+        //     var yrs=$("#dob").val().split("-");
+        //     var yr=parseInt(yrs[2])+60;
+        //     var retire_dt= yrs[0]+"-"+yrs[1]+"-"+yr;
+        //     $('#dt_retire').val(retire_dt);
+        //     var newdate = ($("#dob").val()).split("-").reverse().join("-");
+        //     //alert(newdate);
+        //     var age = getAge(newdate);
+        //     var months=age.split("years");
+        //     $('#age_yrs').val(months[0]+''+'Years');
+        //     $('#age_mnt').val(months[1]);
+        //     console.log(age);
+            
+
+
+
+
+         
+        // }
+        // if($("#doj_vvf").val() !=''){
+        //     var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+        //     var exp = getAge(newdate1);
+        //     var exp_yr=exp.split("years");
+        //     var other_exp= 0 ;
+        //     $('#vvf_exp').val(exp_yr[0]+''+'Years');
+           
+        //     if ($('#othr_exp').val()!='') {
+        //         other_exp=$('#othr_exp').val(); 
+            
+        //     };
+        //     var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            
+        //     $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
+        // }
+        if($('#dob').val() != ''){
+
+            var yrs=$("#dob").val().split("-");
+            //alert(yrs);
+            var yr=parseInt(yrs[2])+60;
+            var retire_dt= yrs[0]+"-"+yrs[1]+"-"+yr;
+            $('#dt_retire').val(retire_dt);
+            //alert(retire_dt);
+            var newdate = ($("#dob").val()).split("-").reverse().join("-");
+            //alert(newdate);
+            var age = getAge(newdate);
+            var months=age.split("years");
+            $('#age_yrs').val(months[0]+''+'Years');
+            $('#age_mnt').val(months[1]);
+            console.log(age);
+            
+
+
+
+
+         
+        }
+        if($("#doj_vvf").val() !=''){
+            var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var exp = getAge(newdate1);
+            var exp_yr=exp.split("years");
+            var other_exp= 0 ;
+            $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            //$('#doj_vvf').val(newdate1);
+            if ($('#othr_exp').val()!='') {
+                other_exp=$('#othr_exp').val(); 
+            
+            };
+            var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            
+            $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
+        }
+});
+  </script>
 
   <script>
               $(function(){
@@ -1344,6 +1727,22 @@ $(document).ready(function(){
                                 $(this).css('border','1px solid #999');
                             }
                         }
+                        else if(id=='per_email'){
+                            var string1 = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid email ID");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
                         else if(id=='contact'){
                             var string1 = /^[\d]{10}$/;
                             if (!string1.test($(this).val())) 
@@ -1369,6 +1768,24 @@ $(document).ready(function(){
                                 $('#err').show();
                                 $(this).css('border','1px solid red');
                                 $("#err").text("Please enter valid Pincode");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
+                        else if(id=='aadhar'){
+                           // alert(id);
+
+                            var string1 = /^[1-9][0-9]{11}$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid Aadhar");
                             }
                             else
                             {
@@ -1449,9 +1866,9 @@ $(document).ready(function(){
                                                             <li id="li4">
                                                                 <a href="#tab_1_4" data-toggle="tab">Joining details</a>
                                                             </li>
-                                                             <li id="li5">
+                                                            <!--  <li id="li5">
                                                                 <a href="#tab_1_5" data-toggle="tab">Promotion Details</a>
-                                                            </li>
+                                                            </li> -->
                                                              <li id="li6">
                                                                 <a href="#tab_1_6" data-toggle="tab">Transfer Details</a>
                                                             </li>
@@ -1469,6 +1886,21 @@ $(document).ready(function(){
                                                             <div class="tab-pane active" id="tab_1_1">
                                                                 <form action="#" class="form-horizontal">
 
+                                                                    <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Company Name</label>
+                                                                    <div class="col-md-6">
+                                                                                <select class="form-control" id="comp_nm">
+                                                                                    <option value="">Select</option>
+                                                                                     <?php
+                                                                         if(isset($employee_data) && ($employee_data['0']['comp_name']!="")){?>
+                                                                         <option value="<?php echo $employee_data['0']['comp_name'];?>" selected><?php echo $employee_data['0']['comp_name'];?></option>
+                                                                         <?php } ?>
+                                                                                    <option value="VVF Ltd.">VVF Ltd.</option>
+                                                                                    <option value="VVF India Ltd.">VVF India Ltd.</option>
+                                                                                </select>
+                                                                                <span class="help-block"> Select Company Name </span>
+                                                                            </div>
+                                                                </div>
                                                                     <div class="form-group">
                                                                     <label class="col-md-3 control-label">First Name
                                                                     </label>
@@ -1533,6 +1965,23 @@ $(document).ready(function(){
                                                                              </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Personal Email Address</label>
+                                                                    <div class="col-md-6">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-envelope"></i>
+                                                                            </span>
+                                                                          <?php  if(isset($employee_data) && ($employee_data['0']['personal_email'] != "")){?>
+                                                                            <input class="form-control validate_field" placeholder="Email Address" type="email" id="per_email" value="<?php echo $employee_data['0']['personal_email'];?>"> </div>
+                                                                            <?php     }
+                                                                        else{ ?>
+                                                                        <input class="form-control validate_field" placeholder="Enter Personal Email Address" type="email" id="per_email">
+                                                                   <?php }
+                                                                        ?>
+                                                                    </div>
+                                                                </div>
+
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Permanent Address</label>
                                                                     <div class="col-md-6">
@@ -2179,11 +2628,11 @@ $(document).ready(function(){
                                                                     <label class="col-md-3 control-label">Reporting Mgr SAP Code
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <?php if(isset($employee_data['0']['cluster_name']) && $employee_data['0']['cluster_name']==""){ ?>
+                                                                        <?php if(isset($employee_data['0']['Reporting_Mgr_SAP_Code']) && $employee_data['0']['Reporting_Mgr_SAP_Code']==""){ ?>
                                                                             <input class="form-control" placeholder="Enter Reporting Mgr SAP Code" type="text" id="report_mgr_sap">
                                                                         <?php }
                                                                         else { ?>
-                                                                             <input class="form-control" placeholder="Enter Reporting Mgr SAP Code" type="text" id="report_mgr_sap", value="<?php echo $employee_data['0']['cluster_name'];?>">
+                                                                             <input class="form-control" placeholder="Enter Reporting Mgr SAP Code" type="text" id="report_mgr_sap", value="<?php echo $employee_data['0']['Reporting_Mgr_SAP_Code'];?>">
                                                                         <?php }?>
                                                                         
                                                                        
@@ -2216,36 +2665,42 @@ $(document).ready(function(){
                                                                             // echo CHtml::dropDownList("rep1_attd",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
 ?>
                                          <?php 
-                                         $reporting_list = new EmployeeForm();
-                                         $records = $reporting_list->get_appraiser_list();
-                                         for ($k=0; $k < count($records); $k++) { 
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($records[$k]['Reporting_officer1_id']);
-                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                         }    
-                                         $Cadre_id = array();                                 
-                                        for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                        if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                           $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                        }
+                                      //    $reporting_list = new EmployeeForm();
+                                      //    $records = $reporting_list->get_appraiser_list();
+                                      //    for ($k=0; $k < count($records); $k++) { 
+                                      //       $where = 'where Email_id = :Email_id';
+                                      //       $list = array('Email_id');
+                                      //       $data = array($records[$k]['Reporting_officer1_id']);
+                                      //       $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                      //    }    
+                                      //    $Cadre_id = array();                                 
+                                      //   for ($l=0; $l < count($Reporting_officer_data); $l++) { 
+                                      //   if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
+                                      //      $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
+                                      //   }
                                            
-                                       }
+                                      //  }
                                       
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($employee_data['0']['Reporting_1_for_time_n_attendance']);
-                                            $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-                                            $status1 = '';
-                                            $status1[$employee_data['0']['Reporting_1_for_time_n_attendance']] = array('selected' => true);
-                                            if($employee_data['0']['Reporting_1_for_time_n_attendance']==""){
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_attd','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
-                                      }
-                                        else{
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_attd','class'=>'form-control repoting_officer','options' => $status1)); 
-                                          }?>      
+                                      //       $where = 'where Email_id = :Email_id';
+                                      //       $list = array('Email_id');
+                                      //       $data = array($employee_data['0']['Reporting_1_for_time_n_attendance']);
+                                      //       $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
+                                      //       $status1 = '';
+                                      //       $status1[$employee_data['0']['Reporting_1_for_time_n_attendance']] = array('selected' => true);
+                                      //       if($employee_data['0']['Reporting_1_for_time_n_attendance']==""){
+                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_attd','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
+                                      // }
+                                      //   else{
+                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_attd','class'=>'form-control repoting_officer','options' => $status1)); 
+                                      //     }?>      
                                                                        
-                                                                        <span class="help-block"> Select Reporting-1 (For Time & Attendance)</span>
+                                                                        <!-- <span class="help-block"> Select Reporting-1 (For Time & Attendance)</span> -->
+                                    <?php if($employee_data['0']['Reporting_1_for_time_n_attendance']==""){ ?>
+                                    <input class="form-control validate_field" placeholder="Enter Reporting-1 (For Time & Attendance)" type="rep1_attd" id="rep1_attd"> 
+                                    <?php }
+                                    else { ?>
+                                    <input class="form-control validate_field" placeholder="Enter Reporting-1 (For Time & Attendance)" type="rep1_attd" id="rep1_attd" VALUE="<?php echo $employee_data['0']['Reporting_1_for_time_n_attendance'] ?>"> 
+                                    <?php } ?>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -2254,35 +2709,41 @@ $(document).ready(function(){
                                                                     <div class="col-md-6">
                                                                     
                          <?php 
-                                         $reporting_list = new EmployeeForm();
-                                         $records = $reporting_list->get_appraiser_list();
-                                         for ($k=0; $k < count($records); $k++) { 
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($records[$k]['Reporting_officer1_id']);
-                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                         }    
-                                         $Cadre_id = array();                                 
-                                        for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                        if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                           $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                        }
+                                      //    $reporting_list = new EmployeeForm();
+                                      //    $records = $reporting_list->get_appraiser_list();
+                                      //    for ($k=0; $k < count($records); $k++) { 
+                                      //       $where = 'where Email_id = :Email_id';
+                                      //       $list = array('Email_id');
+                                      //       $data = array($records[$k]['Reporting_officer1_id']);
+                                      //       $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                      //    }    
+                                      //    $Cadre_id = array();                                 
+                                      //   for ($l=0; $l < count($Reporting_officer_data); $l++) { 
+                                      //   if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
+                                      //      $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
+                                      //   }
                                            
-                                       }
+                                      //  }
                                       
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($employee_data['0']['Reporting_1_for_appraisal']);
-                                            $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-                                            $status1 = '';
-                                            $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
-                                            if($employee_data['0']['Reporting_1_for_appraisal']==""){
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_appr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
-                                      }
-                                        else{
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_appr','class'=>'form-control repoting_officer','options' => $status1)); 
-                                          }?>      
-                                            <span class="help-block"> Select Reporting-1 (For appraisal)</span>
+                                      //       $where = 'where Email_id = :Email_id';
+                                      //       $list = array('Email_id');
+                                      //       $data = array($employee_data['0']['Reporting_1_for_appraisal']);
+                                      //       $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
+                                      //       $status1 = '';
+                                      //       $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
+                                      //       if($employee_data['0']['Reporting_1_for_appraisal']==""){
+                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_appr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
+                                      // }
+                                      //   else{
+                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_appr','class'=>'form-control repoting_officer','options' => $status1)); 
+                                      //     }?>      
+                                            <!-- <span class="help-block"> Select Reporting-1 (For appraisal)</span> -->
+                                     <?php if($employee_data['0']['Reporting_1_for_appraisal']==""){ ?>
+                                    <input class="form-control validate_field" placeholder="Enter Reporting-1 (For appraisal)" type="rep1_appr" id="rep1_appr">
+                                    <?php  } else { ?> 
+                                    <input class="form-control validate_field" placeholder="Enter Reporting-1 (For appraisal)" type="rep1_appr" id="rep1_appr" value='<?php echo $employee_data['0']['Reporting_1_for_appraisal'];?>'>
+                                    <?php }?>
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -2370,35 +2831,41 @@ $(document).ready(function(){
                                                                                 // echo CHtml::dropDownList("mgr_mgr",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
                                                                             ?>
                                                                                                      <?php 
-                                         $reporting_list = new EmployeeForm();
-                                         $records = $reporting_list->get_appraiser_list();
-                                         for ($k=0; $k < count($records); $k++) { 
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($records[$k]['Reporting_officer1_id']);
-                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                         }    
-                                         $Cadre_id = array();                                 
-                                        for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                        if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                           $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                        }
+                                      //    $reporting_list = new EmployeeForm();
+                                      //    $records = $reporting_list->get_appraiser_list();
+                                      //    for ($k=0; $k < count($records); $k++) { 
+                                      //       $where = 'where Email_id = :Email_id';
+                                      //       $list = array('Email_id');
+                                      //       $data = array($records[$k]['Reporting_officer1_id']);
+                                      //       $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                      //    }    
+                                      //    $Cadre_id = array();                                 
+                                      //   for ($l=0; $l < count($Reporting_officer_data); $l++) { 
+                                      //   if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
+                                      //      $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
+                                      //   }
                                            
-                                       }
+                                      //  }
                                       
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($employee_data['0']['Reporting_1_for_appraisal']);
-                                            $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-                                            $status1 = '';
-                                            $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
-                                            if($employee_data['0']['Reporting_1_for_appraisal']==""){
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'mgr_mgr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
-                                      }
-                                        else{
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'mgr_mgr','class'=>'form-control repoting_officer','options' => $status1)); 
-                                          }?>  
-                                                                                <span class="help-block"> Select Manager's Manager</span>
+                                      //       $where = 'where Email_id = :Email_id';
+                                      //       $list = array('Email_id');
+                                      //       $data = array($employee_data['0']['Reporting_1_for_appraisal']);
+                                      //       $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
+                                      //       $status1 = '';
+                                      //       $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
+                                      //       if($employee_data['0']['Reporting_1_for_appraisal']==""){
+                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'mgr_mgr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
+                                      // }
+                                      //   else{
+                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'mgr_mgr','class'=>'form-control repoting_officer','options' => $status1)); 
+                                      //     }?>  
+                                                                               <!--  <span class="help-block"> Select Manager's Manager</span> -->
+                                <?php if($employee_data['0']['Manager_manager']==""){ ?>                                              
+                                <input class="form-control validate_field" placeholder="Enter Manager's Manager" type="mgr_mgr" id="mgr_mgr">
+                                <?php } else { ?> 
+
+                                <input class="form-control validate_field" placeholder="Enter Manager's Manager" type="mgr_mgr" id="mgr_mgr" value="<?php echo $employee_data['0']['Manager_manager']; ?>">
+                                <?php }?>                                        
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
@@ -3038,7 +3505,7 @@ $(document).ready(function(){
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
                                                                         <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="trans_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
-                                                                        <a class="btn default" href="#tab_1_5" data-toggle="tab" aria-expanded="false" id="prve5">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
+                                                                        <a class="btn default" href="#tab_1_4" data-toggle="tab" aria-expanded="false" id="prve5">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
                                                                 

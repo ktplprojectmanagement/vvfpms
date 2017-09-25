@@ -163,18 +163,23 @@ $chk_user_cls = $chk_user_cls3;
 			}
 $pending_list = '';
 
-if (!(count($IDP_data)==count($chk_user_cls))) {
+if (isset($IDP_data) && isset($chk_user_cls) && !(count($IDP_data)==count($chk_user_cls))) {
 						  $kpi_data_pending++;
 						}	
 $k=0;
 					for ($i=0; $i < count($IDP_data); $i++) 
-					{ 
-						if ($IDP_data[$i]['0']['Tota_score'] == '' || $IDP_data[$i]['0']['Tota_score'] === undefined) {
+					{
+					if (isset($IDP_data[$i]['0']['Tota_score'])) {
+						if ($IDP_data[$i]['0']['Tota_score'] == '' || $IDP_data[$i]['0']['Tota_score'] === 'undefined') {
 						  $kpi_data_pending++;
-$pending_list[$k] = $IDP_data[$i]['0']['Employee_id'];
+						  if(isset($IDP_data[$i]['0']['Employee_id']))
+						  {
+						  	$pending_list[$k] = $IDP_data[$i]['0']['Employee_id'];
+						  }
 $k++;
 						}						
 					}
+				}
 
 			$where = 'where Reporting_officer1_id = :Reporting_officer1_id';
 			$list = array('Reporting_officer1_id');
@@ -201,7 +206,7 @@ for ($i=0; $i < count($pending_list); $i++)
 				$pending_list1[$i] = $employee->get_employee_data($where,$data,$list);
 			}
 			
-       //print_r(date("Y", $date));die();
+       //print_r("jhghgh");die();
 $this->render('//site/header_view_layout');
            $this->render('//site/normalize_layout_view',array('model'=>$model,'bu_flag'=>$bu_flag,'cluster_flag'=>$cluster_flag,'employee_list'=>$employee_list,'kra_result'=>$kra_result,'employee_list_data'=>$employee_list,'appraiser_list'=>$appraiser_list_data,'diff_Department'=>$diff_Department,'head_branch_data'=>$head_branch_data,'diff_cluster'=>$diff_cluster,'diff_reporting_head'=>$diff_reporting_head,'dep_head_data'=>$dep_head_data,'normalize_rating_data'=>$normalize_rating_data,'IDPForm_data'=>$IDP_data,'kpi_data_pending'=>$kpi_data_pending,'pending_list'=>$pending_list1));
 $this->render('//site/footer_view_layout') ;

@@ -47,19 +47,27 @@
     $( "#date_confrm_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
             var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
+
             var exp = getAge(this);
             var exp_yr=exp.split("years");
-            //alert(exp_yr);
             var other_exp= 0 ;
             $('#vvf_exp').val(exp_yr[0]+''+'Years');
             $('#doj_vvf').val(newdate1);
             if ($('#othr_exp').val()!='') {
                 other_exp=$('#othr_exp').val(); 
-                //alert(other_exp);
+               
             };
             var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
-            //alert(parseInt(other_exp)+parseInt(exp_yr[0]));
             $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+           var arr = doj.split("/");
+           var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
+           var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
+           var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
+           var fin_trn_prob = convert(trn_prob);
+           $('#due_date_trn_prob').val(fin_trn_prob);
+           var dt_of_con = convert(fin_dt);
+           $('#confirm_due_date').val(dt_of_con);
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -73,7 +81,11 @@
     $( "#lst_wrk_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#redesign_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
   });
-    
+
+    function process(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
+}
    function getAge(dateVal) {
     //alert(dateVal);
             var
@@ -88,6 +100,13 @@
                 return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
 
         }
+
+        function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+    return [day,mnth,date.getFullYear()].join("-");
+}
   </script>  
     <script type="text/javascript">
  $(function(){
@@ -95,7 +114,7 @@ var d = new Date(2017, 09, 01);
 
 //alert(d);
 
-            if($('#dob').val() == ''){
+            if($('#dob').val() != ''){
 
             var yrs=$("#dob").val().split("-");
             var yr=parseInt(yrs[0])+60;
@@ -339,6 +358,29 @@ $(document).ready(function(){
     $(document).ready(function(){
    
     $("#pers_info").click(function(){
+        $('#fname').css('border','');
+        $('#lname').css('border','');
+        $('#mname').css('border','');
+        $('#email').css('border','');
+        $('#perm_add').css('border','');
+        $('#state').css('border','');
+        $('#city').css('border','');
+        $('#pin').css('border','');
+        $('#quali').css('border','');
+        $('#marital_stat').css('border','');
+        $('#no_of_depend').css('border','');
+        $('#bld_grp').css('border','');
+        $('#pan').css('border','');
+        $('#dob').css('border','');
+        $('#age_yrs').css('border','');
+        $('#contact').css('border','');
+        $('#comp_nm').css('border','');
+        var nm = /^([a-zA-Z]{1,40})*$/;
+        var eml = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+        var con_no = /^[\d]{10}$/;
+        var pin_no = /^[1-9][0-9]{5}$/;
+        var adr = /^[1-9][0-9]{11}$/;
+        var pan_no = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
         var fname = $('#fname').val();
         var lname = $('#lname').val();
         var mname = $('#mname').val();
@@ -362,17 +404,43 @@ $(document).ready(function(){
         var sap =$('#sap').val();
         var u_id=$('#u_id').val();
         var contact = $('#contact').val();
-        if($('#fname').val()==""){
+        var comp_nm= $('option:selected',$('#comp_nm')).val();
+        var per_email =$('#per_email').val();
+        if($('#comp_nm').val()==""){
+            $('#err').text("Please Select Company name");
+            $('#err').show();
+            $('#comp_nm').css('border','1px solid red');
+            $('#comp_nm').focus();
+        }
+        else if($('#fname').val()==""){
             $('#err').text("Please enter first name");
             $('#err').show();
             $('#fname').css('border','1px solid red');
             $('#fname').focus();
+        }
+        else if(!nm.test($('#fname').val())){
+            $("#err").css('display','block');
+            $('#fname').focus();
+            $('#fname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
+        }
+        else if(!nm.test($('#mname').val())){
+            $("#err").css('display','block');
+            $('#mname').focus();
+            $('#mname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
         }
         else if($('#lname').val()==""){
             $('#err').text("Please enter last name");
             $('#err').show();
             $('#lname').css('border','1px solid red');
             $('#lname').focus();
+        }
+        else if(!nm.test($('#lname').val())){
+            $("#err").css('display','block');
+            $('#lname').focus();
+            $('#lname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
         }
         // else if($('#mname').val()==""){
         //     $('#err').text("Please enter middle name");
@@ -386,8 +454,26 @@ $(document).ready(function(){
             $('#email').css('border','1px solid red');
             $('#email').focus();
         }
+        else if(!eml.test($('#email').val())){
+            $("#err").css('display','block');
+            $('#email').focus();
+            $('#email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
+        else if(!eml.test($('#per_email').val())){
+            $("#err").css('display','block');
+            $('#per_email').focus();
+            $('#per_email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
+            $('#err').show();
+            $('#contact').css('border','1px solid red');
+            $('#contact').focus();
+        }
+        else if(!con_no.test($('#contact').val())){
+            $('#err').text("Please enter valid Contact number");
             $('#err').show();
             $('#contact').css('border','1px solid red');
             $('#contact').focus();
@@ -416,6 +502,12 @@ $(document).ready(function(){
             $('#pin').css('border','1px solid red');
             $('#pin').focus();
         }
+        else if(!pin_no.test($('#pin').val())){
+            $('#err').text("Please enter valid Pin code");
+            $('#err').show();
+            $('#pin').css('border','1px solid red');
+            $('#pin').focus();
+        }
         else if($('#quali').val()==""){
             $('#err').text("Please enter Basic qualification");
             $('#err').show();
@@ -440,11 +532,23 @@ $(document).ready(function(){
             $('#bld_grp').css('border','1px solid red');
             $('#bld_grp').focus();
         }
-        else if($('#pan').val()==""){
-            $('#err').text("Please enter Pan Card number");
+        // else if($('#pan').val()==""){
+        //     $('#err').text("Please enter Pan Card number");
+        //     $('#err').show();
+        //     $('#pan').css('border','1px solid red');
+        //     $('#pan').focus();
+        // }
+        else if(!pan_no.test($('#pan').val())){
+            $('#err').text("Please enter valid Pan Card number");
             $('#err').show();
             $('#pan').css('border','1px solid red');
             $('#pan').focus();
+        }
+        else if(!adr.test($('#aadhar').val())){
+            $('#err').text("Please enter valid Aadhar number");
+            $('#err').show();
+            $('#aadhar').css('border','1px solid red');
+            $('#aadhar').focus();
         }
         // else if($('#aadhar').val()==""){
         //     $('#err').text("Please enter Aadhar");
@@ -517,6 +621,8 @@ $(document).ready(function(){
                 add_edu:add_edu,
                 aadhar_no:aadhar_no,
                 sap:sap,
+                comp_nm:comp_nm,
+                per_email:per_email,
                 u_id:u_id,
                 };
 
@@ -544,7 +650,17 @@ $(document).ready(function(){
         }
     });
     $('#genrl_info').click(function(){
-        //alert($('option:selected', $('#dept')).val());
+        
+        $('#pos_code').css('border','');
+        $('#desgn').css('border','');
+        $('#dept').css('border','');
+        $('#sub_dept').css('border','');
+        $('#bu').css('border','');
+        $('#cadre').css('border','');
+        $('#grade').css('border','');
+        $('#loc_work').css('border','');
+        $('#loc_pay').css('border','');
+        $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
         var desgn = $('option:selected', $('#desgn')).val();
         var dept = $('option:selected', $('#dept')).val();
@@ -662,6 +778,12 @@ $(document).ready(function(){
     });
     
     $("#reprt_detls").click(function(){
+        $('#report_mgr_sap').css('border','');
+        $('#rep1_attd').css('border','');
+        $('#rep1_appr').css('border','');
+        $('#dot_mgr').css('border','');
+        $('#mgr_mgr').css('border','');
+        $('#clust_hd').css('border','');
         var report_mgr_sap=$("#report_mgr_sap").val();
         var rep1_attd = $('#rep1_attd').val();
         var rep1_appr = $('#rep1_appr').val();
@@ -741,6 +863,21 @@ $(document).ready(function(){
     });
     
     $("#join_detals").click(function(){
+        $('#trainee').css('border','');
+        $('#trn_dept').css('border','');
+        $('#date_confrm_trn').css('border','');
+        $('#date_confrm_prob').css('border','');
+        $('#aftr_trn_confrm').css('border','');
+        $('#prev_emplyr').css('border','');
+        $('#doj_vvf').css('border','');
+        $('#othr_exp').css('border','');
+        $('#vvf_exp').css('border','');
+        $('#tot_exp').css('border','');
+        $('#due_date_trn_prob').css('border','');
+        $('#act_date_trn_prob').css('border','');
+        $('#confirm_due_date').css('border','');
+        $('#confrm_extn_dt').css('border','');
+        $('#confrm_actl_dt').css('border','');
         var trainee = $('option:selected', $('#trainee')).val();
         var trn_dept = $('option:selected', $('#trn_dept')).val();
         var date_confrm_trn = $('#date_confrm_trn').val();
@@ -777,6 +914,12 @@ $(document).ready(function(){
                 $('#err').show();
                 $('#aftr_trn_confrm').focus();
             }
+            else if(doj_vvf==''){
+           $('#err').text("Please Enter Date of Joining VVF ");
+           $('#doj_vvf').css('border','1px solid red');
+           $('#err').show();
+           $('#doj_vvf').focus(); 
+        }
             else if(due_date_trn_prob==''){
                 $('#err').text("Please Enter Due date for Training to Probation  ");
                 $('#due_date_trn_prob').css('border','1px solid red');
@@ -796,43 +939,42 @@ $(document).ready(function(){
                 $('#date_confrm_prob').focus();
             }
             else if(confirm_due_date==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Due Date  ");
                 $('#confirm_due_date').css('border','1px solid red');
                 $('#err').show();
                 $('#confirm_due_date').focus();
             }
             else if(confrm_extn_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation extention date ");
                 $('#confrm_extn_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_extn_dt').focus();
             }
             else if(confrm_actl_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Actual Date ");
                 $('#confrm_actl_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_actl_dt').focus();
             }
+            else{
+                $('#err').text("");
+                $('#err').hide();
+            }
         }
         
-        if(prev_emplyr==''){
-           $('#err').text("Please Enter Previous Employer ");
-           $('#prev_emplyr').css('border','1px solid red');
-           $('#err').show();
-           $('#prev_emplyr').focus(); 
-        }
-        else if(doj_vvf==''){
+    if(trainee == ""){
+         if(doj_vvf==''){
            $('#err').text("Please Enter Date of Joining VVF ");
            $('#doj_vvf').css('border','1px solid red');
            $('#err').show();
            $('#doj_vvf').focus(); 
         }
-        else if(othr_exp==''){
-           $('#err').text("Please Enter Other Experience ");
-           $('#othr_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#othr_exp').focus(); 
-        }
+        // else if(othr_exp==''){
+        //    $('#err').text("Please Enter Other Experience ");
+        //    $('#othr_exp').css('border','1px solid red');
+        //    $('#err').show();
+        //    $('#othr_exp').focus(); 
+        // }
         else if(vvf_exp==''){
            $('#err').text("Please Enter VVF Experience");
            $('#vvf_exp').css('border','1px solid red');
@@ -845,7 +987,14 @@ $(document).ready(function(){
            $('#err').show();
            $('#tot_exp').focus(); 
         }
+
         else{
+                $('#err').text("");
+                $('#err').hide();
+            }
+    }
+
+        if($('#err').text()==""){
 
             $('#err').hide();
             $('#err').text('');
@@ -893,6 +1042,16 @@ $(document).ready(function(){
     });
 
     $("#promo_detals").click(function(){
+        $('#promo_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#cdre_bfr_promo').css('border','');
+        $('#prev_cadre').css('border','');
+        $('#redesgn_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#desg_bfr_redesgn').css('border','');
+        $('#cdr_bfr_redesgn').css('border','');
+        $('#grd_bfr_redgn').css('border','');
+        $('#desgn_bfr_promo').css('border','');
         var promo_dt = $('#promo_dt').val();
         var degn_bfr_promo = $('option:selected', $('#desg_bfr_promo')).val();
         var cdre_bfr_promo = $('option:selected', $('#cdre_bfr_promo')).val();
@@ -999,6 +1158,12 @@ $(document).ready(function(){
     });
 
     $('#trans_dtls').click(function(){
+        $('#trnsfr_frm_loc').css('border','');
+        $('#tranr_wef_loc').css('border','');
+        $('#transfr_frm_old_data_loc').css('border','');
+        $('#transfr_old_data_wef_loc').css('border','');
+        $('#transfr_frm_dept').css('border','');
+        $('#tranr_wef_dept').css('border','');
         var trnsfr_frm_loc = $('option:selected', $('#trnsfr_frm_loc')).val();
         var tranr_wef_loc = $('option:selected', $('#tranr_wef_loc')).val();
         var transfr_frm_old_data_loc = $('option:selected', $('#transfr_frm_old_data_loc')).val();
@@ -1079,6 +1244,14 @@ $(document).ready(function(){
 
     $('#leave_dtls').click(function(){
         //alert("hiiiii");
+        $('#dt_retire').css('border','');
+        $('#lst_wrk_dt').css('border','');
+        $('#arrt_prd').css('border','');
+        $('#redesign_dt').css('border','');
+        $('#reasn_leave').css('border','');
+        $('#ext_cat').css('border','');
+        $('#remark').css('border','');
+        $('#attr_type').css('border','');
         var dt_retire = $('#dt_retire').val();
         var lst_wrk_dt = $('#lst_wrk_dt').val();
         var arrt_prd = $('#arrt_prd').val();
@@ -1164,6 +1337,9 @@ $(document).ready(function(){
     });
     
     $('#save_data').click(function(){
+        $('#cost_center').css('border','');
+        $('#cost_cenr_descr').css('border','');
+        $('#emp_sta').css('border','');
         var cost_center = $('option:selected', $('#cost_center')).val();
         var cost_cenr_descr = $('#cost_cenr_descr').val();
         var emp_sta = $('option:selected', $('#emp_sta')).val();
@@ -1281,9 +1457,9 @@ $("#cost_center").change(function () {
               $(function(){
                     $("body").on('keyup','.validate_field',function(){
                         
-                         var id = $(this).attr('id');            
+                        var id = $(this).attr('id');            
                         var pattern="[1-9][0-9]{5}";
-                            var string1 = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
+                        var string1 = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
                         if (id == 'fname' || id == 'mname' || id == 'lname') 
                         {
                             var string1 = /^([a-zA-Z]{1,40})*$/;
@@ -1302,6 +1478,22 @@ $("#cost_center").change(function () {
                             }
                         }
                         else if(id=='email'){
+                            var string1 = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid email ID");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
+                        else if(id=='per_email'){
                             var string1 = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
                              if (!string1.test($(this).val())) 
                             {
@@ -1462,7 +1654,19 @@ $("#cost_center").change(function () {
                                                             <div class="tab-pane active" id="tab_1_1">
                                                                 <form action="#" class="form-horizontal">
 
-                                                                    <div class="form-group">
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Company Name</label>
+                                                                    <div class="col-md-6">
+                                                                                <select class="form-control" id="comp_nm">
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="VVF Ltd.">VVF Ltd.</option>
+                                                                                    <option value="VVF India Ltd.">VVF India Ltd.</option>
+                                                                                </select>
+                                                                                <span class="help-block"> Select Company Name </span>
+                                                                            </div>
+                                                                </div>
+
+                                                                <div class="form-group">
                                                                     <label class="col-md-3 control-label">First Name
                                                                     </label>
                                                                     <div class="col-md-6">
@@ -1492,6 +1696,16 @@ $("#cost_center").change(function () {
                                                                                 <i class="fa fa-envelope"></i>
                                                                             </span>
                                                                             <input class="form-control validate_field" placeholder="Email Address" type="email" id="email"> </div>
+                                                                    </div>
+                                                                </div>
+                                                                 <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Personal Email Address</label>
+                                                                    <div class="col-md-6">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-envelope"></i>
+                                                                            </span>
+                                                                            <input class="form-control validate_field" placeholder="Email Address" type="email" id="per_email"> </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -2170,19 +2384,20 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Date of Joining VVF
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                               <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" >
-                                                                    </div>
-                                                                </div>
-                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Other Exp (In Yrs)
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
                                                                     </div>
                                                                 </div>
+                                                                 <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Date of Joining VVF
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                               <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" >
+                                                                    </div>
+                                                                </div>
+                                                                
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">VVF Exp (In Yrs)
                                                                     </label>

@@ -5,6 +5,7 @@ class Account_testController extends Controller
 	
 	public function actionIndex()
 	{
+		//echo "sadsa";die();
 		$model = new LoginForm;	
 		//$this->render('//site/session_check_view');
 		$this->render('//site/baseurl');

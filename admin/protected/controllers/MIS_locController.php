@@ -214,6 +214,8 @@ class MIS_locController extends Controller
 				'Additional_qualification'=> $_POST['add_edu'],
 				'Employee_id'=>$_POST['sap'],
 				'Old_Employee_ID'=>'',
+				'comp_name'=>$_POST['comp_nm'],
+				'personal_email'=>$_POST['per_email'],
 		 		);
 		 	$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
 		 	if($update>0)
@@ -227,6 +229,8 @@ class MIS_locController extends Controller
 		 }
 		 else{
 		 $model=new EmployeeMaster2Form;
+		 $model->comp_name=$_POST['comp_nm'];
+		 $model->personal_email=$_POST['per_email'];
 		 $model->Emp_fname = $_POST['fname'];
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];
@@ -556,6 +560,7 @@ class MIS_locController extends Controller
 		 if(isset($employee_data) && count($employee_data)>0){
 		 	//echo $_POST['clust_hd'];die();
 		 	$data=array(
+
 				'Emp_fname'=> $_POST['fname'],
 				'Emp_lname'=> $_POST['lname'],
 				'Emp_mname'=> $_POST['mname'],
@@ -627,6 +632,8 @@ class MIS_locController extends Controller
 				'Cost_centre_codes'=>$_POST['cost_center'],
 				'Cost_centre_description'=>$_POST['cost_cenr_descr'],
 				'Employee_status'=>$_POST['emp_sta'],
+				'comp_name'=>$_POST['comp_nm'],
+				'personal_email'=>$_POST['per_email'],
 			);
 			//print_r($data);die();
 			$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
@@ -653,6 +660,8 @@ class MIS_locController extends Controller
 		 
 		 else{
 		 $model=new EmployeeMaster2Form;
+		 $model->comp_name=$_POST['comp_nm'];
+		 $model->personal_email=$_POST['per_email'];
 		 $model->Emp_fname = $_POST['fname'];
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];

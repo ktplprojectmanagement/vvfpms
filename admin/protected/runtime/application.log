@@ -4906,3 +4906,69 @@ Stack trace:
 #11 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
 #12 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
 REQUEST_URI=/pms/admin/index.php/MIS_loc/Mis_update/u_id/favicon.ico
+2017/09/24 01:44:34 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "index.html". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('index.html')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/index.html
+---
+2017/09/25 05:00:59 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/09/25 07:50:12 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2017/09/25 07:50:56 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS_loc/favicon...')
+#3 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/MIS_loc/favicon.ico
+---
+2017/09/25 07:51:12 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/views/site/mis_update_loc.php:1477)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(869): MIS_locController->renderFile()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(782): MIS_locController->renderPartial()
+#2 /backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php(543): MIS_locController->render()
+#3 unknown(0): MIS_locController->actionMis_update()
+#4 /backup/test/var/www/html/pms/admin/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs()
+#5 /backup/test/var/www/html/pms/admin/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /backup/test/var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#8 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#9 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#10 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#12 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/Mis_update/u_id/favicon.ico
+2017/09/25 10:14:17 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "MIS/Loc_req". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS/Loc_req')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/MIS/Loc_req
+---
+2017/09/25 10:15:14 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "MIS/Loc_req". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS/Loc_req')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/MIS/Loc_req
+---

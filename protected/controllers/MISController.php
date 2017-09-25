@@ -57,6 +57,8 @@ class MISController extends Controller
 				'Gender'=> $_POST['gender'],
 				'Additional_qualification'=> $_POST['add_edu'],
 				'Employee_id'=>$_POST['sap'],
+				'comp_name'=>$_POST['comp_nm'],
+				'personal_email'=>$_POST['per_email'],
 				'Old_Employee_ID'=>'',
 		 		);
 		 	$update = Yii::app()->db->createCommand()->update('Employee_master1',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
@@ -71,6 +73,8 @@ class MISController extends Controller
 		 }
 		 else{
 		 $model=new EmployeeMaster1Form;
+		 $model->comp_name=$_POST['comp_nm'];
+		 $model->personal_email=$_POST['per_email'];
 		 $model->Emp_fname = $_POST['fname'];
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];
@@ -491,6 +495,8 @@ class MISController extends Controller
 				'Cost_centre_codes'=>$_POST['cost_center'],
 				'Cost_centre_description'=>$_POST['cost_cenr_descr'],
 				'Employee_status'=>$_POST['emp_sta'],
+				'comp_name'=>$_POST['comp_nm'],
+				'personal_email'=>$_POST['per_email'],
 			);
 			
 			$update = Yii::app()->db->createCommand()->update('Employee_master1',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
@@ -516,6 +522,8 @@ class MISController extends Controller
 		 
 		 else{
 		 $model=new EmployeeMaster1Form;
+		 $model->comp_name=$_POST['comp_nm'];
+		 $model->personal_email=$_POST['per_email'];
 		 $model->Emp_fname = $_POST['fname'];
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];

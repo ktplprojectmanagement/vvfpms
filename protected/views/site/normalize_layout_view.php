@@ -102,10 +102,10 @@ function get_data(f,g,h,i,j,a,b,c,d,e)
         else
         {
             $where = 'where cluster_appraiser = :cluster_appraiser';
-        	$list = array('cluster_appraiser');
-        	$data = array(Yii::app()->user->getState("employee_email"));
-        	$cluster_head = $employee->get_employee_data($where,$data,$list);
-        	
+          $list = array('cluster_appraiser');
+          $data = array(Yii::app()->user->getState("employee_email"));
+          $cluster_head = $employee->get_employee_data($where,$data,$list);
+          
             $where = 'where bu_head_email = :bu_head_email';
             $list = array('bu_head_email');
             $data = array(Yii::app()->user->getState("employee_email"));
@@ -242,11 +242,12 @@ $where = 'where Email_id = :Email_id';
 $list = array('Email_id');
 $data = array($row['Reporting_officer1_id']);
 $apr_name = $employee->get_employee_data($where,$data,$list);
-if($row['Reporting_officer2_id'] != '')
+
+if(isset($row['Reporting_officer2_id']) && $row['Reporting_officer2_id'] != '')
 {
     if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (Yii::app()->user->getState("employee_email") == 'mohit.sharma@vvfltd.com'))
     {
-       
+       //$apr_name1 = '';
     }
     else
     {
@@ -259,7 +260,7 @@ if($row['Reporting_officer2_id'] != '')
 }
 else
 {
-$apr_name1 == '';
+$apr_name1 = '';
 }
 
 $day = 31;
@@ -325,11 +326,14 @@ $list = array('Email_id');
 $data = array($row['Reporting_officer1_id']);
 $apr_data_get = $employee->get_employee_data($where,$data,$list);
 
-if(isset($apr_data_get['0']['Emp_fname'])) { echo $apr_data_get['0']['Emp_fname']." ".$apr_data_get['0']['Emp_lname']; } ?>
+if(isset($apr_data_get['0']['Emp_fname']) && isset($apr_data_get['0']['Emp_lname'])) { echo $apr_data_get['0']['Emp_fname']." ".$apr_data_get['0']['Emp_lname']; } ?>
 </td>
-<td><?php if(isset($promo_data['0']['update_flag']) && $promo_data['0']['update_flag'] != '2') { echo "<br>";echo "Yes"; }else { echo "No"; } ?></td>
+<td><?php 
+if (isset($promo_data['0']['update_flag'])) {
+if($promo_data['0']['update_flag'] != '2') { echo "<br>";echo "Yes"; }else { echo "No"; } ?></td>
 </tr>                                                       
 <?php $cnt++;   }
+}
 }
 else
 { ?>
@@ -341,15 +345,15 @@ else
 </tbody>
 </table>
 <div class="modal fade" id="normalize_msg" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" style="width: 65%;">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">
-								Alert
-							</h4>
-						</div>
-						<div class="modal-body">
-							<table id="example1" class="table" cellspacing="0" width="100%">
+        <div class="modal-dialog" style="width: 65%;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">
+                Alert
+              </h4>
+            </div>
+            <div class="modal-body">
+              <table id="example1" class="table" cellspacing="0" width="100%">
         <thead>
             <tr>
                  <th >Employee Id</th>
@@ -360,7 +364,7 @@ else
             </tr>
         </thead>        
         <tbody>
-<?php
+<?php 
 if(isset($pending_list) && count($pending_list)>0)
 {
 for($i=0;$i<count($pending_list);$i++)
@@ -400,197 +404,197 @@ echo $apr_data_get1['0']['Emp_fname']." ".$apr_data_get1['0']['Emp_lname'] ;
 ?>
         </tbody>
     </table>
-						</div>
-						<div class="modal-footer">
-							 
-							<button type="button" class="btn btn-default"  id="get_complete1">
-								Cancel
-							</button> 
-							<button type="button" class="btn btn-primary" id="get_complete">
-								OK
-							</button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
+            </div>
+            <div class="modal-footer">
+               
+              <button type="button" class="btn btn-default"  id="get_complete1">
+                Cancel
+              </button> 
+              <button type="button" class="btn btn-primary" id="get_complete">
+                OK
+              </button>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
 <div class="modal fade" id="normalize_msg1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">
-								Success
-							</h4>
-						</div>
-						<div class="modal-body">
-							Rating Successfully updated
-						</div>
-						<div class="modal-footer">
-							 
-							<button type="button" class="btn btn-default"  data-dismiss="modal">
-								Close
-							</button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">
+                Success
+              </h4>
+            </div>
+            <div class="modal-body">
+              Rating Successfully updated
+            </div>
+            <div class="modal-footer">
+               
+              <button type="button" class="btn btn-default"  data-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
 <div class="modal fade" id="confrm_box" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="myModalLabel">
-								Alert
-							</h4>
-						</div>
-						<div class="modal-body">
-							Do you really want to change the this rating?
-						</div>
-						<div class="modal-footer">
-							 
-							<button type="button" class="btn btn-default"  data-dismiss="modal">
-								Cancel
-							</button> 
-							<button type="button" class="btn btn-primary" id="chk_number_ok">
-								OK
-							</button>
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="myModalLabel">
+                Alert
+              </h4>
+            </div>
+            <div class="modal-body">
+              Do you really want to change the this rating?
+            </div>
+            <div class="modal-footer">
+               
+              <button type="button" class="btn btn-default"  data-dismiss="modal">
+                Cancel
+              </button> 
+              <button type="button" class="btn btn-primary" id="chk_number_ok">
+                OK
+              </button>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
 
 <div id="err_box" style="display:none;position: fixed;"></div>
 <div class="modal fade" id="chart_model" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" style="width: 1232px;">
-					<div class="modal-content" style="width: 1283px;">
-						<div class="modal-header">
-							 
-							
-							<h4 class="modal-title" id="myModalLabel">
-								Bell Curve
-							</h4>
-						</div>
-						<div class="modal-body">
+        <div class="modal-dialog" style="width: 1232px;">
+          <div class="modal-content" style="width: 1283px;">
+            <div class="modal-header">
+               
+              
+              <h4 class="modal-title" id="myModalLabel">
+                Bell Curve
+              </h4>
+            </div>
+            <div class="modal-body">
 <div class="col-md-12">
-			<div class="row">
-				<div class="col-md-7" style="margin-left: 10px;">
+      <div class="row">
+        <div class="col-md-7" style="margin-left: 10px;">
 <div id="chart_div"></div>
 </div>
 <div class="col-md-5">
 <table cellspacing="0" border="0">
-	<colgroup span="14" width="80"></colgroup>
-	
-	<tr>
-		<td height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
-		<td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
-		<td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
-		<td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
-		<td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
-		</tr>
+  <colgroup span="14" width="80"></colgroup>
+  
+  <tr>
+    <td height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
+    <td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
+    <td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
+    <td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
+    <td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
+    <td align="left" valign=bottom><b><font color="#000000"><br></font></b></td>
+    </tr>
 
-	<tr style="background-color: rgba(0, 138, 255, 0.24);">
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="100" align="center" valign=middle ><b><font>Rating</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font color="#000000">Target Distribution%</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Target Distribution<br>Nos.</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Actual </font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Actual %</font></b></td>
+  <tr style="background-color: rgba(0, 138, 255, 0.24);">
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="100" align="center" valign=middle ><b><font>Rating</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font color="#000000">Target Distribution%</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Target Distribution<br>Nos.</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Actual </font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Actual %</font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Deviation %<br>(Allowed)</font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Deviation %<br>(Actual)</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Deviation<br>(Actual minus Target)</font></b></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle sdval="1" sdnum="16393;"><b><font color="#000000">1</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.05" sdnum="16393;0;0%"><b><font color="#000000">5%</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual1"></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="0.7" sdnum="16393;0;0" ><font color="#000000" id="actual_cnt1">1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual_per_cnt1"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><b><font>Deviation<br>(Actual minus Target)</font></b></td>
+    </tr>
+  <tr>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle sdval="1" sdnum="16393;"><b><font color="#000000">1</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.05" sdnum="16393;0;0%"><b><font color="#000000">5%</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual1"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="0.7" sdnum="16393;0;0" ><font color="#000000" id="actual_cnt1">1</font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual_per_cnt1"></font></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_allow1"></font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_actual1"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev1"></font></b></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle sdval="1" sdnum="16393;"><b><font color="#000000">2</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.05" sdnum="16393;0;0%"><b><font color="#000000">10%</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual2"></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="0.7" sdnum="16393;0;0" ><font color="#000000" id="actual_cnt2">2</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual_per_cnt2"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev1"></font></b></td>
+    </tr>
+  <tr>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle sdval="1" sdnum="16393;"><b><font color="#000000">2</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.05" sdnum="16393;0;0%"><b><font color="#000000">10%</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual2"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="0.7" sdnum="16393;0;0" ><font color="#000000" id="actual_cnt2">2</font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0" sdnum="16393;0;0"><font color="#000000"  id="actual_per_cnt2"></font></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_allow2"></font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_actual2"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev2"></font></b></td>
-		</tr>
-	<tr>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev2"></font></b></td>
+    </tr>
+  <tr>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle  sdval="4" sdnum="16393;"><b><font color="#000000">3</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.2" sdnum="16393;0;0%"><b><font color="#000000">60%</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.2" sdnum="16393;0;0%"><b><font color="#000000">60%</font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="4" sdnum="16393;0;0"><font color="#000000"  id="actual3"></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="2.8" sdnum="16393;0;0"><font color="#000000" id="actual_cnt3">3</font></td>
-		
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="30.7692307692308" sdnum="16393;0;0"><font color="#000000" id="actual_per_cnt3"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="2.8" sdnum="16393;0;0"><font color="#000000" id="actual_cnt3">3</font></td>
+    
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="30.7692307692308" sdnum="16393;0;0"><font color="#000000" id="actual_per_cnt3"></font></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_allow3"></font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_actual3"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="1.2" sdnum="16393;0;0"><b><font color="#0070C0"  id="dev3"></font></b></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle  sdval="4" sdnum="16393;"><b><font color="#000000">4</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.2" sdnum="16393;0;0%"><b><font color="#000000">20%</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="1.2" sdnum="16393;0;0"><b><font color="#0070C0"  id="dev3"></font></b></td>
+    </tr>
+  <tr>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle  sdval="4" sdnum="16393;"><b><font color="#000000">4</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.2" sdnum="16393;0;0%"><b><font color="#000000">20%</font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="4" sdnum="16393;0;0"><font color="#000000"  id="actual4"></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="2.8" sdnum="16393;0;0"><font color="#000000" id="actual_cnt4">3</font></td>
-		
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="30.7692307692308" sdnum="16393;0;0"><font color="#000000" id="actual_per_cnt4"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="2.8" sdnum="16393;0;0"><font color="#000000" id="actual_cnt4">3</font></td>
+    
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="30.7692307692308" sdnum="16393;0;0"><font color="#000000" id="actual_per_cnt4"></font></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_allow4"></font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_actual4"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="1.2" sdnum="16393;0;0"><b><font color="#0070C0"  id="dev4"></font></b></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle  sdval="4" sdnum="16393;"><b><font color="#000000">5</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.2" sdnum="16393;0;0%"><b><font color="#000000">5%</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="1.2" sdnum="16393;0;0"><b><font color="#0070C0"  id="dev4"></font></b></td>
+    </tr>
+  <tr>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle  sdval="4" sdnum="16393;"><b><font color="#000000">5</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="0.2" sdnum="16393;0;0%"><b><font color="#000000">5%</font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="4" sdnum="16393;0;0"><font color="#000000"  id="actual5"></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="2.8" sdnum="16393;0;0"><font color="#000000" id="actual_cnt5">3</font></td>
-		
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="30.7692307692308" sdnum="16393;0;0"><font color="#000000" id="actual_per_cnt5"></font></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom  sdval="2.8" sdnum="16393;0;0"><font color="#000000" id="actual_cnt5">3</font></td>
+    
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="30.7692307692308" sdnum="16393;0;0"><font color="#000000" id="actual_per_cnt5"></font></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_allow5"></font></b></td>
 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="2.8" sdnum="16393;0;0"><b><font color="#0070C0" id="dev_actual5"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="1.2" sdnum="16393;0;0"><b><font color="#0070C0"  id="dev5"></font></b></td>
-		</tr>
-	<tr style="background-color: rgba(0, 138, 255, 0.24);">
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle><b><font color="#000000">Total</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="1" sdnum="16393;0;0%"><b><font color="#000000"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="13" sdnum="16393;0;0"><b><font color="#000000" id="emp_actual_total"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="13" sdnum="16393;"><b><font color="#000000" id="avg_actual"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0%"><b><font color="#000000"  id="ftotal"><br></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0"><b><font color="#000000"  id="total_dev1"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0"><b><font color="#000000" id="total_dev2"></font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0"><b><font color="#000000" id="total_dev"><br></font></b></td>
-		</tr>
-	<tr>
-		<td height="19" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td align="left" valign=bottom><font color="#000000"><br></font></td>
-		</tr>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle  sdval="1.2" sdnum="16393;0;0"><b><font color="#0070C0"  id="dev5"></font></b></td>
+    </tr>
+  <tr style="background-color: rgba(0, 138, 255, 0.24);">
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="center" valign=middle><b><font color="#000000">Total</font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="1" sdnum="16393;0;0%"><b><font color="#000000"></font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="13" sdnum="16393;0;0"><b><font color="#000000" id="emp_actual_total"></font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdval="13" sdnum="16393;"><b><font color="#000000" id="avg_actual"></font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0%"><b><font color="#000000"  id="ftotal"><br></font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0"><b><font color="#000000"  id="total_dev1"></font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0"><b><font color="#000000" id="total_dev2"></font></b></td>
+    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle sdnum="16393;0;0"><b><font color="#000000" id="total_dev"><br></font></b></td>
+    </tr>
+  <tr>
+    <td height="19" align="left" valign=bottom><font color="#000000"><br></font></td>
+    <td align="left" valign=bottom><font color="#000000"><br></font></td>
+    <td align="left" valign=bottom><font color="#000000"><br></font></td>
+    <td align="left" valign=bottom><font color="#000000"><br></font></td>
+    <td align="left" valign=bottom><font color="#000000"><br></font></td>
+    <td align="left" valign=bottom><font color="#000000"><br></font></td>
+    </tr>
 </table>
 </div>
 </div>
 </div>
-							
-						</div>
-						<div class="modal-footer">
-							 
-							<button type="button" class="btn btn-default" data-dismiss="modal">
-								Close
-							</button> 
-						</div>
-					</div>
-					
-				</div>
-				
-			</div>
+              
+            </div>
+            <div class="modal-footer">
+               
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                Close
+              </button> 
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
 
 <style>
 input[placeholder], [placeholder], *[placeholder] {
@@ -669,7 +673,7 @@ $('#search-dept').on('keyup', function(){
 
   });
 
-	$('#search-manager').on('keyup', function(){
+  $('#search-manager').on('keyup', function(){
     $(this).css('color', 'red');
     table
     .column(5)
@@ -1031,7 +1035,7 @@ if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['
         <td style="font-weight:bold">Location</td>
         <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php echo $row['company_location']; ?></td>  
         <td style="font-weight:bold">Date of Retirement</td>
-               <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php  echo $retire_date; ?></td>
+               <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php  if(isset($retire_date)) { echo $retire_date; } ?></td>
       </tr>
       <tr>
         <td style="font-weight:bold">Cadre</td>
@@ -1039,13 +1043,13 @@ if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['
         <td style="font-weight:bold">BU Head Name</td>
         <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php echo $row['bu_head_name']; ?></td>  
         <td style="font-weight:bold">Cluster Head Name</td>
-        <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php echo $cluster_name['0']['Emp_fname']." ".$cluster_name['0']['Emp_lname']; ?></td>
+        <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php if(isset($cluster_name['0']['Emp_fname']) && isset($cluster_name['0']['Emp_lname'])) { echo $cluster_name['0']['Emp_fname']." ".$cluster_name['0']['Emp_lname']; } ?></td>
        
 
       </tr>
       <tr>
         <td style="font-weight:bold">Reporting Manager</td>
-        <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php echo $apr_name['0']['Emp_fname']." ".$apr_name['0']['Emp_lname']; ?></td>
+        <td  <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php if(isset($apr_name['0']['Emp_fname']) && isset($apr_name['0']['Emp_lname'])) { echo $apr_name['0']['Emp_fname']." ".$apr_name['0']['Emp_lname']; } ?></td>
         <td style="font-weight:bold">Dotted Line Manager</td>
         <td <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php if(isset($apr_name1) && $apr_name1 != '') { echo $apr_name1['0']['Emp_fname']." ".$apr_name1['0']['Emp_lname']; } ?></td>
         <td style="font-weight:bold">Plant Head Name</td>
@@ -1057,20 +1061,22 @@ if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['
 
 </td>
 
-<?php
+<?php 
 $day = 31;
 $month = 03;
 $year = date('Y');
 
 $date = mktime(12, 0, 0, $month, $day, $year);
 ?>
-<td id="qualrate-<?php echo $cnt; ?>"><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''){ echo "fdgdfgdfgdf"; }else{ echo $IDPForm_data[$cnt]['0']['performance_rating']; }?></td>
+<td id="qualrate-<?php echo $cnt; ?>"><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''){ echo "fdgdfgdfgdf"; }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo $IDPForm_data[$cnt]['0']['performance_rating']; }?></td>
 
 <td><?php 
-if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']!=''){ echo $IDPForm_data[$cnt]['0']['Tota_score']; }?></td>
+if(isset($IDPForm_data[$cnt]['0']['Tota_score']))
+{
+if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']!=''){ echo $IDPForm_data[$cnt]['0']['Tota_score']; } } ?></td>
 
 
-<td><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''){ echo "fghfghgf"; }else{ echo round($IDPForm_data[$cnt]['0']['performance_rating']); }?></td>
+<td><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''){ echo "fghfghgf"; }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }?></td>
 
 <?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { ?>
 <td style="width: 85px;"><input style="width: 85px;" disabled class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating']) && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating']) && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
@@ -1086,7 +1092,8 @@ if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['
 <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data[$cnt]['plant_head_comment'])) { echo $normalize_comment_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data[$cnt]['plant_head_comment'])) { echo $normalize_comment_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
 
 <?php } ?>
-<?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { ?>
+<?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { 
+ ?>
 <td style="width: 85px;"><input style="width: 85px;" disabled class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
 
 <td style="width: 95px;"><input style="width: 85px;" disabled class="form-control pop comm1 cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['cluster_head_comments']) && $normalize_comment_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_comment_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_comment_data['0']['cluster_head_comments']) && $normalize_comment_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_comment_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
@@ -1099,22 +1106,24 @@ if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['
 
 <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['cluster_head_comments']) && $normalize_comment_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_comment_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['cluster_head_comments']) && $normalize_comment_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_comment_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
 
-<?php } ?>
+<?php }  ?>
 
 
-<?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { ?>
-<td style="width: 95px;"><input style="width: 85px;" disabled  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
+<?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) {
+
+ ?>
+<td style="width: 95px;"><input style="width: 85px;" disabled  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
 
 <td style="width: 95px;"><input style="width: 85px;" disabled class="form-control comm1 pop bu_head_comments" id="bu_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?></label></td>
 
-<td style="width: 95px;"><input style="width: 85px;" disabled type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
+<td style="width: 95px;"><input style="width: 85px;" disabled type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
 <?php } else if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) { ?>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
+<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data1['0']['bu_rating'] != 'undefined' && $normalize_rating_data1['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data1['0']['bu_rating'] != 'undefined' && $normalize_rating_data1['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
 
 <td style="width: 95px;"><input style="width: 85px;"  class="form-control comm1 pop bu_head_comments" id="bu_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?></label></td>
 
-<td style="width: 95px;"><input style="width: 85px;"  type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
-<?php } ?>
+<td style="width: 95px;"><input style="width: 85px;"  type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
+<?php }  ?>
 <td><?php if(isset($row['cluster_name'])) { echo $row['cluster_name']; } ?></td>
 <td class="f2" style="display:none"><?php if(isset($row['Emp_fname'])) { echo $row['Emp_fname']." ".$row['Emp_lname']; } ?></td>
 <td class="" style="display:none">
@@ -1125,9 +1134,9 @@ $list = array('Email_id');
 $data = array($row['Reporting_officer1_id']);
 $apr_data_get = $employee->get_employee_data($where,$data,$list);
 
-if(isset($apr_data_get['0']['Emp_fname'])) { echo $apr_data_get['0']['Emp_fname']." ".$apr_data_get['0']['Emp_lname']; } ?>
+if(isset($apr_data_get['0']['Emp_fname']) && isset($apr_data_get['0']['Emp_lname'])) { echo $apr_data_get['0']['Emp_fname']." ".$apr_data_get['0']['Emp_lname']; } ?>
 </td>
-<td><?php if(isset($promo_data['0']['update_flag']) && $promo_data['0']['update_flag'] != '2') { echo "<br>";echo "Yes"; }else { echo "No"; } ?></td>
+<td><?php if(isset($promo_data['0']['update_flag'])) { if($promo_data['0']['update_flag'] != '2') { echo "<br>";echo "Yes"; }else { echo "No"; }} ?></td>
 <td><a href='<?php echo Yii::app()->createUrl("index.php/Directreport/appraiser_end_review",array("Employee_id"=>$row['Employee_id'],"apr_data"=>$row['Reporting_officer1_id'])); ?>' target="_blank"><input class="btn chk_profile" id="$row['Employee_id']" value="Check Goalsheet" type="button"></a></td>
 <td class="f2" ><?php echo $cnt; ?></td>
 </tr>                                                       
@@ -1153,7 +1162,7 @@ else
 <div class="col-md-5">
 
 
-				</div>
+        </div>
 <div class="row">
 <div class="col-md-12" style="margin-top: 10px;margin-left: -282px;">
 <div class="col-md-4">
@@ -2302,7 +2311,7 @@ alert(data);
 
 setInterval(save_normalizedata,3000);
 $(".confirm1").click(function(){
-	//alert("hi");
+  //alert("hi");
 save_normalizedata();
 });
 function save_normalizedata()
@@ -2601,7 +2610,7 @@ $(window).scroll(function() {
     var floaterHeight = $('#floater').outerHeight(true);
     var fromBottom = 20;
     var top = winScrollTop + winHeight - floaterHeight - fromBottom;
-	$('#floater').css({'top': winScrollTop + 'px'});
+  $('#floater').css({'top': winScrollTop + 'px'});
 });
 });
  </script>

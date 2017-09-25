@@ -29,23 +29,68 @@
   <script>
   $( function() {
      $("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
-            var newdate = ($("#dob").val()).split("-").reverse().join("-");
-           // alert(newdate);
-           // alert(this.val());
+//             var newdate = ($("#dob").val()).split("-").reverse().join("-");
+//            // alert(newdate);
+//            // alert(this.val());
 
-            var age = getAge(this);
+//             var age = getAge(this);
+//             var months=age.split("years");
+//             //alert(months);
+//           $('#age_yrs').val(months[0]+'Years');
+//           $('#age_mnt').val(months[1]);
+//             console.log(age);
+//             //alert(age);
+// $('#dob').val(newdate);
+            var yrs=$("#dob").val().split("-");
+            var yr=parseInt(yrs[0])+60;
+            var retire_dt= yrs[2]+"-"+yrs[1]+"-"+yr;
+            $('#dt_retire').val(retire_dt);
+            var newdate = ($("#dob").val()).split("-").reverse().join("-");
+            var age = getAge($("#dob").val());
             var months=age.split("years");
-            //alert(months);
-          $('#age_yrs').val(months[0]+'Years');
-          $('#age_mnt').val(months[1]);
+            $('#age_yrs').val(months[0]+''+'Years');
+            $('#age_mnt').val(months[1]);
             console.log(age);
-            //alert(age);
-$('#dob').val(newdate);
+            $('#dob').val(newdate);
 
         });
     $( "#date_confrm_trn").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#date_confrm_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
-    $( "#doj_vvf" ).datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
+    $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
+            // var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            // var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
+
+            // var exp = getAge(this);
+            // var exp_yr=exp.split("years");
+            // var other_exp= 0 ;
+            // $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            // $('#doj_vvf').val(newdate1);
+            // if ($('#othr_exp').val()!='') {
+            //     other_exp=$('#othr_exp').val(); 
+               
+            // };
+            var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var exp = getAge($("#doj_vvf").val());
+            var exp_yr=exp.split("years");
+           
+            var other_exp= 0 ;
+            $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            $('#doj_vvf').val(newdate1);
+            if ($('#othr_exp').val()!='') {
+                other_exp=$('#othr_exp').val(); 
+               
+            };
+            var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+           var arr = doj.split("/");
+           var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
+           var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
+           var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
+           var fin_trn_prob = convert(trn_prob);
+           $('#due_date_trn_prob').val(fin_trn_prob);
+           var dt_of_con = convert(fin_dt);
+           $('#confirm_due_date').val(dt_of_con);
+    });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#confirm_due_date" ).datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -59,16 +104,22 @@ $('#dob').val(newdate);
     $( "#redesign_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
   });
     
+  function process(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
+}
    function getAge(dateVal) {
+    //alert(dateVal);
             var
-                birthday = new Date(dateVal.value),
+                birthday = new Date(dateVal),
                 today = new Date(),
                 ageInMilliseconds = new Date(today - birthday),
                 years = ageInMilliseconds / (24 * 60 * 60 * 1000 * 365.25 ),
                 months = 12 * (years % 1),
                 days = Math.floor(30 * (months % 1));
-                alert(today);
-            return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
+                //alert(today);
+
+                return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
 
         }
   </script>  
@@ -93,6 +144,17 @@ $('#dob').val(newdate);
                     });
      
   </script>
+  <script type="text/javascript">
+ 
+
+
+  function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+    return [day,mnth,date.getFullYear()].join("-");
+}
+  </script> 
   <script>
  
 $(document).ready(function(){
@@ -283,6 +345,29 @@ $(document).ready(function(){
     $(document).ready(function(){
    
     $("#pers_info").click(function(){
+        $('#fname').css('border','');
+        $('#lname').css('border','');
+        $('#mname').css('border','');
+        $('#email').css('border','');
+        $('#perm_add').css('border','');
+        $('#state').css('border','');
+        $('#city').css('border','');
+        $('#pin').css('border','');
+        $('#quali').css('border','');
+        $('#marital_stat').css('border','');
+        $('#no_of_depend').css('border','');
+        $('#bld_grp').css('border','');
+        $('#pan').css('border','');
+        $('#dob').css('border','');
+        $('#age_yrs').css('border','');
+        $('#contact').css('border','');
+        $('#comp_nm').css('border','');
+        var nm = /^([a-zA-Z]{1,40})*$/;
+        var eml = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+        var con_no = /^[\d]{10}$/;
+        var pin_no = /^[1-9][0-9]{5}$/;
+        var adr = /^[1-9][0-9]{11}$/;
+        var pan_no = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
         var fname = $('#fname').val();
         var lname = $('#lname').val();
         var mname = $('#mname').val();
@@ -305,8 +390,28 @@ $(document).ready(function(){
         var sap =$('#sap').val();
         var aadhar_no = $('#aadhar').val();
         var contact = $('#contact').val();
+        var comp_nm= $('option:selected',$('#comp_nm')).val();
+        var per_email =$('#per_email').val();
         var u_id=$('#u_id').val();
-        if($('#fname').val()==""){
+        if($('#comp_nm').val()==""){
+            $('#err').text("Please Select Company name");
+            $('#err').show();
+            $('#comp_nm').css('border','1px solid red');
+            $('#comp_nm').focus();
+        }
+        else if(!nm.test($('#fname').val())){
+            $("#err").css('display','block');
+            $('#fname').focus();
+            $('#fname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
+        }
+        else if(!nm.test($('#mname').val())){
+            $("#err").css('display','block');
+            $('#mname').focus();
+            $('#mname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
+        }
+        else if($('#fname').val()==""){
             $('#err').text("Please enter first name");
             $('#err').show();
             $('#fname').css('border','1px solid red');
@@ -318,11 +423,17 @@ $(document).ready(function(){
             $('#lname').css('border','1px solid red');
             $('#lname').focus();
         }
-        else if($('#mname').val()==""){
-            $('#err').text("Please enter middle name");
-            $('#err').show();
-            $('#mname').css('border','1px solid red');
-            $('#mname').focus();
+        // else if($('#mname').val()==""){
+        //     $('#err').text("Please enter middle name");
+        //     $('#err').show();
+        //     $('#mname').css('border','1px solid red');
+        //     $('#mname').focus();
+        // }
+        else if(!nm.test($('#lname').val())){
+            $("#err").css('display','block');
+            $('#lname').focus();
+            $('#lname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
         }
         else if($('#email').val()==""){
             $('#err').text("Please enter Email id");
@@ -330,8 +441,26 @@ $(document).ready(function(){
             $('#email').css('border','1px solid red');
             $('#email').focus();
         }
+        else if(!eml.test($('#email').val())){
+            $("#err").css('display','block');
+            $('#email').focus();
+            $('#email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
+        else if(!eml.test($('#per_email').val())){
+            $("#err").css('display','block');
+            $('#per_email').focus();
+            $('#per_email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
+            $('#err').show();
+            $('#contact').css('border','1px solid red');
+            $('#contact').focus();
+        }
+        else if(!con_no.test($('#contact').val())){
+            $('#err').text("Please enter valid Contact number");
             $('#err').show();
             $('#contact').css('border','1px solid red');
             $('#contact').focus();
@@ -360,6 +489,12 @@ $(document).ready(function(){
             $('#pin').css('border','1px solid red');
             $('#pin').focus();
         }
+        else if(!pin_no.test($('#pin').val())){
+            $('#err').text("Please enter valid Pin code");
+            $('#err').show();
+            $('#pin').css('border','1px solid red');
+            $('#pin').focus();
+        }
         else if($('#quali').val()==""){
             $('#err').text("Please enter Basic qualification");
             $('#err').show();
@@ -384,11 +519,23 @@ $(document).ready(function(){
             $('#bld_grp').css('border','1px solid red');
             $('#bld_grp').focus();
         }
-        else if($('#pan').val()==""){
-            $('#err').text("Please enter Basic qualification");
+        // else if($('#pan').val()==""){
+        //     $('#err').text("Please enter Basic qualification");
+        //     $('#err').show();
+        //     $('#pan').css('border','1px solid red');
+        //     $('#pan').focus();
+        // }
+        else if(!pan_no.test($('#pan').val())){
+            $('#err').text("Please enter valid Pan Card number");
             $('#err').show();
             $('#pan').css('border','1px solid red');
             $('#pan').focus();
+        }
+        else if(!adr.test($('#aadhar').val())){
+            $('#err').text("Please enter valid Aadhar number");
+            $('#err').show();
+            $('#aadhar').css('border','1px solid red');
+            $('#aadhar').focus();
         }
         else if($('#dob').val()==""){
             $('#err').text("Please enter Basic qualification");
@@ -455,6 +602,8 @@ $(document).ready(function(){
                 add_edu:add_edu,
                 aadhar_no:aadhar_no,
                 sap:sap,
+                comp_nm:comp_nm,
+                per_email:per_email,
                 u_id:u_id,
                 };
 
@@ -481,6 +630,16 @@ $(document).ready(function(){
         }
     });
     $('#genrl_info').click(function(){
+        $('#pos_code').css('border','');
+        $('#desgn').css('border','');
+        $('#dept').css('border','');
+        $('#sub_dept').css('border','');
+        $('#bu').css('border','');
+        $('#cadre').css('border','');
+        $('#grade').css('border','');
+        $('#loc_work').css('border','');
+        $('#loc_pay').css('border','');
+        $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
         var desgn = $('option:selected', $('#desgn')).val();
         var dept = $('option:selected', $('.Department')).val();
@@ -591,6 +750,12 @@ $(document).ready(function(){
     });
     
     $("#reprt_detls").click(function(){
+        $('#report_mgr_sap').css('border','');
+        $('#rep1_attd').css('border','');
+        $('#rep1_appr').css('border','');
+        $('#dot_mgr').css('border','');
+        $('#mgr_mgr').css('border','');
+        $('#clust_hd').css('border','');
         var report_mgr_sap=$("#report_mgr_sap").val();
         var rep1_attd = $('option:selected', $('#rep1_attd')).val();
         var rep1_appr = $('option:selected', $('#rep1_appr')).val();
@@ -671,6 +836,21 @@ $(document).ready(function(){
     });
     
     $("#join_detals").click(function(){
+        $('#trainee').css('border','');
+        $('#trn_dept').css('border','');
+        $('#date_confrm_trn').css('border','');
+        $('#date_confrm_prob').css('border','');
+        $('#aftr_trn_confrm').css('border','');
+        $('#prev_emplyr').css('border','');
+        $('#doj_vvf').css('border','');
+        $('#othr_exp').css('border','');
+        $('#vvf_exp').css('border','');
+        $('#tot_exp').css('border','');
+        $('#due_date_trn_prob').css('border','');
+        $('#act_date_trn_prob').css('border','');
+        $('#confirm_due_date').css('border','');
+        $('#confrm_extn_dt').css('border','');
+        $('#confrm_actl_dt').css('border','');
         var trainee = $('option:selected', $('#trainee')).val();
         var trn_dept = $('option:selected', $('#trn_dept')).val();
         var date_confrm_trn = $('#date_confrm_trn').val();
@@ -707,6 +887,12 @@ $(document).ready(function(){
                 $('#err').show();
                 $('#aftr_trn_confrm').focus();
             }
+            else if(doj_vvf==''){
+           $('#err').text("Please Enter Date of Joining VVF ");
+           $('#doj_vvf').css('border','1px solid red');
+           $('#err').show();
+           $('#doj_vvf').focus(); 
+        }
             else if(due_date_trn_prob==''){
                 $('#err').text("Please Enter Due date for Training to Probation  ");
                 $('#due_date_trn_prob').css('border','1px solid red');
@@ -726,43 +912,49 @@ $(document).ready(function(){
                 $('#date_confrm_prob').focus();
             }
             else if(confirm_due_date==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Due Date  ");
                 $('#confirm_due_date').css('border','1px solid red');
                 $('#err').show();
                 $('#confirm_due_date').focus();
             }
             else if(confrm_extn_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation extention date ");
                 $('#confrm_extn_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_extn_dt').focus();
             }
             else if(confrm_actl_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Actual Date ");
                 $('#confrm_actl_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_actl_dt').focus();
             }
+            else{
+                $('#err').text("");
+                $('#err').hide();
+            }
         }
         
-        if(prev_emplyr==''){
-           $('#err').text("Please Enter Previous Employer ");
-           $('#prev_emplyr').css('border','1px solid red');
-           $('#err').show();
-           $('#prev_emplyr').focus(); 
-        }
-        else if(doj_vvf==''){
+        // if(prev_emplyr==''){
+        //    $('#err').text("Please Enter Previous Employer ");
+        //    $('#prev_emplyr').css('border','1px solid red');
+        //    $('#err').show();
+        //    $('#prev_emplyr').focus(); 
+        // }
+        // else 
+        if(trainee == ""){
+            if(doj_vvf==''){
            $('#err').text("Please Enter Date of Joining VVF ");
            $('#doj_vvf').css('border','1px solid red');
            $('#err').show();
            $('#doj_vvf').focus(); 
         }
-        else if(othr_exp==''){
-           $('#err').text("Please Enter Other Experience ");
-           $('#othr_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#othr_exp').focus(); 
-        }
+        // else if(othr_exp==''){
+        //    $('#err').text("Please Enter Other Experience ");
+        //    $('#othr_exp').css('border','1px solid red');
+        //    $('#err').show();
+        //    $('#othr_exp').focus(); 
+        // }
         else if(vvf_exp==''){
            $('#err').text("Please Enter VVF Experience");
            $('#vvf_exp').css('border','1px solid red');
@@ -776,6 +968,11 @@ $(document).ready(function(){
            $('#tot_exp').focus(); 
         }
         else{
+                $('#err').text("");
+                $('#err').hide();
+            }
+    }
+        if(trainee == ""){
 
             $('#err').hide();
             $('#err').text('');
@@ -808,19 +1005,29 @@ $(document).ready(function(){
                 }
             }); 
 
-            $("#join_detals").attr("href", "#tab_1_5");
+            $("#join_detals").attr("href", "#tab_1_6");
             $('#li1').removeClass("active");
             $('#li2').removeClass("active");
             $('#li3').removeClass("active");
             $('#li4').removeClass("active");
             $('#li5').addClass("active");
-            $('#li6').removeClass("active");
+            $('#li6').addClass("active");
             $('#li7').removeClass("active");
             $('#li8').removeClass("active");
         }
     });
 
     $("#promo_detals").click(function(){
+        $('#promo_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#cdre_bfr_promo').css('border','');
+        $('#prev_cadre').css('border','');
+        $('#redesgn_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#desg_bfr_redesgn').css('border','');
+        $('#cdr_bfr_redesgn').css('border','');
+        $('#grd_bfr_redgn').css('border','');
+        $('#desgn_bfr_promo').css('border','');
         var promo_dt = $('#promo_dt').val();
         var desgn_bfr_promo = $('option:selected', $('#desgn_bfr_promo')).val();
         var cdre_bfr_promo = $('option:selected', $('#cdre_bfr_promo')).val();
@@ -926,6 +1133,12 @@ $(document).ready(function(){
     });
 
     $('#trans_dtls').click(function(){
+        $('#trnsfr_frm_loc').css('border','');
+        $('#tranr_wef_loc').css('border','');
+        $('#transfr_frm_old_data_loc').css('border','');
+        $('#transfr_old_data_wef_loc').css('border','');
+        $('#transfr_frm_dept').css('border','');
+        $('#tranr_wef_dept').css('border','');
         var trnsfr_frm_loc = $('option:selected', $('#trnsfr_frm_loc')).val();
         var tranr_wef_loc = $('option:selected', $('#tranr_wef_loc')).val();
         var transfr_frm_old_data_loc = $('option:selected', $('#transfr_frm_old_data_loc')).val();
@@ -1003,6 +1216,14 @@ $(document).ready(function(){
     });
 
     $('#leave_dtls').click(function(){
+        $('#dt_retire').css('border','');
+        $('#lst_wrk_dt').css('border','');
+        $('#arrt_prd').css('border','');
+        $('#redesign_dt').css('border','');
+        $('#reasn_leave').css('border','');
+        $('#ext_cat').css('border','');
+        $('#remark').css('border','');
+        $('#attr_type').css('border','');
         var dt_retire = $('#dt_retire').val();
         var lst_wrk_dt = $('#lst_wrk_dt').val();
         var arrt_prd = $('#arrt_prd').val();
@@ -1091,6 +1312,9 @@ $(document).ready(function(){
     });
     
     $('#save_data').click(function(){
+        $('#cost_center').css('border','');
+        $('#cost_cenr_descr').css('border','');
+        $('#emp_sta').css('border','');
         //alert("hi");
         //var cost_center = $('#cost_center').val();
         var cost_center = $('option:selected', $('#cost_center')).val();
@@ -1215,6 +1439,8 @@ $(document).ready(function(){
         var cost_center = $('option:selected', $('#cost_center')).val();
         var cost_cenr_descr = $('#cost_cenr_descr').val();
         var emp_sta = $('option:selected', $('#emp_sta')).val();
+        var comp_nm= $('option:selected',$('#comp_nm')).val();
+        var per_email =$('#per_email').val();
         //var contact = $('#contact').val();
         var emp_data = {
                 fname : fname,
@@ -1288,6 +1514,8 @@ $(document).ready(function(){
                 cost_center : cost_center,
                 cost_cenr_descr : cost_cenr_descr,
                 emp_sta : emp_sta,
+                comp_nm:comp_nm,
+                per_email:per_email,
             };
 
                 $.ajax({
@@ -1378,7 +1606,86 @@ $("#cost_center").change(function () {
 });
   </script>
 
+<script type="text/javascript">
+ $(function(){
+var d = new Date(2017, 09, 01);
 
+
+
+        //     if($('#dob').val() != ''){
+
+        //     var yrs=$("#dob").val().split("-");
+        //     var yr=parseInt(yrs[2])+60;
+        //     var retire_dt= yrs[0]+"-"+yrs[1]+"-"+yr;
+        //     $('#dt_retire').val(retire_dt);
+        //     var newdate = ($("#dob").val()).split("-").reverse().join("-");
+        //     //alert(newdate);
+        //     var age = getAge(newdate);
+        //     var months=age.split("years");
+        //     $('#age_yrs').val(months[0]+''+'Years');
+        //     $('#age_mnt').val(months[1]);
+        //     console.log(age);
+            
+
+
+
+
+         
+        // }
+        // if($("#doj_vvf").val() !=''){
+        //     var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+        //     var exp = getAge(newdate1);
+        //     var exp_yr=exp.split("years");
+        //     var other_exp= 0 ;
+        //     $('#vvf_exp').val(exp_yr[0]+''+'Years');
+           
+        //     if ($('#othr_exp').val()!='') {
+        //         other_exp=$('#othr_exp').val(); 
+            
+        //     };
+        //     var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            
+        //     $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
+        // }
+        if($('#dob').val() != ''){
+
+            var yrs=$("#dob").val().split("-");
+            //alert(yrs);
+            var yr=parseInt(yrs[2])+60;
+            var retire_dt= yrs[0]+"-"+yrs[1]+"-"+yr;
+            $('#dt_retire').val(retire_dt);
+            //alert(retire_dt);
+            var newdate = ($("#dob").val()).split("-").reverse().join("-");
+            //alert(newdate);
+            var age = getAge(newdate);
+            var months=age.split("years");
+            $('#age_yrs').val(months[0]+''+'Years');
+            $('#age_mnt').val(months[1]);
+            console.log(age);
+            
+
+
+
+
+         
+        }
+        if($("#doj_vvf").val() !=''){
+            var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var exp = getAge(newdate1);
+            var exp_yr=exp.split("years");
+            var other_exp= 0 ;
+            $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            //$('#doj_vvf').val(newdate1);
+            if ($('#othr_exp').val()!='') {
+                other_exp=$('#othr_exp').val(); 
+            
+            };
+            var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            
+            $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
+        }
+});
+  </script>
   <script>
               $(function(){
                     $("body").on('keyup','.validate_field',function(){
@@ -1418,6 +1725,22 @@ $("#cost_center").change(function () {
                                 $(this).css('border','1px solid #999');
                             }
                         }
+                        else if(id=='per_email'){
+                            var string1 = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid email ID");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
                         else if(id=='contact'){
                             var string1 = /^[\d]{10}$/;
                             if (!string1.test($(this).val())) 
@@ -1444,6 +1767,24 @@ $("#cost_center").change(function () {
                                 $('#err').show();
                                 $(this).css('border','1px solid red');
                                 $("#err").text("Please enter valid Pincode");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
+                        else if(id=='aadhar'){
+                           // alert(id);
+
+                            var string1 = /^[1-9][0-9]{11}$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid Aadhar");
                             }
                             else
                             {
@@ -1524,9 +1865,9 @@ $("#cost_center").change(function () {
                                                             <li id="li4">
                                                                 <a href="#tab_1_4" data-toggle="tab">Joining details</a>
                                                             </li>
-                                                             <li id="li5">
+                                                             <!-- <li id="li5">
                                                                 <a href="#tab_1_5" data-toggle="tab">Promotion Details</a>
-                                                            </li>
+                                                            </li> -->
                                                              <li id="li6">
                                                                 <a href="#tab_1_6" data-toggle="tab">Transfer Details</a>
                                                             </li>
@@ -2251,11 +2592,11 @@ $("#cost_center").change(function () {
                                                                     <label class="col-md-3 control-label">Reporting Mgr SAP Code
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <?php if(isset($employee_data['0']['cluster_name']) && $employee_data['0']['cluster_name']==""){ ?>
+                                                                       <?php if(isset($employee_data['0']['Reporting_Mgr_SAP_Code']) && $employee_data['0']['Reporting_Mgr_SAP_Code']==""){ ?>
                                                                             <input class="form-control" placeholder="Enter Reporting Mgr SAP Code" type="text" id="report_mgr_sap">
                                                                         <?php }
                                                                         else { ?>
-                                                                             <input class="form-control" placeholder="Enter Reporting Mgr SAP Code" type="text" id="report_mgr_sap", value="<?php echo $employee_data['0']['cluster_name'];?>">
+                                                                             <input class="form-control" placeholder="Enter Reporting Mgr SAP Code" type="text" id="report_mgr_sap", value="<?php echo $employee_data['0']['Reporting_Mgr_SAP_Code'];?>">
                                                                         <?php }?>
                                                                         
                                                                        
@@ -3128,7 +3469,7 @@ $("#cost_center").change(function () {
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
                                                                         <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="trans_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
-                                                                        <a class="btn default" href="#tab_1_5" data-toggle="tab" aria-expanded="false" id="prve5">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
+                                                                        <a class="btn default" href="#tab_1_4" data-toggle="tab" aria-expanded="false" id="prve5">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
                                                                 

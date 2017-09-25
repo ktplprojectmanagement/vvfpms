@@ -8,6 +8,7 @@ class MIS_locController extends Controller
 	    $selected_option = 'rules_for_goalsheet';
 	    $this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/mis_loc');
 		$this->render('//site/admin_footer_view');
@@ -121,6 +122,64 @@ class MIS_locController extends Controller
 	//   	}
 	// }
 
+	function actionReprtngMgr(){
+		
+		$sap_id=$_POST['rep_sap'];
+		
+		$model=new EmployeeForm;
+		$where = 'where Employee_id = :Employee_id';
+		$list = array('Employee_id');
+		$data = array($_POST['rep_sap']);
+		
+		$employee_data = $model->get_employee_data($where,$data,$list);
+		$reporting_nm = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
+		
+
+		$where ='where email_id = :email_id';
+		$list =array('email_id');
+		$data = array($employee_data['0']['Reporting_officer1_id']);
+		$employee_data1 = $model->get_employee_data($where,$data,$list);
+		$reporting_rep = $employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname'];
+		$reporting =$reporting_nm."-".$reporting_rep;
+		 print_r($reporting);
+		 
+	}
+
+	function actioncostCenter_change(){
+		$code=$_POST['cost_center'];
+		$model=new CostCenter;
+		$where = 'where cost_center = :cost_center';
+		$list = array('cost_center');
+		$data = array($_POST['cost_center']);
+		$costcenter_data = $model->get_costCenter_data($where,$data,$list);
+		print_r($costcenter_data['0']['cost_center_description']);
+	}
+
+	function actionDesignation_change()
+	{
+		
+		$cluster = new ClusterForm;
+		
+		$cadre =$_POST['grade'];
+		//echo $cadre;die();
+		$records = $cluster->get_list('grade');
+		$cluster_details=$records['0']['grade'];
+        $cluster1=explode(';',$cluster_details);
+
+        $design_list=$cluster->get_list('designation');
+        $emp_desg=$design_list['0']['designation'];
+        $designation_list=explode(';',$emp_desg);
+		
+        for($i=0;$i<count($cluster1);$i++){
+        	if($cluster1[$i]==$cadre){
+        		$desg=explode('^', $designation_list[$i]);
+
+        	}
+        }
+         echo CHtml::activeDropDownList($cluster,'designation',$desg,array('id'=>"desgn",'class'=>'form-control designation','options'=>array('selected'=>true),'empty'=>'Select')); 
+         
+	}
+
 	function actionSave()
 	{
 		 $model=new EmployeeMaster2Form;
@@ -155,6 +214,8 @@ class MIS_locController extends Controller
 				'Additional_qualification'=> $_POST['add_edu'],
 				'Employee_id'=>$_POST['sap'],
 				'Old_Employee_ID'=>'',
+				'comp_name'=>$_POST['comp_nm'],
+				'personal_email'=>$_POST['per_email'],
 		 		);
 		 	$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
 		 	if($update>0)
@@ -168,6 +229,8 @@ class MIS_locController extends Controller
 		 }
 		 else{
 		 $model=new EmployeeMaster2Form;
+		 $model->comp_name=$_POST['comp_nm'];
+		 $model->personal_email=$_POST['per_email'];
 		 $model->Emp_fname = $_POST['fname'];
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];
@@ -440,7 +503,7 @@ class MIS_locController extends Controller
 	function actionEmployee_list(){
 
 		$model=new EmployeeMaster1Form;
-		$loc='Taloja';
+		$loc=Yii::app()->user->getState('admin_location');
 		if($loc=="Corporate"){
 		$data=$model->get_locwise_list();
 		}
@@ -454,6 +517,7 @@ class MIS_locController extends Controller
 		//$data = $model->getdata();
 		$selected_option = 'employee_master1';
 		$this->render('//site/script_file');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_details_loc',array('model'=>$data));
 
@@ -478,6 +542,7 @@ class MIS_locController extends Controller
 		$selected_option = 'rules_for_goalsheet';
 	    $this->render('//site/script_file');
 		$this->render('//site/session_check_view');
+		$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/mis_update_loc',array('employee_data'=>$employee_data));
 		$this->render('//site/admin_footer_view');
@@ -495,6 +560,7 @@ class MIS_locController extends Controller
 		 if(isset($employee_data) && count($employee_data)>0){
 		 	//echo $_POST['clust_hd'];die();
 		 	$data=array(
+
 				'Emp_fname'=> $_POST['fname'],
 				'Emp_lname'=> $_POST['lname'],
 				'Emp_mname'=> $_POST['mname'],
@@ -566,6 +632,8 @@ class MIS_locController extends Controller
 				'Cost_centre_codes'=>$_POST['cost_center'],
 				'Cost_centre_description'=>$_POST['cost_cenr_descr'],
 				'Employee_status'=>$_POST['emp_sta'],
+				'comp_name'=>$_POST['comp_nm'],
+				'personal_email'=>$_POST['per_email'],
 			);
 			//print_r($data);die();
 			$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
@@ -592,6 +660,8 @@ class MIS_locController extends Controller
 		 
 		 else{
 		 $model=new EmployeeMaster2Form;
+		 $model->comp_name=$_POST['comp_nm'];
+		 $model->personal_email=$_POST['per_email'];
 		 $model->Emp_fname = $_POST['fname'];
 		 $model->Emp_lname = $_POST['lname'];
 		 $model->Emp_mname = $_POST['mname'];
