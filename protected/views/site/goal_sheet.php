@@ -689,11 +689,11 @@ $value_data[$l]; ?></lable></td>
                                                                     $review_type = array('Select'=>'Select','Needs Attention'=>'Needs Attention','Nearing Completion'=>'Nearing Completion','On Track'=>'On Track','Completed'=>'Completed');
 if((isset($row['mid_KRA_final_status']) && $row['mid_KRA_final_status'] != 'Approved')) 
 {
-                                                                    echo CHtml::dropDownList("mid_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control mid_status_type-".$row['KPI_id'].$i,'style'=>"width: 186px;",'options' => $status,'disabled'=>"true"));
+                                                                    echo CHtml::dropDownList("mid_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control mid_status_type-".$row['KPI_id'].$i,'options' => $status,'disabled'=>"true"));
 }
 else
 {
-echo CHtml::dropDownList("mid_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control mid_status_type-".$row['KPI_id'].$i,'style'=>"width: 186px;",'options' => $status,'disabled'=> "true"));
+echo CHtml::dropDownList("mid_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control mid_status_type-".$row['KPI_id'].$i,'options' => $status,'disabled'=> "true"));
 }
                                                                  ?>
                                                                             
@@ -732,11 +732,11 @@ $emp_comment; ?></lable>
                                                                     $review_type = array('Select'=>'Select','Needs Attention'=>'Needs Attention','Nearing Completion'=>'Nearing Completion','On Track'=>'On Track','Completed'=>'Completed');
 if((isset($row['mid_KRA_final_status']) && $row['mid_KRA_final_status'] != 'Approved')) 
 {
-                                                                    echo CHtml::dropDownList("kpi_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control kpi_status_type-".$row['KPI_id'].$i,'style'=>"width: 186px;",'options' => $status));
+                                                                    echo CHtml::dropDownList("kpi_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control kpi_status_type-".$row['KPI_id'].$i,'options' => $status));
 }
 else
 {
-echo CHtml::dropDownList("kpi_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control kpi_status_type-".$row['KPI_id'].$i,'style'=>"width: 186px;",'options' => $status,'disabled'=> "true"));
+echo CHtml::dropDownList("kpi_status_type",'',$review_type,$htmlOptions=array('class'=>"form-control kpi_status_type-".$row['KPI_id'].$i,'options' => $status,'disabled'=> "true"));
 }
                                                            ?>
                                                                     </td>
@@ -754,11 +754,11 @@ echo CHtml::dropDownList("kpi_status_type",'',$review_type,$htmlOptions=array('c
                                                                    
 if((isset($row['mid_KRA_final_status']) && $row['mid_KRA_final_status'] != 'Approved')) 
 {
-echo CHtml::textArea("review_comment",$apr_comment,$htmlOptions=array('class'=>"form-control validate_field review_comment".$row['KPI_id'].$i."",'style'=>"width: 186px;max-width: 186px;max-height: 58px;min-width: 186px;min-height: 58px;",'rows'=>2));
+echo CHtml::textArea("review_comment",$apr_comment,$htmlOptions=array('class'=>"form-control validate_field review_comment".$row['KPI_id'].$i."",'style'=>"max-height: 58px;min-height: 58px;",'rows'=>2));
 }
 else
 {
-echo CHtml::textArea("review_comment",$apr_comment,$htmlOptions=array('class'=>"form-control validate_field review_comment".$row['KPI_id'].$i."",'style'=>"width: 186px;max-width: 186px;max-height: 58px;min-width: 186px;min-height: 58px;",'rows'=>2,'disabled'=> "true"));
+echo CHtml::textArea("review_comment",$apr_comment,$htmlOptions=array('class'=>"form-control validate_field review_comment".$row['KPI_id'].$i."",'style'=>"max-height: 58px;min-height: 58px;",'rows'=>2,'disabled'=> "true"));
 }
                                                                         ?>
                                                                     </td>                                                      
@@ -1112,8 +1112,11 @@ echo CHtml::textField('program_review',$review_state,$htmlOptions=array('class'=
                                                   if (isset($IDP_data['0']['rel_program_review'])) {
                                                    $count = explode(';',$IDP_data['0']['rel_program_review']);
                                                   }
+                                                  if (isset($IDP_data['0']['extra_topic'])) {
+                                                   $count_extra = explode(';',$IDP_data['0']['extra_topic']); ///////////////////// change by monica
+                                                  }
                                                                     
-                                                                    //print_r($count);die();
+                                                                    //print_r($count_extra);die();
                                                    ?>
                                                  <div class="form-group">                                                         
                                                             <div class="col-md-2 bold">
@@ -1136,10 +1139,10 @@ echo CHtml::textField('program_review',$review_state,$htmlOptions=array('class'=
                                                  <?php 
                                                  $extra_prgrm_cmd = '';$extra_program_status = '';$extra_prgrm_cmd1 = '';$extra_program_status1 = ''; $extra_program_status2 = ''; $extra_program_status3 = '';$rel_prgrm_cmd1 = '';$rel_prgrm_cmd2 = '';
                                                  $rel_program_review_by_emp = '';$rel_program_emp_cmd1 = '';
-                                                    if ($count !='') {
-                                                      for ($m=0; $m < count($count); $m++) {  
+                                                    if ($count_extra != "") {
+                                                      for ($m=0; $m < count($count_extra); $m++) {  
 
-                                                        if ($count[$m] != '' && $count[$m] != 'undefined') {
+                                                        if ($count_extra[$m] != '' && $count_extra[$m] != 'undefined') {
                                                         $count_value++;
                                                         $topic1 = explode(';',$IDP_data['0']['extra_topic']);
                                                         $day1 = explode(';',$IDP_data['0']['extra_days']);
@@ -1148,6 +1151,7 @@ echo CHtml::textField('program_review',$review_state,$htmlOptions=array('class'=
                                                         $extra_program_status = explode(';',$IDP_data['0']['extra_program_status']);
                                                         $rel_program_status2 = explode(';',$IDP_data['0']['rel_program_review_status']);
                                                         $rel_program_status3 = explode(';',$IDP_data['0']['rel_program_review']);
+                                                        //print_r($extra_program_status);die();
                                                        // print_r($rel_program_status3);die();
                                                         if (isset($IDP_data['0']['rel_program_review_by_emp'])) {
                                                              $rel_program_review_by_emp = explode(';',$IDP_data['0']['rel_program_review_by_emp']);
@@ -1974,7 +1978,7 @@ margin-top: -37px;
                                                    <tr ><td class="col-md-4" style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;"><label style="margin-top: 15px;margin-left: 0px;margin-bottom: 15px;"><b>1) What went well in the last quarter?</b></label></td>
                                                    <td class="col-md-4" style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;">
                                                             <?php  if (isset($kpi_data['0']['mid_emp_cmt1'])) { ?>
-                                                            <textarea class="form-control col-md-4 emp_cmt1" style="border:1px solid #c2cad8"><?php if(isset($kpi_data['0']['mid_emp_cmt1'])) { echo $kpi_data['0']['mid_emp_cmt1']; } }
+                                                            <textarea class="form-control col-md-4 emp_cmt1" style="border:1px solid #c2cad8" disabled><?php if(isset($kpi_data['0']['mid_emp_cmt1'])) { echo $kpi_data['0']['mid_emp_cmt1']; } }
                                                        
                                                         else{
                                                             echo "";
@@ -2004,7 +2008,7 @@ margin-top: -37px;
                                                      <td style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;">
                                                             <?php 
                                                         if (isset($kpi_data['0']['mid_emp_cmt2'])) { ?>
-                                                            <textarea class="form-control col-md-4 emp_cmt2" style="border:1px solid #c2cad8;text-align:left"> <?php  if(isset($kpi_data['0']['mid_emp_cmt2'])) { echo $kpi_data['0']['mid_emp_cmt2']; }
+                                                            <textarea class="form-control col-md-4 emp_cmt2" style="border:1px solid #c2cad8;text-align:left" disabled> <?php  if(isset($kpi_data['0']['mid_emp_cmt2'])) { echo $kpi_data['0']['mid_emp_cmt2']; }
                                                         }
                                                         else{
                                                             echo "";
@@ -2033,7 +2037,7 @@ margin-top: -37px;
                                                     <td style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;">
                                                             <?php 
                                                         if (isset($kpi_data['0']['mid_emp_cmt3'])) { ?>
-                                                            <textarea class="form-control col-md-4 emp_cmt3" style="border:1px solid #c2cad8;text-align:left"><?php  if(isset($kpi_data['0']['mid_emp_cmt3'])) { echo $kpi_data['0']['mid_emp_cmt3']; }
+                                                            <textarea class="form-control col-md-4 emp_cmt3" style="border:1px solid #c2cad8;text-align:left" disabled><?php  if(isset($kpi_data['0']['mid_emp_cmt3'])) { echo $kpi_data['0']['mid_emp_cmt3']; }
                                                         }
                                                         else{
                                                             echo "";

@@ -650,11 +650,11 @@ $value_data[$l]; ?></lable></td>
                                                                         ?>
                                                                         <?php
                                                                          if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] != 'Approved') {
-                                                                            echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'min-width: 310px;max-width: 300px;height: 64px;max-height: 64px;min-height: 64px'));
+                                                                            echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'height: 64px;max-height: 64px;min-height: 64px'));
                                                                          }
                                                                        else if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] == 'Approved')
                                                                          {
-                                                                              echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'min-width: 310px;max-width: 300px;height: 64px;max-height: 64px;min-height: 64px','disabled'=> "true"));
+                                                                              echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'height: 64px;max-height: 64px;min-height: 64px','disabled'=> "true"));
                                                                          }
                                                                    
                                                                  ?>
@@ -952,11 +952,11 @@ $emp_comment = '';
 ?>
 <?php
 if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] != 'Approved') {
-echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'min-width: 310px;max-width: 300px;height: 64px;max-height: 64px;min-height: 64px'));
+echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'height: 64px;max-height: 64px;min-height: 64px'));
 }
 else if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] == 'Approved')
 {
-echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'min-width: 310px;max-width: 300px;height: 64px;max-height: 64px;min-height: 64px','disabled'=> "true"));
+echo CHtml::textArea("employee_comment",$emp_comment,$htmlOptions=array('class'=>"form-control employee_comment".$row['KPI_id'].$i,'rows'=>2,'style'=>'height: 64px;max-height: 64px;min-height: 64px','disabled'=> "true"));
 }
 
 ?>
@@ -1274,7 +1274,7 @@ width: 100%;">&nbsp;&nbsp;
                                         <th>Review</th>                                       
                                     </thead>
                                     <tbody>
-<?php
+<?php 
                                      $compulsory = '';$program_state = '';$program_cmnt = '';$state = 0;$review_state = '';$program_state1 = '';$not_undefine = '';$program_review_by_emp = '';
                                     if (isset($program_data_result) && count($program_data_result)>0) { 
                                         for ($i=0; $i <= count($program_data_result); $i++) {
@@ -1323,7 +1323,7 @@ width: 100%;">&nbsp;&nbsp;
                                               $program_state = explode(';',$IDP_data['0']['mid_status']);
                                               $program_cmnt = explode(';',$IDP_data['0']['mid_prgrm_cmd']);
                                               //print_r($program_cmnt);die();
-                                              if (isset($program_cmnt[$state])) {
+                                              if (isset($program_cmnt[$state]) && isset($program_state[$state])) {
                                                 $review_state = $program_cmnt[$state];
                                                 $program_state1 = $program_state[$state];
                                               }
@@ -1349,9 +1349,9 @@ width: 100%;">&nbsp;&nbsp;
                                                 
                                               ?>
                                             <tr class="error_row_chk">                                                               
-                                                <td class="prog_name" id="<?php echo 'prg'.$i; ?>" > <?php echo $program_data_result[$i]['program_name']; ?> <?php if($program_data_result[$i]['need'] == 1) { ?><label style="color: red">*</label><?php }else if($program_data_result[$i]['need'] == 2) { ?><label style="color: red">**</label><?php } ?></td>
-                                                <td> <?php echo $program_data_result[$i]['faculty_name']; ?> </td>
-                                                <td> <?php echo $program_data_result[$i]['training_days']; ?> </td>
+                                                <td class="prog_name" id="<?php echo 'prg'.$i; ?>" > <?php if(isset($program_data_result[$i]['program_name'])) { echo $program_data_result[$i]['program_name']; } ?> <?php if(isset($program_data_result[$i]['program_name']) && $program_data_result[$i]['need'] == 1) { ?><label style="color: red">*</label><?php }else if(isset($program_data_result[$i]['program_name']) && $program_data_result[$i]['need'] == 2) { ?><label style="color: red">**</label><?php } ?></td>
+                                                <td> <?php if(isset($program_data_result[$i]['faculty_name'])) { echo $program_data_result[$i]['faculty_name']; } ?> </td>
+                                                <td> <?php if(isset($program_data_result[$i]['training_days'])) { echo $program_data_result[$i]['training_days']; } ?> </td>
                                                 <td class="col-md-4">
                                                 <?php 
                                                     echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i,'disabled'=> "true"));
@@ -1457,11 +1457,11 @@ else
                                                     
                                                 </div>
                                                 <?php
+
                                                 $count = '';$count_value = 0;
                                                  if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
                                                                     $count = explode(';',$IDP_data['0']['extra_topic']);
-                                                                   
-//die();
+
                                                  ?>
                                                  <div class="form-group">                                                         
                                                             <div class="col-md-2 bold">
@@ -2335,7 +2335,7 @@ margin-top: -37px;
                                              if ( isset($kpi_data['0']['mid_KRA_final_status'] ) &&  $kpi_data['0']['mid_KRA_final_status']  == 'Approved')
                                              {
                                                  $kpi_data['0']['mid_emp_cmt3']='';
-                                                echo CHtml::textArea("emp_cmt3",$kpi_data['0']['q1_emp_cmt3'],$htmlOptions=array('class'=>"form-control emp_cmt3",'disabled'=> "true"));
+                                                echo CHtml::textArea("emp_cmt3",$kpi_data['0']['q1_emp_cmt3'],$htmlOptions=array('class'=>"form-control emp_cmt3",'disabled'=> "true",'style'=>'visibility:hidden'));
                                              }
                                              ?> 
                                                             
@@ -2388,7 +2388,9 @@ if(isset($employee_data['0']['Emp_fname'])) {
                                                 <?php
                                            // }
                                         ?>
-                                        <?php echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px','id'=>'getdata')); ?>
+                                        <?php 
+                                        //echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px','id'=>'getdata')); 
+                                        ?>
                 <div id="midstatic" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -2690,11 +2692,11 @@ $(document).ready(function(){
                       
                       if($("#extra_program_review_by_emp-"+state).val() == 'NA' ||$("#extra_program_review_by_emp-"+state).val() == '' || $("#extra_program_review_by_emp-"+state).val() === undefined){
                           //alert("ddddd");break;
-                          $('#err').text("Please enter extra program Status");
+                          $('#err').text("Please enter extra program Mid review comments");
                           $('#err').show();
                           $("#extra_program_review_by_emp-"+state).focus();
                           $("#extra_program_review_by_emp-"+state).css('border-color','red');
-                          err2="Please enter extra program Status";
+                          err2="Please enter extra program Mid review comments";
                           break;
                       }
                       else{
@@ -2742,12 +2744,12 @@ $(document).ready(function(){
                         mid_review = $(".mid_stat_type-"+id[l]+i).find(':selected').val();
                         review_comments = $(".employee_comment"+id[l]+i).val();
                         //alert(mid_review);
-                          if(mid_review=="Select"){
-                            //alert();
+                          if(mid_review=="Select"){                            
+                            //alert("Please select mid review status");
                             $(".mid_stat_type-"+id[l]+i).css('border','1px solid red');
                             $(".mid_stat_type-"+id[l]+i).focus();
                             $('#err').show();
-                            $('#err').text('Please select mid review status'+id[l]+i);
+                            $('#err').text('Please select mid review status');
                             err5="Please select mid review status";
                             break;
                           }
@@ -2759,15 +2761,16 @@ $(document).ready(function(){
                             err5="Please select mid review comments";
                             break;
                           }
-                          else{
+                          else if(err5 == '') /////////////////// change by monica
+                          {
                             err5="5";
                           }
                       }
 
                   }  
 
-                  
-                 // alert(err1);alert(err2);alert(err3);alert(err4);alert(err5);alert(err6);
+                  //alert(err5);
+                 //alert(err1);alert(err2);alert(err3);alert(err4);alert(err5);alert(err6);
 
                   if(err1=="1" && err2=="2" && err3=="3"&& err4=="4"&& err5=="5"&& err6=="6")
                   {
