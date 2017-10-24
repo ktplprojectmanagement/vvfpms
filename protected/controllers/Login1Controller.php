@@ -5,6 +5,12 @@ class Login1Controller extends Controller
 	
 	public function actionIndex()
 	{
+		// Yii::app()->user->setState('role_id','');
+		// 			Yii::app()->user->setState('Employee_name','');
+		// 			Yii::app()->user->setState('Employee_id','');
+		// 			Yii::app()->user->setState('employee_email','');
+		// 			Yii::app()->user->setState('appriaser_1','');
+		// 			die();
 		$model = new LoginForm;	
 		$this->render('//site/session_check_view');
 
@@ -16,7 +22,8 @@ class Login1Controller extends Controller
 		}
 		else
 		{
-			$this->render('//site/maintenance',array('model'=>$model));
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login1',array('model'=>$model));
 		}
 		
 		
@@ -444,9 +451,17 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 
 	public function actioncheck()
 	{
+
 		$model = new LoginForm;
-		 session_start();
-		
+		//session_start();
+		$setting_date=new SettingsForm;
+		$where = 'where setting_content = :setting_content and year = :year';
+		$list = array('setting_content','year');
+		$data = array('PMS_display_format',date('Y'));             
+		$settings_data = $setting_date->get_setting_data($where,$data,$list); 
+		$prev_date = date('Y').'-'.date('Y',strtotime('+1 year'));
+		//print_r($prev_date);die();
+	    Yii::app()->user->setState('financial_year_check',$prev_date);
 		if (isset($_POST)) {
 			$role_id_array = $model->check_role($_POST);
 			$role_id_array1 = $model->check_role1($_POST);
@@ -454,11 +469,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 			$session = Yii::app()->user->getState("employee_email");
 			//print_r($role_id_array1);die();
 
-				if (isset($_SESSION['number']) && $_SESSION['number'] == $_POST['username'] && $role_id_array['login_flag'] == 1) {
-					echo "already_login";
-				}				
-				else if(!isset($_SESSION['number']))
-				{
+				
 					$data = array(
 					'login_flag' => 1, 
 					);
@@ -481,16 +492,15 @@ if ($result['reporting_1_change'] != '' && strtotime($result['reporting_1_effect
 						'Employee_id' => $result['Employee_id'], 
 					);
 					$update = Yii::app()->db->createCommand()->update('login',$data,'username=:username and password=:password',array(':username'=>$role_id_array['username'],':password'=>$role_id_array['password']));
-					if( isset( $_SESSION['number'] ) ) {
-					      $_SESSION['number'] = $_POST['username'];
-					   }else {
-					      $_SESSION['number'] = '';
-					   }
+					// if( isset( $_SESSION['number'] ) ) {
+					//       $_SESSION['number'] = $_POST['username'];
+					//    }else {
+					//       $_SESSION['number'] = '';
+					//    }
 					date_default_timezone_set("Asia/Kolkata");
 					Yii::app()->user->setState('session_time','1800');
 					Yii::app()->user->setState('session_current_time',time());
 					echo "Valid";
-				}
 				
 			}
 			else if($role_id_array != '' && $role_id_array1 == '')

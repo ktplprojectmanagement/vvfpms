@@ -7,6 +7,8 @@ return array(
 	
 	'connectionString' => 'mysql:host=52.172.200.192;dbname=vvf_pmsstructure',
 	'emulatePrepare' => true,
+	// 'username' => 'root',
+	// 'password' => 'p@$$w0rD789',
 	'username' => 'pms',
 	'password' => 'p@$$w0rD789',
 	

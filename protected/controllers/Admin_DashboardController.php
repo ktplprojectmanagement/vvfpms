@@ -62,12 +62,13 @@ class Admin_DashboardController extends Controller
 		    $update = Yii::app()->db->createCommand()->update('Employee',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$resign_emp[$j]['Employee_id']));
 		}
 		
-		
+		//print_r($resign_emp);die();
 		
 		$recent_act=$recent_ac->get_notificationdata();
 		$recent_act1=$recent_ac->get_pending_notificationdata();
 		$recent_act2=$recent_ac->get_approve_notificationdata();
 		$recent_act3=$recent_ac->get_submitted_notificationdata();
+
                 if(isset($recent_act1) && count($recent_act1)>0)
 {
 for($i=0;$i<count($recent_act1);$i++){
@@ -106,6 +107,7 @@ for($i=0;$i<count($recent_act3);$i++){
 		}
 }
 
+
 		$kpi_sub = $model->get_distinct_list('Employee_id','where `goal_set_year`="'.$year1.'"');
 		
 		$kpi_data1 = array( );
@@ -119,32 +121,32 @@ for($i=0;$i<count($recent_act3);$i++){
 			}
 
 		$kpi_pending=$model->get_pending_goal($year1);
-		
+		//print_r($kpi_pending);die();
 
 		
 			$kpi_appr_data=array();
 		$kpi_appr=$model->get_disinct_kra_appr($year1);
+
+
 		$cnt = 0;
 
 			for($i=0;$i<count($kpi_appr);$i++){
 
 				$Employee_id=$kpi_appr[$i]['Employee_id'];
-				$where = 'where Employee_id = :Employee_id AND pms_status != :pms_status ';
+				$where = 'where Employee_id = :Employee_id  ';
 				$list = array('Employee_id');
 				$data = array($kpi_appr[$i]['Employee_id']);
-				$kpi_appr_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
+				$kpi_appr_data[$i] = $employee_data->get_employee_data($where,$data,$list);
 				
-                               if(!($kpi_appr_data1[$i]['0']['pms_status'] == 'Inactive'))
-{
-$kpi_appr_data[$cnt] = $kpi_appr_data1[$i];
-$cnt++;
-}
+//                                if(!($kpi_appr_data1[$i]['0']['pms_status'] == 'Inactive'))
+// {
+// $kpi_appr_data[$cnt] = $kpi_appr_data1[$i];
+// $cnt++;
+// }
 
 
 			}
-
-//print_r($kpi_appr_data);
-//die();
+//print_r($kpi_appr_data);die();
 			$kpi_emp_not_sub=array();
 	//	$emp_list = $model->get_distinct_list('Employee_id','where ((`goal_set_year`="'.$year1.'") AND (`KRA_status`= "" OR `KRA_status` ="Pending") AND  `KRA_status_flag` > "0") ');
 	$emp_list = $model->get_distinct_list('Employee_id','where ((`goal_set_year`="'.$year1.'") ) ');		
@@ -163,29 +165,38 @@ $cnt++;
 				
 			}
 		$kpi_emp_not_sub = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and Employee_id NOT IN ('.$emp_id_array.') ')->queryAll();
-//print_r($kpi_emp_not_sub);
-//die();
+// print_r($kpi_emp_not_sub);
+// die();
 		$mid_sub_data=array();
 		$mid_not_sub=array();
-		$mid_sub=$model->get_mid_review_submitted($year1);
-
+		//$mid_sub=$model->get_mid_review_submitted($year1);
+		$where = 'where goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
+		$list = array('goal_set_year','mid_KRA_final_status');
+		$data = array('2017-2018','');
+		$mid_sub =$model->get_emp_id_list($where,$data,$list);
+//print_r(count($mid_sub));die();
 		for($i=0;$i<count($mid_sub);$i++){
 				$Employee_id=$mid_sub[$i]['Employee_id'];
 				$where = 'where Employee_id = :Employee_id';
 				$list = array('Employee_id');
 				$data = array($mid_sub[$i]['Employee_id']);
 				$mid_sub_data1[$i] = $employee_data->get_employee_data($where,$data,$list);
-if(isset($mid_sub_data1[$i]['0']['pms_status']) && isset($mid_sub_data1[$i]) && $mid_sub_data1[$i]['0']['pms_status'] != 'Inactive')
-{
-	$mid_sub_data[$i] = $mid_sub_data1[$i];
-}
+// if(isset($mid_sub_data1[$i]['0']['pms_status']) && isset($mid_sub_data1[$i]) && $mid_sub_data1[$i]['0']['pms_status'] != 'Inactive')
+// {
+// 	$mid_sub_data[$i] = $mid_sub_data1[$i];
+// }
 
 				
 			}
-			
+		//echo (count($mid_sub_data1));die();
 $mid_sub_data=count(array_filter($mid_sub_data1));
 
-		$emp_mid_list = $model->get_mid_review_submitted($year1);
+		//$emp_mid_list = $model->get_mid_review_submitted($year1);
+        $where = 'where goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
+		$list = array('goal_set_year','mid_KRA_final_status');
+		$data = array('2017-2018','');
+		$emp_mid_list =$model->get_emp_id_list($where,$data,$list);
+		
 		$emp_all_data = $employee_data->get_distinct_emplist();
 		$emp_id_array = '';
 		for ($m=0; $m < count($emp_mid_list); $m++) { 
@@ -252,6 +263,7 @@ $idp_not_sub[$i] = $idp_not_sub1[$i];
 }
   
 }
+
 //$idp_not_sub = $code_idp; 
 //print_r($idp_not_sub_count);die();
 		//print_r($idp_not_sub);die();
@@ -415,6 +427,7 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
 		//	print_r($emp_list);die();
 			$emp_all_data = $employee_data->get_distinct_emplist();
 			$emp_id_array = '';
+
 			for ($m=0; $m < count($emp_list); $m++) { 
 
 				if($emp_id_array == '')
@@ -427,7 +440,15 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
 				}
 				
 			}
-		$q1_pending = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and Employee_id NOT IN ('.$emp_id_array.') ')->queryAll();
+			//print_r($emp_id_array);die();
+			if ($emp_id_array != "") {
+				$q1_pending = Yii::app()->db->createCommand()->select('*')->from('Employee')->where('pms_status != "Inactive" and Employee_id NOT IN ('.$emp_id_array.")")->queryAll();
+			}
+			else
+			{
+				$q1_pending = array();
+			}
+		
 		
 		//print_r($q1_data1);die();
         $q1_appr=$model->get_disinct_q1_appr($year1);
@@ -435,10 +456,13 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
 	    if (!isset($yearEnd_rev)) {
 	    	$yearEnd_rev = '';
 	    }
+
         //print_r($yearEnd_rev);die();
+
 		$this->render('//site/script_file');
 		$this->render('//site/admin_header_view');
 		$this->render('//site/baseurl');
+		// die();
 		$this->render('//site/admin_dashboard',array(
 			'kpi_data1'=>$kpi_data1,
 			'kpi_pend'=>$kpi_pend,
@@ -1352,6 +1376,7 @@ if($content == '')
 
 
 	function actionstatusgetMid(){
+		// echo "hi";die();
 		$status = $_POST['status'];
 		$value = explode('_',$status);
 		$model=new KpiAutoSaveForm();
@@ -1363,10 +1388,14 @@ if($content == '')
 		$settings_data = $setting_date->get_setting_data($where,$data,$list);
 		$year1=$settings_data['0']['setting_type'];
 		$apr_name = '';
-		$mid_sub=$model->get_mid_review_submitted($year1);
-		//print_r($value[1]);die();
+		//$mid_sub=$model->get_mid_review_submitted($year1);
+		$where = 'where goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
+		$list = array('goal_set_year','mid_KRA_final_status');
+		$data = array('2017-2018','');
+		$mid_sub =$model->get_emp_id_list($where,$data,$list);
+		//print_r($data);die();
 		if ($value[1] == 'Submitted') {	
-			
+			//echo "hi";die();
 				for($i=0;$i<count($mid_sub);$i++){
 					
 				$Employee_id=$mid_sub[$i]['Employee_id'];
@@ -1383,8 +1412,11 @@ if($content == '')
 		}
 		else if($value[1] == 'Pendingemp')
 		{
-			
-			$emp_list = $model->get_mid_review_submitted($year1);
+			$where = 'where goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
+			$list = array('goal_set_year','mid_KRA_final_status');
+			$data = array('2017-2018','');
+			$emp_list =$model->get_emp_id_list($where,$data,$list);
+			//$emp_list = $model->get_mid_review_submitted($year1);
 			//print_r($emp_list);die();
 			$emp_all_data = $employee_data->get_distinct_emplist();
 			$emp_id_array = '';

@@ -26,6 +26,7 @@
         <!-- BEGIN PAGE LEVEL STYLES -->
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/css/login-5.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/css/login.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <!-- END PAGE LEVEL STYLES -->
         <!-- BEGIN THEME LAYOUT STYLES -->
         <!-- END THEME LAYOUT STYLES -->
@@ -81,11 +82,7 @@ font-weight: bold;
                 // 'action' => $this->createUrl('Adminlogin/employee_login'),
                'enableAjaxValidation'=>false,                            
                 'enableClientValidation' => true,
-                'clientOptions' => array(
-                        'validateOnSubmit' => true,
-                        'afterValidate' => 'js:checkErrors'
-
-                ),
+                
                 'htmlOptions'=>array(
                     'class'=>'form-horizontal',
                     'enctype' => 'multipart/form-data'
@@ -157,6 +154,7 @@ color: rgb(50, 197, 210);">Locationwise Admin Login</a></div>
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-notific8/jquery.notific8.min.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
         $(function(){
+            $.cookie('my_cookie',null, {domain:'vvf.kritva.in'})
 $("#LoginForm_password").keypress(function(e){
 var key = e.which;
  if(key == 13)  // the enter key code
@@ -234,6 +232,7 @@ var base_url = window.location.origin;
                                 'username' : $(".username").val(),
                                 'password' : $(".password").val(),
                             };
+                           // alert(data);
                             var base_url = window.location.origin;
                             $.ajax({
                                 'type' : 'post',

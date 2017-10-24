@@ -71,8 +71,10 @@ display:none;
                                                     <tbody>
                                                     <?php
                                                     $cnt = 1;
+                                                   //print_r($kpi_emp_data_aprv);die();
                                                         if (isset($kpi_emp_data_aprv) && $kpi_emp_data_aprv!='') {
                                                             for ($i=0; $i < count($kpi_emp_data_aprv); $i++) {
+                                                                if (isset($kpi_emp_data_aprv[$i]['0']) && $kpi_emp_data_aprv[$i] != "") {
                                                          ?>
                                                         <tr>
                                                             <td> <?php echo $kpi_emp_data_aprv[$i]['0']['Employee_id']; ?> </td>
@@ -95,7 +97,7 @@ display:none;
                                         ?> 
  </td>
                                                         </tr>
-                                                    <?php }  }
+                                                    <?php } }  }
                                                     else
                                                     {?>
                                                     <tr> <td colspan='5'> No Record Found </td></tr>

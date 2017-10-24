@@ -83,14 +83,26 @@
             };
             var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
             $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+           // var arr = doj.split("/");
+           // var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
+           // var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
+           // var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
+           // var fin_trn_prob = convert(trn_prob);
+           // $('#due_date_trn_prob').val(fin_trn_prob);
+           // var dt_of_con = convert(fin_dt);
+           // $('#confirm_due_date').val(dt_of_con);
            var arr = doj.split("/");
            var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
            var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
            var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
            var fin_trn_prob = convert(trn_prob);
-           $('#due_date_trn_prob').val(fin_trn_prob);
            var dt_of_con = convert(fin_dt);
-           $('#confirm_due_date').val(dt_of_con);
+           var trainee = $('option:selected', $('#trainee')).val();
+           if(trainee !="" ){
+               $('#due_date_trn_prob').val(fin_trn_prob);
+               $('#confirm_due_date').val(dt_of_con);
+           }
+
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -358,6 +370,7 @@ $(document).ready(function(){
     $(document).ready(function(){
    
     $("#pers_info").click(function(){
+        $("#pers_info").attr("href", "#");
         var fname = $('#fname').val();
         var lname = $('#lname').val();
         var mname = $('#mname').val();
@@ -406,7 +419,8 @@ $(document).ready(function(){
         $('#age_yrs').css('border','');
         $('#contact').css('border','');
         $('#comp_nm').css('border','');
-
+        $('#gender').css('border','');
+        $('#per_email').css('border','');
         if($('#comp_nm').val()==""){
             $('#err').text("Please Select Company name");
             $('#err').show();
@@ -423,7 +437,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#mname').focus();
             $('#mname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in middle name field");
         }
         else if($('#fname').val()==""){
             $('#err').text("Please enter first name");
@@ -441,7 +455,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#lname').focus();
             $('#lname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in last name field");
         }
         // else if($('#mname').val()==""){
         //     $('#err').text("Please enter middle name");
@@ -465,7 +479,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#per_email').focus();
             $('#per_email').css('border','1px solid red');
-            $("#err").text("Please enter valid email id");
+            $("#err").text("Please enter valid Personal email id");
         }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
@@ -644,6 +658,7 @@ $(document).ready(function(){
         }
     });
     $('#genrl_info').click(function(){
+        $("#genrl_info").attr("href", "#");
         $('#pos_code').css('border','');
         $('#desgn').css('border','');
         $('#dept').css('border','');
@@ -655,14 +670,17 @@ $(document).ready(function(){
         $('#loc_pay').css('border','');
         $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
-        var desgn = $('option:selected', $('#desgn')).val();
+        // var desgn = $('option:selected', $('#desgn')).val();
+        var desgn = $("#desgn option:selected").text();
         var dept = $('option:selected', $('.Department')).val();
         var sub_dept = $('option:selected', $('#sub_dept')).val();
         var bu = $('option:selected', $('#bu')).val();
         var cadre= $('option:selected', $('#cadre')).val();
         var grade= $('option:selected', $('#grade')).val();
-        var loc_work= $('option:selected', $('#loc_work')).val();
-        var loc_pay= $('option:selected', $('#loc_pay')).val();
+        //var loc_work= $('option:selected', $('#loc_work')).val();
+        var loc_work= $("#loc_work option:selected").text();
+        //var loc_pay= $('option:selected', $('#loc_pay')).val();
+        var loc_pay= $("#loc_pay option:selected").text();
         var cluster= $('option:selected', $('#clust_nm')).val();
         var u_id=$('#u_id').val();
         if($('#pos_code').val()==""){
@@ -671,7 +689,7 @@ $(document).ready(function(){
             $('#pos_code').css('border','1px solid red');
             $('#pos_code').focus();
         }
-        else if(desgn == ""){
+        else if(desgn == "" || desgn =="Select"){
             $('#err').text("Please Select Position");
             $('#err').show();
             $('#desgn').css('border','1px solid red');
@@ -707,13 +725,13 @@ $(document).ready(function(){
             $('#err').show();
             $('#grade').focus();
         }
-        else if(loc_work == ""){
+        else if(loc_work == "" || loc_work == "Select"){
             $('#err').text("Please Select Location-Working");
             $('#loc_work').css('border','1px solid red');
             $('#err').show();
             $('#loc_work').focus();
         }
-        else if(loc_pay == ""){
+        else if(loc_pay == "" || loc_pay == "Select"){
             $('#err').text("Please Select Location-Payroll");
             $('#loc_pay').css('border','1px solid red');
             $('#err').show();
@@ -764,6 +782,7 @@ $(document).ready(function(){
     });
     
     $("#reprt_detls").click(function(){
+        $("#reprt_detls").attr("href", "#");
         $('#report_mgr_sap').css('border','');
         $('#rep1_attd').css('border','');
         $('#rep1_appr').css('border','');
@@ -853,6 +872,7 @@ $(document).ready(function(){
     });
     
     $("#join_detals").click(function(){
+        $("#join_detals").attr("href", "#");
         $('#trainee').css('border','');
         $('#trn_dept').css('border','');
         $('#date_confrm_trn').css('border','');
@@ -984,7 +1004,27 @@ $(document).ready(function(){
             }
 
     }
-        if(trainee == ""){
+    if(prev_emplyr!=""){
+        if(othr_exp==''){
+           $('#err').text("Please Enter Other Experience ");
+           $('#othr_exp').css('border','1px solid red');
+           $('#err').show();
+           $('#othr_exp').focus(); 
+        }
+        else if(doj_vvf==''){
+           $('#err').text("Please Enter Date of Joining VVF ");
+           $('#doj_vvf').css('border','1px solid red');
+           $('#err').show();
+           $('#doj_vvf').focus(); 
+        }
+        else{
+                $('#err').text("");
+                $('#err').hide();
+            }
+
+    }
+
+        if($('#err').text()==""){
 
             $('#err').hide();
             $('#err').text('');
@@ -1029,6 +1069,7 @@ $(document).ready(function(){
     });
 
     $("#promo_detals").click(function(){
+        $("#promo_detals").attr("href", "#");
         $('#promo_dt').css('border','');
         $('#desg_bfr_promo').css('border','');
         $('#cdre_bfr_promo').css('border','');
@@ -1144,6 +1185,8 @@ $(document).ready(function(){
     });
 
     $('#trans_dtls').click(function(){
+
+        $("#trans_dtls").attr("href", "#");
         $('#trnsfr_frm_loc').css('border','');
         $('#tranr_wef_loc').css('border','');
         $('#transfr_frm_old_data_loc').css('border','');
@@ -1194,6 +1237,7 @@ $(document).ready(function(){
             }
         }
         if($('#err').text()==''){
+
             var trans_details= {
                 trnsfr_frm_loc: trnsfr_frm_loc,
                 tranr_wef_loc : tranr_wef_loc,
@@ -1210,6 +1254,7 @@ $(document).ready(function(){
                 'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/trans_details',
                 success : function(data)
                 {
+                    
                     alert(data);
                 }
             });
@@ -1227,6 +1272,7 @@ $(document).ready(function(){
     });
 
     $('#leave_dtls').click(function(){
+        $("#trans_dtls").attr("href", "#");
         $('#dt_retire').css('border','');
         $('#lst_wrk_dt').css('border','');
         $('#arrt_prd').css('border','');
@@ -1286,7 +1332,7 @@ $(document).ready(function(){
           //if($('#err').text() == ""){
            
            if($('#err').text()==''){
-            alert($('#err').text());
+           // alert($('#err').text());
             var leave_details = {
                     dt_retire : dt_retire,
                     lst_wrk_dt : lst_wrk_dt,
@@ -1308,7 +1354,7 @@ $(document).ready(function(){
                         alert(data);
                     }
                 });
-                $("#leave_dtls").attr("href", "#tab_1_8");
+            $("#leave_dtls").attr("href", "#tab_1_8");
             $('#li1').removeClass("active");
             $('#li2').removeClass("active");
             $('#li3').removeClass("active");
@@ -1322,17 +1368,18 @@ $(document).ready(function(){
     });
     
     $('#save_data').click(function(){
+        $("#save_data").attr("href", "#");
         $('#cost_center').css('border','');
         $('#cost_cenr_descr').css('border','');
         $('#emp_sta').css('border','');
         //alert("hi");
-        var cost_center = $('#cost_center').val();
+        var cost_center = $('option:selected', $('#cost_center')).val();
         var cost_cenr_descr = $('#cost_cenr_descr').val();
         var emp_sta = $('option:selected', $('#emp_sta')).val();
         var u_id=$('#u_id').val();
-        alert($('option:selected', $('#emp_sta')).val());
+        //alert($('option:selected', $('#emp_sta')).val());
         if(cost_center == ""){
-            $('#err').text("Please enter Cost Centre Codes");
+            $('#err').text("Please Select Cost Centre Codes");
             $('#cost_center').css('border','1px solid red');
             $('#err').show();
             $('#cost_center').focus();       
@@ -1350,6 +1397,8 @@ $(document).ready(function(){
             $('#emp_sta').focus();       
         }
         else{
+            $('#err').text("");
+            $('#err').hide();
             var othr_details={
                 cost_center : cost_center,
                 cost_cenr_descr : cost_cenr_descr,
@@ -1414,7 +1463,15 @@ $(document).ready(function(){
                                                 });
                                             }); 
 
-
+        $("#trainee").change(function(){ 
+                var trainee = $('option:selected', $('#trainee')).val();
+                if(trainee !="" || trainee != 'Select'){
+                    $('#prev_emplyr').val("");
+                    $('#othr_exp').val("");
+                    $('#doj_vvf').val("");
+                    $("#join_detals").attr("href", "#");
+                }
+        });
 
         $("#cost_center").change(function () {
             
@@ -1513,7 +1570,7 @@ $(document).ready(function(){
         var ext_cat = $('#ext_cat').val();
         var remark = $('#remark').val();
         var attr_type = $('option:selected', $('#attr_type')).val();
-        var cost_center = $('#cost_center').val();
+        var cost_center = $('option:selected', $('#cost_center')).val();
         var cost_cenr_descr = $('#cost_cenr_descr').val();
         var emp_sta = $('option:selected', $('#emp_sta')).val();
         var contact = $('#contact').val();
@@ -1735,7 +1792,7 @@ var d = new Date(2017, 09, 01);
                                 $("#err").addClass("alert-danger"); 
                                 $('#err').show();
                                 $(this).css('border','1px solid red');
-                                $("#err").text("Please enter valid email ID");
+                                $("#err").text("Please enter valid Personal email ID");
                             }
                             else
                             {
@@ -1843,7 +1900,7 @@ var d = new Date(2017, 09, 01);
                             <!-- BEGIN PAGE SIDEBAR -->
                             <div class="page-content-col">
                                 <!-- BEGIN PAGE BASE CONTENT -->
-                                <div class="alert alert-danger fade in" id="err" style="display:none    " >Error</div>
+                                <div class="alert alert-danger fade in" id="err" style="display:none" >Error</div>
          
  
                               <div class="col-md-10">
@@ -1919,7 +1976,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Last Name
+                                                                    <label class="col-md-3 control-label">Last Nameee
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php
@@ -2161,10 +2218,10 @@ var d = new Date(2017, 09, 01);
                                                                     <div class="col-md-6">
                                                                         <?php
                                                                          if(isset($employee_data) && ($employee_data['0']['Pan_number']!="")){?> 
-                                                                         <input class="form-control" placeholder="Enter PAN Card No." type="text" id="pan" value="<?php echo $employee_data['0']['Pan_number'];?>">
+                                                                         <input class="form-control validate_field" placeholder="Enter PAN Card No." type="text" id="pan" value="<?php echo $employee_data['0']['Pan_number'];?>">
                                                                          <?php } 
                                                                          else {?>
-                                                                          <input class="form-control" placeholder="Enter PAN Card No." type="text" id="pan">
+                                                                          <input class="form-control validate_field" placeholder="Enter PAN Card No." type="text" id="pan">
                                                                          <?php } ?>
                                                                        
                                                                     </div>
@@ -2175,10 +2232,10 @@ var d = new Date(2017, 09, 01);
                                                                     <div class="col-md-6">
                                                                         <?php
                                                                          if(isset($employee_data) && ($employee_data['0']['aadhar_no']!="")){?> 
-                                                                        <input class="form-control" placeholder="Enter Aadhar number" type="text" id="aadhar" value="<?php echo $employee_data['0']['aadhar_no']; ?>">
+                                                                        <input class="form-control validate_field" placeholder="Enter Aadhar number" type="text" id="aadhar" value="<?php echo $employee_data['0']['aadhar_no']; ?>">
                                                                         <?php } 
                                                                         else { ?>
-                                                                        <input class="form-control" placeholder="Enter Aadhar number" type="text" id="aadhar">
+                                                                        <input class="form-control validate_field" placeholder="Enter Aadhar number" type="text" id="aadhar">
                                                                         <?php } ?>
                                                                     </div>
                                                                 </div>
@@ -2472,7 +2529,7 @@ var d = new Date(2017, 09, 01);
                                                                 </div>
                                                                 
                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Location-Working at</label>
+                                                                    <label class="col-md-3 control-label">Location-Working at1</label>
                                                                     <div class="col-md-6">
                                                                                 <!-- <select class="form-control" id="loc_work">
                                                                                     <option value="">Select</option>
@@ -2542,7 +2599,7 @@ var d = new Date(2017, 09, 01);
                                                                                         $location_details=$records['0']['company_location'];
                                                                                         $location1=explode(';',$location_details);
                                                                                         $status1 = '';
-                                                                                        $status1[$employee_data['0']['company_location']] = array('selected' => true);
+                                                                                        $status1[$employee_data['0']['Location_payroll_at']] = array('selected' => true);
 
                                                                                         $list_data = array();
                                                                                         for ($i=0; $i < count($location1); $i++) { 
@@ -3041,6 +3098,17 @@ var d = new Date(2017, 09, 01);
                                                                                
                                                                     </div>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Other Exp (In Yrs)
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                        <?php  if(isset($employee_data) && ($employee_data['0']['Other_exp']!="")){ ?> 
+                                                                               <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp"  value="<?php echo $employee_data['0']['Other_exp'];?>">
+                                                                         <?php } else {?>
+                                                                                <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
+                                                                         <?php }?>
+                                                                    </div>
+                                                                </div>
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Date of Joining VVF
                                                                     </label>
@@ -3052,17 +3120,7 @@ var d = new Date(2017, 09, 01);
                                                                      <?php }?>
                                                                     </div>
                                                                 </div>
-                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Other Exp (In Yrs)
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                        <?php  if(isset($employee_data) && ($employee_data['0']['Other_exp']!="")){ ?> 
-                                                                               <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp"  value="<?php echo $employee_data['0']['Other_exp'];?>">
-                                                                         <?php } else {?>
-                                                                                <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
-                                                                         <?php }?>
-                                                                    </div>
-                                                                </div>
+                                                                 
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">VVF Exp (In Yrs)
                                                                     </label>
@@ -3364,7 +3422,7 @@ var d = new Date(2017, 09, 01);
                                                                             <option value="">Select</option>
                                                                             <option value="Corporate">Corporate</option>
                                                                             <option value="Sion">Sion</option>
-                                                                            <option value="Taloja" selected="selected">Taloja</option>
+                                                                            <option value="Taloja" >Taloja</option>
                                                                             <option value="Raipur">Raipur</option>
                                                                             <option value="Kolkata">Kolkata</option>
                                                                             <option value="Baddi">Baddi</option>
@@ -3389,7 +3447,7 @@ var d = new Date(2017, 09, 01);
                                                                                    <option value="">Select</option>
                                                                                    <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja">Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3414,7 +3472,7 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3439,7 +3497,7 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3457,13 +3515,13 @@ var d = new Date(2017, 09, 01);
                                                                     <label class="col-md-3 control-label">Transferred From (Department)     
                                                             </label>
                                                                     <div class="col-md-6">
-                                                                                <select class="form-control" id="transfr_frm_dept">
+                                                                                <!-- <select class="form-control" id="transfr_frm_dept">
                                                                                     <?php  if(isset($employee_data) && ($employee_data['0']['Transferred_from_dept'] !="")){ ?>
                                                                                          <option value="<?php echo $employee_data['0']['Transferred_from_dept'];?>" Selected><?php echo $employee_data['0']['Transferred_from_dept'];?></option>
                                                                                     <?php } ?>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3473,21 +3531,38 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="Daman">Daman</option>
                                                                                     <option value="Chennai">Chennai</option>
                                                                                     <option value="New Delhi">New Delhi</option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                                    $arr_clus = array();
+                                                                                    $arr_clus[$employee_data['0']['Transferred_from_dept']] = array('selected' => true);  
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    if(isset($employee_data) && ($employee_data['0']['Transferred_from_dept'] !="")){
+                                                                                         echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'transfr_frm_dept','class'=>'form-control department','options'=>$arr_clus)); 
+                                                                                    
+                                                                                    }
+                                                                                    else{
+                                                                                       echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'transfr_frm_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                    }
+                                                                                 ?>
                                                                                 <span class="help-block"> Select Transferred From Old Data (Location) </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Transfer W.e.f (Department) </label>
                                                                     <div class="col-md-6">
-                                                                        <select class="form-control" id="tranr_wef_dept">
+                                                                       <!--  <select class="form-control" id="tranr_wef_dept">
                                                                             <?php  if(isset($employee_data) && ($employee_data['0']['Transfer_wef_dept'] !="")){ ?>
                                                                                          <option value="<?php echo $employee_data['0']['Transfer_wef_dept'];?>" Selected><?php echo $employee_data['0']['Transfer_wef_dept'];?></option>
                                                                                     <?php } ?>
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3497,7 +3572,22 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="Daman">Daman</option>
                                                                                     <option value="Chennai">Chennai</option>
                                                                                     <option value="New Delhi">New Delhi</option>
-                                                                       </select>
+                                                                       </select> -->
+                                                                       <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 $arr_clus = array();
+                                                                                 $arr_clus[$employee_data['0']['Transfer_wef_dept']] = array('selected' => true);  
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 if(isset($employee_data) && ($employee_data['0']['Transfer_wef_dept'] !="")){
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'tranr_wef_dept','class'=>'form-control department','options'=>$arr_clus)); 
+                                                                                }
+                                                                                else{
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'tranr_wef_dept','class'=>'form-control department','options'=>$arr_clus,'empty'=>'Select')); 
+                                                                                }
+                                                                                 ?>
                                                                        <span class="help-block"> Select Transfer W.e.f (Department) </span>
                                                                     </div>
                                                                 </div>
@@ -3645,7 +3735,7 @@ var d = new Date(2017, 09, 01);
                                                              <div class="tab-pane" id="tab_1_8">
                                                                  
                                                                  <form action="#" class="form-horizontal">
-                                                                    <div class="form-group">
+                                                                    <!-- <div class="form-group">
                                                                     <label class="col-md-3 control-label">Cost Centre Codes</label>
                                                                     <div class="col-md-6">
                                                                         <?php  if(isset($employee_data) && ($employee_data['0']['Cost_centre_codes'] !="")){ ?>
@@ -3655,6 +3745,33 @@ var d = new Date(2017, 09, 01);
                                                                         <input class="form-control" placeholder="Enter Cost Centre Codes from 01-April-2016" type="text" id="cost_center">
                                                                         <?php }?>
                                                                         
+                                                                    </div>
+                                                                </div> -->
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Cost Centre Codes</label>
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                         <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $costcenter_model = new CostCenter();
+                                                                               
+                                                                                 $records=$costcenter_model->getCodes();
+                                                                                 $status1 = '';
+                                                                                $status1[$employee_data['0']['Cost_centre_codes']] = array('selected' => true);
+                                                                                // print_r($records);
+                                                                                 $list = CHtml::listData($records,'cost_center', 'cost_center'); 
+
+                                                                                 if($employee_data['0']['Cost_centre_codes']==""){
+                                                                                     echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','empty'=>'Select')); 
+                                                                                 }
+                                                                                 else{
+                                                                                   
+                                                                                     echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','options'=>$status1,'empty'=>'Select')); 
+                                                                                 }
+                                                                                    
+                                                                                
+                                                                                 ?>
+
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">

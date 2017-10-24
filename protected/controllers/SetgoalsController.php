@@ -141,6 +141,7 @@ if ($emp_data['0']['reporting_1_change'] != '' && strtotime($emp_data['0']['repo
 			}
 			
 		}
+		//die();
         //print_r($kpi_data);die();
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
@@ -844,7 +845,7 @@ function actionsavekpi1()
 			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
 			$mail->SMTPAuth = true;                               // Enable SMTP authentication
 			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
-			$mail->Password = 'Dream@123';                           // SMTP password
+			$mail->Password = 'Dream@200';                           // SMTP password
 			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 			$mail->Port = 587;                                    // TCP port to connect to
 
@@ -977,7 +978,7 @@ $notification_data->notification_type = 'KPI Deletion';
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@123';                         
+				$mail->Password = 'Dream@200';                         
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 				
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
@@ -1656,7 +1657,7 @@ $notification_data->notification_type = 'KRA Deletion';
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@123';                         
+				$mail->Password = 'Dream@200';                         
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname']);
@@ -1877,7 +1878,7 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@123';                         
+				$mail->Password = 'Dream@200';                         
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
@@ -1930,7 +1931,7 @@ if($employee_data['0']['invalid_email'] != '1')
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@123';                         
+				$mail->Password = 'Dream@200';                         
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 
               	$params = array('mail_data'=>$employee_data);
@@ -1992,7 +1993,7 @@ $notification_data->notification_type = 'Goal Approval_pending';
 		$mail->Host = 'smtp.office365.com'; 
 		$mail->SMTPAuth = true;                          
 		$mail->Username = 'vvf.pms@vvfltd.com';    
-		$mail->Password = 'Dream@123';                         
+		$mail->Password = 'Dream@200';                         
 		$mail->SMTPSecure = 'tls';                          
 		$mail->Port = 587; 		    
 

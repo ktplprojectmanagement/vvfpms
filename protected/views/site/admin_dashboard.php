@@ -1,3 +1,4 @@
+
 <style type="text/css">
 .dataTables_empty{
     colspan=3;
@@ -994,7 +995,7 @@ $emp_appr_idp++;
                                         </div> -->
                                     </div>
                                 </div>
-                       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+<!--                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="dashboard-stat2 " style="background-color:#efefef">
                                         <div class="display">
                                             <div class="number">
@@ -1018,11 +1019,11 @@ $emp_mid_idp_notsub++;
                                                    
                                                 </h3>
                                                 <small style="font-weight: unset;color: #686E72;font-size:15px" class="chk_user_Mididp_status" id="mid_Pendingemp"><a style="color:red;" href="javascript:doSomething();">incomplete IDP</a></small>
-                                            </div>
+                                            </div> -->
                                             <!-- <div class="icon">
                                                 <i class="icon-pie-chart"></i>
                                             </div> -->
-                                        </div>
+                                        <!-- </div> -->
                                         <!-- <div class="progress-info">
                                             <div class="progress">
                                                 <span style="width: 76%;" class="progress-bar progress-bar-success green-sharp">
@@ -1034,9 +1035,9 @@ $emp_mid_idp_notsub++;
                                                 <div class="status-number" style="color: #686E72;"> 76% </div>
                                             </div>
                                         </div> -->
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                               <!--      </div>
+                                </div> -->
+<!--                                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                                     <div class="dashboard-stat2 "style="background-color:#efefef">
                                         <div class="display">
                                             <div class="number">
@@ -1061,7 +1062,7 @@ $emp_mid_idp_sub++;
                                                 <small style="font-weight: unset;color: #686E72;font-size:15px;"  id="mid_Submitted" class="chk_user_Mididp_status"><a style="color:green" href="javascript:doSomething();">Completed  idp </a></small>
                                             </div>
                                             
-                                        </div>
+                                        </div> -->
                                         <!-- <div class="progress-info">
                                             <div class="progress">
                                                 <span style="width: 85%;" class="progress-bar progress-bar-success red-haze">
@@ -1073,9 +1074,9 @@ $emp_mid_idp_sub++;
                                                 <div class="status-number" style="color: #686E72;"> 85% </div>
                                             </div>
                                         </div> -->
-                                    </div>
-                                </div>
-                    <div class="col-lg-3 col-md-3 col-sm- col-xs-12">
+                                 <!--    </div>
+                                </div> -->
+<!--                     <div class="col-lg-3 col-md-3 col-sm- col-xs-12">
                                     <div class="dashboard-stat2 "style="background-color:#efefef;">
                                         <div class="display">
                                             <div class="number">
@@ -1097,7 +1098,7 @@ $emp_mid_idp_sub++;
                                         </div>
                                        
                                     </div>
-                                </div>
+                                </div> -->
                        
 
 

@@ -226,12 +226,17 @@ class NewemployeeController extends Controller
     		$model->Image=$filenamekey.'.'.$Fileext;
 		}
 		
-		
+		//print_r($_POST['Employee_id']);die();
 
 		$login_save =new LoginForm;
- 		$login_save->username = $_POST['Email_id'];
+ 		$login_save->username = isset($_POST['Email_id'])? $_POST['Email_id'] : "";
  		$login_save->password = md5('123456');
  		$login_save->role_id = '3';
+ 		$login_save->Employee_id = isset($_POST['Employee_id'])?$_POST['Employee_id']: "";
+ 		$login_save->first_login_flag = '1';
+ 		$login_save->login_flag = '0';
+ 		$login_save->save();
+ 		//print_r($login_save->attributes);die();
  			 if($model->validate())
         	{ 
 	        	  	

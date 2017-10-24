@@ -65,7 +65,7 @@ class EmployeeForm extends CActiveRecord
 	function getdata()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select * from Employee use index (emp_index) where pms_status != 'Inactive'";
+		$sql = "select * from Employee  where pms_status != 'Inactive'";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();
 		return $rows;
@@ -74,7 +74,7 @@ class EmployeeForm extends CActiveRecord
 	function get_JD()
 	{
 		$connection=Yii::app()->db;
-		$sql = "SELECT * FROM `Employee` use index (emp_index) GROUP by `Designation`,`JD_reporter` ";
+		$sql = "SELECT * FROM `Employee`  GROUP by `Designation`,`JD_reporter` ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();
 		return $rows;
@@ -83,7 +83,7 @@ class EmployeeForm extends CActiveRecord
 	function get_employee_data($where,$data,$list)
 	{		
 		$connection=Yii::app()->db;
-		$sql = "select * from `Employee` use index (emp_index) ".' '.$where.' and pms_status !=:pms_status';
+		$sql = "select * from `Employee`  ".' '.$where.' and pms_status !=:pms_status';
                 $list[count($list)] = 'pms_status';
 			$data[count($data)] = "Inactive";
 		//print_r($sql);die();
@@ -100,7 +100,7 @@ class EmployeeForm extends CActiveRecord
 		function get_reporting_data($where,$data,$list)
 	{		
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Reporting_officer1_id` from `Employee` use index (emp_index) ".' '.$where.' and pms_status !=:pms_status';
+		$sql = "select distinct `Reporting_officer1_id` from `Employee`  ".' '.$where.' and pms_status !=:pms_status';
                 $list[count($list)] = 'pms_status';
 			$data[count($data)] = "Inactive";
 		//print_r($sql);die();
@@ -117,7 +117,7 @@ class EmployeeForm extends CActiveRecord
 function get_employee_data_new($where,$data,$list)
 	{		
 		$connection=Yii::app()->db;
-		$sql = "select * from `Employee` use index (emp_index) ".' '.$where;
+		$sql = "select * from `Employee`  ".' '.$where;
                // $list[count($list)] = 'pms_status';
 			//$data[count($data)] = "Inactive";	
 		//print_r($sql);die();
@@ -132,7 +132,7 @@ function get_employee_data_new($where,$data,$list)
 	function get_appraiser_list()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Reporting_officer1_id` from `Employee` use index (emp_index)";
+		$sql = "select distinct `Reporting_officer1_id` from `Employee` ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -141,7 +141,7 @@ function get_employee_data_new($where,$data,$list)
         function get_appraiser_list2()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Email_id` from `Employee` use index (emp_index)";
+		$sql = "select distinct `Email_id` from `Employee` ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -150,7 +150,7 @@ function get_employee_data_new($where,$data,$list)
 	function get_department_list()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Department` from `Employee` use index (emp_index) where Department != ''";
+		$sql = "select distinct `Department` from `Employee`  where Department != ''";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -159,7 +159,7 @@ function get_employee_data_new($where,$data,$list)
         function get_bu_list()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `BU` from `Employee` use index (emp_index) where BU != ''";
+		$sql = "select distinct `BU` from `Employee`  where BU != ''";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -168,7 +168,7 @@ function get_employee_data_new($where,$data,$list)
 	function get_distinct_list($list,$where)
 	{
 		$connection=Yii::app()->db;
-		$sql = "SELECT DISTINCT `".$list."` FROM `Employee` use index (emp_index) ".$where."";
+		$sql = "SELECT DISTINCT `".$list."` FROM `Employee`  ".$where."";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -178,7 +178,7 @@ function get_employee_data_new($where,$data,$list)
 	{
 
 $connection=Yii::app()->db;
-			$sql = "SELECT DISTINCT `cluster_name` FROM `Employee` use index (emp_index) where `cluster_name`!=''   ";
+			$sql = "SELECT DISTINCT `cluster_name` FROM `Employee`  where `cluster_name`!=''   ";
 			$command=$connection->createCommand($sql);
 			$rows=$command->queryAll();		
 			return $rows;
@@ -190,7 +190,7 @@ $connection=Yii::app()->db;
 	function get_distinct_emplist()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Employee_id` from `Employee` use index (emp_index)";
+		$sql = "select distinct `Employee_id` from `Employee` ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -200,7 +200,7 @@ $connection=Yii::app()->db;
 	function get_report_content($list)
 	{		
 		$connection=Yii::app()->db;
-		$sql = "select ".$list." from `Employee` use index (emp_index)";
+		$sql = "select ".$list." from `Employee` ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -209,7 +209,7 @@ $connection=Yii::app()->db;
 	function get_designation_list()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Designation` from `Employee` use index (emp_index) where Designation != ''";
+		$sql = "select distinct `Designation` from `Employee`  where Designation != ''";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -218,7 +218,7 @@ $connection=Yii::app()->db;
 function get_cader_list()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Cadre` from `Employee` use index (emp_index) where Cadre != ''";
+		$sql = "select distinct `Cadre` from `Employee`  where Cadre != ''";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -228,7 +228,7 @@ function get_cader_list()
 	function get_appraiser_list1()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select distinct `Email_id` from `Employee` use index (emp_index) ORDER BY `Emp_fname` ASC ";
+		$sql = "select distinct `Email_id` from `Employee`  ORDER BY `Emp_fname` ASC ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -237,7 +237,7 @@ function get_cader_list()
 	function get_dist_employee_data($list)
 	{		
 		$connection=Yii::app()->db;
-		$sql = "select distinct  ".$list . "  from  `Employee` use index (emp_index)";
+		$sql = "select distinct  ".$list . "  from  `Employee` ";
 		
 		$command=$connection->createCommand($sql);
 		
@@ -249,10 +249,10 @@ function get_cader_list()
 		$connection=Yii::app()->db;
 		
 		if ($emp_id_array == '') {
-		$sql = "select * from `Employee` use index (emp_index) where `Employee_id` IN (".$array.") AND `Employee_id` NOT IN ('.$emp_id_array.') AND `pms_status` != 'Inactive' ";
+		$sql = "select * from `Employee`  where `Employee_id` IN (".$array.") AND `Employee_id` NOT IN ('.$emp_id_array.') AND `pms_status` != 'Inactive' ";
 		}
 		else{
-			$sql = "select * from `Employee` use index (emp_index) where `Employee_id` IN (".$array.") AND `Employee_id` NOT IN (".$emp_id_array.") AND `pms_status` != 'Inactive' ";
+			$sql = "select * from `Employee`  where `Employee_id` IN (".$array.") AND `Employee_id` NOT IN (".$emp_id_array.") AND `pms_status` != 'Inactive' ";
 		}
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
@@ -263,7 +263,7 @@ function get_cader_list()
 	{
 		
 		$connection=Yii::app()->db;
-		//$sql = "SELECT DISTINCT `Employee_id` use index (emp_index) FROM `IDP` WHERE (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1')";
+		//$sql = "SELECT DISTINCT `Employee_id`  FROM `IDP` WHERE (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1')";
 	//print_r($array);die();
 		$sql="SELECT DISTINCT `Employee_id` FROM `Employee` WHERE (`Employee_id` NOT IN (".$emp_not_sub_idp.") AND `pms_status` != 'Inactive') ";
 		$command=$connection->createCommand($sql);
@@ -276,7 +276,7 @@ function get_cader_list()
 	{
 		
 		$connection=Yii::app()->db;
-		//$sql = "SELECT DISTINCT `Employee_id` use index (emp_index) FROM `IDP` WHERE (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1')";
+		//$sql = "SELECT DISTINCT `Employee_id`  FROM `IDP` WHERE (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1')";
 	//print_r($array);die();
 		$sql="SELECT DISTINCT `Employee_id` FROM `Employee` WHERE (`Employee_id` NOT IN (".$mid_idp_not_sub1.") AND `pms_status` != 'Inactive') ";
 		$command=$connection->createCommand($sql);
@@ -290,7 +290,7 @@ function get_yearEnd_not_submitted($emp_not_subyearEnd)
 	{
 		
 		$connection=Yii::app()->db;
-		//$sql = "SELECT DISTINCT `Employee_id` use index (emp_index) FROM `IDP` WHERE (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1')";
+		//$sql = "SELECT DISTINCT `Employee_id`  FROM `IDP` WHERE (`Employee_id` IN (".$array.")) AND (`goal_set_year`='$year1')";
 	//print_r($array);die();
 		$sql="SELECT DISTINCT `Employee_id` FROM `Employee` WHERE (`Employee_id` NOT IN (".$emp_not_subyearEnd.") AND `pms_status` != 'Inactive' ) ";
 		$command=$connection->createCommand($sql);

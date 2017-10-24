@@ -366,7 +366,7 @@ $data = array(
 		$mail->Host = 'smtp.office365.com'; 
 		$mail->SMTPAuth = true;                          
 		$mail->Username = 'vvf.pms@vvfltd.com';    
-		$mail->Password = 'Dream@123';                         
+		$mail->Password = 'Dream@200';                         
 		$mail->SMTPSecure = 'tls';                          
 		$mail->Port = 587; 
 		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);
@@ -401,7 +401,7 @@ $data = array(
 		$mail->Host = 'smtp.office365.com'; 
 		$mail->SMTPAuth = true;                          
 		$mail->Username = 'vvf.pms@vvfltd.com';    
-		$mail->Password = 'Dream@123';                         
+		$mail->Password = 'Dream@200';                         
 		$mail->SMTPSecure = 'tls';                          
 		$mail->Port = 587; 
 		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);

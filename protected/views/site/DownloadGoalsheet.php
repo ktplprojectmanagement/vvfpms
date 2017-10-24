@@ -25,7 +25,7 @@
                                                             <th>Reporting Officer</th>
                                                             
 <th >Download Goalsheet</th>
-<th >Download IDP</th>
+<!-- <th >Download IDP</th> -->
                 </tr>
             </thead>
             <tbody id="dept_based_emp">
@@ -64,13 +64,13 @@ if($row['0']['Employee_id'] != '')
                                         ?>
 <td>
 
-<a href="<?php echo Yii::app()->request->baseUrl; ?>/Goalsheet_docs/goalsheet_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?>.pdf">Download</a>
+<a href="<?php echo Yii::app()->request->baseUrl; ?>/Goalsheet_docs/goalsheet_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?><?php echo Yii::app()->user->getState('financial_year_check');?>".".pdf">Download</a>
 
 
 
 
-</td>
-<td><a href="<?php echo Yii::app()->request->baseUrl; ?>/IDP_docs/IDP_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?>.pdf">Download</a></td>
+</td><!-- 
+<td><a href="<?php echo Yii::app()->request->baseUrl; ?>/IDP_docs/IDP_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?>.pdf">Download</a></td> -->
 
                                                             </tr>                                                       
                                                         <?php $cnt++;  

@@ -33,10 +33,10 @@ label{
 
 <div class="container">
   <div class="logo">
-<img src="http://kritva.in/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
+<img src="https://kritva.in/pms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
-  Dear <label><?php if(isset($mail_data['0']['Emp_fname'])) { echo $mail_data['0']['Emp_fname']; }?></label>,<br/>
+  Dear <label><?php if(isset($mail_data['0']['Emp_fname']) && isset($mail_data['0']['Emp_lname'])) { echo $mail_data['0']['Emp_fname'].' '.$mail_data['0']['Emp_lname']; }?></label>,<br/>
 
  I have reviewed Mid year goal sheet for the year <label><?php echo date('Y').'-'.date('Y', strtotime('+1 year')); ?></label>.</span> Kindly login to PMS portal through link below and check.<br/>
 
@@ -45,7 +45,7 @@ label{
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>
- <?php if(Yii::app()->user->getState("Employee_name") && Yii::app()->user->getState("Employee_name")!='') { print_r(Yii::app()->user->getState("Employee_name")); }?></p></span> 
+ <?php if(isset($mail_data1['0']['Emp_fname']) && isset($mail_data1['0']['Emp_lname'])) { echo $mail_data1['0']['Emp_fname'].' '.$mail_data1['0']['Emp_lname']; }?></p></span> 
  <p style="color: #bbb;">
 2016 &#169; Kritva Technology Pvt. Ltd.
 </p>

@@ -103,12 +103,20 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		$data = array($Employee_id);
 		$emp_data_desc =$emp_data->get_employee_data($where,$data,$list);
 	
+	if (isset($emp_data_desc['0']['Email_id'])) {
 		$Reporting_officer1_id=$emp_data_desc['0']['Email_id'];
 		$where= 'where Reporting_officer1_id=:Reporting_officer1_id';
 		$list= array('Reporting_officer1_id');
 		$data= array($Reporting_officer1_id);
 		$team_members=$emp_data->get_employee_data($where,$data,$list);
 		$team=$emp_data->get_employee_data($where,$data,$list);
+	}
+	else
+	{
+		$Reporting_officer1_id = '';
+	}
+		
+		
 
 		$team_members= implode(', ', $this->actionarray_column($team_members, 'Employee_id'));
 
@@ -410,11 +418,11 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 			$mail->Host = 'smtp.office365.com';  
 			$mail->SMTPAuth = true;                         
 			$mail->Username = 'vvf.pms@vvfltd.com';            
-			$mail->Password = 'Dream@123';                      
+			$mail->Password = 'Dream@200';                      
 			$mail->SMTPSecure = 'tls';                          
 			$mail->Port = 587;     
 			$mail->setFrom('vvf.pms@vvfltd.com', 'Admin'); 
-			$message = 'Please Click on this link to reset password : '.'http://52.172.210.251'.Yii::app()->createUrl("index.php/Reset_password/Index",array("employee_id"=>$Email_id_data['0']["Employee_id"]));           // Name is optional
+			$message = 'Please Click on this link to reset password : '.'http://kritva.in'.Yii::app()->createUrl("index.php/Reset_password/Index",array("employee_id"=>$Email_id_data['0']["Employee_id"]));           // Name is optional
 			$mail->addReplyTo($_POST['email_id_reset'], 'Admin');
 			$mail->addCC($_POST['email_id_reset']);       
 			$mail->msgHTML($message);
@@ -476,7 +484,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 	public function actioncheck()
 	{
 		$model = new LoginForm;
-		session_start();
+		//session_start();
 		$setting_date=new SettingsForm;
 		$where = 'where setting_content = :setting_content and year = :year';
 		$list = array('setting_content','year');
@@ -515,11 +523,11 @@ if ($result['reporting_1_change'] != '' && strtotime($result['reporting_1_effect
 						'Employee_id' => $result['Employee_id'], 
 					);
 					$update = Yii::app()->db->createCommand()->update('login',$data,'username=:username and password=:password',array(':username'=>$role_id_array['username'],':password'=>$role_id_array['password']));
-					if( isset( $_SESSION['number'] ) ) {
-					      $_SESSION['number'] = $_POST['username'];
-					   }else {
-					      $_SESSION['number'] = '';
-					   }
+					// if( isset( $_SESSION['number'] ) ) {
+					//       $_SESSION['number'] = $_POST['username'];
+					//    }else {
+					//       $_SESSION['number'] = '';
+					//    }
 					date_default_timezone_set("Asia/Kolkata");
 					Yii::app()->user->setState('session_time','1800');
 					Yii::app()->user->setState('session_current_time',time());

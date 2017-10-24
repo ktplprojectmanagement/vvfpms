@@ -43,6 +43,12 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 
+		'session' => array(
+                        'class' => 'CDbHttpSession',
+                        'connectionID' => 'db',
+                        //'autoCreateSessionTable' => false,
+    ),
+
 		'mail' => array(                
                 'class' => 'ext.yii-mail.YiiMail',
 			     'transportType'=>'smtp',
@@ -55,6 +61,7 @@ return array(
 			     ),
 			    'viewPath' => 'application.views.mail',
         ),
+        
 
 		// uncomment the following to enable URLs in path-format
 		'urlManager'=>array(

@@ -316,7 +316,8 @@ class KpiAutoSaveForm extends CActiveRecord
 	}
 	function get_mid_review_submitted_team($array,$year1){
 		$connection=Yii::app()->db;
-		$sql = "SELECT DISTINCT `Employee_id` FROM kpi_auto_save use index (emp_index) WHERE (`Employee_id` NOT IN (SELECT s.`Employee_id` FROM kpi_auto_save as s WHERE `appraiser_comment` = '')) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
+		//$sql = "SELECT DISTINCT `Employee_id` FROM kpi_auto_save use index (emp_index) WHERE (`Employee_id` NOT IN (SELECT s.`Employee_id` FROM kpi_auto_save as s WHERE `appraiser_comment` = '')) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
+		$sql = "SELECT DISTINCT `Employee_id` FROM kpi_auto_save use index (emp_index) WHERE (`Employee_id` NOT IN (SELECT s.`Employee_id` FROM kpi_auto_save as s WHERE `mid_KRA_final_status` = '')) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;

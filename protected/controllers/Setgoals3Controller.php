@@ -1415,13 +1415,13 @@ $where = 'where goal_set_year = :goal_set_year';
 		$data = array(Yii::app()->user->getState('financial_year_check'));
 		$program_data_result = $program_data->get_kpi_data($where,$data,$list);
 
-	//print_r($program_data_result);die();	
+	
 		$selected_option = 'Goals';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
 		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 
-		$this->render('//site/edit_goal_sheet',array('kpi_auto_data'=>$kpi_data , 'model'=>$model,'kra_list'=>$kra,'kpi_data'=>$kpi_data,'program_data_result'=>$program_data_result,'kpi_data_edit'=>$kpi_data_edit,'apr_chk_flag'=>'1','KRA_category_auto'=>$KRA_category,'emp_data'=>$emp_data,'edit_flag_chk'=>1,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp));
+		$this->render('//site/edit_goal_sheet2',array('kpi_auto_data'=>$kpi_data , 'model'=>$model,'kra_list'=>$kra,'kpi_data'=>$kpi_data,'program_data_result'=>$program_data_result,'kpi_data_edit'=>$kpi_data_edit,'apr_chk_flag'=>'1','KRA_category_auto'=>$KRA_category,'emp_data'=>$emp_data,'edit_flag_chk'=>1,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp));
 		$this->render('//site/footer_view_layout');
 	}
 

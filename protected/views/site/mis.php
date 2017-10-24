@@ -65,9 +65,13 @@
            var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
            var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
            var fin_trn_prob = convert(trn_prob);
-           $('#due_date_trn_prob').val(fin_trn_prob);
+          
            var dt_of_con = convert(fin_dt);
+           var trainee = $('option:selected', $('#trainee')).val();
+           if(trainee !="" ){
+           $('#due_date_trn_prob').val(fin_trn_prob);
            $('#confirm_due_date').val(dt_of_con);
+           }
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -151,6 +155,7 @@ var d = new Date(2017, 09, 01);
                        $(function(){
 
                         $('#state').change(function(){
+                            //alert("hi");
                             var state_name = {
                                 'state_name' : $('#state').find(':selected').val()
                             }
@@ -358,6 +363,7 @@ $(document).ready(function(){
     $(document).ready(function(){
    
     $("#pers_info").click(function(){
+        $("#pers_info").attr("href", "#");
         $('#fname').css('border','');
         $('#lname').css('border','');
         $('#mname').css('border','');
@@ -375,6 +381,7 @@ $(document).ready(function(){
         $('#age_yrs').css('border','');
         $('#contact').css('border','');
         $('#comp_nm').css('border','');
+        $('#gender').css('border','');
         var nm = /^([a-zA-Z]{1,40})*$/;
         var eml = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
         var con_no = /^[\d]{10}$/;
@@ -428,7 +435,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#mname').focus();
             $('#mname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in middle name field");
         }
         else if($('#lname').val()==""){
             $('#err').text("Please enter last name");
@@ -440,7 +447,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#lname').focus();
             $('#lname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in last name field");
         }
         // else if($('#mname').val()==""){
         //     $('#err').text("Please enter middle name");
@@ -464,7 +471,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#per_email').focus();
             $('#per_email').css('border','1px solid red');
-            $("#err").text("Please enter valid email id");
+            $("#err").text("Please enter valid Personal email id");
         }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
@@ -650,7 +657,7 @@ $(document).ready(function(){
         }
     });
     $('#genrl_info').click(function(){
-        
+        $("#genrl_info").attr("href", "#");
         $('#pos_code').css('border','');
         $('#desgn').css('border','');
         $('#dept').css('border','');
@@ -662,14 +669,17 @@ $(document).ready(function(){
         $('#loc_pay').css('border','');
         $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
-        var desgn = $('option:selected', $('#desgn')).val();
+        //var desgn = $('option:selected', $('#desgn')).val();
+        var desgn = $("#desgn option:selected").text();
         var dept = $('option:selected', $('#dept')).val();
         var sub_dept = $('option:selected', $('#sub_dept')).val();
         var bu = $('option:selected', $('#bu')).val();
         var cadre= $('option:selected', $('#cadre')).val();
         var grade= $('option:selected', $('#grade')).val();
-        var loc_work= $('option:selected', $('#loc_work')).val();
-        var loc_pay= $('option:selected', $('#loc_pay')).val();
+        //var loc_work= $('option:selected', $('#loc_work')).val();
+        var loc_work= $("#loc_work option:selected").text();
+        //var loc_pay= $('option:selected', $('#loc_pay')).val();
+        var loc_pay= $("#loc_pay option:selected").text();
         var cluster= $('option:selected', $('#clust_nm')).val();
         var u_id=$('#u_id').val();
         //alert(u_id);
@@ -710,19 +720,19 @@ $(document).ready(function(){
             $('#err').show();
             $('#grade').focus();
         }
-        else if(desgn == ""){
+        else if(desgn == "" || desgn=='Select'){
             $('#err').text("Please Select Designation");
             $('#err').show();
             $('#desgn').css('border','1px solid red');
             $('#desgn').focus();
         }
-        else if(loc_work == ""){
+        else if(loc_work == "" || loc_work == 'Select'){
             $('#err').text("Please Select Location-Working");
             $('#loc_work').css('border','1px solid red');
             $('#err').show();
             $('#loc_work').focus();
         }
-        else if(loc_pay == ""){
+        else if(loc_pay == "" || loc_pay == 'Select'){
             $('#err').text("Please Select Location-Payroll");
             $('#loc_pay').css('border','1px solid red');
             $('#err').show();
@@ -778,6 +788,7 @@ $(document).ready(function(){
     });
     
     $("#reprt_detls").click(function(){
+        $("#reprt_detls").attr("href", "#");
         $('#report_mgr_sap').css('border','');
         $('#rep1_attd').css('border','');
         $('#rep1_appr').css('border','');
@@ -863,6 +874,7 @@ $(document).ready(function(){
     });
     
     $("#join_detals").click(function(){
+        $("#join_detals").attr("href", "#");
         $('#trainee').css('border','');
         $('#trn_dept').css('border','');
         $('#date_confrm_trn').css('border','');
@@ -994,6 +1006,25 @@ $(document).ready(function(){
             }
     }
 
+    if(prev_emplyr!=""){
+        if(othr_exp==''){
+           $('#err').text("Please Enter Other Experience ");
+           $('#othr_exp').css('border','1px solid red');
+           $('#err').show();
+           $('#othr_exp').focus(); 
+        }
+        else if(doj_vvf==''){
+           $('#err').text("Please Enter Date of Joining VVF ");
+           $('#doj_vvf').css('border','1px solid red');
+           $('#err').show();
+           $('#doj_vvf').focus(); 
+        }
+        else{
+                $('#err').text("");
+                $('#err').hide();
+            }
+
+    }
         if($('#err').text()==""){
 
             $('#err').hide();
@@ -1042,6 +1073,7 @@ $(document).ready(function(){
     });
 
     $("#promo_detals").click(function(){
+        $("#promo_detals").attr("href", "#");
         $('#promo_dt').css('border','');
         $('#desg_bfr_promo').css('border','');
         $('#cdre_bfr_promo').css('border','');
@@ -1064,6 +1096,7 @@ $(document).ready(function(){
         var desgn_bfr_promo = $('option:selected', $('#desgn_bfr_promo')).val();
         var u_id=$('#u_id').val();
         if(promo_dt!= ""){
+            $("#promo_detals").attr("href", "#");
             if(desg_bfr_promo == ""){
                 $('#err').text("Please Select Designation Before Promotion");
                 $('#desg_bfr_promo').css('border','1px solid red');
@@ -1077,7 +1110,7 @@ $(document).ready(function(){
                 $('#cdre_bfr_promo').focus();
             }
             else if(prev_cadre == ""){
-                $('#err').text("Please Select Previous Cadre");
+                $('#err').text("Please Select Previous Grade");
                 $('#prev_cadre').css('border','1px solid red');
                 $('#err').show();
                 $('#prev_cadre').focus();
@@ -1158,6 +1191,7 @@ $(document).ready(function(){
     });
 
     $('#trans_dtls').click(function(){
+        $("#trans_dtls").attr("href", "#");
         $('#trnsfr_frm_loc').css('border','');
         $('#tranr_wef_loc').css('border','');
         $('#transfr_frm_old_data_loc').css('border','');
@@ -1172,6 +1206,7 @@ $(document).ready(function(){
         var tranr_wef_dept = $('option:selected', $('#tranr_wef_dept')).val();
         var u_id=$('#u_id').val();
         if(trnsfr_frm_loc != ""){
+            $("#trans_dtls").attr("href", "#");
             if(tranr_wef_loc == ""){
                 $('#err').text("Please Select Transfer W.e.f (Location) ");
                 $('#tranr_wef_loc').css('border','1px solid red');
@@ -1243,7 +1278,7 @@ $(document).ready(function(){
     });
 
     $('#leave_dtls').click(function(){
-        //alert("hiiiii");
+        $("#leave_dtls").attr("href", "#");
         $('#dt_retire').css('border','');
         $('#lst_wrk_dt').css('border','');
         $('#arrt_prd').css('border','');
@@ -1262,6 +1297,7 @@ $(document).ready(function(){
         var attr_type = $('option:selected', $('#attr_type')).val();
         var u_id=$('#u_id').val();
         if(lst_wrk_dt != ""){
+            $("#leave_dtls").attr("href", "#");
             if(arrt_prd == ""){
                 $('#err').text("Please Enter Attrition Period ");
                 $('#arrt_prd').css('border','1px solid red');
@@ -1363,6 +1399,8 @@ $(document).ready(function(){
             $('#emp_sta').focus();       
         }
         else{
+            $('#err').text("");
+            $('#err').hide();
             var othr_details={
                 cost_center : cost_center,
                 cost_cenr_descr : cost_cenr_descr,
@@ -1406,7 +1444,15 @@ $(document).ready(function(){
             });
     });
 
-
+$("#trainee").change(function(){ 
+                var trainee = $('option:selected', $('#trainee')).val();
+                if(trainee !="" || trainee != 'Select'){
+                    $('#prev_emplyr').val("");
+                    $('#othr_exp').val("");
+                    $('#doj_vvf').val("");
+                    $("#join_detals").attr("href", "#");
+                }
+        });
     $("#grade").change(function(){
                                             var grade = {
                                                 'grade' :$(this).find(':selected').text(),
@@ -1501,7 +1547,7 @@ $("#cost_center").change(function () {
                                 $("#err").addClass("alert-danger"); 
                                 $('#err').show();
                                 $(this).css('border','1px solid red');
-                                $("#err").text("Please enter valid email ID");
+                                $("#err").text("Please enter valid Personal email ID");
                             }
                             else
                             {
@@ -2027,7 +2073,7 @@ $("#cost_center").change(function () {
                                                                                     <option value="Executive">Executive</option>
                                                                                     <option value="Senior Manager">Senior Manager</option>
                                                                                     <option value="Manager">Manager</option>
-                                                                                    <option value="Select">Select</option>
+                                                                                    
                                                                                     <option value="Assistant General Manager">Assistant General Manager</option>
                                                                                     <option value="General Manager">General Manager</option>
                                                                                     <option value="Vice President">Vice President</option>
@@ -2484,7 +2530,7 @@ $("#cost_center").change(function () {
                                                                                     <option value="Executive">Executive</option>
                                                                                     <option value="Senior Manager">Senior Manager</option>
                                                                                     <option value="Manager">Manager</option>
-                                                                                    <option value="Select">Select</option>
+                                                                                    
                                                                                     <option value="Assistant General Manager">Assistant General Manager</option>
                                                                                     <option value="General Manager">General Manager</option>
                                                                                     <option value="Vice President">Vice President</option>
@@ -2543,7 +2589,7 @@ $("#cost_center").change(function () {
                                                                                     <option value="Executive">Executive</option>
                                                                                     <option value="Senior Manager">Senior Manager</option>
                                                                                     <option value="Manager">Manager</option>
-                                                                                    <option value="Select">Select</option>
+                                                                                    
                                                                                     <option value="Assistant General Manager">Assistant General Manager</option>
                                                                                     <option value="General Manager">General Manager</option>
                                                                                     <option value="Vice President">Vice President</option>
@@ -2594,7 +2640,6 @@ $("#cost_center").change(function () {
                                                                                     <option value="Executive">Executive</option>
                                                                                     <option value="Senior Manager">Senior Manager</option>
                                                                                     <option value="Manager">Manager</option>
-                                                                                    <option value="Select">Select</option>
                                                                                     <option value="Assistant General Manager">Assistant General Manager</option>
                                                                                     <option value="General Manager">General Manager</option>
                                                                                     <option value="Vice President">Vice President</option>

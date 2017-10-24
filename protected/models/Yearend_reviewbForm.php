@@ -110,7 +110,7 @@ class Yearend_reviewbForm extends CActiveRecord
 	function get_all_data()
 	{
 		$connection=Yii::app()->db;
-		$sql = "select * from `yearend_reviewb` use index (emp_index)";
+		$sql = "select * from `yearend_reviewb` ";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
 		return $rows;
@@ -119,7 +119,7 @@ class Yearend_reviewbForm extends CActiveRecord
 	function get_employee_data($where,$data,$list)
 	{		
 		$connection=Yii::app()->db;
-		$sql = "select * from `yearend_reviewb` use index (emp_index) ".' '.$where;
+		$sql = "select * from `yearend_reviewb`  ".' '.$where;
 		$command=$connection->createCommand($sql);
 		for ($i=0; $i < count($list); $i++) { 
 			$command->bindValue(":".$list[$i],$data[$i]);
@@ -131,7 +131,7 @@ class Yearend_reviewbForm extends CActiveRecord
 	function get_kpi_list($where,$data,$list)
 	{
 		$connection=Yii::app()->db;
-		$sql = "select * from yearend_reviewb use index (emp_index) ".' '.$where;
+		$sql = "select * from yearend_reviewb  ".' '.$where;
 		$command=$connection->createCommand($sql);
 		for ($i=0; $i < count($list); $i++) { 
 			$command->bindValue(":".$list[$i],$data[$i]);
@@ -144,7 +144,7 @@ class Yearend_reviewbForm extends CActiveRecord
 function get_yearEnd_submitted_team($array,$year1){
 		//print_r($array);die();
 		$connection=Yii::app()->db;
-		$sql = "SELECT DISTINCT `Employee_id` FROM yearend_reviewb use index (emp_index) WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE `year_end_reviewb_status` = '1')) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
+		$sql = "SELECT DISTINCT `Employee_id` FROM yearend_reviewb WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE `year_end_reviewb_status` = '1')) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
 		//$sql="SELECT DISTINCT `Employee_id` FROM yearend_reviewb WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE `year_end_reviewb_status` = '1')) AND (`Employee_id` IN ('vvf57e264fd8d3e') AND (`goal_set_year`='2016-2017'))";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();		
@@ -154,7 +154,7 @@ function get_yearEnd_submitted_team($array,$year1){
 	{
 		//echo $year1;die();
 		$connection=Yii::app()->db;
-		$sql ="SELECT DISTINCT `Employee_id` from `yearend_reviewb` use index (emp_index) WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE (`year_end_reviewb_status` = '1') AND (`year_end_b_appr_status` ='0' OR `year_end_b_appr_status` =' ') )) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
+		$sql ="SELECT DISTINCT `Employee_id` from `yearend_reviewb` WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE (`year_end_reviewb_status` = '1') AND (`year_end_b_appr_status` ='0' OR `year_end_b_appr_status` =' ') )) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();
 		return $rows;
@@ -163,7 +163,7 @@ function get_yearEnd_submitted_team($array,$year1){
 	{
 		//echo $year1;die();
 		$connection=Yii::app()->db;
-		$sql ="SELECT DISTINCT `Employee_id` from `yearend_reviewb` use index (emp_index) WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE (`year_end_reviewb_status` = '1') AND (`year_end_b_appr_status` ='1') )) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
+		$sql ="SELECT DISTINCT `Employee_id` from `yearend_reviewb` WHERE (`Employee_id` IN (SELECT s.`Employee_id` FROM yearend_reviewb as s WHERE (`year_end_reviewb_status` = '1') AND (`year_end_b_appr_status` ='1') )) AND (`Employee_id` IN (".$array.") AND (`goal_set_year`='$year1'))";
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();
 		return $rows;

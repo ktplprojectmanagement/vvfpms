@@ -303,7 +303,7 @@ margin-left: -105px;"></label>
                                                                         <td> <?php echo $row['joining_date']; ?> </td>
                                                                         <td class="center"> <?php echo $row['Reporting_1_for_appraisal']; ?> </td>
                                                                         <td>
-                                                                            <a style="text-decoration: none;" href="<?php echo Yii::app()->createUrl('MIS_loc/Mis_update', array('u_id' => $row['u_id']));?>"><span class="label label-sm label-warning" style="background-color:#337AB7;"> Check </span></a>
+                                                                            <a style="text-decoration: none;" href="<?php echo Yii::app()->createUrl('index.php/MIS_loc/Mis_update', array('u_id' => $row['u_id']));?>"><span class="label label-sm label-warning" style="background-color:#337AB7;"> Check </span></a>
                                                                         </td>
                                                                     </tr>
                                                                   <?php

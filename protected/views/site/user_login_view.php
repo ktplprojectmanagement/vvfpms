@@ -82,7 +82,8 @@
                                 'data' : data,
                                 'url' : base_url+$("#basepath").attr('value')+'/index.php?r=Adminlogin/check',
                                 success : function(data)
-                                {                 
+                                { 
+                                //alert(data);                
                                     if (data == 'Valid')
                                     {
                                         window.location.href = base_url+$("#basepath").attr('value')+"/index.php?r=Admin_Dashboard";

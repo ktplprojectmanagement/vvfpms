@@ -408,7 +408,7 @@ $where = 'where Employee_id = :Employee_id';
 					$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
 					$mail->SMTPAuth = true;                               // Enable SMTP authentication
 					$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
-					$mail->Password = 'Dream@123';                           // SMTP password
+					$mail->Password = 'Dream@200';                           // SMTP password
 					$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 					$mail->Port = 587;                                    // TCP port to connect to
 					$mail->setFrom('vvf.pms@vvfltd.com', 'Location Wise Request');

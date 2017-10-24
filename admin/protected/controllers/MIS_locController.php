@@ -262,7 +262,7 @@ class MIS_locController extends Controller
 		 $model->BU='';
 		 $model->Cadre='';
 		 $model->Grade='';
-		 $model->company_location='';
+		 $model->company_location= Yii::app()->user->getState('admin_location');
 		 $model->Location_payroll_at='';
 		 $model->cluster_name='';
 		 $model->Reporting_Mgr_SAP_Code='';
@@ -345,7 +345,7 @@ class MIS_locController extends Controller
 			);
 		//print_r($data);die();
 			$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
-			//print_r($data);die();
+			//print_r($update);die();
 			if($update>0)
 		  	{
 		  		echo "Successfully Saved";die();	
@@ -436,10 +436,11 @@ class MIS_locController extends Controller
 		  	}
 	}
 	function actiontrans_details(){
-		//echo "hi";die();
+		//echo $_POST['tranr_wef_dept'];die();
+
 		$data = array(
 			'Transferred_from_loc'=>$_POST['trnsfr_frm_loc'],
-			'Transfer_wef_loc'=>$_POST['tranr_wef_loc'],
+			 'Transfer_wef_loc'=>$_POST['tranr_wef_loc'],
 			'Transferred_from_old_data'=>$_POST['transfr_frm_old_data_loc'],
 			'Transfer_old_data_wef_loc'=>$_POST['transfr_old_data_wef_loc'],
 			'Transferred_from_dept'=>$_POST['transfr_frm_dept'],
@@ -487,9 +488,9 @@ class MIS_locController extends Controller
 			'Cost_centre_description'=>$_POST['cost_cenr_descr'],
 			'Employee_status'=>$_POST['emp_sta'],
 			);
-		//print_r($data);die();
-		$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
 		
+		$update = Yii::app()->db->createCommand()->update('Employee_master2',$data,'u_id=:u_id',array(':u_id'=>$_POST['u_id']));
+		//print_r($update);die();
 			if($update>0)
 		  	{
 		  		echo "Successfully Saved";die();	

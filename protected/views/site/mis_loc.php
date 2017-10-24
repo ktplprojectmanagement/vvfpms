@@ -45,21 +45,33 @@
         });
     $( "#date_confrm_trn").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#date_confrm_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
-    $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
+   $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
             var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
+
             var exp = getAge(this);
             var exp_yr=exp.split("years");
-            //alert(exp_yr);
             var other_exp= 0 ;
             $('#vvf_exp').val(exp_yr[0]+''+'Years');
             $('#doj_vvf').val(newdate1);
             if ($('#othr_exp').val()!='') {
                 other_exp=$('#othr_exp').val(); 
-                //alert(other_exp);
+               
             };
             var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
-            //alert(parseInt(other_exp)+parseInt(exp_yr[0]));
             $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+           var arr = doj.split("/");
+           var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
+           var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
+           var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
+           var fin_trn_prob = convert(trn_prob);
+          alert(fin_trn_prob);
+           var dt_of_con = convert(fin_dt);
+           var trainee = $('option:selected', $('#trainee')).val();
+           if(trainee !="" ){
+           $('#due_date_trn_prob').val(fin_trn_prob);
+           $('#confirm_due_date').val(dt_of_con);
+           }
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -73,7 +85,10 @@
     $( "#lst_wrk_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#redesign_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
   });
-    
+    function process(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
+}
    function getAge(dateVal) {
     //alert(dateVal);
             var
@@ -88,12 +103,18 @@
                 return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
 
         }
+        function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+    return [day,mnth,date.getFullYear()].join("-");
+}
   </script>  
     <script type="text/javascript">
  $(function(){
 var d = new Date(2017, 09, 01);
 
-alert(d);
+//alert(d);
 
 
 
@@ -129,7 +150,7 @@ alert(d);
   </script>
   <script>
                        $(function(){
-
+//alert(window.location.origin+$("#basepath").attr('value')+'/admin/index.php');
                         $('#state').change(function(){
                             var state_name = {
                                 'state_name' : $('#state').find(':selected').val()
@@ -139,7 +160,7 @@ alert(d);
                                  dataType :'html',
                                  type :'post',
                                  data : state_name,
-                                 url : base_url+'/pms/index.php/MIS_loc/city_list',
+                                 url : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/city_list',
                                  success : function(data) {              
                                     $('#city').html(data);                              
                                 }
@@ -153,111 +174,111 @@ alert(d);
 $(document).ready(function(){
     
    
-    $("#pers_info").click(function(){
-         if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').addClass("active");
-        $('#li3').removeClass("active");
-        $('#li4').removeClass("active");
-        $('#li5').removeClass("active");
-        $('#li6').removeClass("active");
-        $('#li7').removeClass("active");
-        $('#li8').removeClass("active");
-        }
-        else{
-            $("#pers_info").attr("href", "#");
-        }
-    });
-    $("#genrl_info").click(function(){
-        if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').removeClass("active");
-        $('#li3').addClass("active");
-        $('#li4').removeClass("active");
-        $('#li5').removeClass("active");
-        $('#li6').removeClass("active");
-        $('#li7').removeClass("active");
-        $('#li8').removeClass("active");
-        }
-        else{
-            $("#genrl_info").attr("href", "#");
-        }
-    });
-    $("#reprt_detls").click(function(){
-        if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').removeClass("active");
-        $('#li3').removeClass("active");
-        $('#li4').addClass("active");
-        $('#li5').removeClass("active");
-        $('#li6').removeClass("active");
-        $('#li7').removeClass("active");
-        $('#li8').removeClass("active");
-        }
-        else{
-            $("#reprt_detls").attr("href", "#");
-        }
-    });
-    $("#join_detals").click(function(){
-        if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').removeClass("active");
-        $('#li3').removeClass("active");
-        $('#li4').removeClass("active");
-        $('#li5').addClass("active");
-        $('#li6').removeClass("active");
-        $('#li7').removeClass("active");
-        $('#li8').removeClass("active");
-        }
-        else{
-            $("#join_detals").attr("href", "#");
-        }
-    });
-    $("#promo_detals").click(function(){
-        if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').removeClass("active");
-        $('#li3').removeClass("active");
-        $('#li4').removeClass("active");
-        $('#li5').removeClass("active");
-        $('#li6').addClass("active");
-        $('#li7').removeClass("active");
-        $('#li8').removeClass("active");
-        }
-        else{
-            $("#promo_detals").attr("href", "#");
-        }
-    });
-    $("#trans_dtls").click(function(){
-        if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').removeClass("active");
-        $('#li3').removeClass("active");
-        $('#li4').removeClass("active");
-        $('#li5').removeClass("active");
-        $('#li6').removeClass("active");
-        $('#li7').addClass("active");
-        $('#li8').removeClass("active");
-        }
-        else{
-            $("#trans_dtls").attr("href", "#");
-        }
-    });
-    $("#leave_dtls").click(function(){
-        if($('#err').text()==""){
-        $('#li1').removeClass("active");
-        $('#li2').removeClass("active");
-        $('#li3').removeClass("active");
-        $('#li4').removeClass("active");
-        $('#li5').removeClass("active");
-        $('#li6').removeClass("active");
-        $('#li7').removeClass("active");
-        $('#li8').addClass("active");
-        }
-        else{
-            $("#leave_dtls").attr("href", "#");
-        }
-    });
+    // $("#pers_info").click(function(){
+    //      if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').addClass("active");
+    //     $('#li3').removeClass("active");
+    //     $('#li4').removeClass("active");
+    //     $('#li5').removeClass("active");
+    //     $('#li6').removeClass("active");
+    //     $('#li7').removeClass("active");
+    //     $('#li8').removeClass("active");
+    //     }
+    //     else{
+    //         $("#pers_info").attr("href", "#");
+    //     }
+    // });
+    // $("#genrl_info").click(function(){
+    //     if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').removeClass("active");
+    //     $('#li3').addClass("active");
+    //     $('#li4').removeClass("active");
+    //     $('#li5').removeClass("active");
+    //     $('#li6').removeClass("active");
+    //     $('#li7').removeClass("active");
+    //     $('#li8').removeClass("active");
+    //     }
+    //     else{
+    //         $("#genrl_info").attr("href", "#");
+    //     }
+    // });
+    // $("#reprt_detls").click(function(){
+    //     if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').removeClass("active");
+    //     $('#li3').removeClass("active");
+    //     $('#li4').addClass("active");
+    //     $('#li5').removeClass("active");
+    //     $('#li6').removeClass("active");
+    //     $('#li7').removeClass("active");
+    //     $('#li8').removeClass("active");
+    //     }
+    //     else{
+    //         $("#reprt_detls").attr("href", "#");
+    //     }
+    // });
+    // $("#join_detals").click(function(){
+    //     if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').removeClass("active");
+    //     $('#li3').removeClass("active");
+    //     $('#li4').removeClass("active");
+    //     $('#li5').addClass("active");
+    //     $('#li6').removeClass("active");
+    //     $('#li7').removeClass("active");
+    //     $('#li8').removeClass("active");
+    //     }
+    //     else{
+    //         $("#join_detals").attr("href", "#");
+    //     }
+    // });
+    // $("#promo_detals").click(function(){
+    //     if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').removeClass("active");
+    //     $('#li3').removeClass("active");
+    //     $('#li4').removeClass("active");
+    //     $('#li5').removeClass("active");
+    //     $('#li6').addClass("active");
+    //     $('#li7').removeClass("active");
+    //     $('#li8').removeClass("active");
+    //     }
+    //     else{
+    //         $("#promo_detals").attr("href", "#");
+    //     }
+    // });
+    // $("#trans_dtls").click(function(){
+    //     if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').removeClass("active");
+    //     $('#li3').removeClass("active");
+    //     $('#li4').removeClass("active");
+    //     $('#li5').removeClass("active");
+    //     $('#li6').removeClass("active");
+    //     $('#li7').addClass("active");
+    //     $('#li8').removeClass("active");
+    //     }
+    //     else{
+    //         $("#trans_dtls").attr("href", "#");
+    //     }
+    // });
+    // $("#leave_dtls").click(function(){
+    //     if($('#err').text()==""){
+    //     $('#li1').removeClass("active");
+    //     $('#li2').removeClass("active");
+    //     $('#li3').removeClass("active");
+    //     $('#li4').removeClass("active");
+    //     $('#li5').removeClass("active");
+    //     $('#li6').removeClass("active");
+    //     $('#li7').removeClass("active");
+    //     $('#li8').addClass("active");
+    //     }
+    //     else{
+    //         $("#leave_dtls").attr("href", "#");
+    //     }
+    // });
     
     $("#prve1").click(function(){
         $('#li1').addClass("active");
@@ -334,10 +355,35 @@ $(document).ready(function(){
 });
 
   </script>
-  <script>
-    $(document).ready(function(){
-   
+  <script type="text/javascript">
+$(document).ready(function(){
+  
     $("#pers_info").click(function(){
+        $("#pers_info").attr("href", "#");
+        $('#fname').css('border','');
+        $('#lname').css('border','');
+        $('#mname').css('border','');
+        $('#email').css('border','');
+        $('#perm_add').css('border','');
+        $('#state').css('border','');
+        $('#city').css('border','');
+        $('#pin').css('border','');
+        $('#quali').css('border','');
+        $('#marital_stat').css('border','');
+        $('#no_of_depend').css('border','');
+        $('#bld_grp').css('border','');
+        $('#pan').css('border','');
+        $('#dob').css('border','');
+        $('#age_yrs').css('border','');
+        $('#contact').css('border','');
+        $('#comp_nm').css('border','');
+        $('#gender').css('border','');
+        var nm = /^([a-zA-Z]{1,40})*$/;
+        var eml = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+        var con_no = /^[\d]{10}$/;
+        var pin_no = /^[1-9][0-9]{5}$/;
+        var adr = /^[1-9][0-9]{11}$/;
+        var pan_no = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
         var fname = $('#fname').val();
         var lname = $('#lname').val();
         var mname = $('#mname').val();
@@ -360,12 +406,32 @@ $(document).ready(function(){
         var aadhar_no = $('#aadhar').val();
         var sap =$('#sap').val();
         var u_id=$('#u_id').val();
-
-        if($('#fname').val()==""){
+        var contact = $('#contact').val();
+        var comp_nm= $('option:selected',$('#comp_nm')).val();
+        var per_email =$('#per_email').val();
+        if($('#comp_nm').val()==""){
+            $('#err').text("Please Select Company name");
+            $('#err').show();
+            $('#comp_nm').css('border','1px solid red');
+            $('#comp_nm').focus();
+        }
+        else if($('#fname').val()==""){
             $('#err').text("Please enter first name");
             $('#err').show();
             $('#fname').css('border','1px solid red');
             $('#fname').focus();
+        }
+        else if(!nm.test($('#fname').val())){
+            $("#err").css('display','block');
+            $('#fname').focus();
+            $('#fname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in first name field");
+        }
+        else if(!nm.test($('#mname').val())){
+            $("#err").css('display','block');
+            $('#mname').focus();
+            $('#mname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in middle name field");
         }
         else if($('#lname').val()==""){
             $('#err').text("Please enter last name");
@@ -373,17 +439,47 @@ $(document).ready(function(){
             $('#lname').css('border','1px solid red');
             $('#lname').focus();
         }
-        else if($('#mname').val()==""){
-            $('#err').text("Please enter middle name");
-            $('#err').show();
-            $('#mname').css('border','1px solid red');
-            $('#mname').focus();
+        else if(!nm.test($('#lname').val())){
+            $("#err").css('display','block');
+            $('#lname').focus();
+            $('#lname').css('border','1px solid red');
+            $("#err").text("Please enter only alphabhets in last name field");
         }
+        // else if($('#mname').val()==""){
+        //     $('#err').text("Please enter middle name");
+        //     $('#err').show();
+        //     $('#mname').css('border','1px solid red');
+        //     $('#mname').focus();
+        // }
         else if($('#email').val()==""){
             $('#err').text("Please enter Email id");
             $('#err').show();
             $('#email').css('border','1px solid red');
             $('#email').focus();
+        }
+        else if(!eml.test($('#email').val())){
+            $("#err").css('display','block');
+            $('#email').focus();
+            $('#email').css('border','1px solid red');
+            $("#err").text("Please enter valid email id");
+        }
+        else if(!eml.test($('#per_email').val())){
+            $("#err").css('display','block');
+            $('#per_email').focus();
+            $('#per_email').css('border','1px solid red');
+            $("#err").text("Please enter valid personal email id");
+        }
+        else if($('#contact').val()==""){
+            $('#err').text("Please enter Contact number");
+            $('#err').show();
+            $('#contact').css('border','1px solid red');
+            $('#contact').focus();
+        }
+        else if(!con_no.test($('#contact').val())){
+            $('#err').text("Please enter valid Contact number");
+            $('#err').show();
+            $('#contact').css('border','1px solid red');
+            $('#contact').focus();
         }
         else if($('#perm_add').val()==""){
             $('#err').text("Please enter Permanent Address");
@@ -405,6 +501,12 @@ $(document).ready(function(){
         }
         else if($('#pin').val()==""){
             $('#err').text("Please enter Pin code");
+            $('#err').show();
+            $('#pin').css('border','1px solid red');
+            $('#pin').focus();
+        }
+        else if(!pin_no.test($('#pin').val())){
+            $('#err').text("Please enter valid Pin code");
             $('#err').show();
             $('#pin').css('border','1px solid red');
             $('#pin').focus();
@@ -433,11 +535,23 @@ $(document).ready(function(){
             $('#bld_grp').css('border','1px solid red');
             $('#bld_grp').focus();
         }
-        else if($('#pan').val()==""){
-            $('#err').text("Please enter Basic qualification");
+        // else if($('#pan').val()==""){
+        //     $('#err').text("Please enter Basic qualification");
+        //     $('#err').show();
+        //     $('#pan').css('border','1px solid red');
+        //     $('#pan').focus();
+        // }
+        else if(!pan_no.test($('#pan').val())){
+            $('#err').text("Please enter valid Pan Card number");
             $('#err').show();
             $('#pan').css('border','1px solid red');
             $('#pan').focus();
+        }
+        else if(!adr.test($('#aadhar').val())){
+            $('#err').text("Please enter valid Aadhar number");
+            $('#err').show();
+            $('#aadhar').css('border','1px solid red');
+            $('#aadhar').focus();
         }
         else if($('#dob').val()==""){
             $('#err').text("Please enter Basic qualification");
@@ -486,6 +600,7 @@ $(document).ready(function(){
                 lname : lname,
                 mname : mname,
                 email : email,
+                contact:contact,
                 perm_add : perm_add,
                 pin : pin,
                 quali : quali,
@@ -503,6 +618,8 @@ $(document).ready(function(){
                 add_edu:add_edu,
                 aadhar_no:aadhar_no,
                 sap:sap,
+                comp_nm:comp_nm,
+                per_email:per_email,
                 u_id:u_id,
                 };
                 var base_url = window.location.origin;
@@ -511,7 +628,7 @@ $(document).ready(function(){
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : pers_data,
-                                'url' : base_url+'/pms/index.php/MIS_loc/Save',
+                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/Save',
                                 success : function(data)
                                 {
                                     alert(data);
@@ -531,25 +648,37 @@ $(document).ready(function(){
     });
     $('#genrl_info').click(function(){
         //alert($('option:selected', $('#dept')).val());
+
+        $("#genrl_info").attr("href", "#");
+        $('#pos_code').css('border','');
+        $('#desgn').css('border','');
+        $('#dept').css('border','');
+        $('#sub_dept').css('border','');
+        $('#bu').css('border','');
+        $('#cadre').css('border','');
+        $('#grade').css('border','');
+        $('#loc_work').css('border','');
+        $('#loc_pay').css('border','');
+        $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
-        var desgn = $('option:selected', $('#desgn')).val();
+        var desgn = $("#desgn option:selected").text();
         var dept = $('option:selected', $('#dept')).val();
         var sub_dept = $('option:selected', $('#sub_dept')).val();
         var bu = $('option:selected', $('#bu')).val();
         var cadre= $('option:selected', $('#cadre')).val();
         var grade= $('option:selected', $('#grade')).val();
-        var loc_work= $('option:selected', $('#loc_work')).val();
-        var loc_pay= $('option:selected', $('#loc_pay')).val();
+        var loc_work= $("#loc_work option:selected").text();
+        var loc_pay= $("#loc_pay option:selected").text();
         var cluster= $('option:selected', $('#clust_nm')).val();
         var u_id=$('#u_id').val();
-        //alert(u_id);
+        
         if($('#pos_code').val()==""){
             $('#err').text("Please enter Position code");
             $('#err').show();
             $('#pos_code').css('border','1px solid red');
             $('#pos_code').focus();
         }
-        else if(desgn == ""){
+        else if(desgn == "" || desgn == "Select"){
             $('#err').text("Please Select Position");
             $('#err').show();
             $('#desgn').css('border','1px solid red');
@@ -585,13 +714,13 @@ $(document).ready(function(){
             $('#err').show();
             $('#grade').focus();
         }
-        else if(loc_work == ""){
+        else if(loc_work == "" || loc_work=="Select"){
             $('#err').text("Please Select Location-Working");
             $('#loc_work').css('border','1px solid red');
             $('#err').show();
             $('#loc_work').focus();
         }
-        else if(loc_pay == ""){
+        else if(loc_pay == "" || loc_pay=="Select"){
             $('#err').text("Please Select Location-Payroll");
             $('#loc_pay').css('border','1px solid red');
             $('#err').show();
@@ -604,6 +733,9 @@ $(document).ready(function(){
             $('#clust_nm').focus();
         }
         else{
+            $('#err').text("");
+            $('#err').hide();
+            
             var genrl_detls={
                 pos_code : pos_code,
                 desgn:desgn,
@@ -621,25 +753,49 @@ $(document).ready(function(){
                     'type' : 'post',
                     'datatype' : 'html',
                     'data' : genrl_detls,
-                    'url' : base_url+'/pms/index.php/MIS_loc/genrl_info',
+                    'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/genrl_info',
                     success : function(data)
                     {
                         alert(data);
                     }
                 });
-            //alert(base_url+'/pms/index.php/MIS_loc/genrl_info');
+            $("#genrl_info").attr("href", "#tab_1_3");
+            $('#li1').removeClass("active");
+            $('#li2').removeClass("active");
+            $('#li3').addClass("active");
+            $('#li4').removeClass("active");
+            $('#li5').removeClass("active");
+            $('#li6').removeClass("active");
+            $('#li7').removeClass("active");
+            $('#li8').removeClass("active");
+            
         }
         
     });
+});
+
+  </script>
+  <script>
+    $(document).ready(function(){
+   
     
     $("#reprt_detls").click(function(){
+        $('#report_mgr_sap').css('border','');
+        $('#rep1_attd').css('border','');
+        $('#rep1_appr').css('border','');
+        $('#dot_mgr').css('border','');
+        $('#mgr_mgr').css('border','');
+        $('#clust_hd').css('border','');
         var report_mgr_sap=$("#report_mgr_sap").val();
         var rep1_attd = $('option:selected', $('#rep1_attd')).val();
         var rep1_appr = $('option:selected', $('#rep1_appr')).val();
+        var rep1_attd = $('#rep1_attd').val();
+        var rep1_appr = $('#rep1_appr').val();
         var dot_mgr = $('option:selected', $('#dot_mgr')).val();
-        var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
+        var mgr_mgr = $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
         var u_id=$('#u_id').val();
+        //alert(report_mgr_sap);
         if(report_mgr_sap == ""){
             $('#err').text("Please enter reporting manager sap code");
             $('#report_mgr_sap').css('border','1px solid red');
@@ -692,16 +848,42 @@ $(document).ready(function(){
                     'type' : 'post',
                     'datatype' : 'html',
                     'data' : reprt_data,
-                    'url' : base_url+'/pms/index.php/MIS_loc/report_info',
+                    'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/report_info',
                     success : function(data)
                     {
                         alert(data);
                     }
                 });
+
+         
+        $('#li1').removeClass("active");
+        $('#li2').removeClass("active");
+        $('#li3').removeClass("active");
+        $('#li4').addClass("active");
+        $('#li5').removeClass("active");
+        $('#li6').removeClass("active");
+        $('#li7').removeClass("active");
+        $('#li8').removeClass("active");
+        $("#reprt_detls").attr("href", "#tab_1_4");
         }
     });
     
     $("#join_detals").click(function(){
+        $('#trainee').css('border','');
+        $('#trn_dept').css('border','');
+        $('#date_confrm_trn').css('border','');
+        $('#date_confrm_prob').css('border','');
+        $('#aftr_trn_confrm').css('border','');
+        $('#prev_emplyr').css('border','');
+        $('#doj_vvf').css('border','');
+        $('#othr_exp').css('border','');
+        $('#vvf_exp').css('border','');
+        $('#tot_exp').css('border','');
+        $('#due_date_trn_prob').css('border','');
+        $('#act_date_trn_prob').css('border','');
+        $('#confirm_due_date').css('border','');
+        $('#confrm_extn_dt').css('border','');
+        $('#confrm_actl_dt').css('border','');
         var trainee = $('option:selected', $('#trainee')).val();
         var trn_dept = $('option:selected', $('#trn_dept')).val();
         var date_confrm_trn = $('#date_confrm_trn').val();
@@ -738,6 +920,12 @@ $(document).ready(function(){
                 $('#err').show();
                 $('#aftr_trn_confrm').focus();
             }
+            else if(doj_vvf==''){
+                $('#err').text("Please Enter Date of Joining VVF ");
+                $('#doj_vvf').css('border','1px solid red');
+                $('#err').show();
+                $('#doj_vvf').focus(); 
+            }
             else if(due_date_trn_prob==''){
                 $('#err').text("Please Enter Due date for Training to Probation  ");
                 $('#due_date_trn_prob').css('border','1px solid red');
@@ -757,56 +945,85 @@ $(document).ready(function(){
                 $('#date_confrm_prob').focus();
             }
             else if(confirm_due_date==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Due Date  ");
                 $('#confirm_due_date').css('border','1px solid red');
                 $('#err').show();
                 $('#confirm_due_date').focus();
             }
             else if(confrm_extn_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation extention date ");
                 $('#confrm_extn_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_extn_dt').focus();
             }
             else if(confrm_actl_dt==''){
-                $('#err').text("Please Enter Actual Date of Probation to Confirmation ");
+                $('#err').text("Please Enter Confirmation Actual Date ");
                 $('#confrm_actl_dt').css('border','1px solid red');
                 $('#err').show();
                 $('#confrm_actl_dt').focus();
             }
+            else{
+                $('#err').text("");
+                $('#err').hide();
+            }
         }
         
-        if(prev_emplyr==''){
-           $('#err').text("Please Enter Previous Employer ");
-           $('#prev_emplyr').css('border','1px solid red');
-           $('#err').show();
-           $('#prev_emplyr').focus(); 
-        }
-        else if(doj_vvf==''){
-           $('#err').text("Please Enter Date of Joining VVF ");
-           $('#doj_vvf').css('border','1px solid red');
-           $('#err').show();
-           $('#doj_vvf').focus(); 
-        }
-        else if(othr_exp==''){
-           $('#err').text("Please Enter Other Experience ");
-           $('#othr_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#othr_exp').focus(); 
-        }
-        else if(vvf_exp==''){
-           $('#err').text("Please Enter VVF Experience");
-           $('#vvf_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#vvf_exp').focus(); 
-        }
-        else if(tot_exp==''){
-           $('#err').text("Please Enter Total Experience");
-           $('#tot_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#tot_exp').focus(); 
-        }
-        else{
+
+
+                if(trainee == ""){
+                 if(doj_vvf==''){
+                   $('#err').text("Please Enter Date of Joining VVF ");
+                   $('#doj_vvf').css('border','1px solid red');
+                   $('#err').show();
+                   $('#doj_vvf').focus(); 
+                }
+                // else if(othr_exp==''){
+                //    $('#err').text("Please Enter Other Experience ");
+                //    $('#othr_exp').css('border','1px solid red');
+                //    $('#err').show();
+                //    $('#othr_exp').focus(); 
+                // }
+                else if(vvf_exp==''){
+                   $('#err').text("Please Enter VVF Experience");
+                   $('#vvf_exp').css('border','1px solid red');
+                   $('#err').show();
+                   $('#vvf_exp').focus(); 
+                }
+                else if(tot_exp==''){
+                   $('#err').text("Please Enter Total Experience");
+                   $('#tot_exp').css('border','1px solid red');
+                   $('#err').show();
+                   $('#tot_exp').focus(); 
+                }
+
+                else{
+                        $('#err').text("");
+                        $('#err').hide();
+                    }
+            }
+
+            if(prev_emplyr!=""){
+                if(othr_exp==''){
+                   $('#err').text("Please Enter Other Experience ");
+                   $('#othr_exp').css('border','1px solid red');
+                   $('#err').show();
+                   $('#othr_exp').focus(); 
+                }
+                else if(doj_vvf==''){
+                   $('#err').text("Please Enter Date of Joining VVF ");
+                   $('#doj_vvf').css('border','1px solid red');
+                   $('#err').show();
+                   $('#doj_vvf').focus(); 
+                }
+                else{
+                        $('#err').text("");
+                        $('#err').hide();
+                    }
+               
+
+            }
+
+        if($('#err').text()==""){
 
             $('#err').hide();
             $('#err').text('');
@@ -832,18 +1049,38 @@ $(document).ready(function(){
                 'type' : 'post',
                 'datatype' : 'html',
                 'data' : join_details,
-                'url' : base_url+'/pms/index.php/MIS_loc/join_details',
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/join_details',
                 success : function(data)
                 {
                     alert(data);
                 }
             }); 
+
+        $('#li1').removeClass("active");
+        $('#li2').removeClass("active");
+        $('#li3').removeClass("active");
+        $('#li4').removeClass("active");
+        $('#li5').addClass("active");
+        $('#li6').addClass("active");
+        $('#li7').removeClass("active");
+        $('#li8').removeClass("active");
+        $("#join_detals").attr("href", "#tab_1_6");
         }
     });
 
     $("#promo_detals").click(function(){
+        $('#promo_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#cdre_bfr_promo').css('border','');
+        $('#prev_cadre').css('border','');
+        $('#redesgn_dt').css('border','');
+        $('#desg_bfr_promo').css('border','');
+        $('#desg_bfr_redesgn').css('border','');
+        $('#cdr_bfr_redesgn').css('border','');
+        $('#grd_bfr_redgn').css('border','');
+        $('#desgn_bfr_promo').css('border','');
         var promo_dt = $('#promo_dt').val();
-        var desgn_bfr_promo = $('option:selected', $('#desgn_bfr_promo')).val();
+        //var desgn_bfr_promo = $('option:selected', $('#desgn_bfr_promo')).val();
         var cdre_bfr_promo = $('option:selected', $('#cdre_bfr_promo')).val();
         var prev_cadre = $('option:selected', $('#prev_cadre')).val();
         var redesgn_dt = $('#redesgn_dt').val();
@@ -851,7 +1088,7 @@ $(document).ready(function(){
         var desg_bfr_redesgn = $('option:selected', $('#desg_bfr_redesgn')).val();
         var cdr_bfr_redesgn = $('option:selected', $('#cdr_bfr_redesgn')).val();
         var grd_bfr_redgn = $('option:selected', $('#grd_bfr_redgn')).val();
-        var desgn_bfr_promo = $('option:selected', $('#desg_bfr_promo')).val();
+        var desgn_bfr_promo = $('option:selected', $('#desgn_bfr_promo')).val();
         var u_id=$('#u_id').val();
         if(promo_dt!= ""){
             if(desg_bfr_promo == ""){
@@ -928,16 +1165,32 @@ $(document).ready(function(){
                 'type' : 'post',
                 'datatype' : 'html',
                 'data' : promo_details,
-                'url' : base_url+'/pms/index.php/MIS_loc/promo_details',
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/promo_details',
                 success : function(data)
                 {
                     alert(data);
                 }
             });
+
+        $('#li1').removeClass("active");
+        $('#li2').removeClass("active");
+        $('#li3').removeClass("active");
+        $('#li4').removeClass("active");
+        $('#li5').removeClass("active");
+        $('#li6').addClass("active");
+        $('#li7').removeClass("active");
+        $('#li8').removeClass("active");
+        $("#promo_detals").attr("href", "#tab_1_6");
         }
     });
 
     $('#trans_dtls').click(function(){
+        $('#trnsfr_frm_loc').css('border','');
+        $('#tranr_wef_loc').css('border','');
+        $('#transfr_frm_old_data_loc').css('border','');
+        $('#transfr_old_data_wef_loc').css('border','');
+        $('#transfr_frm_dept').css('border','');
+        $('#tranr_wef_dept').css('border','');
         var trnsfr_frm_loc = $('option:selected', $('#trnsfr_frm_loc')).val();
         var tranr_wef_loc = $('option:selected', $('#tranr_wef_loc')).val();
         var transfr_frm_old_data_loc = $('option:selected', $('#transfr_frm_old_data_loc')).val();
@@ -996,17 +1249,34 @@ $(document).ready(function(){
                 'type' : 'post',
                 'datatype' : 'html',
                 'data' : trans_details,
-                'url' : base_url+'/pms/index.php/MIS_loc/trans_details',
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/trans_details',
                 success : function(data)
                 {
                     alert(data);
                 }
             });
+        $('#li1').removeClass("active");
+        $('#li2').removeClass("active");
+        $('#li3').removeClass("active");
+        $('#li4').removeClass("active");
+        $('#li5').removeClass("active");
+        $('#li6').removeClass("active");
+        $('#li7').addClass("active");
+        $('#li8').removeClass("active");
+        $("#trans_dtls").attr("href", "#tab_1_7");
         }
     });
 
     $('#leave_dtls').click(function(){
         //alert("hiiiii");
+        $('#dt_retire').css('border','');
+        $('#lst_wrk_dt').css('border','');
+        $('#arrt_prd').css('border','');
+        $('#redesign_dt').css('border','');
+        $('#reasn_leave').css('border','');
+        $('#ext_cat').css('border','');
+        $('#remark').css('border','');
+        $('#attr_type').css('border','');
         var dt_retire = $('#dt_retire').val();
         var lst_wrk_dt = $('#lst_wrk_dt').val();
         var arrt_prd = $('#arrt_prd').val();
@@ -1071,18 +1341,31 @@ $(document).ready(function(){
                     'type' : 'post',
                     'datatype' : 'html',
                     'data' : leave_details,
-                    'url' : base_url+'/pms/index.php/MIS_loc/leave_details',
+                    'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/leave_details',
                     success : function(data)
                     {
                         alert(data);
                     }
                 });
+                $('#li1').removeClass("active");
+        $('#li2').removeClass("active");
+        $('#li3').removeClass("active");
+        $('#li4').removeClass("active");
+        $('#li5').removeClass("active");
+        $('#li6').removeClass("active");
+        $('#li7').removeClass("active");
+        $('#li8').addClass("active");
+        $("#trans_dtls").attr("href", "#tab_1_8");
            }
 
     });
     
     $('#save_data').click(function(){
-        var cost_center = $('#cost_center').val();
+        //var cost_center = $('#cost_center').val();
+        $('#cost_center').css('border','');
+        $('#cost_cenr_descr').css('border','');
+        $('#emp_sta').css('border','');
+        var cost_center = $('option:selected', $('#cost_center')).val();
         var cost_cenr_descr = $('#cost_cenr_descr').val();
         var emp_sta = $('option:selected', $('#emp_sta')).val();
         var u_id=$('#u_id').val();
@@ -1105,6 +1388,8 @@ $(document).ready(function(){
             $('#emp_sta').focus();       
         }
         else{
+            $('#err').text("");
+            $('#err').hide();
             var othr_details={
                 cost_center : cost_center,
                 cost_cenr_descr : cost_cenr_descr,
@@ -1115,14 +1400,104 @@ $(document).ready(function(){
                 'type' : 'post',
                 'datatype' : 'html',
                 'data' : othr_details,
-                'url' : base_url+'/pms/index.php/MIS_loc/other_details',
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/other_details',
                 success : function(data)
                 {
                     alert(data);
                 }
             });
+
+        $('#li1').removeClass("active");
+        $('#li2').removeClass("active");
+        $('#li3').removeClass("active");
+        $('#li4').removeClass("active");
+        $('#li5').removeClass("active");
+        $('#li6').removeClass("active");
+        $('#li7').removeClass("active");
+        $('#li8').addClass("active");
+        $("#save_data").attr("href", "#tab_1_8");
         }
     });
+
+
+
+
+
+    $('#report_mgr_sap').focusout(function(){
+        //alert("hello");
+        var rep_sap=$('#report_mgr_sap').val();
+        //alert(rep_sap);
+        var rep_mgr_data={
+            rep_sap:rep_sap,
+        };
+        $.ajax({
+                'type' : 'post',
+                'datatype' : 'html',
+                'data' : rep_mgr_data,
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/ReprtngMgr',
+                success : function(data)
+                {
+                    //alert(data);
+                    //$("#rep1_attd").val(data);
+                    var report=data.split('-');
+                    $("#rep1_attd").val(report['0']);
+                    $("#rep1_appr").val(report['0']);
+                    $("#mgr_mgr").val(report['1']);
+                    //alert(report);
+                }
+            });
+    });
+
+
+                                        $("#grade").change(function(){
+                                            var grade = {
+                                                'grade' :$(this).find(':selected').text(),
+                                            };
+                                            //alert($(this).find(':selected').text());
+                                            var base_url = window.location.origin;
+                                            $.ajax({
+                                                'type' : 'post',
+                                                'datatype' : 'html',
+                                                'data' : grade,
+                                                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/Designation_change',
+                                               
+                                                success : function(data)
+                                                {
+                                                    //alert(data);
+                                                    $('#desgn').html(data);
+                                                }
+                                            });
+                                        }); 
+
+                                    $("#trainee").change(function(){ 
+                                            var trainee = $('option:selected', $('#trainee')).val();
+                                            if(trainee !="" || trainee != 'Select'){
+                                                $('#prev_emplyr').val("");
+                                                $('#othr_exp').val("");
+                                                $('#doj_vvf').val("");
+                                                $("#join_detals").attr("href", "#");
+                                            }
+                                    });
+
+$("#cost_center").change(function () {
+    var cost_center = {
+                    'cost_center' :$(this).find(':selected').text(),
+                };
+                var base_url = window.location.origin;
+                $.ajax({
+                    'type' : 'post',
+                    'datatype' : 'html',
+                    'data' : cost_center,
+                    'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/costCenter_change',
+                   
+                    success : function(data)
+                    {
+                    
+                        $('#cost_cenr_descr').val(data);
+                    }
+                });
+});
+
 });
   </script>
   <script>
@@ -1165,6 +1540,37 @@ $(document).ready(function(){
                                 $(this).css('border','1px solid #999');
                             }
                         }
+                        else if(id=='per_email'){
+                            var string1 = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid email ID");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
+                         else if(id=='contact'){
+                            var string1 = /^[\d]{10}$/;
+                            if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid contact number");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
                         else if(id=='pin'){
                             //alert(id);
 
@@ -1183,7 +1589,26 @@ $(document).ready(function(){
                                 $(this).css('border','1px solid #999');
                             }
                         }
+                        else if(id=='aadhar'){
+                           // alert(id);
+
+                            var string1 = /^[1-9][0-9]{11}$/;
+                             if (!string1.test($(this).val())) 
+                            {
+                                $("#err").css('display','block');
+                                $("#err").addClass("alert-danger"); 
+                                $('#err').show();
+                                $(this).css('border','1px solid red');
+                                $("#err").text("Please enter valid Aadhar");
+                            }
+                            else
+                            {
+                                $("#err").css('display','none');
+                                $(this).css('border','1px solid #999');
+                            }
+                        }
                         else if(id=='pan'){
+                            //alert(id);
                             var string1 = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
                             if (!string1.test($(this).val())) 
                             {
@@ -1213,7 +1638,7 @@ $(document).ready(function(){
                     <div class="page-bar">
                         <ul class="page-breadcrumb">
                             <li>
-                                <label id="loc">Taloja</label>
+                                <!-- <label id="loc">Taloja</label> -->
                                 <a href="index.html">Home</a>
                                 <i class="fa fa-circle"></i>
                             </li>
@@ -1277,7 +1702,17 @@ $(document).ready(function(){
                                                             <!-- PERSONAL INFO TAB -->
                                                             <div class="tab-pane active" id="tab_1_1">
                                                                 <form action="#" class="form-horizontal">
-
+                                                                    <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Company Name</label>
+                                                                    <div class="col-md-6">
+                                                                                <select class="form-control" id="comp_nm">
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="VVF Ltd.">VVF Ltd.</option>
+                                                                                    <option value="VVF India Ltd.">VVF India Ltd.</option>
+                                                                                </select>
+                                                                                <span class="help-block"> Select Company Name </span>
+                                                                            </div>
+                                                                </div>
                                                                     <div class="form-group">
                                                                     <label class="col-md-3 control-label">First Name
                                                                     </label>
@@ -1309,6 +1744,22 @@ $(document).ready(function(){
                                                                             </span>
                                                                             <input class="form-control validate_field" placeholder="Email Address" type="email" id="email"> </div>
                                                                     </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Personal Email Address</label>
+                                                                    <div class="col-md-6">
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-addon">
+                                                                                <i class="fa fa-envelope"></i>
+                                                                            </span>
+                                                                            <input class="form-control validate_field" placeholder="Email Address" type="email" id="per_email"> </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Contact Number</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class="form-control validate_field" placeholder="Enter Contact number" type="email" id="contact"> </div>
+                                                                    
                                                                 </div>
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Permanent Address</label>
@@ -1432,14 +1883,14 @@ $(document).ready(function(){
                                                                     <label class="col-md-3 control-label">PAN Card No.
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <input class="form-control" placeholder="Enter PAN Card No." type="text" id="pan">
+                                                                        <input class="form-control validate_field" placeholder="Enter PAN Card No." type="text" id="pan">
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <div class="form-group ">
                                                                     <label class="col-md-3 control-label">Aadhar number
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <input class="form-control" placeholder="Enter Aadhar number" type="text" id="aadhar">
+                                                                        <input class="form-control validate_field" placeholder="Enter Aadhar number" type="text" id="aadhar">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -1494,7 +1945,7 @@ $(document).ready(function(){
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
                                                                          <!--<a class="btn green btnNext">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>-->
-                                                                         <a class="btn green" href="#tab_1_2" data-toggle="tab" aria-expanded="false" id="pers_info">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                         <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="pers_info">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
                                                                         <!--<button type="submit" class="btn green"><a href="#tab_1_2">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a></button>-->
                                                                         <!--<button type="button" class="btn default">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true"></i></button>-->
                                                                     </div>
@@ -1517,28 +1968,7 @@ $(document).ready(function(){
                                                                        
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Designation
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                                <select class="form-control" id="desgn">
-                                                                                    <option value="">Select</option>
-                                                                                    <option value="Assistant Manager">Assistant Manager</option>
-                                                                                    <option value="Junior Executive">Junior Executive</option>
-                                                                                    <option value="Executive">Executive</option>
-                                                                                    <option value="Senior Manager">Senior Manager</option>
-                                                                                    <option value="Manager">Manager</option>
-                                                                                    <option value="Select">Select</option>
-                                                                                    <option value="Assistant General Manager">Assistant General Manager</option>
-                                                                                    <option value="General Manager">General Manager</option>
-                                                                                    <option value="Vice President">Vice President</option>
-                                                                                    <option value="Senior Manager 
-                                                                                    ">Senior Manager 
-                                                                                    </option>
-                                                                                </select>
-                                                                                <span class="help-block"> Select Designation</span>
-                                                                    </div>
-                                                                </div>
+                                                               
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Departments
                                                                     </label>
@@ -1566,11 +1996,22 @@ $(document).ready(function(){
                                                                     <label class="col-md-3 control-label">Sub-Departments
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                                <select class="form-control" id="sub_dept">
+                                                                                <!-- <select class="form-control" id="sub_dept">
                                                                                     <option value="">Select</option>
                                                                                     <option value="IT">IT</option>
                                                                                     <option value="Hr">Hr</option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 //print_r($records);die();
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'sub_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
                                                                                 <span class="help-block"> Select Sub-Departments</span>
                                                                     </div>
                                                                 </div>
@@ -1586,7 +2027,7 @@ $(document).ready(function(){
                                                                                     ">Corporate Shared Services
                                                                                     </option>
                                                                                     <option value=" Corporate Shared Services"> Corporate Shared Services</option>
-                                                                                    <option value="Select">Select</option>
+                                                                                    
                                                                                     <option value="Contract Manufacturing">Contract Manufacturing</option>
                                                                                     <option value="Personal Care Products">Personal Care Products</option>
                                                                                     <option value="Consumer Products Division">Consumer Products Division</option>
@@ -1627,14 +2068,50 @@ $(document).ready(function(){
                                                                                 <span class="help-block"> Select Grade</span>
                                                                     </div>
                                                                 </div>
-                                                                
+                                                                 <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Designation
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                                <select class="form-control" id="desgn">
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="Assistant Manager">Assistant Manager</option>
+                                                                                    <option value="Junior Executive">Junior Executive</option>
+                                                                                    <option value="Executive">Executive</option>
+                                                                                    <option value="Senior Manager">Senior Manager</option>
+                                                                                    <option value="Manager">Manager</option>
+                                                                                   
+                                                                                    <option value="Assistant General Manager">Assistant General Manager</option>
+                                                                                    <option value="General Manager">General Manager</option>
+                                                                                    <option value="Vice President">Vice President</option>
+                                                                                    <option value="Senior Manager 
+                                                                                    ">Senior Manager 
+                                                                                    </option>
+                                                                                </select>
+                                                                                <span class="help-block"> Select Designation</span>
+                                                                    </div>
+                                                                </div>
                                                                <div class="form-group">
                                                                     <label class="col-md-3 control-label">Location-Working at</label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="loc_work">
                                                                                     <option value="">Select</option>
+                                                                                    <?php 
+                                                                                    $loc = "Taloja";
+                                                                                    if($loc !='Corporate'){ ?>
+                                                                                        <option value="Taloja">Taloja</option>
+                                                                                        <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
+                                                                                    <?php }
+                                                                                    else{
+                                                                                        ?>
+                                                                                        <option value="Corporate">Corporate</option>
+                                                                                        <option value="Chennai">Chennai</option>
+                                                                                        <option value="Kolkata">Kolkata</option>
+                                                                                        <option value="Kutch-II">Kutch-II</option>
+                                                                                        <option value="Palanpur">Palanpur</option>
+                                                                                        <option value="Raipur">Raipur</option>       
+                                                                                    <?php }
+                                                                                    ?>
                                                                                     
-                                                                                    <option value="0">Taloja</option>
                                                                                     
                                                                                 </select>
                                                                                 <span class="help-block"> Select Location-Working at </span>
@@ -1643,9 +2120,31 @@ $(document).ready(function(){
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Location-Payroll at</label>
                                                                     <div class="col-md-6">
+                                                                               <!--  <select class="form-control" id="loc_pay">
+                                                                                    <option value="">Select</option>
+                                                                                    <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
+                                                                                   <!--  <option value="Taloja">Taloja</option> -->
+                                                                                <!-- </select>  -->
                                                                                 <select class="form-control" id="loc_pay">
                                                                                     <option value="">Select</option>
-                                                                                    <option value="0">Taloja</option>
+                                                                                    <?php 
+                                                                                    $loc = "Taloja";
+                                                                                    if($loc !='Corporate'){ ?>
+                                                                                        <option value="Taloja">Taloja</option>
+                                                                                        <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
+                                                                                    <?php }
+                                                                                    else{
+                                                                                        ?>
+                                                                                        <option value="Corporate">Corporate</option>
+                                                                                        <option value="Chennai">Chennai</option>
+                                                                                        <option value="Kolkata">Kolkata</option>
+                                                                                        <option value="Kutch-II">Kutch-II</option>
+                                                                                        <option value="Palanpur">Palanpur</option>
+                                                                                        <option value="Raipur">Raipur</option>       
+                                                                                    <?php }
+                                                                                    ?>
+                                                                                    
+                                                                                    
                                                                                 </select>
                                                                                 <span class="help-block"> Select Location-Payroll at </span>
                                                                             </div>
@@ -1667,8 +2166,7 @@ $(document).ready(function(){
                                                                                     <option value="SMC Cluster">SMC Cluster</option>
                                                                                     <option value="Miscellaneous">Miscellaneous</option>
                                                                                     <option value="CPD">CPD</option>
-                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM
-                                                                                    ">Finance / IT / Indirect Tax/Excise/EXIM
+                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM">Finance / IT / Indirect Tax/Excise/EXIM
                                                                                     </option>
                                                                                     <option value="CMB Manufacturing">CMB Manufacturing</option>
                                                                                     <option value="PCP Quality">PCP Quality</option>
@@ -1704,64 +2202,22 @@ $(document).ready(function(){
                                                                        
                                                                     </div>
                                                                 </div>
+                                                               
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Reporting-1 (For Time & Attendance)
-                                                                    </label>
+                                                                    <label class="col-md-3 control-label">Reporting-1 (For Time & Attendance)</label>
                                                                     <div class="col-md-6">
-                                                                        <?php 
-                                                                            $reporting_list = new EmployeeForm();
-                                                                            $records = $reporting_list->get_appraiser_list();
-                                                                            // echo count($records);die();
-                                                                            for ($k=0; $k < count($records); $k++) { 
-                                                                            $where = 'where Email_id = :Email_id ';
-                                                                            $list = array('Email_id','pms_status');
-                                                                            $data = array($records[$k]['Reporting_officer1_id'],'Active');
-                                                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                                                            }
-                                                                            
-                                                                            $Report_id = array(); 
-                                                                            
-                                                                            for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                                                            if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                                                            $Report_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                                                            }
-                                                                            
-                                                                            }
-                                                                            
-                                                                            echo CHtml::dropDownList("rep1_attd",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
-                                                                        ?>
-                                                                        <span class="help-block"> Select Reporting-1 (For Time & Attendance)</span>
-                                                                    </div>
+                                                            
+                                                                            <input class="form-control validate_field" placeholder="Enter Reporting-1 (For Time & Attendance)" type="rep1_attd" id="rep1_attd"> </div>
+                                                                   
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Reporting-1 (For appraisal)
-                                                                    </label>
+                                                                    <label class="col-md-3 control-label">Reporting-1 (For appraisal)</label>
                                                                     <div class="col-md-6">
-                                                                    <?php 
-                                                                            $reporting_list = new EmployeeForm();
-                                                                            $records = $reporting_list->get_appraiser_list();
-                                                                            // echo count($records);die();
-                                                                            for ($k=0; $k < count($records); $k++) { 
-                                                                            $where = 'where Email_id = :Email_id ';
-                                                                            $list = array('Email_id','pms_status');
-                                                                            $data = array($records[$k]['Reporting_officer1_id'],'Active');
-                                                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                                                            }
-                                                                            
-                                                                            $Report_id = array(); 
-                                                                            
-                                                                            for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                                                            if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                                                            $Report_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                                                            }
-                                                                            
-                                                                            }
-                                                                            
-                                                                            echo CHtml::dropDownList("rep1_appr",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
-                                                                        ?>
-                                                                                <span class="help-block"> Select Reporting-1 (For appraisal)</span>
-                                                                    </div>
+
+                                                                            <input class="form-control validate_field" placeholder="Enter Reporting-1 (For appraisal)" type="rep1_appr" id="rep1_appr"> </div>
+                                                                    
                                                                 </div>
+                                                                
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Dotted Line Manager
                                                                     </label>
@@ -1770,13 +2226,15 @@ $(document).ready(function(){
                                                                             $reporting_list = new EmployeeForm();
                                                                             $records = $reporting_list->get_appraiser_list();
                                                                             // echo count($records);die();
+                                                                            //print_r($records);die();
                                                                             for ($k=0; $k < count($records); $k++) { 
                                                                             $where = 'where Email_id = :Email_id ';
-                                                                            $list = array('Email_id','pms_status');
-                                                                            $data = array($records[$k]['Reporting_officer1_id'],'Active');
+                                                                            $list = array('Email_id');
+                                                                            $data = array($records[$k]['Reporting_officer1_id']);
                                                                             $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                                                            //print_r($Reporting_officer_data);die();
                                                                             }
-                                                                            
+                                                                            //die();
                                                                             $Report_id = array(); 
                                                                             
                                                                             for ($l=0; $l < count($Reporting_officer_data); $l++) { 
@@ -1791,34 +2249,13 @@ $(document).ready(function(){
                                                                                 <span class="help-block"> Select Dotted Line Manager</span>
                                                                     </div>
                                                                 </div>
-                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Manager's Manager
-                                                                    </label>
+                                                                
+                                                                                                                           <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Manager's Manager</label>
                                                                     <div class="col-md-6">
-                                                                            <?php 
-                                                                                $reporting_list = new EmployeeForm();
-                                                                                $records = $reporting_list->get_appraiser_list();
-                                                                                // echo count($records);die();
-                                                                                for ($k=0; $k < count($records); $k++) { 
-                                                                                $where = 'where Email_id = :Email_id ';
-                                                                                $list = array('Email_id','pms_status');
-                                                                                $data = array($records[$k]['Reporting_officer1_id'],'Active');
-                                                                                $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                                                                }
-                                                                                
-                                                                                $Report_id = array(); 
-                                                                                
-                                                                                for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                                                                if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                                                                $Report_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                                                                }
-                                                                                
-                                                                                }
-                                                                                
-                                                                                echo CHtml::dropDownList("mgr_mgr",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
-                                                                            ?>
-                                                                                <span class="help-block"> Select Manager's Manager</span>
-                                                                    </div>
+
+                                                                            <input class="form-control validate_field" placeholder="Enter Manager's Manager" type="mgr_mgr" id="mgr_mgr"> </div>
+                                                                    
                                                                 </div>
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Cluster Head
@@ -1830,8 +2267,8 @@ $(document).ready(function(){
                                                                                 // echo count($records);die();
                                                                                 for ($k=0; $k < count($records); $k++) { 
                                                                                 $where = 'where Email_id = :Email_id ';
-                                                                                $list = array('Email_id','pms_status');
-                                                                                $data = array($records[$k]['Reporting_officer1_id'],'Active');
+                                                                                $list = array('Email_id');
+                                                                                $data = array($records[$k]['Reporting_officer1_id']);
                                                                                 $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
                                                                                 }
                                                                                 
@@ -1854,7 +2291,7 @@ $(document).ready(function(){
                                                             <div class="form-actions">
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
-                                                                        <a class="btn green" href="#tab_1_4" data-toggle="tab" aria-expanded="false" id="reprt_detls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                        <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="reprt_detls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
                                                                         <a class="btn default" href="#tab_1_2" data-toggle="tab" aria-expanded="false" id="prve2">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
@@ -1881,15 +2318,26 @@ $(document).ready(function(){
                                                                        
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                                                                               <div class="form-group">
                                                                     <label class="col-md-3 control-label">Department /Division at the time of Joining
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <select class="form-control" id="trn_dept">
+                                                              <!--           <select class="form-control" id="trn_dept">
                                                                                     <option value="">Select</option>
                                                                                     <option value="IT">IT</option>
                                                                                     <option value="Account">Account</option>
-                                                                       </select>
+                                                                       </select> -->
+                                                                       <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'trn_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
                                                                        <span class="help-block"> Select Department /Division at the time of Joining</span>
                                                                     </div>
                                                                 </div>
@@ -1921,6 +2369,13 @@ $(document).ready(function(){
                                                                                <input class="form-control" placeholder="Enter Previous Employer" type="text" id="prev_emplyr">
                                                                     </div>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Other Exp (In Yrs)
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                               <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
+                                                                    </div>
+                                                                </div>
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Date of Joining VVF
                                                                     </label>
@@ -1928,13 +2383,7 @@ $(document).ready(function(){
                                                                                <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" >
                                                                     </div>
                                                                 </div>
-                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Other Exp (In Yrs)
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                               <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
-                                                                    </div>
-                                                                </div>
+                                                                 
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">VVF Exp (In Yrs)
                                                                     </label>
@@ -1988,7 +2437,7 @@ $(document).ready(function(){
                                                                  <div class="form-actions">
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
-                                                                        <a class="btn green" href="#tab_1_5" data-toggle="tab" aria-expanded="false" id="join_detals">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                        <a class="btn green" href="#tab_1_6" data-toggle="tab" aria-expanded="false" id="join_detals">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
                                                                         <a class="btn default" href="#tab_1_3" data-toggle="tab" aria-expanded="false" id="prve3">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
@@ -2292,7 +2741,7 @@ $(document).ready(function(){
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
                                                                         <a class="btn green" href="#tab_1_7" data-toggle="tab" aria-expanded="false" id="trans_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
-                                                                        <a class="btn default" href="#tab_1_5" data-toggle="tab" aria-expanded="false" id="prve5">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
+                                                                        <a class="btn default" href="#tab_1_4" data-toggle="tab" aria-expanded="false" id="prve5">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
                                                                 
@@ -2384,13 +2833,33 @@ $(document).ready(function(){
                                                              <div class="tab-pane" id="tab_1_8">
                                                                  
                                                                  <form action="#" class="form-horizontal">
-                                                                    <div class="form-group">
+<!--                                                                     <div class="form-group">
                                                                     <label class="col-md-3 control-label">Cost Centre Codes</label>
                                                                     <div class="col-md-6">
                                                                         
                                                                         <input class="form-control" placeholder="Enter Cost Centre Codes from 01-April-2016" type="text" id="cost_center">
                                                                     </div>
+                                                                </div> -->
+                                                                 <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Cost Centre Codes</label>
+                                                                    <div class="col-md-6">
+                                                                        
+                                                                         <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $costcenter_model = new CostCenter();
+                                                                               
+                                                                                 $records=$costcenter_model->getCodes();
+                                                                                // print_r($records);
+                                                                                 $list = CHtml::listData($records,'cost_center', 'cost_center'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
+
+                                                                    </div>
                                                                 </div>
+
+
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Cost Centre Description
                                                                     </label>
@@ -2419,6 +2888,8 @@ $(document).ready(function(){
                                                                     <!--    <a class="btn green" href="#tab_1_8" data-toggle="tab" aria-expanded="false" id="trans_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>-->
                                                                         <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="save_data">Save&nbsp;&nbsp;</a>
                                                                         <a class="btn default" href="#tab_1_7" data-toggle="tab" aria-expanded="false" id="prve7">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
+                                                                        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal" id="final_Apprv">Final Approve</button>
+                                                                       <!--  <a class="btn default"  data-toggle="tab" aria-expanded="false" id="final_Apprv">Final Approve&nbsp;&nbsp;</a> -->
                                                                     </div>
                                                                 </div>
                                                                 
@@ -2427,3 +2898,69 @@ $(document).ready(function(){
                                                              </div>
                                                             <!-- End other details Tab-->
                                                             </div></div></div></div></div></div></div></div></div></div>
+
+
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+           <p> Are you sure you want to send this for approval?
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn dark btn-outline">Edit</button>
+          <button type="button" data-dismiss="modal" class="btn green" id="continue_goal_set1">OK</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+<script type="text/javascript">
+$(function(){
+$("body").on('click','#final_Apprv',function(){
+    $("body").on('click','#continue_goal_set1',function(){
+       var data = {
+                'u_id' : $("#u_id").val(),
+                  };
+                                    console.log(data);
+                                    var base_url = window.location.origin;
+                                    $.ajax({                            
+                                        type : 'post',
+                                        datatype : 'html',
+                                        data : data,
+                                        url : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/location_submit',
+                                        
+                                        success : function(data)
+                                        {   
+alert(data);
+                                           if(data=="Notification Send"){
+                                           
+                                                    $("#err").show();
+                                                    $("#err").fadeOut(6000);
+                                                     $("#err").removeClass('alert-danger');
+                                                     $("#err").addClass('alert-success');
+                                                     $("#err").text("Notification Send");
+                                            }
+                                        }
+
+                                });
+        });
+});
+});
+</script>

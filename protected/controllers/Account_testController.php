@@ -411,7 +411,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 	public function actioncheck()
 	{
 		$model = new LoginForm;
-		 session_start();
+		 //session_start();
 		
 		if (isset($_POST)) {
 			$role_id_array = $model->demo_role($_POST);
@@ -436,11 +436,11 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 						Yii::app()->user->setState('appriaser_1',$role_id_array['Reporting_officer1_id']);
 					}
 					//print_r("Sadsad");die();
-					if( isset( $_SESSION['number'] ) ) {
-					      $_SESSION['number'] = $_POST['username'];
-					   }else {
-					      $_SESSION['number'] = '';
-					   }
+					// if( isset( $_SESSION['number'] ) ) {
+					//       $_SESSION['number'] = $_POST['username'];
+					//    }else {
+					//       $_SESSION['number'] = '';
+					//    }
 					date_default_timezone_set("Asia/Kolkata");
 					Yii::app()->user->setState('session_time','1800');
 					Yii::app()->user->setState('session_current_time',time());

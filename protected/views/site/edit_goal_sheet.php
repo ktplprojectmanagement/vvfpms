@@ -1,4 +1,4 @@
-<script>
+﻿<script>
     $(document).ready(function(){
         $("#back_btn").removeAttr('disabled');
    $("input").attr("disabled", "disabled");
@@ -1726,11 +1726,13 @@ else if(isset($emp_all_detail['0']['Reporting_officer2_id']) && $emp_all_detail[
                                          $records = $reporting_list->get_appraiser_list1();
                                          if(isset($head_array))
                                          {
-                                            for ($k=0; $k < count($head_array); $k++) { 
+                                             for ($k=0; $k < count($head_array); $k++) { 
+                                                if(isset($head_array[$k]) && $head_array[$k]!=''){
                                                 $where = 'where Email_id = :Email_id';
                                                 $list = array('Email_id');
                                                 $data = array($head_array[$k]);
                                                 $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                                }
                                              }
                                          }
                                          
@@ -1846,10 +1848,10 @@ $KRA_status_flag = $kpi_auto_data[$a]['0']['KRA_status'];
 
                                                             }
                                                            
-                                                            if (isset($KRA_category_auto[$a]['0']['minimum_kpi']) && count($list_count) == 1) {
+                                                            if (isset($list_count) && isset($KRA_category_auto[$a]['0']['minimum_kpi']) && count($list_count) == 1) {
                                                                 $list_cnt = $KRA_category_auto[$a]['0']['minimum_kpi'];
                                                             }
-                                                            else
+                                                            else if(isset($list_count))
                                                             {
                                                                 $list_cnt = count($list_count);
                                                             }
@@ -1929,10 +1931,12 @@ else if(isset($emp_all_detail['0']['Reporting_officer2_id']) && $emp_all_detail[
                                          if(isset($head_array) && count($head_array)>0)
                                          {
                                             for ($k=0; $k < count($head_array); $k++) { 
+                                                if(isset($head_array[$k]) && $head_array[$k]!=''){
                                                 $where = 'where Email_id = :Email_id';
                                                 $list = array('Email_id');
                                                 $data = array($head_array[$k]);
                                                 $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                                }
                                              }
                                          }
                                          
@@ -2087,6 +2091,41 @@ else if(isset($emp_all_detail['0']['Reporting_officer2_id']) && $emp_all_detail[
                                                                     
                                                                 }
                                                                  $cnt++;
+if (isset($val[$i][0])) {
+                                                 $val[$i][0] = $val[$i][0];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][0] = 'NA';
+                                             }
+                                             if (isset($val[$i][1])) {
+                                                 $val[$i][1] = $val[$i][1];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][1] = 'NA';
+                                             }
+                                             if (isset($val[$i][2])) {
+                                                 $val[$i][2] = $val[$i][2];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][2] = 'NA';
+                                             }
+                                             if (isset($val[$i][3])) {
+                                                 $val[$i][3] = $val[$i][3];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][3] = 'NA';
+                                             }
+                                             if (isset($val[$i][4])) {
+                                                 $val[$i][4] = $val[$i][4];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][4] = 'NA';
+                                             }
                                                            echo '<tr><td id="kpilist_'.$kpi_id.$i.'">
                             <input type="text" class="form-control kpi_list"  style="display: none">'.CHtml::textField('kpi_list',$kpi_count[$i],array('class'=>'form-control kpi_list validate_field1','data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$kpi_count[$i],'id'=>'kpilistyii_'.$kpi_id.$i.'')).'<div id="kpi_list_drop_'.$kpi_id.$i.'" style="position: absolute;border: 1px solid rgb(177, 178, 178);padding: 15px;display: none;background-color: rgb(177, 178, 178);opacity: 0.8;height: auto;max-height: 200px;overflow-y: scroll;"></div></td><td>'.CHtml::dropDownList("format_list",'',$format_list,$htmlOptions=array('class'=>'form-control format_list format_detail','disabled'=>'disabled','id'=>'mask_number-'.$kpi_id.$i,'options' => $unit_type)).'</td><td>'.CHtml::textField('kpi_target_value',$per_kpi_wt[$i],array('class'=>'form-control fields validate_field1','id'=>'kpi_target_value-'.$kpi_id.$i)).'</td><td id="value_field">'.CHtml::textField('unit_value','',array('class'=>'form-control validate_field1','id'=>'unit_value','style'=>'display:none')).CHtml::textField('unit_value',$unit_target,array('class'=>'form-control validate_field1 value_field','id'=>'unit_value-'.$kpi_id.$i.'','data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$unit_target,'disabled' => $disable_select1)).'</td><td id="targetvalue1'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][0],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field1 target_value1".$kpi_id.$i:"form-control fields validate_field1 target_value1".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][0],'disabled' => $disable_select)).'</td><td style="display:none" id="targetvalue11'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][0],array('class'=>"form-control fields validate_field1 target_value1".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][0],'disabled' => $disable_select)).'</td><td id="targetvalue2'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][1],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field1 target_value2".$kpi_id.$i:"form-control fields validate_field1 target_value2".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][1],'disabled' => $disable_select)).'</td><td style="display:none" id="targetvalue22'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][1],array('class'=>"form-control fields validate_field1 target_value2".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][1],'disabled' => $disable_select)).'</td><td id="targetvalue3'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][2],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field1 target_value3".$kpi_id.$i:"form-control fields validate_field1 target_value3".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][2],'disabled' => $disable_select)).'</td><td style="display:none" id="targetvalue33'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][2],array('class'=>"form-control fields validate_field1 target_value3".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][2],'disabled' => $disable_select)).'</td><td id="targetvalue4'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][3],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field1 target_value4".$kpi_id.$i:"form-control fields validate_field1 target_value4".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][3],'disabled' => $disable_select)).'</td><td style="display:none" id="targetvalue44'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][3],array('class'=>"form-control fields validate_field1 target_value4".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][3],'disabled' => $disable_select)).'</td><td id="targetvalue5'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][4],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field1 target_value5".$kpi_id.$i:"form-control fields validate_field1 target_value5".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][4],'disabled' => $disable_select)).'</td><td style="display:none" id="targetvalue55'.$kpi_id.$i.'">'.CHtml::textField('',$val[$i][4],array('class'=>"form-control fields validate_field1 target_value5".$kpi_id.$i,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','data-content'=>$val[$i][4],'disabled' => $disable_select)).'</td></tr>';   
                                  $unit_type='';  
@@ -2490,7 +2529,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                         <div class="col-md-4">
                                                         <?php 
                                                            $today = date('d-m-Y'); 
-                                                         echo '2016-2017';?>
+                                                         echo Yii::app()->user->getState('financial_year_check');?>
                                                             
                                                         </div>
                                                     </div>
@@ -3232,9 +3271,9 @@ if (isset($menu_settings_data['0']['0']['setting_content']) && ($menu_settings_d
                                         <!--Approve IDP of <?php if(isset($emp_data['0']['Emp_fname'])) { echo $emp_data['0']['Emp_fname']." ".$emp_data['0']['Emp_lname']; } ?></button>-->
 <input name="term_condition" type="checkbox" value="term_condition" id="term_condition"/><lable id="blink_me" style="color: red;"> I confirm this goalsheet & IDP is discussed and agreed
 with <?php if(isset($emp_data['0']['Emp_fname'])) { echo $emp_data['0']['Emp_fname']." ".$emp_data['0']['Emp_lname']; } ?></lable>
-                                <?php echo CHtml::button('Approve Goal Sheet of '.$employee_name,array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>$employee_id,'onclick'=>'js:send_notification();')); ?>
+                                <?php if(isset($employee_id)) { echo CHtml::button('Approve Goal Sheet of '.$employee_name,array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>$employee_id,'onclick'=>'js:send_notification();')); ?>
 </lable><div id="show_spin2" style="display: none;margin-top: 10px;float: right;"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i></div>
-<?php  ?>
+<?php }  ?>
                                 <!-- END PAGE BASE CONTENT -->
                             </div>
                         </div>

@@ -81,14 +81,26 @@
             };
             var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
             $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+           // var arr = doj.split("/");
+           // var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
+           // var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
+           // var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
+           // var fin_trn_prob = convert(trn_prob);
+           // $('#due_date_trn_prob').val(fin_trn_prob);
+           // var dt_of_con = convert(fin_dt);
+           // $('#confirm_due_date').val(dt_of_con);
            var arr = doj.split("/");
            var join_dat = new Date(arr[2],arr[1]-1,arr[0]);
            var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
            var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
            var fin_trn_prob = convert(trn_prob);
-           $('#due_date_trn_prob').val(fin_trn_prob);
            var dt_of_con = convert(fin_dt);
-           $('#confirm_due_date').val(dt_of_con);
+           var trainee = $('option:selected', $('#trainee')).val();
+           if(trainee !="" ){
+               $('#due_date_trn_prob').val(fin_trn_prob);
+               $('#confirm_due_date').val(dt_of_con);
+           }
+
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -157,112 +169,7 @@
  
 $(document).ready(function(){
     
-   
-    // $("#pers_info").click(function(){
-    //      if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').addClass("active");
-    //     $('#li3').removeClass("active");
-    //     $('#li4').removeClass("active");
-    //     $('#li5').removeClass("active");
-    //     $('#li6').removeClass("active");
-    //     $('#li7').removeClass("active");
-    //     $('#li8').removeClass("active");
-    //     }
-    //     else{
-    //         $("#pers_info").attr("href", "#");
-    //     }
-    // });
-    // $("#genrl_info").click(function(){
-    //     if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').removeClass("active");
-    //     $('#li3').addClass("active");
-    //     $('#li4').removeClass("active");
-    //     $('#li5').removeClass("active");
-    //     $('#li6').removeClass("active");
-    //     $('#li7').removeClass("active");
-    //     $('#li8').removeClass("active");
-    //     }
-    //     else{
-    //         $("#genrl_info").attr("href", "#");
-    //     }
-    // });
-    // $("#reprt_detls").click(function(){
-    //     if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').removeClass("active");
-    //     $('#li3').removeClass("active");
-    //     $('#li4').addClass("active");
-    //     $('#li5').removeClass("active");
-    //     $('#li6').removeClass("active");
-    //     $('#li7').removeClass("active");
-    //     $('#li8').removeClass("active");
-    //     }
-    //     else{
-    //         $("#reprt_detls").attr("href", "#");
-    //     }
-    // });
-    // $("#join_detals").click(function(){
-    //     if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').removeClass("active");
-    //     $('#li3').removeClass("active");
-    //     $('#li4').removeClass("active");
-    //     $('#li5').addClass("active");
-    //     $('#li6').removeClass("active");
-    //     $('#li7').removeClass("active");
-    //     $('#li8').removeClass("active");
-    //     }
-    //     else{
-    //         $("#join_detals").attr("href", "#");
-    //     }
-    // });
-    // $("#promo_detals").click(function(){
-    //     if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').removeClass("active");
-    //     $('#li3').removeClass("active");
-    //     $('#li4').removeClass("active");
-    //     $('#li5').removeClass("active");
-    //     $('#li6').addClass("active");
-    //     $('#li7').removeClass("active");
-    //     $('#li8').removeClass("active");
-    //     }
-    //     else{
-    //         $("#promo_detals").attr("href", "#");
-    //     }
-    // });
-    // $("#trans_dtls").click(function(){
-    //     if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').removeClass("active");
-    //     $('#li3').removeClass("active");
-    //     $('#li4').removeClass("active");
-    //     $('#li5').removeClass("active");
-    //     $('#li6').removeClass("active");
-    //     $('#li7').addClass("active");
-    //     $('#li8').removeClass("active");
-    //     }
-    //     else{
-    //         $("#trans_dtls").attr("href", "#");
-    //     }
-    // });
-    // $("#leave_dtls").click(function(){
-    //     if($('#err').text()==""){
-    //     $('#li1').removeClass("active");
-    //     $('#li2').removeClass("active");
-    //     $('#li3').removeClass("active");
-    //     $('#li4').removeClass("active");
-    //     $('#li5').removeClass("active");
-    //     $('#li6').removeClass("active");
-    //     $('#li7').removeClass("active");
-    //     $('#li8').addClass("active");
-    //     }
-    //     else{
-    //         $("#leave_dtls").attr("href", "#");
-    //     }
-    // });
+
     
     $("#prve1").click(function(){
         $('#li1').addClass("active");
@@ -391,6 +298,7 @@ $(document).ready(function(){
         $('#age_yrs').css('border','');
         $('#contact').css('border','');
         $('#comp_nm').css('border','');
+        $('#gender').css('border','');
         if($('#comp_nm').val()==""){
             $('#err').text("Please Select Company name");
             $('#err').show();
@@ -413,7 +321,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#mname').focus();
             $('#mname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in middle name field");
         }
         else if($('#lname').val()==""){
             $('#err').text("Please enter last name");
@@ -425,14 +333,14 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#lname').focus();
             $('#lname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in last name field");
         }
-        else if($('#mname').val()==""){
-            $('#err').text("Please enter middle name");
-            $('#err').show();
-            $('#mname').css('border','1px solid red');
-            $('#mname').focus();
-        }
+        // else if($('#mname').val()==""){
+        //     $('#err').text("Please enter middle name");
+        //     $('#err').show();
+        //     $('#mname').css('border','1px solid red');
+        //     $('#mname').focus();
+        // }
         else if($('#email').val()==""){
             $('#err').text("Please enter Email id");
             $('#err').show();
@@ -449,7 +357,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#per_email').focus();
             $('#per_email').css('border','1px solid red');
-            $("#err").text("Please enter valid email id");
+            $("#err").text("Please enter valid personal email id");
         }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
@@ -639,14 +547,17 @@ $(document).ready(function(){
         $('#loc_pay').css('border','');
         $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
-        var desgn = $('option:selected', $('#desgn')).val();
+        //var desgn = $('option:selected', $('#desgn')).val();
+        var desgn = $("#desgn option:selected").text();
         var dept = $('option:selected', $('#dept')).val();
         var sub_dept = $('option:selected', $('#sub_dept')).val();
         var bu = $('option:selected', $('#bu')).val();
         var cadre= $('option:selected', $('#cadre')).val();
         var grade= $('option:selected', $('#grade')).val();
-        var loc_work= $('option:selected', $('#loc_work')).val();
-        var loc_pay= $('option:selected', $('#loc_pay')).val();
+        //var loc_work= $('option:selected', $('#loc_work')).val();
+        var loc_work= $("#loc_work option:selected").text();
+        //var loc_pay= $('option:selected', $('#loc_pay')).val();
+        var loc_pay= $("#loc_pay option:selected").text();
         var cluster= $('option:selected', $('#clust_nm')).val();
         var u_id=$('#u_id').val();
 
@@ -656,8 +567,8 @@ $(document).ready(function(){
             $('#pos_code').css('border','1px solid red');
             $('#pos_code').focus();
         }
-        else if(desgn == ""){
-            $('#err').text("Please Select Position");
+        else if(desgn == "" || desgn == "Select"){
+            $('#err').text("Please Select Designation");
             $('#err').show();
             $('#desgn').css('border','1px solid red');
             $('#desgn').focus();
@@ -692,13 +603,13 @@ $(document).ready(function(){
             $('#err').show();
             $('#grade').focus();
         }
-        else if(loc_work == ""){
+        else if(loc_work == "" || loc_work =="Select"){
             $('#err').text("Please Select Location-Working");
             $('#loc_work').css('border','1px solid red');
             $('#err').show();
             $('#loc_work').focus();
         }
-        else if(loc_pay == ""){
+        else if(loc_pay == "" || loc_pay == "Select"){
             $('#err').text("Please Select Location-Payroll");
             $('#loc_pay').css('border','1px solid red');
             $('#err').show();
@@ -973,6 +884,26 @@ $(document).ready(function(){
                 $('#err').text("");
                 $('#err').hide();
             }
+    }
+
+    if(prev_emplyr!=""){
+        if(othr_exp==''){
+           $('#err').text("Please Enter Other Experience ");
+           $('#othr_exp').css('border','1px solid red');
+           $('#err').show();
+           $('#othr_exp').focus(); 
+        }
+        else if(doj_vvf==''){
+           $('#err').text("Please Enter Date of Joining VVF ");
+           $('#doj_vvf').css('border','1px solid red');
+           $('#err').show();
+           $('#doj_vvf').focus(); 
+        }
+        else{
+                $('#err').text("");
+                $('#err').hide();
+            }
+
     }
 
         if($('#err').text()==""){
@@ -1277,7 +1208,7 @@ $(document).ready(function(){
           //if($('#err').text() == ""){
            
            if($('#err').text()==''){
-            alert($('#err').text());
+            //alert($('#err').text());
             var leave_details = {
                     dt_retire : dt_retire,
                     lst_wrk_dt : lst_wrk_dt,
@@ -1429,9 +1360,18 @@ $(document).ready(function(){
                                             }); 
 
 
+        $("#trainee").change(function(){ 
+                var trainee = $('option:selected', $('#trainee')).val();
+                if(trainee !="" || trainee != 'Select'){
+                    $('#prev_emplyr').val("");
+                    $('#othr_exp').val("");
+                    $('#doj_vvf').val("");
+                    $("#join_detals").attr("href", "#");
+                }
+        });
 
         $("#cost_center").change(function () {
-            
+            //alert("hi")
         var cost_center = {
                         'cost_center' :$(this).find(':selected').text(),
                     };
@@ -1449,7 +1389,6 @@ $(document).ready(function(){
                         }
                     });
         });
-
 
 });
   </script>
@@ -2185,8 +2124,8 @@ var d = new Date(2017, 09, 01);
                                                                                   //print_r($records);die();
                                                                                  $list = CHtml::listData($records,'Department', 'Department'); 
                                                                                  $arr_clus = array();
-                                                                                 $arr_clus[$employee_data['0']['Department']] = array('selected' => true);  
-                                                                                 if($employee_data['0']['Department']==""){
+                                                                                 $arr_clus[$employee_data['0']['Sub_department']] = array('selected' => true);  
+                                                                                 if($employee_data['0']['Sub_department']==""){
                                                                                     echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'sub_dept','class'=>'form-control Department','empty'=>'Select')); 
                                                                                  }
                                                                                  else{
@@ -2356,7 +2295,7 @@ var d = new Date(2017, 09, 01);
                                                                                         $location_details=$records['0']['company_location'];
                                                                                         $location1=explode(';',$location_details);
                                                                                         $status1 = '';
-                                                                                        $status1[$employee_data['0']['company_location']] = array('selected' => true);
+                                                                                        $status1[$employee_data['0']['Location_payroll_at']] = array('selected' => true);
 
                                                                                         $list_data = array();
                                                                                         for ($i=0; $i < count($location1); $i++) { 
@@ -2668,7 +2607,7 @@ var d = new Date(2017, 09, 01);
                                             $data = array($employee_data['0']['Reporting_1_for_appraisal']);
                                             $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
                                             $status1 = '';
-                                            $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
+                                            $status1[$employee_data['0']['Reporting_officer2_id']] = array('selected' => true);
                                             if($employee_data['0']['Reporting_1_for_appraisal']==""){
                                             echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'dot_mgr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
                                       }
@@ -2826,7 +2765,7 @@ $reporting_list = new EmployeeForm();
                                             $data = array($employee_data['0']['Reporting_1_for_appraisal']);
                                             $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
                                             $status1 = '';
-                                            $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
+                                            $status1[$employee_data['0']['cluster_appraiser']] = array('selected' => true);
                                             if($employee_data['0']['Reporting_1_for_appraisal']==""){
                                             echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'clust_hd','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
                                       }
@@ -2921,8 +2860,8 @@ $reporting_list = new EmployeeForm();
                                                                     <label class="col-md-3 control-label">Actual Date of Probation to Confirmation
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <?php  if(isset($employee_data) && ($employee_data['0']['Actual_date_for_training_to_probation']!="")){ ?> 
-                                                                      <input class="form-control" placeholder="Enter Actual Date of Actual Date of Probation to Confirmation" type="text" id="date_confrm_prob" value='<?php echo $employee_data['0']['Actual_date_for_training_to_probation']; ?>'>
+                                                                        <?php  if(isset($employee_data) && ($employee_data['0']['Actual_date_of_probation_to_Confirmation']!="")){ ?> 
+                                                                      <input class="form-control" placeholder="Enter Actual Date of Actual Date of Probation to Confirmation" type="text" id="date_confrm_prob" value='<?php echo $employee_data['0']['Actual_date_of_probation_to_Confirmation']; ?>'>
                                                                       <?php }
                                                                       else{ ?>
                                                                       <input class="form-control" placeholder="Enter Actual Date of Actual Date of Probation to Confirmation" type="text" id="date_confrm_prob">
@@ -2954,18 +2893,7 @@ $reporting_list = new EmployeeForm();
                                                                                
                                                                     </div>
                                                                 </div>
-                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Date of Joining VVF
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                         <?php  if(isset($employee_data) && ($employee_data['0']['joining_date']!="")){ ?> 
-                                                                            <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" value="<?php echo $employee_data['0']['joining_date'];?>">
-                                                                    <?php } else {?>
-                                                                            <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf">
-                                                                     <?php }?>
-                                                                    </div>
-                                                                </div>
-                                                                 <div class="form-group">
+                                                                <div class="form-group">
                                                                     <label class="col-md-3 control-label">Other Exp (In Yrs)
                                                                     </label>
                                                                     <div class="col-md-6">
@@ -2977,13 +2905,25 @@ $reporting_list = new EmployeeForm();
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Date of Joining VVF
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                         <?php  if(isset($employee_data) && ($employee_data['0']['joining_date']!="")){ ?> 
+                                                                            <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" value="<?php echo $employee_data['0']['joining_date'];?>" >
+                                                                    <?php } else {?>
+                                                                            <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" >
+                                                                     <?php }?>
+                                                                    </div>
+                                                                </div>
+                                                                 
+                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">VVF Exp (In Yrs)
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php  if(isset($employee_data) && ($employee_data['0']['VVF_exp']!="")){ ?> 
-                                                                               <input class="form-control" placeholder="Enter VVF Exp (In Yrs)" type="text" id="vvf_exp" value="<?php echo $employee_data['0']['VVF_exp'];?>">
+                                                                               <input class="form-control" placeholder="Enter VVF Exp (In Yrs)" type="text" id="vvf_exp" value="<?php echo $employee_data['0']['VVF_exp'];?>" disabled>
                                                                         <?php } else {?>
-                                                                               <input class="form-control" placeholder="Enter VVF Exp (In Yrs)" type="text" id="vvf_exp" >
+                                                                               <input class="form-control" placeholder="Enter VVF Exp (In Yrs)" type="text" id="vvf_exp" disabled>
                                                                         <?php }?>
                                                                     </div>
                                                                 </div>
@@ -2992,9 +2932,9 @@ $reporting_list = new EmployeeForm();
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php  if(isset($employee_data) && ($employee_data['0']['Total_exp']!="")){ ?> 
-                                                                               <input class="form-control" placeholder="Enter Total Exp (In Yrs)" type="text" id="tot_exp" value="<?php echo $employee_data['0']['Total_exp'];?>">
+                                                                               <input class="form-control" placeholder="Enter Total Exp (In Yrs)" type="text" id="tot_exp" value="<?php echo $employee_data['0']['Total_exp'];?>" disabled>
                                                                         <?php } else {?>
-                                                                               <input class="form-control" placeholder="Enter Total Exp (In Yrs)" type="text" id="tot_exp">
+                                                                               <input class="form-control" placeholder="Enter Total Exp (In Yrs)" type="text" id="tot_exp" disabled>
                                                                         <?php }?>
                                                                             
                                                                     </div>
@@ -3108,8 +3048,7 @@ $reporting_list = new EmployeeForm();
                                                                                     <option value="Assistant General Manager">Assistant General Manager</option>
                                                                                     <option value="General Manager">General Manager</option>
                                                                                     <option value="Vice President">Vice President</option>
-                                                                                    <option value="Senior Manager 
-                                                                                    ">Senior Manager 
+                                                                                    <option value="Senior Manager">Senior Manager 
                                                                                     </option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Designation Before Promotion </span>
@@ -3267,15 +3206,15 @@ $reporting_list = new EmployeeForm();
                                                                     <div class="form-group">
                                                                     <label class="col-md-3 control-label">Transferred From (Location)
                                                                     </label>
-                                                                    <div class="col-md-6">
-                                                                         <select class="form-control" id="trnsfr_frm_loc">
+                                                                    <div class="col-md-6"><?php //echo $employee_data['0']['Transferred_from_loc'];die(); ?>
+                                                                         <select class="form-control" id="trnsfr_frm_loc">Corporate
                                                                             <?php  if(isset($employee_data) && ($employee_data['0']['Transferred_from_loc'] !="")){ ?>
                                                                                 <option value="<?php echo $employee_data['0']['Transferred_from_loc']?>" Selected><?php echo $employee_data['0']['Transferred_from_loc']?></option>
                                                                             <?php } ?>
                                                                             <option value="">Select</option>
                                                                             <option value="Corporate">Corporate</option>
                                                                             <option value="Sion">Sion</option>
-                                                                            <option value="Taloja" selected="selected">Taloja</option>
+                                                                            <option value="Taloja" >Taloja</option>
                                                                             <option value="Raipur">Raipur</option>
                                                                             <option value="Kolkata">Kolkata</option>
                                                                             <option value="Baddi">Baddi</option>
@@ -3300,7 +3239,7 @@ $reporting_list = new EmployeeForm();
                                                                                    <option value="">Select</option>
                                                                                    <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3325,7 +3264,7 @@ $reporting_list = new EmployeeForm();
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3350,7 +3289,7 @@ $reporting_list = new EmployeeForm();
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3368,13 +3307,13 @@ $reporting_list = new EmployeeForm();
                                                                     <label class="col-md-3 control-label">Transferred From (Department)     
                                                             </label>
                                                                     <div class="col-md-6">
-                                                                                <select class="form-control" id="transfr_frm_dept">
+                                                                                <!-- <select class="form-control" id="transfr_frm_dept">
                                                                                     <?php  if(isset($employee_data) && ($employee_data['0']['Transferred_from_dept'] !="")){ ?>
                                                                                          <option value="<?php echo $employee_data['0']['Transferred_from_dept'];?>" Selected><?php echo $employee_data['0']['Transferred_from_dept'];?></option>
                                                                                     <?php } ?>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3384,21 +3323,38 @@ $reporting_list = new EmployeeForm();
                                                                                     <option value="Daman">Daman</option>
                                                                                     <option value="Chennai">Chennai</option>
                                                                                     <option value="New Delhi">New Delhi</option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                 <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                                    $arr_clus = array();
+                                                                                    $arr_clus[$employee_data['0']['Transferred_from_dept']] = array('selected' => true);  
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    if(isset($employee_data) && ($employee_data['0']['Transferred_from_dept'] !="")){
+                                                                                         echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'transfr_frm_dept','class'=>'form-control department','options'=>$arr_clus)); 
+                                                                                    
+                                                                                    }
+                                                                                    else{
+                                                                                       echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'transfr_frm_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                    }
+                                                                                 ?>
                                                                                 <span class="help-block"> Select Transferred From Old Data (Location) </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Transfer W.e.f (Department) </label>
                                                                     <div class="col-md-6">
-                                                                        <select class="form-control" id="tranr_wef_dept">
+                                                                        <!-- <select class="form-control" id="tranr_wef_dept">
                                                                             <?php  if(isset($employee_data) && ($employee_data['0']['Transfer_wef_dept'] !="")){ ?>
                                                                                          <option value="<?php echo $employee_data['0']['Transfer_wef_dept'];?>" Selected><?php echo $employee_data['0']['Transfer_wef_dept'];?></option>
                                                                                     <?php } ?>
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" selected="selected">Taloja</option>
+                                                                                    <option value="Taloja" >Taloja</option>
                                                                                     <option value="Raipur">Raipur</option>
                                                                                     <option value="Kolkata">Kolkata</option>
                                                                                     <option value="Baddi">Baddi</option>
@@ -3408,7 +3364,22 @@ $reporting_list = new EmployeeForm();
                                                                                     <option value="Daman">Daman</option>
                                                                                     <option value="Chennai">Chennai</option>
                                                                                     <option value="New Delhi">New Delhi</option>
-                                                                       </select>
+                                                                       </select> -->
+                                                                       <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 $arr_clus = array();
+                                                                                 $arr_clus[$employee_data['0']['Transfer_wef_dept']] = array('selected' => true);  
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 if(isset($employee_data) && ($employee_data['0']['Transfer_wef_dept'] !="")){
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'tranr_wef_dept','class'=>'form-control department','options'=>$arr_clus)); 
+                                                                                }
+                                                                                else{
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'tranr_wef_dept','class'=>'form-control department','options'=>$arr_clus,'empty'=>'Select')); 
+                                                                                }
+                                                                                 ?>
                                                                        <span class="help-block"> Select Transfer W.e.f (Department) </span>
                                                                     </div>
                                                                 </div>
@@ -3432,10 +3403,10 @@ $reporting_list = new EmployeeForm();
                                                                     <label class="col-md-3 control-label">Date of Retirement</label>
                                                                     <div class="col-md-6">
                                                                         <?php  if(isset($employee_data) && ($employee_data['0']['retire_date'] !="")){ ?>
-                                                                            <input class="form-control" placeholder="Enter Date of Retirement" type="text" id="dt_retire" value="<?php echo $employee_data['0']['retire_date'];?>">
+                                                                            <input class="form-control" placeholder="Enter Date of Retirement" type="text" id="dt_retire" value="<?php echo $employee_data['0']['retire_date'];?>" disabled>
                                                                        <?php } else {
                                                                         ?>
-                                                                        <input class="form-control" placeholder="Enter Date of Retirement" type="text" id="dt_retire">
+                                                                        <input class="form-control" placeholder="Enter Date of Retirement" type="text" id="dt_retire" disabled>
                                                                        <?php }?>
                                                                         
                                                                     </div>
@@ -3580,11 +3551,13 @@ $reporting_list = new EmployeeForm();
                                                                                 $status1[$employee_data['0']['Cost_centre_codes']] = array('selected' => true);
                                                                                 // print_r($records);
                                                                                  $list = CHtml::listData($records,'cost_center', 'cost_center'); 
+
                                                                                  if($employee_data['0']['Cost_centre_codes']==""){
-                                                                                     echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','options'=>$status1,'empty'=>'Select')); 
+                                                                                     echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','empty'=>'Select')); 
                                                                                  }
                                                                                  else{
-                                                                                    echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','empty'=>'Select')); 
+                                                                                   
+                                                                                     echo CHtml::activeDropDownList($costcenter_model,'cost_center',$list,array('id'=>'cost_center','class'=>'form-control cost_center','options'=>$status1,'empty'=>'Select')); 
                                                                                  }
                                                                                     
                                                                                 

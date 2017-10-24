@@ -1,4 +1,4 @@
-<label id="yr" style="display:none"><?php echo Yii::app()->user->getState('financial_year_check');?></label>
+<label id="yr" style=""><?php echo Yii::app()->user->getState('financial_year_check'); ?></label>
 <?php echo $edit_flag; ?>
 
 <!--</script>-->
@@ -2060,7 +2060,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                     <?php
                                                         }
                                                         
-                                                    ?>                                                   
+                                                   ?>                                                   
                                                 </table>                                                
                                             </div>
                                         </div>
@@ -2149,7 +2149,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                   }
                                                                 }
                                                                 
-                                                            ?>
+                                                             ?>
                                                            <?php
                                                                 $cnt = 0;
                                                                 for ($i=0; $i < count($kpi_list_data); $i++) { if (isset($kpi_list_data[$i]) && $kpi_list_data[$i]!='') { $cnt++;
@@ -2346,7 +2346,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
             $list = array('Email_id');
             $data = array($emp_data['0']['Reporting_officer1_id']);
             $mgr_data = $employee->get_employee_data($where,$data,$list);
-
+           // print_r($emp_data['0']['Reporting_officer1_id']);die();
                     ?> 
                     <?php
 $set_flag = 'disabled';
@@ -2423,7 +2423,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                         <div class="col-md-4">
                                                         <?php 
                                                            $today = date('d-m-Y'); 
-                                                         echo Yii::app()->user->getState('financial_year_check'); ?>
+                                                         echo Yii::app()->user->getState('financial_year_check');  ?>
                                                             
                                                         </div>
                                                     </div>
@@ -2625,7 +2625,7 @@ else
 {
   echo CHtml::textField('topic1',$topic,$htmlOptions=array('class'=>"form-control col-md-4 topic1","maxlength"=>"1000"));
 } 
-                                                         ?> 
+                                                        ?> 
                                                         </div>
                                                         <div class="col-md-2">
                                                             <?php 
@@ -2715,7 +2715,7 @@ else
 {
  echo CHtml::textField('topic2',$topic,$htmlOptions=array('class'=>"form-control col-md-4 topic2","maxlength"=>"1000"));
 }
-                                                             ?> 
+                                                              ?> 
                                                         </div>
                                                         <div class="col-md-2">
                                                             <?php 
@@ -2760,7 +2760,7 @@ else
 {
   echo CHtml::DropDownList('faculty_email_id2','faculty_email_id2',$Cadre_id,array('class'=>'form-control faculty_email_id2','empty'=>'Select','options' => $faculty,$set_flag));
 }
-                                                            ?>
+                                                         ?>
                                                         </div>
                                                     </div>
 
@@ -2848,7 +2848,7 @@ else
 {
  echo CHtml::textField('number_of_meetings3',$meet,$htmlOptions=array('class'=>"form-control col-md-4 number_of_meetings3",'id'=>'number_of_meetings3',"maxlength"=>"1000"));
 }
-                                                             ?> 
+                                                              ?> 
                                                           </div>
                                                        <div class="col-md-2">
                                                              <?php 
@@ -2925,7 +2925,7 @@ else
  echo CHtml::textField('faculty_email_id4',$faculty4,$htmlOptions=array('class'=>"form-control col-md-4 faculty_email_id4",'id'=>'faculty_email_id4',"maxlength"=>"1000"));
 }
                                                             
-                                                             ?>
+                                                           ?>
                                                           </div>
                                                         <div class="col-md-2">
                                                            <?php 
@@ -3151,7 +3151,7 @@ else
 {
  echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('class'=>"form-control col-md-4 project_deliverables",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;'));
 }
-                                                         ?> 
+                                                          ?> 
                                                     </div>
                                                 </div>
                                                 <div class="form-group last">
@@ -3221,7 +3221,7 @@ else
                     <lable id="blink_me" style="color: red;"> I agree to the goals and IDP filled above
 </lable>
                                         <?php echo CHtml::button('Send to manager for approval',array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>'send_for_appraisal')); ?><?php } ?>
-                                        <?php } ?>
+                                        <?php }   ?>
                                         <?php echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px','id'=>'getdata')); ?>
                                     </div>                        
                                 </div>
@@ -6131,10 +6131,10 @@ function save_detail_pdf()
                     type : 'post',
                     datatype : 'html',
                     data : data,
-                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_goal_idp',
+                    url : base_url+$("#basepath").attr('value')+'/index.php/Checkattach/check_goal_idp',
                     success : function(data)
                     {
-                        //alert(data);
+                        alert(data);
                         location.href = base_url+$("#basepath").attr('value')+'/Goalsheet_docs/goalsheet'+'_'+$("#femp_name").text()+'_'+$("#lemp_name").text()+$('#yr').text()+'.pdf'; 
                     }
                     });                 
@@ -6259,7 +6259,7 @@ $where = 'where Email_id = :Email_id';
                                                     </thead>
                                                     <tbody>
                                                         <?php
-                                                                $kpi_list_data = '';
+                                                                 $kpi_list_data = '';
                                                                 $kpi_list_data = explode(';',$row['kpi_list']);
                                                                 $kpi_list_unit = explode(';',$row['target_unit']);
                                                                 $kpi_list_target = explode(';',$row['target_value1']); 
@@ -6428,7 +6428,7 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
       $data = array($emp_data['0']['Reporting_officer1_id']);
       $mgr_data = $employee->get_employee_data($where,$data,$list);
 //print_r($emp_data);die();
-   ?>
+  ?>
    <lable id='emp_id' style="display: none"><?php echo 'vvf57e264fd8d3ef'; ?></lable>
 <div id="target_idp" >
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
@@ -6565,7 +6565,7 @@ A: Development through Instructor led training in Classroom</b></span></font></p
             }
 
                 echo $cmnt;
-            ?> </td>
+           ?> </td>
       </tr>
       <?php      
 
@@ -6652,7 +6652,7 @@ $faculty[$faculty2[0]] = array('selected' => 'selected');
              
              
        }
-  ?>
+   ?>
   <tr valign="top">
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><font face="Cambria, serif">1</font></p>
@@ -6725,7 +6725,7 @@ $faculty[$faculty2[1]] = array('selected' => 'selected');
         }
        
     }
-  ?>
+   ?>
   <tr valign="top">
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><font face="Cambria, serif">2</font></p>
@@ -7051,7 +7051,7 @@ C: Development through action learning projects</b></font></p>
                   $Project_deliverables = '';
                 }
                 echo $Project_deliverables;
-                ?>
+               ?>
       </p>
     </td>
   </tr>

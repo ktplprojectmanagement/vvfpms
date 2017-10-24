@@ -47,6 +47,7 @@ class IDPController extends Controller
 			$selected_option = 'IDP';
 			$this->render('//site/script_file');
 			$this->render('//site/session_check_view');
+			$this->render('//site/baseurl');
 			$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 			$this->render('//site/IDP_form',array('program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag));
 			$this->render('//site/footer_view_layout');
@@ -691,17 +692,40 @@ $detail = array(
 
 	function actionmid_save_data()
 	{
+		//echo $_POST['emp_code'];die();
 		$model=new IDPForm;
 
-		$Employee_id = $_POST['emp_code'];
-		$where = 'where Employee_id = :Employee_id';
-		$list = array('Employee_id');
-		$data = array($Employee_id);
-		$IDP_data = $model->get_idp_data($where,$data,$list);
-
+		//$Employee_id = '123456';
+		//echo $_POST['prgrm_cmd'];die();
+		// $where = 'where Employee_id = :Employee_id AND goal_set_year = :goal_set_year';
+		// $list = array('Employee_id','goal_set_year');
+		// $data = array($Employee_id,Yii::app()->user->getState('financial_year_check'));
+		// $IDP_data = $model->get_idp_data($where,$data,$list);
+		  $where = 'where Employee_id = :Employee_id AND goal_set_year= :goal_set_year';
+		  $list = array('Employee_id','goal_set_year');
+		  $data = array($_POST['emp_code'],Yii::app()->user->getState('financial_year_check'));
+		  $IDP_data = $model->get_idp_data($where,$data,$list);
+         //print_r(count($IDP_data));die();
+		  $ext_prg_stat='';
+		  if(isset($_POST['extra_program_status'])){
+		  	$ext_prg_stat=$_POST['extra_program_status'];
+		  }
+		  //echo $ext_prg_stat;die();
+		// if (count($IDP_data)>0) {
+		// 	$detail = array(
+				
+		// 		'mid_prgrm_cmd' => $_POST['prgrm_cmd'] ,
+		// 		'mid_status' => isset($_POST['program_status']) ? $_POST['program_status'] : '' ,
+		// 		'extra_prgrm_cmd' => isset($_POST['extra_prgrm_cmd']) ? $_POST['extra_prgrm_cmd'] : '',
+		// 		'extra_program_status' => isset($ext_prg_stat)? $ext_prg_stat : '',
+		// 		'rel_program_review1' => isset($_POST['rel_program_review']) ? $_POST['rel_program_review'] : '' ,
+		// 		'rel_program_review_status' => isset($_POST['rel_program_review_status']) ? $_POST['rel_program_review_status'] : '',
+		// 		'project_mid_review' => isset($_POST['project_mid_review']) ? $_POST['project_mid_review'] :'',
+		// 		'project_mid_status' => isset($_POST['project_mid_status']) ? $_POST['project_mid_status'] :'',
+		// 	);
 		if (count($IDP_data)>0) {
 			$detail = array(
-				'Employee_id' => $_POST['emp_code'],
+				
 				'mid_prgrm_cmd' => $_POST['prgrm_cmd'],
 				'mid_status' => $_POST['program_status'],
 				'extra_prgrm_cmd' => $_POST['extra_prgrm_cmd'],
@@ -712,8 +736,9 @@ $detail = array(
 				'project_mid_status' => $_POST['project_mid_status'],
 			);
 			//print_r($detail);die();
-			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_code']));
-
+			//$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_code']));
+			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_code'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+			print_r($update);die();
 			if($update>0)
 		  	{
 		  		print_r("Successfully Saved");die();

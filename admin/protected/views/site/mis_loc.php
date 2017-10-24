@@ -45,21 +45,7 @@
         });
     $( "#date_confrm_trn").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#date_confrm_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
-    $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
-            // var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
-            // var exp = getAge(this);
-            // var exp_yr=exp.split("years");
-            // //alert(exp_yr);
-            // var other_exp= 0 ;
-            // $('#vvf_exp').val(exp_yr[0]+''+'Years');
-            // $('#doj_vvf').val(newdate1);
-            // if ($('#othr_exp').val()!='') {
-            //     other_exp=$('#othr_exp').val(); 
-            //     //alert(other_exp);
-            // };
-            // var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
-            // //alert(parseInt(other_exp)+parseInt(exp_yr[0]));
-            // $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+''+'Years');
+   $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
             var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
             var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
 
@@ -79,9 +65,13 @@
            var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
            var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
            var fin_trn_prob = convert(trn_prob);
-           $('#due_date_trn_prob').val(fin_trn_prob);
+          //alert(fin_trn_prob);
            var dt_of_con = convert(fin_dt);
+           var trainee = $('option:selected', $('#trainee')).val();
+           if(trainee !="" ){
+           $('#due_date_trn_prob').val(fin_trn_prob);
            $('#confirm_due_date').val(dt_of_con);
+           }
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -95,7 +85,10 @@
     $( "#lst_wrk_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#redesign_dt").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
   });
-    
+    function process(date){
+   var parts = date.split("/");
+   return new Date(parts[2], parts[1] - 1, parts[0]);
+}
    function getAge(dateVal) {
     //alert(dateVal);
             var
@@ -110,6 +103,12 @@
                 return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
 
         }
+        function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+        day  = ("0" + date.getDate()).slice(-2);
+    return [day,mnth,date.getFullYear()].join("-");
+}
   </script>  
     <script type="text/javascript">
  $(function(){
@@ -358,8 +357,9 @@ $(document).ready(function(){
   </script>
   <script type="text/javascript">
 $(document).ready(function(){
-   //alert("helllooooo");
+  
     $("#pers_info").click(function(){
+        $("#pers_info").attr("href", "#");
         $('#fname').css('border','');
         $('#lname').css('border','');
         $('#mname').css('border','');
@@ -377,6 +377,7 @@ $(document).ready(function(){
         $('#age_yrs').css('border','');
         $('#contact').css('border','');
         $('#comp_nm').css('border','');
+        $('#gender').css('border','');
         var nm = /^([a-zA-Z]{1,40})*$/;
         var eml = /^([A-Za-z0-9][A-Za-z0-9_\.]{1,})@([A-Za-z0-9][A-Za-z0-9\-]{1,}).([A-Za-z]{2,4})(\.[A-Za-z]{2,4})?$/;
         var con_no = /^[\d]{10}$/;
@@ -430,7 +431,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#mname').focus();
             $('#mname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in middle name field");
         }
         else if($('#lname').val()==""){
             $('#err').text("Please enter last name");
@@ -442,7 +443,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#lname').focus();
             $('#lname').css('border','1px solid red');
-            $("#err").text("Please enter only alphabhets in first name field");
+            $("#err").text("Please enter only alphabhets in last name field");
         }
         // else if($('#mname').val()==""){
         //     $('#err').text("Please enter middle name");
@@ -466,7 +467,7 @@ $(document).ready(function(){
             $("#err").css('display','block');
             $('#per_email').focus();
             $('#per_email').css('border','1px solid red');
-            $("#err").text("Please enter valid email id");
+            $("#err").text("Please enter valid personal email id");
         }
         else if($('#contact').val()==""){
             $('#err').text("Please enter Contact number");
@@ -517,13 +518,13 @@ $(document).ready(function(){
             $('#quali').focus();
         }
         else if(mar_stat == ""){
-            $('#err').text("Please select Gender");
+            $('#err').text("Please select Marital Status");
             $('#err').show();
             $('#marital_stat').css('border','1px solid red');
             $('#marital_stat').focus();
         }
         else if(no_of_depend ==""){
-            $('#err').text("Please select Gender");
+            $('#err').text("Please select No of dependents");
             $('#err').show();
             $('#no_of_depend').css('border','1px solid red');
             $('#no_of_depend').focus();
@@ -553,19 +554,19 @@ $(document).ready(function(){
             $('#aadhar').focus();
         }
         else if($('#dob').val()==""){
-            $('#err').text("Please enter Basic qualification");
+            $('#err').text("Please enter Date of Birth");
             $('#err').show();
             $('#dob').css('border','1px solid red');
             $('#dob').focus();
         }
         else if($('#age_yrs').val()==""){
-            $('#err').text("Please enter Basic qualification");
+            $('#err').text("Please enter age in years");
             $('#err').show();
             $('#age_yrs').css('border','1px solid red');
             $('#age_yrs').focus();
         }
         else if($('#age_mnt').val()==""){
-            $('#err').text("Please enter Basic qualification");
+            $('#err').text("Please enter age in months");
             $('#err').show();
             $('#age_mnt').css('border','1px solid red');
             $('#age_mnt').focus();
@@ -647,6 +648,8 @@ $(document).ready(function(){
     });
     $('#genrl_info').click(function(){
         //alert($('option:selected', $('#dept')).val());
+
+        $("#genrl_info").attr("href", "#");
         $('#pos_code').css('border','');
         $('#desgn').css('border','');
         $('#dept').css('border','');
@@ -658,25 +661,25 @@ $(document).ready(function(){
         $('#loc_pay').css('border','');
         $('#clust_nm').css('border','');
         var pos_code = $('#pos_code').val();
-        var desgn = $('option:selected', $('#desgn')).val();
+        var desgn = $("#desgn option:selected").text();
         var dept = $('option:selected', $('#dept')).val();
         var sub_dept = $('option:selected', $('#sub_dept')).val();
         var bu = $('option:selected', $('#bu')).val();
         var cadre= $('option:selected', $('#cadre')).val();
         var grade= $('option:selected', $('#grade')).val();
-        var loc_work= $('option:selected', $('#loc_work')).val();
-        var loc_pay= $('option:selected', $('#loc_pay')).val();
+        var loc_work= $("#loc_work option:selected").text();
+        var loc_pay= $("#loc_pay option:selected").text();
         var cluster= $('option:selected', $('#clust_nm')).val();
         var u_id=$('#u_id').val();
-        //alert(u_id);
+        
         if($('#pos_code').val()==""){
             $('#err').text("Please enter Position code");
             $('#err').show();
             $('#pos_code').css('border','1px solid red');
             $('#pos_code').focus();
         }
-        else if(desgn == ""){
-            $('#err').text("Please Select Position");
+        else if(desgn == "" || desgn == "Select"){
+            $('#err').text("Please Select Designation");
             $('#err').show();
             $('#desgn').css('border','1px solid red');
             $('#desgn').focus();
@@ -711,13 +714,13 @@ $(document).ready(function(){
             $('#err').show();
             $('#grade').focus();
         }
-        else if(loc_work == ""){
+        else if(loc_work == "" || loc_work=="Select"){
             $('#err').text("Please Select Location-Working");
             $('#loc_work').css('border','1px solid red');
             $('#err').show();
             $('#loc_work').focus();
         }
-        else if(loc_pay == ""){
+        else if(loc_pay == "" || loc_pay=="Select"){
             $('#err').text("Please Select Location-Payroll");
             $('#loc_pay').css('border','1px solid red');
             $('#err').show();
@@ -730,6 +733,9 @@ $(document).ready(function(){
             $('#clust_nm').focus();
         }
         else{
+            $('#err').text("");
+            $('#err').hide();
+            
             var genrl_detls={
                 pos_code : pos_code,
                 desgn:desgn,
@@ -762,7 +768,7 @@ $(document).ready(function(){
             $('#li6').removeClass("active");
             $('#li7').removeClass("active");
             $('#li8').removeClass("active");
-            //alert(base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/genrl_info');
+            
         }
         
     });
@@ -771,317 +777,7 @@ $(document).ready(function(){
   </script>
   <script>
     $(document).ready(function(){
-   //alert("helllooooo");
-    // $("#pers_info").click(function(){alert("sdas");
-    //     var fname = $('#fname').val();
-    //     var lname = $('#lname').val();
-    //     var mname = $('#mname').val();
-    //     var email = $('#email').val();
-    //     var perm_add = $('#perm_add').val();
-    //     var pin = $('#pin').val();
-    //     var quali = $('#quali').val();
-    //     var pan = $('#pan').val();
-    //     var dob = $('#dob').val();
-    //     var age_yrs = $('#age_yrs').val();
-    //     var age_mnt = $('#age_mnt').val();
-    //     var state= $('option:selected', $('#state')).val();
-    //     var city= $('option:selected', $('#city')).val();
-    //     var mar_stat= $('option:selected', $('#marital_stat')).val();
-    //     var no_of_depend= $('option:selected', $('#no_of_depend')).val();
-    //     var blg_grp= $('option:selected', $('#bld_grp')).val();
-    //     var gender= $('option:selected', $('#gender')).val();
-    //     var post_grad = $('#pg').val();
-    //     var add_edu = $('#add_qual').val();
-    //     var aadhar_no = $('#aadhar').val();
-    //     var sap =$('#sap').val();
-    //     var u_id=$('#u_id').val();
-    //     var contact = $('#contact').val();
-    //     if($('#fname').val()==""){
-    //         $('#err').text("Please enter first name");
-    //         $('#err').show();
-    //         $('#fname').css('border','1px solid red');
-    //         $('#fname').focus();
-    //     }
-    //     else if($('#lname').val()==""){
-    //         $('#err').text("Please enter last name");
-    //         $('#err').show();
-    //         $('#lname').css('border','1px solid red');
-    //         $('#lname').focus();
-    //     }
-    //     else if($('#mname').val()==""){
-    //         $('#err').text("Please enter middle name");
-    //         $('#err').show();
-    //         $('#mname').css('border','1px solid red');
-    //         $('#mname').focus();
-    //     }
-    //     else if($('#email').val()==""){
-    //         $('#err').text("Please enter Email id");
-    //         $('#err').show();
-    //         $('#email').css('border','1px solid red');
-    //         $('#email').focus();
-    //     }
-    //     else if($('#contact').val()==""){
-    //         $('#err').text("Please enter Contact number");
-    //         $('#err').show();
-    //         $('#contact').css('border','1px solid red');
-    //         $('#contact').focus();
-    //     }
-    //     else if($('#perm_add').val()==""){
-    //         $('#err').text("Please enter Permanent Address");
-    //         $('#err').show();
-    //         $('#perm_add').css('border','1px solid red');
-    //         $('#perm_add').focus();
-    //     }
-    //     else if(state ==""){
-    //         $('#err').text("Please select State");
-    //         $('#err').show();
-    //         $('#state').css('border','1px solid red');
-    //         $('#state').focus();
-    //     }
-    //     else if(city =="Select"){
-    //         $('#err').text("Please select city");
-    //         $('#err').show();
-    //         $('#city').css('border','1px solid red');
-    //         $('#city').focus();
-    //     }
-    //     else if($('#pin').val()==""){
-    //         $('#err').text("Please enter Pin code");
-    //         $('#err').show();
-    //         $('#pin').css('border','1px solid red');
-    //         $('#pin').focus();
-    //     }
-    //     else if($('#quali').val()==""){
-    //         $('#err').text("Please enter Basic qualification");
-    //         $('#err').show();
-    //         $('#quali').css('border','1px solid red');
-    //         $('#quali').focus();
-    //     }
-    //     else if(mar_stat == ""){
-    //         $('#err').text("Please select Gender");
-    //         $('#err').show();
-    //         $('#marital_stat').css('border','1px solid red');
-    //         $('#marital_stat').focus();
-    //     }
-    //     else if(no_of_depend ==""){
-    //         $('#err').text("Please select Gender");
-    //         $('#err').show();
-    //         $('#no_of_depend').css('border','1px solid red');
-    //         $('#no_of_depend').focus();
-    //     }
-    //     else if(blg_grp ==""){
-    //         $('#err').text("Please select Blood group");
-    //         $('#err').show();
-    //         $('#bld_grp').css('border','1px solid red');
-    //         $('#bld_grp').focus();
-    //     }
-    //     else if($('#pan').val()==""){
-    //         $('#err').text("Please enter Basic qualification");
-    //         $('#err').show();
-    //         $('#pan').css('border','1px solid red');
-    //         $('#pan').focus();
-    //     }
-    //     else if($('#dob').val()==""){
-    //         $('#err').text("Please enter Basic qualification");
-    //         $('#err').show();
-    //         $('#dob').css('border','1px solid red');
-    //         $('#dob').focus();
-    //     }
-    //     else if($('#age_yrs').val()==""){
-    //         $('#err').text("Please enter Basic qualification");
-    //         $('#err').show();
-    //         $('#age_yrs').css('border','1px solid red');
-    //         $('#age_yrs').focus();
-    //     }
-    //     else if($('#age_mnt').val()==""){
-    //         $('#err').text("Please enter Basic qualification");
-    //         $('#err').show();
-    //         $('#age_mnt').css('border','1px solid red');
-    //         $('#age_mnt').focus();
-    //     }
-    //     else if(gender ==""){
-    //         $('#err').text("Please select Gender");
-    //         $('#err').show();
-    //         $('#gender').css('border','1px solid red');
-    //         $('#gender').focus();
-    //     }
-    //     else{
-    //         $('#err').text("");
-    //         $('#err').hide();
-    //         $('#fname').css('border','');
-    //         $('#lname').css('border','');
-    //         $('#mname').css('border','');
-    //         $('#perm_add').css('border','');
-    //         $('#state').css('border','');
-    //         $('#city').css('border','');
-    //         $('#pin').css('border','');
-    //         $('#quali').css('border','');
-    //         $('#marital_stat').css('border','');
-    //         $('#no_of_depend').css('border','');
-    //         $('#bld_grp').css('border','');
-    //         $('#pan').css('border','');
-    //         $('#dob').css('border','');
-    //         $('#age_yrs').css('border','');
-    //          //alert(u_id);
-    //         var pers_data = {
-    //             fname : fname,
-    //             lname : lname,
-    //             mname : mname,
-    //             email : email,
-    //             contact:contact,
-    //             perm_add : perm_add,
-    //             pin : pin,
-    //             quali : quali,
-    //             pan : pan,
-    //             dob : dob,
-    //             age_yrs : age_yrs,
-    //             age_mnt : age_mnt,
-    //             state : state,
-    //             city : city,
-    //             mar_stat : mar_stat,
-    //             no_of_depend : no_of_depend,
-    //             blg_grp : blg_grp,
-    //             gender : gender,
-    //             post_grad:post_grad,
-    //             add_edu:add_edu,
-    //             aadhar_no:aadhar_no,
-    //             sap:sap,
-    //             u_id:u_id,
-    //             };
-    //             var base_url = window.location.origin;
-    //             //alert(base_url);
-    //             $.ajax({
-    //                             'type' : 'post',
-    //                             'datatype' : 'html',
-    //                             'data' : pers_data,
-    //                             'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/Save',
-    //                             success : function(data)
-    //                             {
-    //                                 alert(data);
-    //                             }
-    //                         });
-
-    //         $("#pers_info").attr("href", "#tab_1_2");
-    //         $('#li1').removeClass("active");
-    //         $('#li2').addClass("active");
-    //         $('#li3').removeClass("active");
-    //         $('#li4').removeClass("active");
-    //         $('#li5').removeClass("active");
-    //         $('#li6').removeClass("active");
-    //         $('#li7').removeClass("active");
-    //         $('#li8').removeClass("active");
-    //     }
-    // });
-    // $('#genrl_info').click(function(){
-    //     //alert($('option:selected', $('#dept')).val());
-    //     var pos_code = $('#pos_code').val();
-    //     var desgn = $('option:selected', $('#desgn')).val();
-    //     var dept = $('option:selected', $('#dept')).val();
-    //     var sub_dept = $('option:selected', $('#sub_dept')).val();
-    //     var bu = $('option:selected', $('#bu')).val();
-    //     var cadre= $('option:selected', $('#cadre')).val();
-    //     var grade= $('option:selected', $('#grade')).val();
-    //     var loc_work= $('option:selected', $('#loc_work')).val();
-    //     var loc_pay= $('option:selected', $('#loc_pay')).val();
-    //     var cluster= $('option:selected', $('#clust_nm')).val();
-    //     var u_id=$('#u_id').val();
-    //     //alert(u_id);
-    //     if($('#pos_code').val()==""){
-    //         $('#err').text("Please enter Position code");
-    //         $('#err').show();
-    //         $('#pos_code').css('border','1px solid red');
-    //         $('#pos_code').focus();
-    //     }
-    //     else if(desgn == ""){
-    //         $('#err').text("Please Select Position");
-    //         $('#err').show();
-    //         $('#desgn').css('border','1px solid red');
-    //         $('#desgn').focus();
-    //     }
-    //     else if(dept == ""){
-    //         $('#err').text("Please Select Department");
-    //         $('#err').show();
-    //         $('#dept').css('border','1px solid red');
-    //         $('#dept').focus();
-    //     }
-    //     else if(sub_dept == ""){
-    //         $('#err').text("Please Select Sub-Department");
-    //         $('#err').show();
-    //         $('#sub_dept').css('border','1px solid red');
-    //         $('#sub_dept').focus();
-    //     }
-    //     else if(bu == ""){
-    //         $('#err').text("Please Select BU");
-    //         $('#bu').css('border','1px solid red');
-    //         $('#err').show();
-    //         $('#bu').focus();
-    //     }
-    //     else if(cadre == ""){
-    //         $('#err').text("Please Select Cadre");
-    //         $('#cadre').css('border','1px solid red');
-    //         $('#err').show();
-    //         $('#cadre').focus();
-    //     }
-    //     else if(grade == ""){
-    //         $('#err').text("Please Select Grade");
-    //         $('#grade').css('border','1px solid red');
-    //         $('#err').show();
-    //         $('#grade').focus();
-    //     }
-    //     else if(loc_work == ""){
-    //         $('#err').text("Please Select Location-Working");
-    //         $('#loc_work').css('border','1px solid red');
-    //         $('#err').show();
-    //         $('#loc_work').focus();
-    //     }
-    //     else if(loc_pay == ""){
-    //         $('#err').text("Please Select Location-Payroll");
-    //         $('#loc_pay').css('border','1px solid red');
-    //         $('#err').show();
-    //         $('#loc_pay').focus();
-    //     }
-    //     else if(cluster == ""){
-    //         $('#err').text("Please Select Cluster");
-    //         $('#clust_nm').css('border','1px solid red');
-    //         $('#err').show();
-    //         $('#clust_nm').focus();
-    //     }
-    //     else{
-    //         var genrl_detls={
-    //             pos_code : pos_code,
-    //             desgn:desgn,
-    //             dept : dept,
-    //             sub_dept : sub_dept,
-    //             bu : bu ,
-    //             cadre : cadre,
-    //             grade : grade,
-    //             loc_work : loc_work,
-    //             loc_pay : loc_pay,
-    //             cluster : cluster,
-    //             u_id:u_id,
-    //         };
-    //         $.ajax({
-    //                 'type' : 'post',
-    //                 'datatype' : 'html',
-    //                 'data' : genrl_detls,
-    //                 'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/genrl_info',
-    //                 success : function(data)
-    //                 {
-    //                     alert(data);
-    //                 }
-    //             });
-    //         $("#genrl_info").attr("href", "#tab_1_3");
-    //         $('#li1').removeClass("active");
-    //         $('#li2').removeClass("active");
-    //         $('#li3').addClass("active");
-    //         $('#li4').removeClass("active");
-    //         $('#li5').removeClass("active");
-    //         $('#li6').removeClass("active");
-    //         $('#li7').removeClass("active");
-    //         $('#li8').removeClass("active");
-    //         //alert(base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/genrl_info');
-    //     }
-        
-    // });
+   
     
     $("#reprt_detls").click(function(){
         $('#report_mgr_sap').css('border','');
@@ -1091,13 +787,11 @@ $(document).ready(function(){
         $('#mgr_mgr').css('border','');
         $('#clust_hd').css('border','');
         var report_mgr_sap=$("#report_mgr_sap").val();
-
         var rep1_attd = $('option:selected', $('#rep1_attd')).val();
         var rep1_appr = $('option:selected', $('#rep1_appr')).val();
         var rep1_attd = $('#rep1_attd').val();
         var rep1_appr = $('#rep1_appr').val();
         var dot_mgr = $('option:selected', $('#dot_mgr')).val();
-        //var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
         var mgr_mgr = $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
         var u_id=$('#u_id').val();
@@ -1276,50 +970,58 @@ $(document).ready(function(){
         
 
 
-        if(trainee == ""){
-         if(doj_vvf==''){
-           $('#err').text("Please Enter Date of Joining VVF ");
-           $('#doj_vvf').css('border','1px solid red');
-           $('#err').show();
-           $('#doj_vvf').focus(); 
-        }
+                if(trainee == ""){
+                 if(doj_vvf==''){
+                   $('#err').text("Please Enter Date of Joining VVF ");
+                   $('#doj_vvf').css('border','1px solid red');
+                   $('#err').show();
+                   $('#doj_vvf').focus(); 
+                }
+                // else if(othr_exp==''){
+                //    $('#err').text("Please Enter Other Experience ");
+                //    $('#othr_exp').css('border','1px solid red');
+                //    $('#err').show();
+                //    $('#othr_exp').focus(); 
+                // }
+                else if(vvf_exp==''){
+                   $('#err').text("Please Enter VVF Experience");
+                   $('#vvf_exp').css('border','1px solid red');
+                   $('#err').show();
+                   $('#vvf_exp').focus(); 
+                }
+                else if(tot_exp==''){
+                   $('#err').text("Please Enter Total Experience");
+                   $('#tot_exp').css('border','1px solid red');
+                   $('#err').show();
+                   $('#tot_exp').focus(); 
+                }
 
-        // if(prev_emplyr==''){
-        //    $('#err').text("Please Enter Previous Employer ");
-        //    $('#prev_emplyr').css('border','1px solid red');
-        //    $('#err').show();
-        //    $('#prev_emplyr').focus(); 
-        // }
-        //else
-         if(doj_vvf==''){
-           $('#err').text("Please Enter Date of Joining VVF ");
-           $('#doj_vvf').css('border','1px solid red');
-           $('#err').show();
-           $('#doj_vvf').focus(); 
-        }
-        // else if(othr_exp==''){
-        //    $('#err').text("Please Enter Other Experience ");
-        //    $('#othr_exp').css('border','1px solid red');
-        //    $('#err').show();
-        //    $('#othr_exp').focus(); 
-        // }
-        else if(vvf_exp==''){
-           $('#err').text("Please Enter VVF Experience");
-           $('#vvf_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#vvf_exp').focus(); 
-        }
-        else if(tot_exp==''){
-           $('#err').text("Please Enter Total Experience");
-           $('#tot_exp').css('border','1px solid red');
-           $('#err').show();
-           $('#tot_exp').focus(); 
-        }
-        else{
-                $('#err').text("");
-                $('#err').hide();
+                else{
+                        $('#err').text("");
+                        $('#err').hide();
+                    }
             }
-    }
+
+            if(prev_emplyr!=""){
+                if(othr_exp==''){
+                   $('#err').text("Please Enter Other Experience ");
+                   $('#othr_exp').css('border','1px solid red');
+                   $('#err').show();
+                   $('#othr_exp').focus(); 
+                }
+                else if(doj_vvf==''){
+                   $('#err').text("Please Enter Date of Joining VVF ");
+                   $('#doj_vvf').css('border','1px solid red');
+                   $('#err').show();
+                   $('#doj_vvf').focus(); 
+                }
+                else{
+                        $('#err').text("");
+                        $('#err').hide();
+                    }
+               
+
+            }
 
         if($('#err').text()==""){
 
@@ -1677,6 +1379,8 @@ $(document).ready(function(){
             $('#emp_sta').focus();       
         }
         else{
+            $('#err').text("");
+            $('#err').hide();
             var othr_details={
                 cost_center : cost_center,
                 cost_cenr_descr : cost_cenr_descr,
@@ -1736,7 +1440,7 @@ $(document).ready(function(){
     });
 
 
-    $("#grade").change(function(){
+                                        $("#grade").change(function(){
                                             var grade = {
                                                 'grade' :$(this).find(':selected').text(),
                                             };
@@ -1756,7 +1460,15 @@ $(document).ready(function(){
                                             });
                                         }); 
 
-
+                                    $("#trainee").change(function(){ 
+                                            var trainee = $('option:selected', $('#trainee')).val();
+                                            if(trainee !="" || trainee != 'Select'){
+                                                $('#prev_emplyr').val("");
+                                                $('#othr_exp').val("");
+                                                $('#doj_vvf').val("");
+                                                $("#join_detals").attr("href", "#");
+                                            }
+                                    });
 
 $("#cost_center").change(function () {
     var cost_center = {
@@ -1887,6 +1599,7 @@ $("#cost_center").change(function () {
                             }
                         }
                         else if(id=='pan'){
+                            //alert(id);
                             var string1 = /^([A-Z]){5}([0-9]){4}([A-Z]){1}?$/;
                             if (!string1.test($(this).val())) 
                             {
@@ -2161,14 +1874,14 @@ $("#cost_center").change(function () {
                                                                     <label class="col-md-3 control-label">PAN Card No.
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <input class="form-control" placeholder="Enter PAN Card No." type="text" id="pan">
+                                                                        <input class="form-control validate_field" placeholder="Enter PAN Card No." type="text" id="pan">
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <div class="form-group ">
                                                                     <label class="col-md-3 control-label">Aadhar number
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <input class="form-control" placeholder="Enter Aadhar number" type="text" id="aadhar">
+                                                                        <input class="form-control validate_field" placeholder="Enter Aadhar number" type="text" id="aadhar">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
@@ -2246,28 +1959,7 @@ $("#cost_center").change(function () {
                                                                        
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Designation
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                                <select class="form-control" id="desgn">
-                                                                                    <option value="">Select</option>
-                                                                                    <option value="Assistant Manager">Assistant Manager</option>
-                                                                                    <option value="Junior Executive">Junior Executive</option>
-                                                                                    <option value="Executive">Executive</option>
-                                                                                    <option value="Senior Manager">Senior Manager</option>
-                                                                                    <option value="Manager">Manager</option>
-                                                                                    <option value="Select">Select</option>
-                                                                                    <option value="Assistant General Manager">Assistant General Manager</option>
-                                                                                    <option value="General Manager">General Manager</option>
-                                                                                    <option value="Vice President">Vice President</option>
-                                                                                    <option value="Senior Manager 
-                                                                                    ">Senior Manager 
-                                                                                    </option>
-                                                                                </select>
-                                                                                <span class="help-block"> Select Designation</span>
-                                                                    </div>
-                                                                </div>
+                                                               
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Departments
                                                                     </label>
@@ -2295,11 +1987,22 @@ $("#cost_center").change(function () {
                                                                     <label class="col-md-3 control-label">Sub-Departments
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                                <select class="form-control" id="sub_dept">
+                                                                                <!-- <select class="form-control" id="sub_dept">
                                                                                     <option value="">Select</option>
                                                                                     <option value="IT">IT</option>
                                                                                     <option value="Hr">Hr</option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 //print_r($records);die();
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'sub_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
                                                                                 <span class="help-block"> Select Sub-Departments</span>
                                                                     </div>
                                                                 </div>
@@ -2315,7 +2018,7 @@ $("#cost_center").change(function () {
                                                                                     ">Corporate Shared Services
                                                                                     </option>
                                                                                     <option value=" Corporate Shared Services"> Corporate Shared Services</option>
-                                                                                    <option value="Select">Select</option>
+                                                                                    
                                                                                     <option value="Contract Manufacturing">Contract Manufacturing</option>
                                                                                     <option value="Personal Care Products">Personal Care Products</option>
                                                                                     <option value="Consumer Products Division">Consumer Products Division</option>
@@ -2356,14 +2059,50 @@ $("#cost_center").change(function () {
                                                                                 <span class="help-block"> Select Grade</span>
                                                                     </div>
                                                                 </div>
-                                                                
+                                                                 <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Designation
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                                <select class="form-control" id="desgn">
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="Assistant Manager">Assistant Manager</option>
+                                                                                    <option value="Junior Executive">Junior Executive</option>
+                                                                                    <option value="Executive">Executive</option>
+                                                                                    <option value="Senior Manager">Senior Manager</option>
+                                                                                    <option value="Manager">Manager</option>
+                                                                                   
+                                                                                    <option value="Assistant General Manager">Assistant General Manager</option>
+                                                                                    <option value="General Manager">General Manager</option>
+                                                                                    <option value="Vice President">Vice President</option>
+                                                                                    <option value="Senior Manager 
+                                                                                    ">Senior Manager 
+                                                                                    </option>
+                                                                                </select>
+                                                                                <span class="help-block"> Select Designation</span>
+                                                                    </div>
+                                                                </div>
                                                                <div class="form-group">
                                                                     <label class="col-md-3 control-label">Location-Working at</label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="loc_work">
                                                                                     <option value="">Select</option>
+                                                                                    <?php 
+                                                                                    $loc =Yii::app()->user->getState('admin_location');
+                                                                                    if($loc !='Corporate'){ ?>
+                                                                                        <!-- <option value="Taloja">Taloja</option> -->
+                                                                                        <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> 
+                                                                                    <?php }
+                                                                                    else{
+                                                                                        ?>
+                                                                                        <option value="Corporate">Corporate</option>
+                                                                                        <option value="Chennai">Chennai</option>
+                                                                                        <option value="Kolkata">Kolkata</option>
+                                                                                        <option value="Kutch-II">Kutch-II</option>
+                                                                                        <option value="Palanpur">Palanpur</option>
+                                                                                        <option value="Raipur">Raipur</option>       
+                                                                                    <?php }
+                                                                                    ?>
                                                                                     
-                                                                                    <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option>
                                                                                     
                                                                                 </select>
                                                                                 <span class="help-block"> Select Location-Working at </span>
@@ -2372,10 +2111,47 @@ $("#cost_center").change(function () {
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Location-Payroll at</label>
                                                                     <div class="col-md-6">
-                                                                                <select class="form-control" id="loc_pay">
+                                                                               <!--  <select class="form-control" id="loc_pay">
                                                                                     <option value="">Select</option>
-                                                                                    <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option>
+                                                                                    <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
+                                                                                   <!--  <option value="Taloja">Taloja</option> -->
+                                                                                <!-- </select>  -->
+                                                                                <!-- <select class="form-control" id="loc_pay">
+                                                                                    <option value="">Select</option>
+                                                                                    <?php 
+                                                                                    $loc = "Taloja";
+                                                                                    //if($loc !='Corporate'){ ?>
+                                                                                        <option value="Taloja">Taloja</option>
+                                                                                        <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
+                                                                                    <?php //}
+                                                                                    //else//{
+                                                                                        //?>
+                                                                                        <!-- <option value="Corporate">Corporate</option>
+                                                                                        <option value="Chennai">Chennai</option>
+                                                                                        <option value="Kolkata">Kolkata</option>
+                                                                                        <option value="Kutch-II">Kutch-II</option>
+                                                                                        <option value="Palanpur">Palanpur</option>
+                                                                                        <option value="Raipur">Raipur</option>      -->  
+                                                                                    <?php //}
+                                                                                    ?>
+                                                                                    
+                                                                                    <select class="form-control" id="loc_pay">
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="0">Corporate</option>
+                                                                                    <option value="1">Sion</option>
+                                                                                    <option value="2">Taloja</option>
+                                                                                    <option value="3">Raipur</option>
+                                                                                    <option value="4">Kolkata</option>
+                                                                                    <option value="5">Baddi</option>
+                                                                                    <option value="6">Tiljala</option>
+                                                                                    <option value="7">Kutch-II</option>
+                                                                                    <option value="8">Palanpur</option>
+                                                                                    <option value="9">Daman</option>
+                                                                                    <option value="10">Chennai</option>
+                                                                                    <option value="11">New Delhi</option>
+                                                                                    <option value="12">Taloja</option>
                                                                                 </select>
+                                                                               <!-- </select> -->
                                                                                 <span class="help-block"> Select Location-Payroll at </span>
                                                                             </div>
                                                                 </div>
@@ -2396,8 +2172,7 @@ $("#cost_center").change(function () {
                                                                                     <option value="SMC Cluster">SMC Cluster</option>
                                                                                     <option value="Miscellaneous">Miscellaneous</option>
                                                                                     <option value="CPD">CPD</option>
-                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM
-                                                                                    ">Finance / IT / Indirect Tax/Excise/EXIM
+                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM">Finance / IT / Indirect Tax/Excise/EXIM
                                                                                     </option>
                                                                                     <option value="CMB Manufacturing">CMB Manufacturing</option>
                                                                                     <option value="PCP Quality">PCP Quality</option>
@@ -2549,15 +2324,26 @@ $("#cost_center").change(function () {
                                                                        
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
+                                                                                                                               <div class="form-group">
                                                                     <label class="col-md-3 control-label">Department /Division at the time of Joining
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                        <select class="form-control" id="trn_dept">
+                                                              <!--           <select class="form-control" id="trn_dept">
                                                                                     <option value="">Select</option>
                                                                                     <option value="IT">IT</option>
                                                                                     <option value="Account">Account</option>
-                                                                       </select>
+                                                                       </select> -->
+                                                                       <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'trn_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
                                                                        <span class="help-block"> Select Department /Division at the time of Joining</span>
                                                                     </div>
                                                                 </div>
@@ -2589,6 +2375,13 @@ $("#cost_center").change(function () {
                                                                                <input class="form-control" placeholder="Enter Previous Employer" type="text" id="prev_emplyr">
                                                                     </div>
                                                                 </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Other Exp (In Yrs)
+                                                                    </label>
+                                                                    <div class="col-md-6">
+                                                                               <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
+                                                                    </div>
+                                                                </div>
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Date of Joining VVF
                                                                     </label>
@@ -2596,13 +2389,7 @@ $("#cost_center").change(function () {
                                                                                <input class="form-control" placeholder="Enter Date of Joining VVF" type="text" id="doj_vvf" >
                                                                     </div>
                                                                 </div>
-                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Other Exp (In Yrs)
-                                                                    </label>
-                                                                    <div class="col-md-6">
-                                                                               <input class="form-control" placeholder="Enter Other Exp (In Yrs)" type="text" id="othr_exp">
-                                                                    </div>
-                                                                </div>
+                                                                 
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">VVF Exp (In Yrs)
                                                                     </label>
@@ -2656,7 +2443,7 @@ $("#cost_center").change(function () {
                                                                  <div class="form-actions">
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
-                                                                        <a class="btn green" href="#tab_1_6" data-toggle="tab" aria-expanded="false" id="join_detals">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                        <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="join_detals">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
                                                                         <a class="btn default" href="#tab_1_3" data-toggle="tab" aria-expanded="false" id="prve3">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
@@ -2917,7 +2704,7 @@ $("#cost_center").change(function () {
                                                                     <label class="col-md-3 control-label">Transferred From (Department) 
                                                             </label>
                                                                     <div class="col-md-6">
-                                                                                <select class="form-control" id="transfr_frm_dept">
+                                                                                <!-- <select class="form-control" id="transfr_frm_dept">
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
@@ -2931,14 +2718,25 @@ $("#cost_center").change(function () {
                                                                                     <option value="Daman">Daman</option>
                                                                                     <option value="Chennai">Chennai</option>
                                                                                     <option value="New Delhi">New Delhi</option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'transfr_frm_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
                                                                                 <span class="help-block"> Select Transferred From Old Data (Location) </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Transfer W.e.f (Department) </label>
                                                                     <div class="col-md-6">
-                                                                        <select class="form-control" id="tranr_wef_dept">
+                                                                       <!--  <select class="form-control" id="tranr_wef_dept">
                                                                                     <option value="">Select</option>
                                                                                     <option value="Corporate">Corporate</option>
                                                                                     <option value="Sion">Sion</option>
@@ -2952,7 +2750,18 @@ $("#cost_center").change(function () {
                                                                                     <option value="Daman">Daman</option>
                                                                                     <option value="Chennai">Chennai</option>
                                                                                     <option value="New Delhi">New Delhi</option>
-                                                                       </select>
+                                                                       </select> -->
+                                                                       <?php 
+                                                                                 $cluster_name_models = new ClusterForm();
+                                                                                 $cluster_name_model = new EmployeeForm();
+                                                                               
+                                                                                 $records=$cluster_name_model->get_department_list();
+                                                                                 
+                                                                                 $list = CHtml::listData($records,'Department', 'Department'); 
+                                                                                 
+                                                                                    echo CHtml::activeDropDownList($cluster_name_model,'Department',$list,array('id'=>'tranr_wef_dept','class'=>'form-control department','options'=>$records,'empty'=>'Select')); 
+                                                                                
+                                                                                 ?>
                                                                        <span class="help-block"> Select Transfer W.e.f (Department) </span>
                                                                     </div>
                                                                 </div>
@@ -3039,7 +2848,7 @@ $("#cost_center").change(function () {
                                                                  <div class="form-actions">
                                                                 <div class="row">
                                                                     <div class="col-md-offset-3 col-md-6">
-                                                                        <a class="btn green" href="#tab_1_8" data-toggle="tab" aria-expanded="false" id="leave_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                        <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="leave_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
                                                                         <a class="btn default" href="#tab_1_6" data-toggle="tab" aria-expanded="false" id="prve6">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>

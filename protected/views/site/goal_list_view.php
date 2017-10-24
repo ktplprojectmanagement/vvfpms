@@ -63,7 +63,7 @@ Yii::app()->controller->renderPartial('//site/all_js');
                                                         // print_r($kpi_data1);die();
                                                             if (isset($employee_data) && count($employee_data)>0 && $employee_data!='') {$cnt = 0; 
                                                             foreach ($employee_data as $row) { 
-                                                            if($row['0']['Employee_id'] != '')
+                                                            if(isset($row['0']['Employee_id']) && $row['0']['Employee_id'] != '')
                                                             {
                                                             ?>
                                                             <tr>

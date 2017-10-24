@@ -2,24 +2,114 @@
 
 class MidreviewController extends Controller
 {
+	// function actionIndex()
+	// {
+	// 	Yii::app()->user->setState('emp_id_3','');
+	// 	$model=new KpiAutoSaveForm;
+	// 	$emploee_data =new EmployeeForm;
+	// 	$id = Yii::app()->user->getState("employee_email");
+	// 	//print_r($id);die();
+	// 	$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status';
+	// 	$list = array('appraisal_id1','mid_KRA_final_status');
+	// 	$data = array($id,'Approved');
+	// 	$kpi_data = $model->get_kpi_list($where,$data,$list);
+
+	// 	// $where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_status = :mid_KRA_status';
+	// 	// $list = array('appraisal_id1','mid_KRA_status');
+	// 	// $data = array($id,'');
+	// 	// $emp_data = $model->get_emp_id_list($where,$data,$list);
+
+	// 	$where1 = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list1 = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data1 = array($id,'Approved',Yii::app()->user->getState('financial_year_check'));
+	// 	$kpi_data_aprv = $model->get_kpi_list($where1,$data1,$list1);
+		
+
+	// 	$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status != :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data =  array($id,'',Yii::app()->user->getState('financial_year_check'));
+	// 	$emp_data1 = $model->get_emp_id_list($where,$data,$list);
+
+	// 	$cnt = 0;$kpi_emp_data = '';$kpi_data_aprv = '';$kpi_emp_data_aprv = '';$kpi_data_aprv1 = '';
+	// 	print_r($kpi_data);die();
+	// 	if (isset($emp_data1) && count($emp_data1)>0) {
+	// 			foreach ($emp_data1 as $row) {
+	// 			$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+	// 			$list1 = array('Employee_id','goal_set_year');
+	// 			$data1 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
+	// 			$kpi_data_aprv1[$cnt] = $model->get_kpi_list($where1,$data1,$list1);
+
+	// 			$where1 = 'where Employee_id = :Employee_id';
+	// 			$list1 = array('Employee_id');
+	// 			$data1 = array($row['Employee_id']);
+	// 			$kpi_emp_data_aprv[$cnt] = $emploee_data->get_employee_data($where1,$data1,$list1);
+	// 			//print_r($row['Employee_id']);echo "<br>";
+	// 			$cnt++;
+	// 		}
+			
+	// 	}
+
+	// 	$where1 = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list1 = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data1 = array($id,'Approved',Yii::app()->user->getState('financial_year_check'));
+	// 	$kpi_data_aprv = $model->get_kpi_list($where1,$data1,$list1);
+		
+
+	// 	$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status != :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data =  array($id,'',Yii::app()->user->getState('financial_year_check'));
+	// 	$emp_data1 = $model->get_emp_id_list($where,$data,$list);
+	// 	$cnt = 0;
+	// 	//print_r($emp_data1);die();
+	// 	if (isset($emp_data1) && count($emp_data1)>0) {
+	// 			foreach ($emp_data1 as $row) {
+	// 			$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+	// 			$list1 = array('Employee_id','goal_set_year');
+	// 			$data1 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
+	// 			$kpi_data_aprv1[$cnt] = $model->get_kpi_list($where1,$data1,$list1);
+
+	// 			$where1 = 'where Employee_id = :Employee_id';
+	// 			$list1 = array('Employee_id');
+	// 			$data1 = array($row['Employee_id']);
+	// 			$kpi_emp_data_aprv[$cnt] = $emploee_data->get_employee_data($where1,$data1,$list1);
+	// 			//print_r($row['Employee_id']);echo "<br>";
+	// 			$cnt++;
+	// 		}
+			
+	// 	}
+		
+	// 	//print_r($id);die();
+	// 	//$mid_review = '1';
+	// 	$selected_option = 'Mid_review';
+	// 	//die();
+	// 	$this->render('//site/script_file');
+	// 	$this->render('//site/session_check_view');
+	// 	$this->render('//site/baseurl');
+	// 	$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+	// 	$this->render('//site/mid_review_emp_list',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
+	// 	$this->render('//site/footer_view_layout');
+
+		
+	// }
+
 	function actionIndex()
 	{
 		Yii::app()->user->setState('emp_id_3','');
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
 		$id = Yii::app()->user->getState("employee_email");
-		$where = 'where appraisal_id1 = :appraisal_id1 and KRA_status = :KRA_status';
-		$list = array('appraisal_id1','KRA_status');
+		$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status';
+		$list = array('appraisal_id1','mid_KRA_final_status');
 		$data = array($id,'Approved');
 		$kpi_data = $model->get_kpi_list($where,$data,$list);
-
-		$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_status = :mid_KRA_status';
-		$list = array('appraisal_id1','mid_KRA_status');
+	//print_r(Yii::app()->user->getState("employee_email"));die();
+		$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status != :mid_KRA_final_status';
+		$list = array('appraisal_id1','mid_KRA_final_status');
 		$data = array($id,'');
 		$emp_data = $model->get_emp_id_list($where,$data,$list);
-
+//print_r($emp_data);die();
 		$cnt = 0;$kpi_emp_data = '';$kpi_data_aprv = '';$kpi_emp_data_aprv = '';$kpi_data_aprv1 = '';
-		//print_r($kpi_data);die();
+	//	print_r($emp_data);die();
 		if (isset($emp_data) && count($emp_data)>0) {
 				foreach ($emp_data as $row) {
 				$where = 'where Employee_id = :Employee_id';
@@ -32,47 +122,51 @@ class MidreviewController extends Controller
 			
 		}
 
-		$where1 = 'where appraisal_id1 = :appraisal_id1 and KRA_status = :KRA_status';
-		$list1 = array('appraisal_id1','KRA_status');
+		$where1 = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status';
+		$list1 = array('appraisal_id1','mid_KRA_final_status');
 		$data1 = array($id,'Approved');
 		$kpi_data_aprv = $model->get_kpi_list($where1,$data1,$list1);
 		
 
-		$where = 'where appraisal_id1 = :appraisal_id1 and KRA_status = :KRA_status';
-		$list = array('appraisal_id1','KRA_status');
-		$data = array($id,'Approved');
+		$where = 'where appraisal_id1 = :appraisal_id1 AND goal_set_year =:goal_set_year and (mid_KRA_final_status != :mid_KRA_final_status )';
+		$list = array('appraisal_id1','goal_set_year','mid_KRA_final_status');
+		$data = array($id,Yii::app()->user->getState('financial_year_check'),'');
 		$emp_data1 = $model->get_emp_id_list($where,$data,$list);
+
+
 		$cnt = 0;
 		//print_r($emp_data1);die();
 		if (isset($emp_data1) && count($emp_data1)>0) {
 				foreach ($emp_data1 as $row) {
-				$where1 = 'where Employee_id = :Employee_id';
-				$list1 = array('Employee_id');
-				$data1 = array($row['Employee_id']);
+				$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+				$list1 = array('Employee_id','goal_set_year');
+				$data1 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
 				$kpi_data_aprv1[$cnt] = $model->get_kpi_list($where1,$data1,$list1);
 
 				$where1 = 'where Employee_id = :Employee_id';
 				$list1 = array('Employee_id');
 				$data1 = array($row['Employee_id']);
 				$kpi_emp_data_aprv[$cnt] = $emploee_data->get_employee_data($where1,$data1,$list1);
+				
 				//print_r($row['Employee_id']);echo "<br>";
 				$cnt++;
 			}
 			
 		}
 		
-		//print_r($id);die();
+		//print_r($kpi_data_aprv1);die();
 		//$mid_review = '1';
 		$selected_option = 'Mid_review';
 		//die();
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
 		$this->render('//site/mid_review_emp_list',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
 		$this->render('//site/footer_view_layout');
 
 		
 	}
+
 
 public function actionIDP_review()
 	{			
@@ -81,6 +175,8 @@ public function actionIDP_review()
 
 		function actionmidreview_emp_data()
 	{
+
+
 		if (isset($_POST['emp_id'])) {
 			Yii::app()->user->setState('emp_id_3',$_POST['emp_id']);
                         $employee_id = Yii::app()->user->getState('emp_id_3');
@@ -112,6 +208,14 @@ else if(Yii::app()->user->getState('emp_id_3')!= '')
 		$list = array('Employee_id');
 		$data = array($employee_id);
 		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
+
+
+		//	print_r($kpi_data);die();
+			$where = 'where Email_id = :Email_id';
+			$list = array('Email_id');
+			$data = array($employee_data['0']['Reporting_officer1_id']);
+			$mgr_data = $emploee_data->get_employee_data($where,$data,$list);
+		//print_r($employee_data);die();
                 if(isset($employee_data['0']['Reporting_officer1_id']) && ($employee_data['0']['Reporting_officer1_id'] != Yii::app()->user->getState("employee_email")))
 {
      if (count($settings_data)>0) {
@@ -188,8 +292,8 @@ else
 		//$mid_review = 1;
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout');
-		$this->render('//site/goal_sheet',array('kpi_data'=>$kpi_data,'employee_data'=>$employee_data,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp));
+		$this->render('//site/header_view_layout2');
+		$this->render('//site/goal_sheet',array('kpi_data'=>$kpi_data,'employee_data'=>$employee_data,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp,'mgr_data'=>$mgr_data));
 		$this->render('//site/footer_view_layout');
 	}
 
@@ -207,8 +311,11 @@ else
 			'appraiser_comment' => $_POST['appraiser_comment'],	
 			'mid_review_date' => date('Y-m-d'),
 			'mid_KRA_status' => $_POST['mid_KRA_status'],
+			'mid_mgr_cmt1'=> $_POST['mgr_cmt1'],
+			'mid_mgr_cmt2'=> $_POST['mgr_cmt2'],
+			'mid_mgr_cmt3'=> $_POST['mgr_cmt3'],
 		);
-		
+		//print_r($data);die();
 		$where = 'where KPI_id = :KPI_id';
 		$list = array('KPI_id');
 		$data1 = array($_POST['KPI_id']);
@@ -274,6 +381,7 @@ else
 
 	function actionsetbyemployee()
 	{
+//	echo "hi";die();
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
 		$setting_date=new SettingsForm;
@@ -289,34 +397,34 @@ else
 //print_r(Yii::app()->user->getState('financial_year_check'));die();
 		$Employee_id = Yii::app()->user->getState("Employee_id");		
 		if (count($settings_data)>0) {
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and mid_KRA_final_status != :mid_KRA_final_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year','mid_KRA_final_status','new_goalsheet_state');
-			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Approved','0');
+			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
+			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
+			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','0');
 			$kpi_data = $model->get_kpi_list($where,$data,$list);
 //print_r($kpi_data);die();
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and mid_KRA_final_status != :mid_KRA_final_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year','mid_KRA_final_status','new_goalsheet_state');
-			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Approved','1');
+			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
+			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
+			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','1');
 			$kpi_data2 = $model->get_kpi_list($where,$data,$list);
 		}
 		else if (count($settings_data1)>0) {
         	$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
 				if ($settings_data1['0']['setting_type'] == $year) {
-								$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and mid_KRA_final_status != :mid_KRA_final_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year','mid_KRA_final_status','new_goalsheet_state');
-			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Approved','0');
+								$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
+			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
+			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','0');
 			$kpi_data = $model->get_kpi_list($where,$data,$list);	
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and mid_KRA_final_status != :mid_KRA_final_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year','mid_KRA_final_status','new_goalsheet_state');
-			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Approved','1');
+			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
+			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
+			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','1');
 			$kpi_data2 = $model->get_kpi_list($where,$data,$list);			
 				} 
         	}
 		else
 		{
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and mid_KRA_final_status != :mid_KRA_final_status';
-			$list = array('Employee_id','goal_set_year','mid_KRA_final_status');
-			$data = array($Employee_id,date('Y'),'Approved');
+			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status';
+			$list = array('Employee_id','goal_set_year','KRA_status');
+			$data = array($Employee_id,date('Y'),'Pending');
 			$kpi_data = $model->get_kpi_list($where,$data,$list);			
 		}
 		
@@ -332,7 +440,10 @@ else
 			$program_data =new ProgramDataForm;
 			$Compare_Designation =new CompareDesignationForm;	
 			$IDPForm =new IDPForm;		
-			$program_data_result = $program_data->get_data();
+					$where = 'where  goal_set_year =:goal_set_year';
+                                    $list = array('goal_set_year');
+                                    $data = array(Yii::app()->user->getState('financial_year_check'));
+                                    $program_data_result = $program_data->get_kpi_data($where,$data,$list);
 			
 			$Employee_id = Yii::app()->user->getState("Employee_id");
 			$where = 'where Employee_id = :Employee_id';
@@ -351,11 +462,11 @@ else
 				}
 				
 			}
-			$where = 'where Employee_id = :Employee_id';
-			$list = array('Employee_id');
-			$data = array($Employee_id);
+			$where = 'where Employee_id = :Employee_id AND goal_set_year= :goal_set_year';
+			$list = array('Employee_id','goal_set_year');
+			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'));
 			$IDP_data = $IDPForm->get_idp_data($where,$data,$list);
-			//print_r($kpi_data);die();
+		//	print_r($kpi_data);die();
 			$where = 'where Email_id = :Email_id';
 			$list = array('Email_id');
 			$data = array($emp_data['0']['Reporting_officer1_id']);
@@ -365,7 +476,7 @@ else
 		$selected_option = 'Mid_review';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_mid_review',array('kpi_data'=>$kpi_data,'mid_review'=>$mid_review,'mid_review_by_employee'=>$mid_review_by_employee,'employee_data'=>$employee_data,'program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag,'kpi_data2'=>$kpi_data2));
 		$this->render('//site/footer_view_layout');
 	}
@@ -500,6 +611,7 @@ $data1 = array(
 
 	function actionemployee_mid_review1()
 	{
+		//echo "success";die();
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;	
 		$IDPForm =new IDPForm;	
@@ -568,21 +680,39 @@ $data1 = array(
 			
 			'mid_review_by_employee_date' => date('Y-m-d'),	
 			'mid_year_goalsheet_doc' =>	$model->mid_year_goalsheet_doc,			
-			'employee_comment' => $_POST['review_comments'],			
+			'employee_comment' => $_POST['review_comments'],
+			'mid_emp_status'=>$_POST['mid_review'],
+			'mid_emp_cmt1'=>$_POST['mid_emp_cmt1'],
+			'mid_emp_cmt2'=>$_POST['mid_emp_cmt2'],
+			'mid_emp_cmt3'=>$_POST['mid_emp_cmt3'],
 		);
 
 		
-		//print_r($_POST['correct_emp_id']);die();
+		//print_r($_POST['KPI_id_value']);die();
 
-		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id and goal_set_year=:goal_set_year',array(':KPI_id'=>$_POST['KPI_id_value'],':goal_set_year'=>"2016-2017"));
+		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id and goal_set_year=:goal_set_year',array(':KPI_id'=>$_POST['KPI_id_value'],':goal_set_year'=>"2017-2018"));
+//print_r($update);die();
 $data1 = array(			
 			'program_review_by_emp' => $_POST['program_review_by_emp'],
 			'extra_program_review_by_emp' => $_POST['extra_program_review_by_emp'],
-			'rel_program_review_by_emp' => $_POST['rel_program_review_by_emp_name'],	
+			'rel_program_review_by_emp' => $_POST['rel_program_review_by_emp'],	
 			'project_mid_review_by_emp' => $_POST['emp_project_mid_review'],
+			'mid_emp_trn_prog_stat'=>$_POST['mid_emp_trn_prog_stat'],
 			'mid_year_idp_doc' =>	$IDPForm->mid_year_idp_doc,
+			'mid_rel_prg_rev_emp' => $_POST['rel_program_review_status_emp'],
+		
 		);
-		$update1 = Yii::app()->db->createCommand()->update('IDP',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['correct_emp_id'],':goal_set_year'=>"2016-2017"));
+//print_r($data1);die();
+if (isset($_POST['correct_emp_id'])) {
+	//print_r($_POST['correct_emp_id']);die();
+	$emp_value = trim($_POST['correct_emp_id']);
+}
+else
+{
+	$emp_value = '';
+}
+//print_r($emp_value);die();
+	$update1 = Yii::app()->db->createCommand()->update('IDP',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$emp_value,':goal_set_year'=>"2017-2018"));	
 		//print_r($update1);die();
 		if ($update==1) {
 
@@ -594,7 +724,7 @@ $data1 = array(
 	{
 		$model=new KpiAutoSaveForm;	
 		$setting_date=new SettingsForm;
-$emploee_data =new EmployeeForm;
+        $emploee_data =new EmployeeForm;
 		$where = 'where setting_content = :setting_content and year = :year';
 		$list = array('setting_content','year');
 		$data = array('PMS_display_format',date('Y'));             
@@ -770,7 +900,7 @@ if (count($settings_data)>0) {
     	$model=new KpiAutoSaveForm;
     	$emploee_data =new EmployeeForm;
     	$notification_data =new NotificationsForm;
-//print_r($_POST['emp_id']);die();
+
     	$setting_date=new SettingsForm;
 		$where = 'where setting_content = :setting_content and year = :year';
 		$list = array('setting_content','year');
@@ -794,6 +924,7 @@ if (count($settings_data)>0) {
 						'mid_KRA_final_status' => 'Approved',
 				  	);
 				  $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$update_flag,'KPI_id=:KPI_id',array(':KPI_id'=>$kpi_data[$i]['KPI_id'])); 
+
 			 	} 
 			}	
 		}
@@ -834,45 +965,106 @@ if (count($settings_data)>0) {
 			}			
 		}    	
 
-		$where = 'where Employee_id = :Employee_id';
-		$list = array('Employee_id');
-		$data = array($_POST['emp_id']);
-		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
+
+
+
+
+
+            require 'PHPMailer-master/PHPMailerAutoload.php';
+			$mail = new PHPMailer;
+
+			//$mail->SMTPDebug = 3;      
+			$emploee_data =new EmployeeForm;
+			$Employee_id = $_POST['emp_id'];	
+			$where = 'where Employee_id = :Employee_id';
+			$list = array('Employee_id');
+			$data = array($Employee_id);
+			$employee_data = $emploee_data->get_employee_data($where,$data,$list);    
+
+			$emploee_data1 =new EmployeeForm;
+			//$Employee_id = $_POST['emp_id'];	
+			$where = 'where Email_id = :Email_id';
+			$list = array('Email_id');
+			$data = array(Yii::app()->user->getState("employee_email"));
+			$employee_data1 = $emploee_data1->get_employee_data($where,$data,$list);                      // Enable verbose debug output
+
+			$params = array('mail_data'=>$employee_data,'mail_data1'=>$employee_data1);
+
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
+			$mail->SMTPAuth = true;                               // Enable SMTP authentication
+			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
+			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+			$mail->Port = 587;                                    // TCP port to connect to
+
+			$mail->setFrom('vvf.pms@vvfltd.com', $employee_data['0']['Emp_fname'].' '.$employee_data['0']['Emp_lname']);
+			//print_r($employee_data);die();
+			// $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+			// $mail->addAddress('ellen@example.com');    
+			//echo $employee_data['0']['Reporting_officer1_id'];die();
+			$message = $this->renderPartial('//site/mail/appraiser_to_emp2',$params,TRUE);           // Name is optional
+			//$mail->addReplyTo($employee_data['0']['Reporting_officer1_id'], 'Mid review Approved');
+			//$mail->addTo($employee_data['0']['Reporting_officer1_id']);
+			$mail->AddAddress($employee_data['0']['Reporting_officer1_id']); 
+			$mail->addCC($employee_data['0']['Email_id']);
+			$mail->addCC('demo.appraisel@gmail.com');
+			$mail->msgHTML($message);
+			//$mail->addBCC('bcc@example.com');
+			//echo "dfsdf";die();
+			// $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			$mail->isHTML(true);                                  // Set email format to HTML
+
+			$mail->Subject = 'Mid Review Approved';
+			$mail->Body    = $message;
+			//$mail->AltBody = $message;
+
+			if(!$mail->send()) {
+			    echo 'Message could not be sent.';
+			    echo 'Mailer Error: ' . $mail->ErrorInfo;
+			} else {
+			    echo 'Message has been sent';
+			}
+// 		$where = 'where Employee_id = :Employee_id';
+// 		$list = array('Employee_id');
+// 		$data = array($_POST['emp_id']);
+// 		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
     	
-    	$notification_data->notification_type = 'Mid Review Approved';
-		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
-		  $notification_data->date = date('Y-m-d');
-		  $notification_data->save();	
-if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("employee_email"))
-{	
- if($employee_data['0']['invalid_email'] != '1')
-       {
-        Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		 $message->view = "appraiser_to_emp2";
-		  $params = array('mail_data'=>$employee_data);
-		   $message->setBody($params, 'text/html');
-		  $message->subject = 'Mid Year Review Approved';
-		  $message->addTo($employee_data['0']['Email_id']);
-		  //$message->addTo('mssadafule@gmail.com');  
-		 //$message->addTo(Yii::app()->user->getState("employee_email"));
-		  $message->from = 'testing@kritvainvestments.com';
- $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_mid_docs/goalsheet_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
-		   $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_mid_docs/IDP_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
-		  if(Yii::app()->mail->send($message))
-		  {
-$update_flag = array(
-						'mid_status' => 'Approved',
-				  	);
-				  $update = Yii::app()->db->createCommand()->update('IDP',$update_flag,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id'])); 
-		  		echo "Mid Year Review Updation Done";die();
-		  }
-       }
-       else
-       {
-          echo "Mid Year Review Updation Done";die();
-       }
-}
+//     	$notification_data->notification_type = 'Mid Review Approved';
+// 		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
+// 		  $notification_data->date = date('Y-m-d');
+// 		  $notification_data->save();	
+// if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("employee_email"))
+// {	
+//  if($employee_data['0']['invalid_email'] != '1')
+//        {
+//         Yii::import('ext.yii-mail.YiiMailMessage');
+// 		  $message = new YiiMailMessage;
+// 		 $message->view = "appraiser_to_emp2";
+// 		  $params = array('mail_data'=>$employee_data);
+// 		   $message->setBody($params, 'text/html');
+// 		  $message->subject = 'Mid Year Review Approved';
+// 		  $message->addTo($employee_data['0']['Email_id']);
+// 		  //$message->addTo('mssadafule@gmail.com');  
+// 		 //$message->addTo(Yii::app()->user->getState("employee_email"));
+// 		  $message->from = 'testing@kritvainvestments.com';
+//  $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_mid_docs/goalsheet_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
+// 		   $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_mid_docs/IDP_".$employee_data['0']['Emp_fname']."_".$employee_data['0']['Emp_lname'].".pdf"));
+// 		  if(Yii::app()->mail->send($message))
+// 		  {
+// $update_flag = array(
+// 						'mid_status' => 'Approved',
+// 				  	);
+// 				  $update = Yii::app()->db->createCommand()->update('IDP',$update_flag,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id'])); 
+// 		  		echo "Mid Year Review Updation Done";die();
+// 		  }
+//        }
+//        else
+//        {
+//           echo "Mid Year Review Updation Done";die();
+//        }
+// }
     	
     }	
 
@@ -1000,45 +1192,130 @@ $notification_data->notification_type = 'Midyear Review Approval Request';
 	$list1 = array('Employee_id');
 	$data2 = array($emp_id);
 	$employee_data2 = $emploee_data->get_employee_data($where1,$data2,$list1);
-$notification_data->notification_type = 'Mid Review Done';
-		  $notification_data->Employee_id = $employee_data1['0']['Employee_id'];
-		  $notification_data->date = date('Y-m-d');
-		  $notification_data->save();
- if($employee_data1['0']['invalid_email'] != '1')
-       {
-         Yii::import('ext.yii-mail.YiiMailMessage');
-		  $message = new YiiMailMessage;
-		  $message->view = "email_appraiser";
-		  $params = array('mail_data'=>$employee_data1,'mail_data1'=>$employee_data2);
-		   $message->setBody($params, 'text/html');
-		  $message->subject = 'Midreview Approval Pending';
-		  $message->addTo($appriaser_1);
-$message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_mid_docs/goalsheet_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf"));
-		   $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_mid_docs/IDP_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf"));
+			  $data_new = array(
+				'mid_KRA_final_status' => 'Pending',		
+			);
+		
+$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data_new,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$emp_id,':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+		  //print_r(Yii::app()->user->getState('financial_year_check'));die();
+		 //  if ($update != 0) {
+		  	
+			//   		echo "Notification Send";die();
+			 
+		 //  }
+		 //  echo "Notification Send";die();
 
-		 //$message->addCC('mssadafule@gmail.com');  
-		  $message->from = $Employee_id;
-		  	$where1 = 'where Email_id = :Email_id';
+
+
+
+
+
+
+
+
+		    require 'PHPMailer-master/PHPMailerAutoload.php';
+			$mail = new PHPMailer;
+
+			//$mail->SMTPDebug = 3;      
+			$emploee_data =new EmployeeForm;
+			//$Employee_id = $_POST['emp_id'];	
+			$where = 'where Employee_id = :Employee_id';
+			$list = array('Employee_id');
+			$data = array($emp_id);
+			$employee_data = $emploee_data->get_employee_data($where,$data,$list);
+			$appriaser_1 = Yii::app()->user->getState("appriaser_1");   
+
+			$where1 = 'where Email_id = :Email_id';
 			$list1 = array('Email_id');
 			$data2 = array($appriaser_1);
-			$employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
+			$employee_data1 = $emploee_data->get_employee_data($where1,$data2,$list1);                      // Enable verbose debug output
+// print_r($employee_data);die();
+			$params = array('mail_data'=>$employee_data,'mail_data1'=>$employee_data1);
+
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
+			$mail->SMTPAuth = true;                               // Enable SMTP authentication
+			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
+			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+			$mail->Port = 587;                                    // TCP port to connect to
+
+			$mail->setFrom('vvf.pms@vvfltd.com', $employee_data['0']['Emp_fname'].' '.$employee_data['0']['Emp_lname']);
+			//print_r($employee_data);die();
+			// $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+			// $mail->addAddress('ellen@example.com');    
+			//echo $employee_data['0']['Reporting_officer1_id'];die();
+			$message = $this->renderPartial('//site/mail/email_appraiser',$params,TRUE);           // Name is optional
+			$mail->addReplyTo($employee_data['0']['Reporting_officer1_id'], 'Midreview Approval Pending');
+			// $mail->addTo($employee_data['0']['Reporting_officer1_id']);
+			// $mail->addCC('demo.appraisel@gmail.com');
+			$mail->AddAddress($employee_data['0']['Reporting_officer1_id']); 
+			$mail->addCC($employee_data['0']['Email_id']);
+			$mail->addCC('demo.appraisel@gmail.com');
+			$mail->msgHTML($message);
+			//$mail->addBCC('bcc@example.com');
+			//echo "dfsdf";die();
+			// $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+			// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			$mail->isHTML(true);                                  // Set email format to HTML
+
+			$mail->Subject = 'Midreview Approval Pending';
+			$mail->Body    = $message;
+			//$mail->AltBody = $message;
+
+			if(!$mail->send()) {
+			    echo 'Message could not be sent.';
+			    echo 'Mailer Error: ' . $mail->ErrorInfo;
+			} else {
+			    echo 'Message has been sent';
+			}
+
+
+
+
+
+
+
+
+
+
+//  if($employee_data1['0']['invalid_email'] != '1')
+//        {
+//          //echo "hi";die();
+//          Yii::import('ext.yii-mail.YiiMailMessage');
+// 		  $message = new YiiMailMessage;
+// 		  $message->view = "email_appraiser";
+// 		  $params = array('mail_data'=>$employee_data1,'mail_data1'=>$employee_data2);
+// 		   $message->setBody($params, 'text/html');
+// 		  $message->subject = 'Midreview Approval Pending';
+// 		  $message->addTo($appriaser_1);
+// // $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/Goalsheet_mid_docs/goalsheet_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf"));
+// // 		   $message->attach(Swift_Attachment::fromPath(Yii::getPathOfAlias('webroot')."/IDP_mid_docs/IDP_".$employee_data1['0']['Emp_fname']."_".$employee_data1['0']['Emp_lname'].".pdf"));
+
+// 		 //$message->addCC('mssadafule@gmail.com');  
+// 		// echo $Employee_id;die();
+// 		  $message->from = $Employee_id;
+// 		  	$where1 = 'where Email_id = :Email_id';
+// 			$list1 = array('Email_id');
+// 			$data2 = array($appriaser_1);
+// 			$employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
 		  
-		  $data_new = array(
-				'mid_KRA_final_status' => 'Approved',		
-			);
-		  $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data_new,'Employee_id=:Employee_id',array(':Employee_id'=>$emp_id));
-		  //print_r($emp_id);die();
-		  if ($update == 1) {
-		  	if(Yii::app()->mail->send($message))
-			  {
-			  		echo "Notification Send";die();
-			  }
-		  }
-       }
-       else
-       {
-          echo "Notification Send";die();
-       }
+// 		  $data_new = array(
+// 				'mid_KRA_final_status' => 'Pending',		
+// 			);
+// 		  $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data_new,'Employee_id=:Employee_id',array(':Employee_id'=>$emp_id));
+// 		  //print_r($emp_id);die();
+// 		  if ($update == 1) {
+// 		  	if(Yii::app()->mail->send($message))
+// 			  {
+// 			  		echo "Notification Send";die();
+// 			  }
+// 		  }
+//        }
+//        else
+//        {
+//           echo "Notification Send";die();
+//        }
 
     	
 		  

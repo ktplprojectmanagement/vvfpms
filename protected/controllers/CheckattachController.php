@@ -132,6 +132,7 @@ public function actioncheck_goal_idp()
 		$list = array('Employee_id');
 		$data = array($_POST['emp_id']);
 		$yr=$_POST['year1'];
+		//echo $yr;die();
 		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
 		
 		$file_name = 'goalsheet'.'_'.$employee_data['0']['Emp_fname'].'_'.$employee_data['0']['Emp_lname'].$yr.'.pdf';
@@ -155,11 +156,55 @@ public function actioncheck_goal_idp()
 		if (isset($_POST['doc'])) {
 			$pdf->writeHTML($_POST['doc'], true, 0, true, 0);
 		}
-		print_r($employee_data);die();	
+		//print_r($employee_data);die();	
 		$pdf->lastPage();
 		$pdf->Output($filename, 'F');print_r($_POST['doc']);die();
 		
 	}
+
+
+
+	public function actioncheck_midgoal_idp()
+	{
+		$notification_data =new NotificationsForm;
+		$emploee_data =new EmployeeForm;
+		$kra=new KpiAutoSaveForm;
+		$where = 'where Employee_id = :Employee_id';
+		$list = array('Employee_id');
+		$data = array($_POST['emp_id']);
+		$yr=$_POST['year1'];
+		$yr=trim($yr);
+		//echo $yr;die();
+		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
+		
+		$file_name = 'Midreview'.'_'.trim($employee_data['0']['Emp_fname']).'_'.trim($employee_data['0']['Emp_lname']).trim($yr).'.pdf';
+		$file_name=trim($file_name);
+	    $filename=Yii::getPathOfAlias('webroot').'/Goalsheet_docs/'.$file_name;
+		//print_r($yr);die();
+		require_once(Yii::getPathOfAlias('webroot').'/TCPDF-master/examples/tcpdf_include.php');
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+//print_r($employee_data);die();
+		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+		    require_once(dirname(__FILE__).'/lang/eng.php');
+		    $pdf->setLanguageArray($l);
+		}
+               //print_r($_POST['doc']);die();
+		$pdf->SetFont('helvetica', '', 9);
+		$pdf->AddPage();
+		//print_r($employee_data);die();	
+//print_r($_POST['doc']);die();
+		if (isset($_POST['doc'])) {
+			$pdf->writeHTML($_POST['doc'], true, 0, true, 0);
+		}
+		//print_r($employee_data);die();	
+		$pdf->lastPage();
+		$pdf->Output($filename, 'F');print_r($_POST['doc']);die();
+		
+	}
+
+
 
 	public function actioncheck_idp()
 	{

@@ -36,16 +36,17 @@ label{
 <img src="http://52.172.210.251/kritvapms/Logo.png" alt="Kritva" style="max-width: 8%;">
 <hr >
   </div>
-  Dear <label><?php if(isset($mail_data['0']['Emp_fname']) && isset($mail_data['0']['Emp_lname'])) { echo $mail_data['0']['Emp_fname'].' '.$mail_data['0']['Emp_lname']; }?></label>,<br/>
+  Dear <label><?php if(Yii::app()->user->getState("Employee_name") && Yii::app()->user->getState("Employee_name")!='') { print_r(Yii::app()->user->getState("Employee_name")); }?></label>,<br/>
 
-  Please be informed  <span ><?php if(isset($mail_data1['0']['Emp_fname']) && isset($mail_data1['0']['Emp_lname'])) { echo $mail_data1['0']['Emp_fname'].' '.$mail_data1['0']['Emp_lname']; }?> has submitted his Goals for the year <label><?php echo date('Y').'-'.date('Y', strtotime('+1 year')); ?></label>  which is ready for your approvals.</span> Kindly login to PMS Online to review the same and further actions.<br/>
+  Please be informed  <span ><?php if(isset($mail_data1['0']['Emp_fname']) && isset($mail_data1['0']['Emp_lname'])) { echo $mail_data1['0']['Emp_fname'].' '.$mail_data1['0']['Emp_lname']; }?> this employee has submitted his/her midyear review for the year <label><?php echo date('Y').'-'.date('Y', strtotime('+1 year')); ?></label>  which is ready for your approvals.</span> Kindly login to PMS Online to review the same and further actions.<br/>
 
 <span> Please click the link below to check status:<br>
-  <a href="http://52.172.210.251/kritvapms/index.php/Login">PMS Login</a>
+  <a href="http://kritva.in/pms/index.php/Login">PMS Login</a>
 
  
 <p style="text-align:left; line-height:15px; font-weight: bold">Best Regards,<br/>
- <?php if(Yii::app()->user->getState("Employee_name") && Yii::app()->user->getState("Employee_name")!='') { print_r(Yii::app()->user->getState("Employee_name")); }?></p></span> 
+  <?php if(isset($mail_data['0']['Emp_fname']) && isset($mail_data['0']['Emp_lname'])) { echo $mail_data['0']['Emp_fname'].' '.$mail_data['0']['Emp_lname']; }?>
+ </p></span> 
  <p style="color: #bbb;">
 2016 &#169; Kritva Technology Pvt. Ltd.
 </p>
