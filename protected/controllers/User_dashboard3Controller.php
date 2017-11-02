@@ -35,7 +35,7 @@ class User_dashboard3Controller extends Controller
 		$set_dates=new SettingsForm;$Reporting_officer1_id='';
 
 		$set_dates=$set_dates->get_all_data();
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		
 		$setting_date=new SettingsForm;
 		$where = 'where setting_content = :setting_content and year = :year';
@@ -45,7 +45,7 @@ class User_dashboard3Controller extends Controller
 		//print_r($settings_data);die();
 		$curr_year=date("Y");
 		$team_kra_appr=array();
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		$kra_info=new KpiAutoSaveForm;
 		$emp_data = new EmployeeForm;
 		$cluster = new ClusterForm;
@@ -182,7 +182,7 @@ $team_sub_yearEnd=array();
 
 			//changes to be made here
 		$my_mid=array();
-		$my_mid=$kra_info->get_mid_review_submitted();
+		$my_mid=$kra_info->get_mid_review_submitted1();
 		//$my_emp_id = 
 		// print_r($my_mid);die();
 		$mid_flag = 0;
@@ -205,7 +205,7 @@ $team_sub_yearEnd=array();
 		
 		//print_r($array1);die();
 		$is_my_gaol_pending=array();
-		$array1="'".'123456'."'";
+		$array1="'".Yii::app()->user->getState("Employee_id")."'";
 		$is_my_gaol_pending=$kra_info->get_pending_goal_team($array1,$year1);
 	//	print_r($array1);die();
 
@@ -221,7 +221,7 @@ $team_sub_yearEnd=array();
 			$cluster_head =$emp_data->get_employee_data($where,$data,$list);
 		}
 		
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		if (isset($emp_data_desc) && count($emp_data_desc)>0 && isset($emp_data_desc['0']['cluster_name'])) {
 			$where = 'where cluster_name = :cluster_name';
 			$list = array('cluster_name');
@@ -269,12 +269,12 @@ $team_sub_yearEnd=array();
 		$mid_sub=array();
 		$mid_kra_team_sub=array();
 
-
+//echo Yii::app()->user->getState("employee_email");die();
 		$where = 'where appraisal_id1 = :appraisal_id1 AND goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
 		$list = array('appraisal_id1','goal_set_year','mid_KRA_final_status');
-		$data = array("employee.kritva@gmail.com",'2017-2018','');
-		$mid_kra_team_sub =$kra_info->get_emp_id_list($where,$data,$list);
-		//$mid_kra_team_sub=$kra_info->get_mid_review_submitted_team($array,$year1);
+		$data = array(Yii::app()->user->getState("employee_email"),'2017-2018','');
+		$emp_list =$kra_info->get_emp_id_list($where,$data,$list);
+		$mid_kra_team_sub=$kra_info->get_emp_id_list($where,$data,$list);
 
 		
 
@@ -282,7 +282,11 @@ $team_sub_yearEnd=array();
 
 
 
-			$emp_list = $kra_info->get_mid_review_submitted_team($array,$year1);
+			//$emp_list = $kra_info->get_mid_review_submitted_team($array,$year1);
+						$where = 'where appraisal_id1 = :appraisal_id1 AND goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
+		$list = array('appraisal_id1','goal_set_year','mid_KRA_final_status');
+		$data = array(Yii::app()->user->getState("employee_email"),'2017-2018','');
+			$emp_list =$kra_info->get_emp_id_list($where,$data,$list);
 			$emp_id_array = '';
 			for ($m=0; $m < count($emp_list); $m++) { 
 				if($emp_id_array == '')
@@ -370,7 +374,7 @@ $team_sub_yearEnd=array();
 		$status = $_POST['status'];
 		$value = explode('_',$status);
 		//print_r($value);die();
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		$kra_info=new KpiAutoSaveForm;
 		$emp_data=new EmployeeForm;
 		$employee_data=new EmployeeForm;
@@ -544,7 +548,7 @@ function actionteamIdpstatus()
 		$status = $_POST['status'];
 		$value = explode('_',$status);
 		
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		$idp=new IDPForm;
 		$emp_data=new EmployeeForm;
 		$employee_data=new EmployeeForm;
@@ -713,7 +717,7 @@ function actionteamMidstatusget()
 		$status = $_POST['status'];
 		$value = explode('_',$status);
 		//print_r($value);die();
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		//echo $Employee_id;die();
 		$kra_info=new KpiAutoSaveForm;
 		$emp_data=new EmployeeForm;
@@ -750,7 +754,7 @@ function actionteamMidstatusget()
 
 	
 		
-		$mid_sub=$kra_info->get_mid_review_submitted_team($array,$year1);
+		//$mid_sub=$kra_info->get_mid_review_submitted_team($array,$year1);
 
 		$where = 'where appraisal_id1 = :appraisal_id1 AND goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
 		$list = array('appraisal_id1','goal_set_year','mid_KRA_final_status');
@@ -758,7 +762,7 @@ function actionteamMidstatusget()
 		$mid_sub =$kra_info->get_emp_id_list($where,$data,$list);
 		//print_r($mid_sub);die();
 		if ($value[1] == 'Submitted') {	
-			//print_r($mid_sub);die();
+			
 				for($i=0;$i<count($mid_sub);$i++){
 					
 				$Employee_id=$mid_sub[$i]['Employee_id'];
@@ -768,11 +772,14 @@ function actionteamMidstatusget()
 				$mid_data[$i] = $emp_data->get_employee_data($where,$data,$list);
 			
 			}
-				
+			//print_r($mid_data);die();	
 		}
 		else if ($value[1] == 'Pending') {	
-			
-			$emp_list = $kra_info->get_mid_review_submitted_team($array,$year1);
+			$where = 'where appraisal_id1 = :appraisal_id1 AND goal_set_year = :goal_set_year AND mid_KRA_final_status!=:mid_KRA_final_status';
+		$list = array('appraisal_id1','goal_set_year','mid_KRA_final_status');
+		$data = array($emp_data_desc['0']['Email_id'],'2017-2018','');
+			$emp_list =$kra_info->get_emp_id_list($where,$data,$list);
+			//$emp_list = $kra_info->get_mid_review_submitted_team($array,$year1);
 		
 			$emp_id_array = '';
 			for ($m=0; $m < count($emp_list); $m++) { 
@@ -866,7 +873,7 @@ function actionteamMidIdpstatusget()
 		$status = $_POST['status'];
 		$value = explode('_',$status);
 
-		$Employee_id = '123456';
+		$Employee_id = Yii::app()->user->getState("Employee_id");
 		$emp_data=new EmployeeForm;
 		$curr_year=date("Y");
 		$idp= new IDPForm;
@@ -1014,7 +1021,7 @@ else if ($value[1] == 'Pending') {
 		function actionTeamYearEndstatus(){
 			$status = $_POST['status'];
 			$value = explode('_',$status);
-			$Employee_id = '123456';
+			$Employee_id = Yii::app()->user->getState("Employee_id");
 
 			$emp_data=new EmployeeForm;
 			$settings_data=new SettingsForm;
@@ -1156,7 +1163,7 @@ else if ($value[1] == 'Pending') {
 			function actionTeamYearEndsIDPtatus(){
 			$status = $_POST['status'];
 			$value = explode('_',$status);
-			$Employee_id = '123456';
+			$Employee_id = Yii::app()->user->getState("Employee_id");
 
 			$emp_data=new EmployeeForm;
 			$settings_data=new SettingsForm;

@@ -288,6 +288,13 @@ class KpiAutoSaveForm extends CActiveRecord
 		$rows=$command->queryAll();		
 		return $rows;
 	}
+	function get_mid_review_submitted1(){
+		$connection=Yii::app()->db;
+		$sql = "SELECT DISTINCT `Employee_id` FROM kpi_auto_save use index (emp_index) WHERE `Employee_id` NOT IN (SELECT s.`Employee_id` FROM kpi_auto_save as s WHERE `mid_KRA_final_status` = '')";
+		$command=$connection->createCommand($sql);
+		$rows=$command->queryAll();		
+		return $rows;
+	}
 	function get_team_members_kra_sub($array,$year1){
 		$connection=Yii::app()->db;
 		$flg=0;

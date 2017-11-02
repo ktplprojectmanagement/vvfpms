@@ -1975,7 +1975,7 @@ margin-top: -37px;
                                                    <th style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;text-align: center;"><b>Manager's Comment</b></th>
                                                </thead>
                                                 <tbody>
-                                                   <tr ><td class="col-md-4" style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;"><label style="margin-top: 15px;margin-left: 0px;margin-bottom: 15px;"><b>1) What went well in the last quarter?</b></label></td>
+                                                   <tr ><td class="col-md-4" style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;"><label style="margin-top: 15px;margin-left: 0px;margin-bottom: 15px;"><b>1) What went well in the last 6 months?</b></label></td>
                                                    <td class="col-md-4" style="border:1px solid #c2cad8;border-bottom: 1px solid #c2cad8;">
                                                             <?php  if (isset($kpi_data['0']['mid_emp_cmt1'])) { ?>
                                                             <textarea class="form-control col-md-4 emp_cmt1" style="border:1px solid #c2cad8" disabled><?php if(isset($kpi_data['0']['mid_emp_cmt1'])) { echo $kpi_data['0']['mid_emp_cmt1']; } }

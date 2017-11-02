@@ -2012,23 +2012,12 @@ $("#cost_center").change(function () {
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="bu">
                                                                                     <option value="">Select</option>
-                                                                                    <option value="Corporate Shared Services">Corporate Shared Services</option>
-                                                                                    <option value="Oleochemicals">Oleochemicals</option>
-                                                                                    <option value="Corporate Shared Services
-                                                                                    ">Corporate Shared Services
-                                                                                    </option>
-                                                                                    <option value=" Corporate Shared Services"> Corporate Shared Services</option>
+                                                                                    <option value="Consumer Products Division">Consumer Products Division (CPD)</option>
+                                                                                    <option value="Contract Manufacturing">Contract Manufacturing Business (CMB)</option>
+                                                                                    <option value="Corporate Shared Services">Corporate Shared Services (CSS)</option>
+                                                                                    <option value="Oleochemicals">Oleochemicals (Oleo)</option>
                                                                                     
-                                                                                    <option value="Contract Manufacturing">Contract Manufacturing</option>
-                                                                                    <option value="Personal Care Products">Personal Care Products</option>
-                                                                                    <option value="Consumer Products Division">Consumer Products Division</option>
-                                                                                    <option value="Contract Manufacturing
-                                                                                    ">Contract Manufacturing
-                                                                                    </option>
-                                                                                    <option value="SMC">SMC</option>
-                                                                                    <option value="CSS">CSS</option>
-                                                                                    <option value="PCP">PCP</option>
-                                                                                    <option value="Consumer Products Division Marketing">Consumer Products Division Marketing</option>
+                                                                                    
                                                                                 </select>
                                                                                 <span class="help-block"> Select BU</span>
                                                                     </div>
@@ -2039,9 +2028,15 @@ $("#cost_center").change(function () {
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="cadre">
                                                                                     <option value="">Select</option>
+                                                                                    <option value="Associate">Associate</option>
+                                                                                    <option value="Graduate Engineer Trainee">Graduate Engineer Trainee</option>
                                                                                     <option value="JMC">JMC</option>
+                                                                                    <option value="Management Trainee">Management Trainee</option>
                                                                                     <option value="MMC">MMC</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="OC">OC</option>
                                                                                     <option value="SMC">SMC</option>
+                                                                                    <option value="Trainee">Trainee</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Cadre</span>
                                                                     </div>
@@ -2052,9 +2047,43 @@ $("#cost_center").change(function () {
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="grade">
                                                                                     <option value="">Select</option>
-                                                                                    <option value="JMC">JMC</option>
-                                                                                    <option value="MMC">MMC</option>
-                                                                                    <option value="SMC">SMC</option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="A1">A1</option>
+                                                                                    <option value="A2">A2</option>
+                                                                                    <option value="A3">A3</option>
+                                                                                    <option value="D">D</option>
+                                                                                    <option value="EG">EG</option>
+                                                                                    <option value="EG-0">EG-0</option>
+                                                                                    <option value="EG-1">EG-1</option>
+                                                                                    <option value="EG-2">EG-2</option>
+                                                                                    <option value="EG-3">EG-3</option>
+                                                                                    <option value="EG-4">EG-4</option>
+                                                                                    <option value="EG-5">EG-5</option>
+                                                                                    <option value="EG-6">EG-6</option>
+                                                                                    <option value="EG-7">EG-7</option>
+                                                                                    <option value="EG-8">EG-8</option>
+                                                                                    <option value="EG-9">EG-9</option>
+                                                                                    <option value="EG-10">EG-10</option>
+                                                                                    <option value="EG-11">EG-11</option>
+                                                                                    <option value="EG-12">EG-12</option>
+                                                                                    <option value="EG-13">EG-13</option>
+                                                                                    <option value="GET">GET</option>
+                                                                                    <option value="HSK">HSK</option>
+                                                                                    <option value="J1">J1</option>
+                                                                                    <option value="J2">J2</option>
+                                                                                    <option value="J3">J3</option>
+                                                                                    <option value="M-0">M-0</option>
+                                                                                    <option value="M1">M1</option>
+                                                                                    <option value="M2">M2</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="S1">S1</option>
+                                                                                    <option value="S2">S2</option>
+                                                                                    <option value="SG">SG</option>
+                                                                                    <option value="SK">SSK</option>
+                                                                                    <option value="T1">T1</option>
+                                                                                    <option value="T2">T2</option>
+                                                                                    <option value="TR">TR</option>
+                                                                                    <option value="USK">USK</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Grade</span>
                                                                     </div>

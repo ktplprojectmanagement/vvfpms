@@ -67,6 +67,9 @@
         background: #02b0e6;
       }
     </style>
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
             <div class="page-content-wrapper">
                 <!-- BEGIN CONTENT BODY -->
                 <div class="page-content">
@@ -92,7 +95,7 @@
                     <!-- BEGIN PAGE TITLE-->
                     <h3 class="page-title">Employee Master
                     </h3>
-            <div class="container-fluid">
+                <div class="container-fluid">
                     <div class="breadcrumbs">                        
                     </div>
                     <!-- END BREADCRUMBS -->
@@ -274,12 +277,89 @@ margin-left: -105px;"></label>
                                                     <table class="table table-striped table-bordered table-hover table-checkable order-column" id="sample_1">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th style="padding-left: 68px;"> Employee ID </th>
-                                                                        <th> Name </th>
-                                                                        <th> Designation </th>
-                                                                        <th> Department </th>
-                                                                        <th> Joining Date </th>
-                                                                        <th> Appraiser 1 </th>
+                                                                        <th style="padding-left: 68px;"> SAP Code </th>
+
+                                                                        <th>Name </th>
+                                                                        <th style="display:none">Emp FName </th>
+                                                                        <th style="display:none">Emp LName </th>
+                                                                        <th style="display:none">Emp MName </th>
+                                                                        <th style="display:none">Email</th>
+                                                                        <th style="display:none">Gender</th>
+                                                                        <th style="display:none">Permanent_address</th>
+                                                                        <th style="display:none">City</th>
+                                                                        <th style="display:none">State</th>
+                                                                        <th style="display:none">Pincode</th>
+                                                                        <th style="display:none">Basic qualification</th>
+                                                                        <th style="display:none">Post graduations</th>
+                                                                        <th style="display:none">Additional qualification</th>
+                                                                        <th style="display:none">Marital status</th>
+                                                                        <th style="display:none">No of dependents</th>
+                                                                        <th style="display:none">Blood group</th>
+                                                                        <th style="display:none">PAN number</th>
+                                                                        <th style="display:none">Aadhar no</th>
+                                                                        <th style="display:none">Position code</th>
+                                                                        <th>Designation </th>
+                                                                        <th>Department </th>
+                                                                        <th style="display:none">Sub department</th>
+                                                                        <th style="display:none">BU</th>
+                                                                        <th style="display:none">Cadre</th>
+                                                                        <th style="display:none">Grade</th>
+                                                                        <th>Company Location</th>
+                                                                        <th style="display:none">Location payroll at</th>
+                                                                        <th style="display:none">Cluster Name</th>
+                                                                        <th style="display:none">Reporting Mgr SAP Code</th>
+                                                                        <th>Reporting1 for time n attendance</th>
+                                                                        <th style="display:none">Reporting1 for appraisal</th>
+                                                                        <th style="display:none">Reporting officer2 id   </th>
+                                                                        <th style="display:none">Manager's manager</th>
+                                                                        <th style="display:none">Cluster appraiser</th>
+                                                                        <th style="display:none">Promotion_date</th>
+                                                                        <th style="display:none">Designation before promotion</th>
+                                                                        <th style="display:none">Cadre before promotion</th>
+                                                                        <th style="display:none">Previous grade</th>
+                                                                        <th style="display:none">Redesignation date</th>
+                                                                        <th style="display:none">Designation Before redesignation</th>
+                                                                        <th style="display:none">Cadre before redesignation </th>
+                                                                        <th style="display:none">Grade before redesignation grade</th>
+                                                                        <th style="display:none">Designation before promotion icgc</th>
+                                                                        <th style="display:none">Transferred from location</th>
+                                                                        <th style="display:none">Transfer wef location</th>
+                                                                        <th style="display:none">Transferred from old data</th>
+                                                                        <th style="display:none">Transfer old data wef location</th>
+                                                                        <th style="display:none">Transferred from dept</th>
+                                                                        <th style="display:none">Transfer wef dept</th>
+                                                                        <th style="display:none">Retire date</th>
+                                                                        <th style="display:none">Last working date </th>
+                                                                        <th style="display:none">Attrition period</th>
+                                                                        <th style="display:none">Date of resignation</th>
+                                                                        <th style="display:none">Reason for leaving</th>
+                                                                        <th style="display:none">Exit category</th>
+                                                                        <th style="display:none">Remarks</th>
+                                                                        <th style="display:none">Type of attrition</th>
+                                                                        <th style="display:none">Types of trainee</th>
+                                                                        <th style="display:none">Department on joining</th>
+                                                                        <th style="display:none">Date of Training to confirmation</th>
+                                                                        <th style="display:none">Actual date of probation to Confirmation</th>
+                                                                        <th style="display:none">After trainee confirmed as wef</th>
+                                                                        <th style="display:none">Previous employer</th>
+                                                                        <th style="display:none">Joining date</th>
+                                                                        <th style="display:none">Other experience</th>
+                                                                        <th style="display:none">VVF experience</th>
+                                                                        <th style="display:none">Total experience</th>
+                                                                        <th style="display:none">Due date for training to probation</th>
+                                                                        <th style="display:none">Actual date for training to probation</th>
+                                                                        <th style="display:none">Confirmation due date</th>
+                                                                        <th style="display:none">Confirmation extention date</th>
+                                                                        <th style="display:none">Confirmation actual date</th>
+                                                                        <th style="display:none">Cost_centre_codes</th>
+                                                                        <th style="display:none">Cost_centre_description</th>
+                                                                        <th style="display:none">Employee_status</th>
+                                                                        <th style="display:none">Contact number</th>
+                                                                        <th style="display:none">Date of birth</th>
+                                                                        <th style="display:none">Age (Years)</th>
+                                                                        <th style="display:none">Age (Months)</th>
+                                                                        <th style="display:none">Company Name</th>
+                                                                        <th style="display:none">Personal Email Id</th>
                                                                         <th> Check Profile </th>
                                                                     </tr>
                                                                 </thead>
@@ -290,22 +370,92 @@ margin-left: -105px;"></label>
                                                                        foreach ($model as $row) {
                                                                 ?>                                                                
                                                                     <tr class="odd gradeX">
-                                                                        <td>
-                                                                            <?php echo $row['Employee_id']; ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php echo $row['Emp_fname']." ".$row['Emp_lname']; ?>
-                                                                        </td>                                                                        
-                                                                        <td>
-                                                                             <?php echo $row['Designation']; ?>
-                                                                        </td>
-                                                                        <td> <?php echo $row['Department']; ?> </td>
-                                                                        <td> <?php echo $row['joining_date']; ?> </td>
-                                                                        <td class="center"> <?php echo $row['Reporting_1_for_appraisal']; ?> </td>
-                                                                        <td>
-                                                                            <a style="text-decoration: none;" href="<?php echo Yii::app()->createUrl('index.php/MIS_loc/Mis_update', array('u_id' => $row['u_id']));?>"><span class="label label-sm label-warning" style="background-color:#337AB7;"> Check </span></a>
-                                                                        </td>
+                                                                        
+                                                                        <td><?php echo $row['Employee_id']; ?></td>
+                                                                        <td><?php echo $row['Emp_fname']." ".$row['Emp_lname']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Emp_fname']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Emp_lname']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Emp_mname']; ?></td>   
+                                                                        <td style="display:none"><?php echo $row['email']; ?>  
+                                                                        <td style="display:none"><?php echo $row['Gender']; ?>                                                                      
+                                                                        <td style="display:none"><?php echo $row['Permanent_address']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['city']; ?> </td>
+                                                                        <td style="display:none"><?php echo $row['state']; ?> </td>
+                                                                        <td style="display:none"><?php echo $row['Pincode']; ?> </td>
+                                                                        <td style="display:none"><?php echo $row['Basic_qualification']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Post_graduations']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Additional_qualification']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Marital_status']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['No_of_dependents']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Blood_group']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Pan_number']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['aadhar_no']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Position_code']; ?></td>
+                                                                        <td><?php echo $row['Designation']; ?></td>
+                                                                        <td><?php echo $row['Department']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Sub_department']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['BU']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Cadre']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Grade']; ?></td>
+                                                                        <td><?php echo $row['company_location']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Location_payroll_at']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['cluster_name']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Reporting_Mgr_SAP_Code']; ?></td>
+                                                                        <td><?php echo $row['Reporting_1_for_time_n_attendance']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Reporting_1_for_appraisal']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Reporting_officer2_id']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Manager_manager']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['cluster_appraiser']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Promotion_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Designation_before_promotion']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Cadre_before_promotion']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Previous_grade']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Redesignation_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['desig_bfr_redesgn']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['cadre_before_redesignation']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Grade_before_redesignation_grade']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Designation_bef_promo_icgc']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Transferred_from_loc']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Transfer_wef_loc']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Transferred_from_old_data']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Transfer_old_data_wef_loc']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Transferred_from_dept']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Transfer_wef_dept']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['retire_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['last_working_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Attrition_period']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Date_of_resignation']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Reason_for_leaving']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Exit_category']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Remarks']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Type_of_attrition']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Types_of_trainee']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Department_on_joining']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Date_of_Training_to_confirmation']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Actual_date_of_probation_to_Confirmation']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['After_trainee_confirmed_as_wef']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Previous_employer']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['joining_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Other_exp']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['VVF_exp']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Total_exp']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Due_date_for_training_to_probation']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Actual_date_for_training_to_probation']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Confirmation_due_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Confirmation_extention_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Confirmation_actual_date']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Cost_centre_codes']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Cost_centre_description']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Employee_status']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['contact']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['dob']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Age_yrs']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['Age_months']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['comp_name']; ?></td>
+                                                                        <td style="display:none"><?php echo $row['personal_email']; ?></td>
+                                                                        <td ><a style="text-decoration: none;" href="<?php echo Yii::app()->createUrl('index.php/MIS/Mis_update', array('u_id' => $row['u_id']));?>"><span class="label label-sm label-warning" style="background-color:#337AB7;"> Check </span></a></td>
                                                                     </tr>
+                                                                    
                                                                   <?php
                                                                     }
                                                                     }else
@@ -400,3 +550,8 @@ margin-left: -105px;"></label>
                         });
                     });
                 </script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/scripts/datatable.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+

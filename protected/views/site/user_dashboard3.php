@@ -783,7 +783,7 @@ echo CHtml::textField('emp_id','',array('style'=>'display:none','id'=>'chng_emp_
 
 <!--MyMid year review status-->
 <div   style="background-color:#fff;">
-    <div class="portlet-title col-md-6" id="my_mid" style="padding-left:0;display:none;" >
+    <div class="portlet-title col-md-6" id="my_mid" style="padding-left:0;" >
         <div class="caption " style="">
             <span class="caption-subject  bold uppercase col-md-12" style="font-size:23px;color:#fff;background-color:#4c9ed9"><i class="fa fa-user" aria-hidden="true" style="font-size:25px"></i>&nbsp;&nbsp;My Mid Year Review</span>
         </div>
