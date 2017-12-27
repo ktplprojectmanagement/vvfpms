@@ -72,7 +72,7 @@ display:none;
                                                     <?php
                                                     $cnt = 1;
                                                    //  echo "<pre>";
-                                                   // print_r($kpi_emp_data_aprv);die();
+                                                  // print_r("hello");die();
                                                         if (isset($kpi_emp_data_aprv) && $kpi_emp_data_aprv!='') {
                                                             for ($i=0; $i < count($kpi_emp_data_aprv); $i++) {
                                                          ?>

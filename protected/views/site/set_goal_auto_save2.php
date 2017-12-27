@@ -1651,7 +1651,7 @@ else
 //$errors = array_filter($kpi_data2);
 
 ?>
-<div class="portlet box border-blue-soft bg-blue-soft" <?php  if (!empty($errors) != "") { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?>>
+<div class="portlet box border-blue-soft bg-blue-soft" >
                                             <div class="portlet-title">
 <?php
 
@@ -1664,7 +1664,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
 
 }
 ?>
-                                                <div class="caption"> New Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname']) && isset($new_kra_till_date['0']['Emp_lname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> From : <?php if(isset($emp_data['0']['reporting_1_effective_date'])) { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']))." To : ".date('d-M-Y', strtotime('Dec 31')); } ?>)                                                   
+                                                <div class="caption"> New Goalsheet (Reporting Manager1111 : <?php if(isset($new_kra_till_date['0']['Emp_fname']) && isset($new_kra_till_date['0']['Emp_lname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> From : <?php if(isset($emp_data['0']['reporting_1_effective_date'])) { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']))." To : ".date('d-M-Y', strtotime('Dec 31')); } ?>)                                                   
                                                 </div>
                                                 <div class="tools">
                                                     <a href="javascript:;" class="collapse"></a>
@@ -1672,7 +1672,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                             </div>
                                             <div class="portlet-body flip-scroll">
  <?php
-  //print_r($kpi_data2);
+// print_r($kpi_data2);die();
  //print_r($kpi_data2);die();
 
                                             if (isset($kpi_data2) && count($kpi_data2)>0) { $cnt_num = 1;  ?>
@@ -1689,7 +1689,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                 </div>
                                             </div>
                                             <div class="portlet-body flip-scroll">
-                                                <table class="mid-table table table-striped table-hover table-bordered" id="sample_editable_1" >
+<table class="mid-table table table-striped table-hover table-bordered" id="sample_editable_1" >
 
                                                     <thead>
 <tr><td style="text-align:center;" class="col-md-2"><b style="float: left;">KRA Description</b></td><td colspan="8" class="col-md-10"><?php echo $row['KRA_description']; ?></td></tr>
@@ -1708,7 +1708,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php 
+                                                        <?php
                                                                 $kpi_list_data = '';
                                                                 $kpi_list_data = explode(';',$row['kpi_list']);
                                                                 $kpi_list_unit = explode(';',$row['target_unit']);
@@ -1717,17 +1717,17 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                 $kpi_data_data = 0;
                                                                 if(isset($kpi_list_data) && count($kpi_list_data)>0)
                                                                 {
-                                                                    for ($i=0; $i < count($kpi_list_data); $i++) { 
-                                                                      if (isset($kpi_list_data) && $kpi_list_data[$i] != '') {
-                                                                          if(isset($kpi_data_data) && $kpi_data_data == '')
-                                                                          {
-                                                                              $kpi_data_data = 1;
-                                                                          }
-                                                                          else
-                                                                          {
-                                                                              $kpi_data_data = 2;
-                                                                          }                                                                        
-                                                                      }
+                                                                  for ($i=0; $i < count($kpi_list_data); $i++) { 
+                                                                    if ($kpi_list_data[$i] != '') {
+                                                                        if($kpi_data_data == '')
+                                                                        {
+                                                                            $kpi_data_data = 1;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            $kpi_data_data = 2;
+                                                                        }                                                                        
+                                                                    }
                                                                   }
                                                                 }
                                                                 
@@ -1739,12 +1739,12 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                 <tr>
                                                                     <td class="validate_field1"><?php if(isset($kpi_list_data[$i])) { echo $kpi_list_data[$i]; } ?></td>
                                                                     <td class="validate_field1"><?php if(isset($kpi_list_unit[$i])) { echo $kpi_list_unit[$i]; } ?></td>
-                                                                        <?php 
-                                                                            if (isset($kpi_list_unit[$i]) && $kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value') {
+                                                                        <?php
+                                                                            if (isset($kpi_list_unit[$i]) && ($kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value')) {
                                                                                 ?>
                                                                                 <td class="validate_field1" >
 
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $kpi_list_target[$i];  ?>">
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo $kpi_list_target[$i]; } ?>">
                                                                                         <?php echo strlen($kpi_list_target[$i]) >= 20 ? 
                                                                                         substr($kpi_list_target[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
                                                                                         $kpi_list_target[$i];  ?>
@@ -1752,53 +1752,82 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                                 </td>
                                                                                 <td class="validate_field1">
                                                                                    
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo$kpi_list_target[$i];  ?>">
-                                                                                        <?php echo strlen($KPI_target_value[$i] ) >= 20 ? 
-                                                                                        substr($KPI_target_value[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        $KPI_target_value[$i];  ?>
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo $kpi_list_target[$i]; } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($KPI_target_value[$i]))
+                                                                                        {
+                                                                                           echo strlen($KPI_target_value[$i] ) >= 20 ? 
+                                                                                            substr($KPI_target_value[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                            $KPI_target_value[$i]; 
+                                                                                        }
+                                                                                        ?>
                                                                                         </lable>
                                                                                 </td>
-                                                                                <td class="validate_field1">
-                                                                                 
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.69,2);?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.69,2)) >= 20 ? 
+                                                                                <td class="validate_field1">                                                                                 
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*0.69,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                           echo strlen(round($kpi_list_target[$i]*0.69,2)) >= 20 ? 
                                                                                         substr(round($kpi_list_target[$i]*0.69,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        '< '.round($kpi_list_target[$i]*0.69,2);  ?>
+                                                                                        '< '.round($kpi_list_target[$i]*0.69,2);
+                                                                                        }
+                                                                                         ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                 <td class="validate_field1">
                                                                                     <?php echo round($kpi_list_target[$i]*0.70,2);?>
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.70,2);?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.70,2)) >= 20 ? 
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if($kpi_list_target[$i]) { echo round($kpi_list_target[$i]*0.70,2); } ?>">
+                                                                                        <?php 
+                                                                                          if(isset($kpi_list_target[$i]))
+                                                                                          {
+                                                                                              echo strlen(round($kpi_list_target[$i]*0.70,2)) >= 20 ? 
                                                                                         substr(round($kpi_list_target[$i]*0.70,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*0.70,2);  ?>
+                                                                                        round($kpi_list_target[$i]*0.70,2); 
+                                                                                          }
+                                                                                         ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                
                                                                              <td class="validate_field1">
                                                                                
-                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.96,2);?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.96,2) ) >= 20 ? 
-                                                                                        substr(round($kpi_list_target[$i]*0.96,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                       round($kpi_list_target[$i]*0.96,2);  ?>
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if($kpi_list_target[$i]) { echo round($kpi_list_target[$i]*0.96,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                            echo strlen(round($kpi_list_target[$i]*0.96,2) ) >= 20 ? 
+                                                                                            substr(round($kpi_list_target[$i]*0.96,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                           round($kpi_list_target[$i]*0.96,2); 
+                                                                                        }
+                                                                                        ?>
                                                                                         </lable>
                                                                              </td>
                                                                                 
                                                                              <td class="validate_field1">
                                                                              
-                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*1.06,2);  ?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*1.06,2) ) >= 20 ? 
-                                                                                        substr(round($kpi_list_target[$i]*1.06,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*1.06,2);  ?>
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.06,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                            echo strlen(round($kpi_list_target[$i]*1.06,2) ) >= 20 ? 
+                                                                                            substr(round($kpi_list_target[$i]*1.06,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                            round($kpi_list_target[$i]*1.06,2); 
+                                                                                        }
+                                                                                        ?>
                                                                                         </lable>
                                                                              </td>
                                                                                 
                                                                              <td class="validate_field1">
                                                                            
-                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*1.39,2);  ?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*1.39,2)) >= 20 ? 
-                                                                                        substr(round($kpi_list_target[$i]*1.39,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*1.39,2);  ?>
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.39,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                            echo strlen(round($kpi_list_target[$i]*1.39,2)) >= 20 ? 
+                                                                                            substr(round($kpi_list_target[$i]*1.39,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                            round($kpi_list_target[$i]*1.39,2);  
+                                                                                        }                                                                                        
+                                                                                        ?>
                                                                                         </lable>
                                                                              </td>
                                                                         <?php
@@ -1808,12 +1837,16 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                         ?>
                                                                                  <td></td>
                                                                                 <td class="validate_field1"><?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?></td>
-                                                                                <?php
-                                                                                $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                <?php 
+                                                                                if(isset($kpi_list_target[$i]))
+                                                                                {
+                                                                                    $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                }
+                                                                                
                                                                                 for ($j=0; $j < 5; $j++) { 
                                                                                     if (isset($value_data[$j])) {?>
                                                                                      <td class="validate_field1">
-                                                                                        <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $value_data[$j]; ?>">
+                                                                                        <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($value_data[$j])) { echo $value_data[$j]; } ?>">
                                                                                         <?php echo strlen($value_data[$j]) >= 20 ? 
                                                                                         substr($value_data[$j], 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
                                                                                         $value_data[$j]; ?>
@@ -1832,12 +1865,11 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                         ?>
                                                                         <?php
                                                                             }
-                                                                        ?>
-                                                                       <!--  <td class="numeric"><a href="<?php echo $this->createUrl('Setgoals/kpi_edit', array('KPI_id' => $row['KPI_id']));
-     ?>"><i class="fa fa-pencil fa-fw" title="Delete" aria-hidden="true"></i></a><i class="fa fa-trash-o del_kpi" style="cursor: pointer;" id="KPI_id-<?php echo $row['KPI_id']; ?>" title="Delete" aria-hidden="true"></i></td> -->
+                                                                        ?>                                                                       
                                                                 </tr>
                                                                 <?php
                                                                    } }
+                                                                   //die();
                                                             ?>                              
                                                     </tbody>
                                                     <?php
@@ -1849,7 +1881,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                         }
                                                         
                                                     ?>                                                   
-                                                </table>                                                
+                                                </table>                                                                          
                                             </div>
                                         </div>
 
@@ -1880,7 +1912,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                             <div class="portlet-title">
                                                 <!--<div class="caption"> Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> Till : <?php if(isset($emp_data['0']['reporting_1_effective_date']) && $emp_data['0']['reporting_1_effective_date']!= '0000-00-00') { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']. ' -1 day')); }else{ echo date('d-M-Y', strtotime('Dec 31')); } ?>)                                                    -->
                                                 <!--</div>-->
-                                                <div class="caption"> Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']; } ?>   )                                           
+                                                <div class="caption"> Goalsheet (Reporting Manager 222: <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']; } ?>   )                                           
                                                 </div>
                                                 <div class="tools">
                                                     <a href="javascript:;" class="collapse"></a>
@@ -2089,7 +2121,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                             <div class="portlet box border-blue-soft bg-blue-soft">
                                             <div class="portlet-title">
                                                 <div class="caption"> Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> Till : <?php if(isset($emp_data['0']['reporting_1_effective_date']) && $emp_data['0']['reporting_1_effective_date']!= '0000-00-00') { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']. ' -1 day')); }else{ echo date('d-M-Y', strtotime('Dec 31')); } ?>)                                                    
-                                                </div>
+                                                </div>444
                                                 <div class="tools">
                                                     <a href="javascript:;" class="collapse"></a>
                                                 </div>
@@ -5610,51 +5642,51 @@ else
                         var edt_flg=1;
                     }
                     $("#kra_cat_cnt31").text(0);
-                    //alert($('#kra_cat_cnt2').text());
-                    if($('#kra_cat_cnt2').text() != 0 && (($('#cnt_kra_cat_people').text() == 1 && kar_cat=="People") || ($('#cnt_kra_cat_customer').text() == 1 && kar_cat=="Customer") || ($('#cnt_kra_cat_process').text() == 1 && kar_cat=="Process") || ($('#cnt_kra_cat_business').text() == 1 && kar_cat=="Business")))
-                    {
-                        $("#err").show();  
-                        $("#err").fadeOut(6000);
-                        $("#error_value").text("Selection of all KRA category is mandatory");
-                        $("#err").addClass("alert-danger");
-                         $("html, body").animate({ scrollTop: 0 }, "slow");
-                    }
-                    else if($('#kra_cat_cnt1').text() == 1 && ($('#cnt_kra_cat_people').text() > 1 || $('#cnt_kra_cat_process').text() > 1 || $('#cnt_kra_cat_customer').text() > 1 || $('#cnt_kra_cat_business').text() > 1))
-                    {
-                         $("#err").show();  
-                        $("#err").fadeOut(6000);
-                        $("#error_value").text("Selection of all KRA category is mandatory");
-                        $("#err").addClass("alert-danger");
-                         $("html, body").animate({ scrollTop: 0 }, "slow");
-                    }
-                    else if(parseInt(process) >= 2 && kar_cat=="Process"){
+                   //  //alert($('#kra_cat_cnt2').text());
+                   //  if($('#kra_cat_cnt2').text() != 0 && (($('#cnt_kra_cat_people').text() == 1 && kar_cat=="People") || ($('#cnt_kra_cat_customer').text() == 1 && kar_cat=="Customer") || ($('#cnt_kra_cat_process').text() == 1 && kar_cat=="Process") || ($('#cnt_kra_cat_business').text() == 1 && kar_cat=="Business")))
+                   //  {
+                   //      $("#err").show();  
+                   //      $("#err").fadeOut(6000);
+                   //      $("#error_value").text("Selection of all KRA category is mandatory");
+                   //      $("#err").addClass("alert-danger");
+                   //       $("html, body").animate({ scrollTop: 0 }, "slow");
+                   //  }
+                   //  else if($('#kra_cat_cnt1').text() == 1 && ($('#cnt_kra_cat_people').text() > 1 || $('#cnt_kra_cat_process').text() > 1 || $('#cnt_kra_cat_customer').text() > 1 || $('#cnt_kra_cat_business').text() > 1))
+                   //  {
+                   //       $("#err").show();  
+                   //      $("#err").fadeOut(6000);
+                   //      $("#error_value").text("Selection of all KRA category is mandatory");
+                   //      $("#err").addClass("alert-danger");
+                   //       $("html, body").animate({ scrollTop: 0 }, "slow");
+                   //  }
+                   //  else if(parseInt(process) >= 2 && kar_cat=="Process"){
                               
              
-                     $("#err").show();  
-                     $("#err").fadeOut(6000);
-                    $("#error_value").text("Please select another KRA category");
+                   //   $("#err").show();  
+                   //   $("#err").fadeOut(6000);
+                   //  $("#error_value").text("Please select another KRA category");
                
                      
-                    }
-                    else if(parseInt(business) >= 2 && kar_cat=="Business"){
-                        $("#err").show();  
-                     $("#err").fadeOut(6000);
-                    $("#error_value").text("Please select another KRA category");
+                   //  }
+                   //  else if(parseInt(business) >= 2 && kar_cat=="Business"){
+                   //      $("#err").show();  
+                   //   $("#err").fadeOut(6000);
+                   //  $("#error_value").text("Please select another KRA category");
                     
-                    }
-                   else if(parseInt(people) >= 2 && kar_cat=="People"){
-                        $("#err").show();  
-                     $("#err").fadeOut(6000);
-                    $("#error_value").text("Please select another KRA category");
+                   //  }
+                   // else if(parseInt(people) >= 2 && kar_cat=="People"){
+                   //      $("#err").show();  
+                   //   $("#err").fadeOut(6000);
+                   //  $("#error_value").text("Please select another KRA category");
                      
-                    }
-                    else if(parseInt(customer) >= 2 && kar_cat=="Customer"){
-                         $("#err").show();  
-                     $("#err").fadeOut(6000);
-                    $("#error_value").text("Please select another KRA category");
+                   //  }
+                   //  else if(parseInt(customer) >= 2 && kar_cat=="Customer"){
+                   //       $("#err").show();  
+                   //   $("#err").fadeOut(6000);
+                   //  $("#error_value").text("Please select another KRA category");
                     
-                    }
-                    else if(edt_flg == 0) {
+                   //  }
+                    if(edt_flg == 0 || edt_flg!= 0) {
 
                      var selected_unit = {
                             'kra_category' : $('.target_value').find(':selected').val(),

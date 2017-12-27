@@ -1315,9 +1315,13 @@ $emp_id = Yii::app()->user->getState('emp_id1');
 		$data = array('PMS_display_format',date("Y",strtotime("-1 year")));             
 		$settings_data1 = $setting_date->get_setting_data($where,$data,$list);
 		//print_r($emp_id);die();		
-		$where = 'where Employee_id = :Employee_id and kra_complete_flag = :kra_complete_flag AND goal_set_year =:goal_set_year';
-		$list = array('Employee_id','kra_complete_flag','goal_set_year');
-		$data = array($Employee_id,'0',Yii::app()->user->getState('financial_year_check'));
+		// $where = 'where Employee_id = :Employee_id and kra_complete_flag = :kra_complete_flag AND goal_set_year =:goal_set_year';
+		// $list = array('Employee_id','kra_complete_flag','goal_set_year');
+		// $data = array($Employee_id,'0',Yii::app()->user->getState('financial_year_check'));
+		// $kpi_data1 = $model->get_kpi_list($where,$data,$list);
+		$where = 'where Employee_id = :Employee_id and kra_complete_flag = :kra_complete_flag AND goal_set_year =:goal_set_year AND appraisal_id1 = :appraisal_id1 ORDER BY target DESC ';
+		$list = array('Employee_id','kra_complete_flag','goal_set_year','appraisal_id1');
+		$data = array($Employee_id,'0',Yii::app()->user->getState('financial_year_check'),Yii::app()->user->getState("employee_email"));
 		$kpi_data1 = $model->get_kpi_list($where,$data,$list);
 		
 		$where = 'where Employee_id = :Employee_id';
@@ -1341,9 +1345,9 @@ $emp_id = Yii::app()->user->getState('emp_id1');
 
 		$KRA_category = '';
 		$kra_types = $kra->get_list();
-		$where = 'where Employee_id = :Employee_id AND goal_set_year = :goal_set_year';
-		$list = array('Employee_id','goal_set_year');
-		$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+		$where = 'where Employee_id = :Employee_id AND goal_set_year = :goal_set_year and appraisal_id1 = :appraisal_id1 ORDER BY target DESC';
+		$list = array('Employee_id','goal_set_year','appraisal_id1');
+		$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'),Yii::app()->user->getState("employee_email"));
 		$kpi_data = $model->get_kpi_list($where,$data,$list);
 		////////////////////////////////////////////////////
 //print_r(Yii::app()->user->getState('emp_id1'));die();			
@@ -1377,25 +1381,45 @@ else
 {
   // print_r("dfgdfgfd");die();
   if (count($settings_data)>0) {
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year');
-			$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+			// $where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+			// $list = array('Employee_id','goal_set_year');
+			// $data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+			// $kpi_data_edit = $model->get_kpi_list($where,$data,$list);
+  	$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and appraisal_id1 = :appraisal_id1 ORDER BY target DESC ';
+			$list = array('Employee_id','goal_set_year','appraisal_id1');
+			$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'),Yii::app()->user->getState("employee_email"));
 			$kpi_data_edit = $model->get_kpi_list($where,$data,$list);
 		}
+		// else if (count($settings_data1)>0) {
+  //       	$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
+		// 	if ($settings_data1['0']['setting_type'] == $year) {
+		// 		$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+		// 			$list = array('Employee_id','goal_set_year');
+		// 			$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+		// 			$kpi_data_saved = $model1->get_kpi_list($where,$data,$list);
+		// 	} 
+  //       	}
+		// else
+		// {
+		// 	$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+		// 	$list = array('Employee_id','goal_set_year');
+		// 	$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+		// 	$kpi_data_edit = $model->get_kpi_list($where,$data,$list);
+		// }
 		else if (count($settings_data1)>0) {
         	$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
 			if ($settings_data1['0']['setting_type'] == $year) {
-				$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-					$list = array('Employee_id','goal_set_year');
-					$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+				$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and appraisal_id1 = :appraisal_id1 ORDER BY target DESC ';
+					$list = array('Employee_id','goal_set_year','appraisal_id1');
+					$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'),Yii::app()->user->getState("employee_email"));
 					$kpi_data_saved = $model1->get_kpi_list($where,$data,$list);
 			} 
         	}
 		else
 		{
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year');
-			$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'));
+			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and appraisal_id1 = :appraisal_id1 ORDER BY target DESC ';
+			$list = array('Employee_id','goal_set_year','appraisal_id1');
+			$data = array(Yii::app()->user->getState('emp_id1'),Yii::app()->user->getState('financial_year_check'),Yii::app()->user->getState("employee_email"));
 			$kpi_data_edit = $model->get_kpi_list($where,$data,$list);
 		}
 			//print_r(Yii::app()->user->getState('financial_year_check'));die();	

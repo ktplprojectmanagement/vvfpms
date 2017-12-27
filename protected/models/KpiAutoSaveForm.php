@@ -248,7 +248,18 @@ class KpiAutoSaveForm extends CActiveRecord
 	{
 		
 		$connection=Yii::app()->db;
-		$sql ="SELECT  `KRA_category` from `kpi_auto_save` use index (emp_index) WHERE ((`Employee_id`  = '$Employee_id') AND (`goal_set_year`='$year1'))";
+		$sql ="SELECT  `KRA_category` from `kpi_auto_save` use index (emp_index) WHERE ((`Employee_id`  = '$Employee_id') AND (`new_goalsheet_state` = '0') AND (`goal_set_year`='$year1'))";
+		//print_r($sql);die();
+		$command=$connection->createCommand($sql);
+		$rows=$command->queryAll();
+		return $rows;
+	}
+
+	function get_kra_category_new($Employee_id,$year1)
+	{
+		
+		$connection=Yii::app()->db;
+		$sql ="SELECT  `KRA_category` from `kpi_auto_save` use index (emp_index) WHERE ((`Employee_id`  = '$Employee_id') AND (`new_goalsheet_state` = '1') AND (`goal_set_year`='$year1'))";
 		//print_r($sql);die();
 		$command=$connection->createCommand($sql);
 		$rows=$command->queryAll();

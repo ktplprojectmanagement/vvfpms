@@ -56,23 +56,12 @@
         });
     $( "#date_confrm_trn").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#date_confrm_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
-    $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
-            // var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
-            // var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
-
-            // var exp = getAge(this);
-            // var exp_yr=exp.split("years");
-            // var other_exp= 0 ;
-            // $('#vvf_exp').val(exp_yr[0]+''+'Years');
-            // $('#doj_vvf').val(newdate1);
-            // if ($('#othr_exp').val()!='') {
-            //     other_exp=$('#othr_exp').val(); 
-               
-            // };
+   $( "#doj_vvf" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
             var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
-            var exp = getAge($("#doj_vvf").val());
+            var doj=($("#doj_vvf").val()).split("-").reverse().join("/");
+
+            var exp = getAge(this);
             var exp_yr=exp.split("years");
-           
             var other_exp= 0 ;
             $('#vvf_exp').val(exp_yr[0]+''+'Years');
             $('#doj_vvf').val(newdate1);
@@ -87,9 +76,13 @@
            var trn_prob=new Date(new Date(join_dat).setMonth(join_dat.getMonth()+12));
            var fin_dt = new Date(new Date(join_dat).setMonth(join_dat.getMonth()+18));
            var fin_trn_prob = convert(trn_prob);
-           $('#due_date_trn_prob').val(fin_trn_prob);
+          //alert(fin_trn_prob);
            var dt_of_con = convert(fin_dt);
+           var trainee = $('option:selected', $('#trainee')).val();
+           if(trainee !="" ){
+           $('#due_date_trn_prob').val(fin_trn_prob);
            $('#confirm_due_date').val(dt_of_con);
+           }
     });
     $( "#due_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
     $( "#act_date_trn_prob").datepicker({dateFormat: 'dd-M-yy',changeMonth: true,changeYear: true,yearRange: '1900:2050'});
@@ -111,7 +104,7 @@
    function getAge(dateVal) {
     //alert(dateVal);
             var
-                birthday = new Date(dateVal),
+                birthday = new Date(dateVal.value),
                 today = new Date(),
                 ageInMilliseconds = new Date(today - birthday),
                 years = ageInMilliseconds / (24 * 60 * 60 * 1000 * 365.25 ),
@@ -122,39 +115,51 @@
                 return Math.floor(years) + ' years ' + Math.floor(months) + ' months ' + days + ' days';
 
         }
-  </script>  
-  <script>
-                       $(function(){
-
-                        $('#state').change(function(){
-                            var state_name = {
-                                'state_name' : $('#state').find(':selected').val()
-                            }
-                            var base_url = window.location.origin;  
-                            $.ajax({
-                                 dataType :'html',
-                                 type :'post',
-                                 data : state_name,
-                                 url : base_url+$("#basepath").attr('value')+'/index.php/MIS_loc/city_list',
-                                 success : function(data) {              
-                                    $('#city').html(data);                              
-                                }
-                            });
-                        });
-                    });
-     
-  </script>
-  <script type="text/javascript">
- 
-
-
-  function convert(str) {
+        function convert(str) {
     var date = new Date(str),
         mnth = ("0" + (date.getMonth()+1)).slice(-2),
         day  = ("0" + date.getDate()).slice(-2);
     return [day,mnth,date.getFullYear()].join("-");
 }
-  </script> 
+  </script>  
+    <script type="text/javascript">
+ $(function(){
+var d = new Date(2017, 09, 01);
+
+//alert(d);
+
+
+
+            var yrs=$("#dob").val().split("-");
+            var yr=parseInt(yrs[0])+60;
+            var retire_dt= yrs[2]+"-"+yrs[1]+"-"+yr;
+            $('#dt_retire').val(retire_dt);
+            var newdate = ($("#dob").val()).split("-").reverse().join("-");
+            var age = getAge(dob);
+            var months=age.split("years");
+            $('#age_yrs').val(months[0]+''+'Years');
+            $('#age_mnt').val(months[1]);
+            console.log(age);
+            $('#dob').val(newdate);
+
+
+
+
+            var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
+            var exp = getAge(doj_vvf);
+            var exp_yr=exp.split("years");
+            var other_exp= 0 ;
+            $('#vvf_exp').val(exp_yr[0]+''+'Years');
+            $('#doj_vvf').val(newdate1);
+            if ($('#othr_exp').val()!='') {
+                other_exp=$('#othr_exp').val(); 
+            
+            };
+            var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
+            
+            $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
+});
+  </script>
   <script>
  
 $(document).ready(function(){
@@ -761,10 +766,10 @@ $(document).ready(function(){
         $('#mgr_mgr').css('border','');
         $('#clust_hd').css('border','');
         var report_mgr_sap=$("#report_mgr_sap").val();
-        var rep1_attd = $('option:selected', $('#rep1_attd')).val();
-        var rep1_appr = $('option:selected', $('#rep1_appr')).val();
+        var rep1_attd = $('#rep1_attd').val();
+        var rep1_appr = $('#rep1_appr').val();
         var dot_mgr = $('option:selected', $('#dot_mgr')).val();
-        var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
+        var mgr_mgr = $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
         var u_id=$('#u_id').val();
         if(report_mgr_sap == ""){
@@ -1345,7 +1350,7 @@ $(document).ready(function(){
         var cost_cenr_descr = $('#cost_cenr_descr').val();
         var emp_sta = $('option:selected', $('#emp_sta')).val();
         var u_id=$('#u_id').val();
-        alert($('option:selected', $('#emp_sta')).val());
+        //alert($('option:selected', $('#emp_sta')).val());
         if(cost_center == ""){
             $('#err').text("Please enter Cost Centre Codes");
             $('#cost_center').css('border','1px solid red');
@@ -1574,6 +1579,7 @@ $('#report_mgr_sap').focusout(function(){
                 'url' : base_url+$("#basepath").attr('value')+'/index.php/MIS/ReprtngMgr',
                 success : function(data)
                 {
+                    //alert(data);
                     //$("#rep1_attd").val(data);
                     var report=data.split('-');
                     $("#rep1_attd").val(report['0']);
@@ -3817,7 +3823,7 @@ var d = new Date(2017, 09, 01);
                                                                     <!--    <a class="btn green" href="#tab_1_8" data-toggle="tab" aria-expanded="false" id="trans_dtls">Next&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>-->
                                                                         <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="save_data">Save&nbsp;&nbsp;</a>
                                                                         <a class="btn default" href="#tab_1_7" data-toggle="tab" aria-expanded="false" id="prve7">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
-                                                                        <a class="btn green save_data" href="#tab_1_2" data-toggle="tab" aria-expanded="false" >Approve Changes&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                        <a class="btn green save_data" href="#" data-toggle="tab" aria-expanded="false" >Approve Changes&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
                                                                     </div>
                                                                 </div>
                                                                 

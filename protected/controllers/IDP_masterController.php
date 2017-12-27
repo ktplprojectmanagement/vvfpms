@@ -18,9 +18,10 @@ class IDP_masterController extends Controller
 			$this->render('//site/IDP_master',array('program_data_result'=>$program_data_result));
 			$this->render('//site/admin_footer_view');
 		}
-		else
-		{
-			$this->redirect(array('Adminlogin/Index'));
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
 		}
 		
 	}

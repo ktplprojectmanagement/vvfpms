@@ -5,8 +5,7 @@ Yii::app()->controller->renderPartial('//site/all_js');
 
 ?> 
 <style media="all" type="text/css">
-      
-         #err { 
+#err { 
 position: absolute; 
 top: 0; right: 20; 
 z-index: 10; 
@@ -20,19 +19,21 @@ background-color: #AB5454;
 color: #FFF;
 font-weight: bold; 
 }
-  .page-content
+
+.page-content
 {
 background :none;
-}    
-   </style>
+}  
+</style>
+
 <script type="text/javascript">
   function refresh_page()
 {
 $("#target_goal").load(location.href + " #target_goal");
 $("#target_idp").load(location.href + " #target_idp");
 var specialElementHandlers = {
-    '#editor': function (element,renderer) {
-        return true;
+'#editor': function (element,renderer) {
+return true;
     }
 };
 var doc = new jsPDF();
@@ -44,6 +45,7 @@ var data = {
     doc : $('#target_goal').html(),
     emp_id : $('#correct_emp_id').text()
 };
+
 $.ajax({                            
 type : 'post',
 datatype : 'html',
@@ -58,6 +60,7 @@ var data1 = {
     doc : $('#target_idp').html(),
     emp_id : $('#correct_emp_id').text()
 };
+
 $.ajax({                            
 type : 'post',
 datatype : 'html',
@@ -259,6 +262,9 @@ $(document).ready(function(){
                            //     prg_cmd='';
                            // }
                           // alert(i+"  "+$("#program_review-"+i).val());
+                          if($("#program_review-"+i).val()=='' ||  $("#program_review-"+i).val()=='undefined'){
+                            $("#program_review-"+i).val('NA');
+                          }
                            if (program_status == '') 
                             {
                                program_status =$("#tot_prog_status_mgr-"+i+" option:selected").text();
@@ -803,7 +809,7 @@ margin-left: 15px;"><?php echo "Goalsheet Document"; ?></label></a>
                                                             <a href="javascript:;" class="collapse"></a>
                                                     </div>
                                             </div>
-                                                                                    <lable id="Reporting_officer1_id" style="display: none">
+                                          <lable id="Reporting_officer1_id" style="display: none">
                                            <?php  if(isset($emp_data)&& count($emp_data)>0){
                                            echo trim($emp_data[0]['Reporting_officer1_id']);   }?> 
                                         </lable>
@@ -1829,7 +1835,7 @@ else
                                                         {
                                                           $Project_deliverables = '';
                                                         }
-                                                        echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('class'=>"form-control col-md-4 project_deliverables",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;','disabled'=> "true")); ?> 
+                                                        echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('class'=>"form-control col-md-4 project_deliverables",'style'=>'height: 214px;max-height: 67px;','disabled'=> "true")); ?> 
                                                     </div>
                                                 </div>
                                                 <div class="form-group last">
@@ -1875,7 +1881,7 @@ else
                                                         {
                                                           $project_mid_review_by_emp = '';
                                                         }
-                                                        echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review_by_emp",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;','disabled'=> "true")); ?> 
+                                                        echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review_by_emp",'style'=>'height: 214px;max-height: 67px;','disabled'=> "true")); ?> 
                                                     </div>
                                                 </div>
                                                  <div class="form-group">
@@ -1921,11 +1927,11 @@ else
                                                           $project_mid_review = '';
                                                         }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['midyear_status_flag']=='Approved') {
-echo CHtml::textArea('project_mid_review',$project_mid_review,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_mid_review",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;',$set_flag));
+echo CHtml::textArea('project_mid_review',$project_mid_review,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_mid_review",'style'=>'height: 214px;max-height: 67px;',$set_flag));
 }
 else
 {
- echo CHtml::textArea('project_mid_review',$project_mid_review,$htmlOptions=array('class'=>"form-control col-md-4 project_mid_review",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;'));
+ echo CHtml::textArea('project_mid_review',$project_mid_review,$htmlOptions=array('class'=>"form-control col-md-4 project_mid_review",'style'=>'height: 214px;max-height: 67px;'));
 }
 
                                                          ?> 

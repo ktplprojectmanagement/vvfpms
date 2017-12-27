@@ -13,7 +13,9 @@
        $("#err").removeClass("alert-success"); 
                             $("#err").removeClass("alert-danger");                        
                           var id_value = $("#total_kpi_id_list").text();
-                          var id = id_value.split(';');var mid_review = ''; var review_comments = ''; var error_count1 = 0;var error_count2 = '';
+                          var id = id_value.split(';');
+//alert(id);
+                          var mid_review = ''; var review_comments = ''; var error_count1 = 0;var error_count2 = '';
                           var rel_program_review_by_emp = '';  var extra_program_review_by_emp = '';var program_review_by_emp = '';    var emp_project_mid_review = ''; var rel_program_review_status_emp ="";     
                           var mid_emp_cmt3 ='';var mid_emp_cmt2='';var mid_emp_cmt3='';
                           mid_emp_cmt3=$('.emp_cmt3').val();
@@ -39,7 +41,7 @@
                                for (var i = 1; i <= 2; i++) 
                                {
                                     var k=i+2;
-                                    if( $("#rel_program_review1_by_emp-"+i).val()== "" ||  $("#rel_program_review1_by_emp-"+i).val() === undefined){
+                                    if( $("#rel_program_review1_by_emp-"+i).val()== "" || $("#rel_program_review1_by_emp-"+i).val() === undefined){
                                        //alert("hi");
                                        $("#rel_program_review1_by_emp-"+i).val("NA");
                                     }
@@ -77,6 +79,7 @@
                               {
                                   mid_review = mid_review +';'+$(".mid_stat_type-"+id[l]+i).find(':selected').val();
                               }
+                              //alert(mid_review);
                               console.log(id_value);
                               var comment_data = $(".employee_comment"+id[l]+i).val();
                               //alert($(".review_comment"+id[1]+i).text());
@@ -92,7 +95,7 @@
                                   review_comments = review_comments +';'+$(".employee_comment"+id[l]+i).val();
                               }
                               }
-
+ 
                             // alert(mid_review);
                             var program_review_by_emp = ''; var mid_emp_trn_prog_stat='';
                               for (var i = 0; i < $("#total_prog").text(); i++) 
@@ -113,11 +116,34 @@
                             {
                               mid_emp_trn_prog_stat = mid_emp_trn_prog_stat+';'+$("#tot_prog_status_emp-"+i+" option:selected").text();
                             }
+
+                            if($('#program_review-'+i).val()== 'undefined'){
+                              $('#program_review-'+i).val('');
+                            }
+
                                        
 }
-//alert(mid_emp_trn_prog_stat);
-                             
-//alert(rel_program_review_status_emp);
+
+                            if($('#emp_cmt1').val()== 'undefined'){
+                              $('#emp_cmt1').val('');
+                            }
+                            if($('#emp_cmt2').val()== 'undefined'){
+                              $('#emp_cmt2').val('');
+                            }
+                            if($('#emp_cmt3').val()== 'undefined'){
+                              $('#emp_cmt3').val('');
+                            }
+
+                            if($('#emp_mgr1').val()== 'undefined'){
+                              $('#emp_mgr1').val('');
+                            }
+                            if($('#emp_mgr2').val()== 'undefined'){
+                              $('#emp_mgr2').val('');
+                            }
+                            if($('#emp_mgr3').val()== 'undefined'){
+                              $('#emp_mgr3').val('');
+                            }
+
                                  emp_project_mid_review = $("#project_mid_review_by_emp").val();
                               
                                
@@ -159,7 +185,10 @@
                                     url : base_url+$("#basepath").attr('value')+'/index.php/Midreview1/employee_mid_review1',
                                     success : function(data)
                                     { 
-                                      //if (data != 0) {alert(data);};
+                                      //alert(data);
+                                      if (data == 'success') {
+                                       // alert(data);
+                                      };
                                       
                                       //save_detail_pdf();
                                                                                        
@@ -483,7 +512,8 @@ $set_flag1 = "'disabled'= 'false'";
 //$errors = array_filter($kpi_data2);
 
                                  ?>
-                                 <div class="portlet box border-blue-soft bg-blue-soft" <?php if(!empty($errors)) { ?> style="margin-top: 10px;border: 1px solid grey;display:block" <?php }else { ?>style="margin-top: 10px;border: 1px solid grey;display:none"<?php } ?>>
+                              <!--    <div class="portlet box border-blue-soft bg-blue-soft"> -->
+<div class="portlet box border-blue-soft bg-blue-soft"  <?php if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != '0') {?> style ="display:block"<?php } else { ?>style ="display:none"<?php }?> >                              
 <?php
 if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != '') {
 $emp_data1 = new EmployeeForm;
@@ -495,7 +525,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
 
 ?>
                                         <div class="portlet-title">
-                                            <div class="caption">New Mid year review goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> From : <?php if(isset($emp_data['0']['reporting_1_effective_date'])) { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']))." To : ".date('d-M-Y', strtotime('Dec 31')); } ?>)  
+                                            <div class="caption">New Mid year review goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']; } ?>)  
                                             </div>
                                             <div class="tools">
                                                 <?php  if (isset($kpi_data2) && count($kpi_data2)>0) { echo "KRA Approval Status : ".$kpi_data2['0']['KRA_status']; } else { echo "KRA Approval Status : Pending"; }  ?>
@@ -510,6 +540,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                foreach ($kpi_data2 as $row) { $cnt = 0; ?>
                                                <table class="mid-table table table-striped table-hover table-bordered" id="sample_editable_1" style="margin-top: 45px;">
                                                    <?php
+                                                   //print_r($kpi_data2);die();
                                                                 $kpi_list_data = '';
                                                                 $kpi_list_data = explode(';',$row['kpi_list']);
                                                                 $kpi_list_unit = explode(';',$row['target_unit']);
@@ -518,7 +549,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                 $appr_comment = explode(';',$row['appraiser_comment']);
                                                                 $appr_status = explode(';',$row['mid_KRA_status']);
                                                                 $kra_status = $row['mid_KRA_final_status'];
-                                                                //print_r($kra_status);die();
+                                                                //print_r($employee_comment);die();
                                                                 $kpi_data_data = 0;
                                                                 for ($i=0; $i < count($kpi_list_data); $i++) { 
                                                                     if ($kpi_list_data[$i] != '') {
@@ -561,6 +592,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                 <td align="left" valign=middle ><b><font face="Calibri" size=3>KPI Unit</font></b></td>
 
                                                 <td align="left" valign=middle><b><font face="Calibri" size=3>KPI Value</font></b></td>
+                                                <td align="left" valign=middle ><b><font face="Calibri" size=3>Mid-review Status</font></b></td>
 <td align="left" valign=middle ><b><font face="Calibri" size=3>Employee Comments</font></b></td>
 <!--<td align="left" valign=middle ><b><font face="Calibri" size=3>Mid Review Status</font></b></td>-->
 <?php if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] == 'Approved') {?>
@@ -637,6 +669,28 @@ $value_data[$l]; ?></lable></td>
                                                                                <?php
                                                                             }
                                                                         ?></div></td>
+
+<!-- <td>ggggggggggggg</td> -->
+<td <?php if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] == 'Approved') {?>style="display:''"<?php } ?> >
+<?php   
+$select = '';$status = '';
+
+$status = '';
+if (isset($emp_status[$i]) && $emp_status[$i] != '') {
+$select = 0;
+$status[$emp_status[$i]] = array('selected' => true); 
+}
+else
+{
+$select = '';
+$status['Select'] = array('selected' => true);
+}
+
+$review_type = array('Select'=>'Select','Needs Attention'=>'Needs Attention','Nearing Completion'=>'Nearing Completion','On Track'=>'On Track','Completed'=>'Completed');
+
+echo CHtml::dropDownList("mid_stat_type-".$row['KPI_id'].$i,'',$review_type,$htmlOptions=array('class'=>"form-control mid_stat_type-".$row['KPI_id'].$i,'style'=>"width: 186px;",'options' => $status));
+?>
+</td>
                                                                   <td>
                                                                         <?php
                                                                            $emp_comment = '';
@@ -701,7 +755,7 @@ $value_data[$l]; ?></lable></td>
                                                             ?>
                                                                 <i id="updation_spinner-<?php echo $row['KPI_id']; ?>" class="fa fa-spinner fa-pulse fa-3x fa-fw" style="font-size: 22px;margin-left: 212px;display: none"></i>                                    
                                                    
-                                                     <label id="get_kpi_count-<?php echo $row['KPI_id']; ?>" style="display: none"><?php echo $kpi_data_data; ?></label>
+                                                     <label id="get_kpi_count-<?php echo $row['KPI_id']; ?>" ><?php echo $kpi_data_data; ?></label>
                                                       <?php if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] != 'Approved') {
                                                         ?>
                                                  <?php 
@@ -774,9 +828,9 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
 <div class="portlet-body flip-scroll">
 <?php //print_r($kpi_data);die();
 if (!isset($approved_list)) { ?>                                           
-<?php    if (isset($kpi_data) && count($kpi_data)>0) { 
+<?php    if (isset($kpi_all_data) && count($kpi_all_data)>0) { 
 $total_kpi_id_list = '';
-foreach ($kpi_data as $row) { $cnt = 0; ?>
+foreach ($kpi_all_data as $row) { $cnt = 0; ?>
 <table class="mid-table table table-striped table-hover table-bordered" id="sample_editable_1" style="margin-top: 45px;">
 <?php
 $kpi_list_data = '';
@@ -919,6 +973,8 @@ $value_data[$l]; ?></lable></td>
 ?>
 </div>
 </td>
+
+
 <td <?php if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] == 'Approved') {?>style="display:''"<?php } ?> >
 <?php   
 $select = '';$status = '';
@@ -1003,7 +1059,7 @@ echo CHtml::textArea("review_comment",$apr_comment,$htmlOptions=array('class'=>"
 ?>
 <i id="updation_spinner-<?php echo $row['KPI_id']; ?>" class="fa fa-spinner fa-pulse fa-3x fa-fw" style="font-size: 22px;margin-left: 212px;display: none"></i>                                    
 
-<label id="get_kpi_count-<?php echo $row['KPI_id']; ?>" style="display: none"><?php echo $kpi_data_data; ?></label>
+<label id="get_kpi_count-<?php echo $row['KPI_id']; ?>" ><?php echo $kpi_data_data; ?></label>
 <?php if (isset($kpi_data['0']['mid_KRA_final_status']) && $kpi_data['0']['mid_KRA_final_status'] != 'Approved') {
 ?>
 <?php 
@@ -1081,7 +1137,7 @@ else
 
 
 
-                                         <label id='total_kpi_id_list' style="display: none"><?php if(isset($total_kpi_id_list)) { echo $total_kpi_id_list; } ?></label> 
+                                         <label id='total_kpi_id_list' ><?php if(isset($total_kpi_id_list)) { echo $total_kpi_id_list; } ?></label> 
                                         <?php if (isset($approved_list)) { ?>
                                        <div class="portlet box green">
                                             <div class="portlet-title">
@@ -1193,13 +1249,14 @@ margin-top: -37px;
                                             </div>                                    
                                             <div style="min-width: 900px;" class="portlet-body tabs-below">
                                                 <div class="tab-content">
-                                            <label id="kra_count" style="display: none"><?php echo count($kpi_data); ?></label>
+                                            <label id="kra_count" style="display: none"><?php echo count($kpi_data); ?> </label>
+ <?php    if (isset($kpi_data2) && count($kpi_data2) >0) { ?>
                                             <div style="margin-top: 20px;padding-left: 10px;min-width: 900px;">
                                                      <form action="#" id="form-username" class="form-horizontal form-bordered">
                                                 <div class="form-body">
                                                     <div class="form-group ">
                                                       <div class="col-md-2"><label class="col-md-2">
-                                                        <span class="bold">Employee Name</span></label>
+                                                        <span class="bold">Employee Name hiiiiiiii</span></label>
                                                       </div>
                                                         <div class="col-md-4">
                                                           <?php 
@@ -2100,11 +2157,11 @@ else
                                                           $Project_deliverables = '';
                                                         }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
- echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_deliverables",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;'));
+ echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_deliverables",'style'=>'height: 214px;max-height: 67px;'));
 }
 else
 {
- echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('class'=>"form-control col-md-4 project_deliverables",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;','disabled'=> "true"));
+ echo CHtml::textArea('deliverables',$Project_deliverables,$htmlOptions=array('class'=>"form-control col-md-4 project_deliverables",'style'=>'height: 214px;max-height: 67px;','disabled'=> "true"));
 }
                                                          ?> 
                                                     </div>
@@ -2168,11 +2225,11 @@ else
                                                         }
 if (isset($IDP_data['0']['midyear_status_flag']) && $IDP_data['0']['midyear_status_flag'] != 'Approved') 
                                             {
-                                                   echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review_by_emp",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;'));
+                                                   echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review_by_emp",'style'=>'height: 214px;max-height: 67px;'));
 }
 else
 {
-echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review_by_emp",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;','disabled'=> "true"));
+echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review_by_emp",'style'=>'height: 214px;max-height: 67px;','disabled'=> "true"));
 }  
                                                          ?> 
                                                     </div>
@@ -2212,7 +2269,7 @@ echo CHtml::textArea('project_mid_review_by_emp',$project_mid_review_by_emp,$htm
                                                         {
                                                           $project_mid_review = '';
                                                         }
-                                                        echo CHtml::textArea('project_mid_review',$project_mid_review,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review",'style'=>'max-width: 827px;width: 936px;height: 214px;max-height: 67px;','disabled'=> "true")); ?> 
+                                                        echo CHtml::textArea('project_mid_review',$project_mid_review,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 project_mid_review",'style'=>'height: 214px;max-height: 67px;','disabled'=> "true")); ?> 
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -2376,17 +2433,17 @@ if(isset($employee_data['0']['Emp_fname'])) {
                                         echo CHtml::button('Approve Midyear review of '.$emp_name,array('class'=>'btn border-blue-soft update_status','style'=>'float:right;margin-bottom: 10px;')); }
                                         ?>
                                         <?php
-                                            //}
-                                            // else
-                                            // {
+                                            }
+                                            else
+                                            {
                                                 ?>
-                    <!--                             <div class="page-content-inner">
+                                                <div class="page-content-inner">
                             <div class="note note-info">
                                 <p> No Record Found </p>
                             </div>
-                        </div> -->
+                        </div>
                                                 <?php
-                                           // }
+                                            }
                                         ?>
                                         <?php 
                                         echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px','id'=>'getdata')); 
@@ -2610,7 +2667,8 @@ $(document).ready(function(){
             $("#err").removeClass("alert-danger");                        
             var id_value = $("#total_kpi_id_list").text();
             var id = id_value.split(';');var mid_review = ''; var review_comments = ''; var error_count1 = 0;var error_count2 = '';
-            var rel_program_review_by_emp = '';  var extra_program_review_by_emp = '';var program_review_by_emp = '';    var emp_project_mid_review = '';                   
+            var rel_program_review_by_emp = '';  var extra_program_review_by_emp = '';var program_review_by_emp = '';    var emp_project_mid_review = '';      
+            alert(id.length)             ;
             $(window).scroll(function()
             {
                 $('#err').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});  
@@ -2745,7 +2803,7 @@ $(document).ready(function(){
                         review_comments = $(".employee_comment"+id[l]+i).val();
                         //alert(mid_review);
                           if(mid_review=="Select"){                            
-                            //alert("Please select mid review status");
+                            alert(id[l]+i);
                             $(".mid_stat_type-"+id[l]+i).css('border','1px solid red');
                             $(".mid_stat_type-"+id[l]+i).focus();
                             $('#err').show();
@@ -2798,7 +2856,7 @@ $(document).ready(function(){
                                     url : base_url+$("#basepath").attr('value')+'/index.php/Midreview1/goalnotification',
                                     success : function(data)
                                     {
-                                        alert(data);
+                                        //alert(data);
                                         $("#show_spin").hide(); 
                                         $("#err").show();  
                                         $("#err").fadeOut(6000);
@@ -3076,7 +3134,7 @@ function save_detail_pdf()
                     url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_midgoal_idp',
                     success : function(data)
                     {
-alert(data);
+//alert(data);
                         //location.href = base_url+'/Goalsheet_docs/q1_goalsheet'+'_'+$("#femp_name").text()+'_'+$("#lemp_name").text()+$('#yr').text()+'.pdf'; 
                         location.href = base_url+'/pms/Goalsheet_docs/Midreview'+'_'+$("#femp_name").text()+'_'+$("#lemp_name").text()+$('#yr').text()+'.pdf'; 
                     }
@@ -3085,7 +3143,7 @@ alert(data);
 </script>
 
 
- <div id="mid_review_emppdf" >
+ <div id="mid_review_emppdf"  style="display:none">
 <?php 
 $notification_data =new NotificationsForm;
         $emploee_data =new EmployeeForm;
@@ -3136,7 +3194,7 @@ $where = 'where Email_id = :Email_id';
                                             
                                                 <table  class="table table-striped table-hover table-bordered" id="sample_editable_1" style="margin-top:20px;border-collapse: collapse;color:black;border: 1px solid black;">
                                                     <thead>
-                                                         <tr id="get_target_value">
+                                                        <tr id="get_target_value">
                                                         <th style="background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> Key Performance Indicator (KPI) description  </th>
                                                         <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> Unit </th>
                                                         <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> KPI Weightage </th>
@@ -3321,7 +3379,7 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
 //print_r($emp_data);die();
 
    ?>
-   <lable id='emp_id' style="display: none"><?php echo 'vvf57e264fd8d3ef'; ?></lable>
+   <lable id='emp_id' style="display: none"><?php echo $emp_data['0']['Employee_id']; ?></lable>
 <div id="target_idp1" >
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
 <script type="text/javascript" src="http://cdn.uriit.ru/jsPDF/libs/adler32cs.js/adler32cs.js"></script>
@@ -3591,7 +3649,7 @@ $faculty[$faculty2[0]] = array('selected' => 'selected');
 <!--    </td>-->
 <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-  aaaaa    <?php if(isset($finaltopic_cmt[0])) { echo $finaltopic_cmt[0]; } ?>
+      <?php if(isset($finaltopic_cmt[0])) { echo $finaltopic_cmt[0]; } ?>
       </p>
     </td>
   </tr>
@@ -3605,7 +3663,7 @@ $faculty[$faculty2[0]] = array('selected' => 'selected');
         }
         if(isset($IDP_data['0']['Extra_year_end_prg_comments']))
         {
-          $finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
+          $finaltopic_cmt = explode(';',$IDP_data['0']['extra_program_review_by_emp']);
         }
 
         if (isset($topic1[1])) {
@@ -3672,7 +3730,7 @@ $faculty[$faculty2[1]] = array('selected' => 'selected');
 <!--    </td>-->
 <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-  aaaaa    <?php if(isset($finaltopic_cmt[1])) { echo $finaltopic_cmt[1]; } ?>
+      <?php if(isset($finaltopic_cmt[1])) { echo $finaltopic_cmt[1]; } ?>
       </p>
     </td>
   </tr>
@@ -3689,11 +3747,11 @@ B: Development through developmental relationships</b></font></p>
           
           if(isset($IDP_data['0']['q1_rel_prog_cmt_emp']))
           {
-            $relfinaltopic = explode(';',$IDP_data['0']['q1_rel_prog_cmt_emp']);
+            $relfinaltopic = explode(';',$IDP_data['0']['mid_rel_prg_rev_emp']);
           }
           if(isset($IDP_data['0']['q1_rel_program_review_by_emp']))
           {
-            $relfinaltopic_cmt = explode(';',$IDP_data['0']['q1_rel_program_review_by_emp']);
+            $relfinaltopic_cmt = explode(';',$IDP_data['0']['rel_program_review']);
           }
 
 
@@ -4022,8 +4080,8 @@ C: Development through action learning projects</b></font></p>
       <p><br/>
         <?php 
                 $review_name = '';
-                if (isset($IDP_data['0']['  project_q1_review_by_emp'])) {
-                  $review_name = $IDP_data['0']['project_q1_review_by_emp'];
+                if (isset($IDP_data['0']['project_mid_review_by_emp'])) {
+                  $review_name = $IDP_data['0']['project_mid_review_by_emp'];
                 }
                 else
                 {
@@ -4040,7 +4098,7 @@ C: Development through action learning projects</b></font></p>
 </b></font></p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
-      <p><?php if (isset($IDP_data['0']['Year_end_prog_status'])) { echo $IDP_data['0']['Year_end_prog_status']; } ?></p>
+      <p><?php if (isset($IDP_data['0']['project_mid_status'])) { echo $IDP_data['0']['project_mid_status']; } ?></p>
     </td>
   </tr>
 <tr valign="top">
@@ -4064,18 +4122,18 @@ C: Development through action learning projects</b></font></p>
     <tbody>
         <tr>
             <td style="border: 1px solid black;">1) What went well in the last quarter?</td>
-            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['q1_emp_cmt1'])) echo $kpi_data['0']['q1_emp_cmt1'];?></td>
-            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['q1_mgr_cmt1'])) echo $kpi_data['0']['q1_mgr_cmt1'];?></td>
+            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['mid_emp_cmt1'])) echo $kpi_data['0']['mid_emp_cmt1'];?></td>
+            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['mid_mgr_cmt1'])) echo $kpi_data['0']['mid_mgr_cmt1'];?></td>
         </tr>
         <tr>
             <td style="border: 1px solid black;">2) What could have been better?</td>
-            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['q1_emp_cmt2'])) echo $kpi_data['0']['q1_emp_cmt2'];?></td>
-            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['q1_mgr_cmt2'])) echo $kpi_data['0']['q1_mgr_cmt2'];?></td>
+            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['mid_emp_cmt2'])) echo $kpi_data['0']['mid_emp_cmt2'];?></td>
+            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['mid_mgr_cmt2'])) echo $kpi_data['0']['mid_mgr_cmt2'];?></td>
         </tr>
         <tr>
             <td style="border: 1px solid black;">3) What support or resource you require?</td>
-            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['q1_emp_cmt3'])) echo $kpi_data['0']['q1_emp_cmt3'];?></td>
-            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['q1_mgr_cmt3'])) echo $kpi_data['0']['q1_mgr_cmt3'];?></td>
+            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['mid_emp_cmt3'])) echo $kpi_data['0']['mid_emp_cmt3'];?></td>
+            <td style="border: 1px solid black;"><?php if(isset($kpi_data['0']['mid_mgr_cmt3'])) echo $kpi_data['0']['mid_mgr_cmt3'];?></td>
         </tr>
     </tbody>
 </table>

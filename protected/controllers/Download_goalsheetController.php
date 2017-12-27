@@ -89,13 +89,20 @@ class Download_goalsheetController extends Controller
 		}
 
 		
-
+if (Yii::app()->user->getState("Employee_id")!='') 
+		{
 		$selected_option = 'Assigndetails';
                 //print_r($emp_data);die();
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
-		$this->render('//site/DownloadGoalsheet',array('kpi_data_edit'=>$kpi_data_edit,'employee_list'=>$emp_data));                
+		$this->render('//site/DownloadGoalsheet',array('kpi_data_edit'=>$kpi_data_edit,'employee_list'=>$emp_data));        
+		}
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}           
     }
 }
 

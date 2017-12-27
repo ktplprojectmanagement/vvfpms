@@ -458,7 +458,7 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
 	    }
 
         //print_r($yearEnd_rev);die();
-
+	    if (Yii::app()->user->getState("Employee_id")!='') {
 		$this->render('//site/script_file');
 		$this->render('//site/admin_header_view');
 		$this->render('//site/baseurl');
@@ -492,7 +492,12 @@ $where='where year_end_b_appr_status = :year_end_b_appr_status  AND goal_set_yea
                         'q1_pend'=>$q1_pend,
 			));
 		$this->render('//site/admin_footer_view');
-		
+		}
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}
 	}
 
 	function actionidp_prgStat()

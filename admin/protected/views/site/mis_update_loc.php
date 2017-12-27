@@ -3689,6 +3689,7 @@ var d = new Date(2017, 09, 01);
                                                                         <a class="btn green" href="#" data-toggle="tab" aria-expanded="false" id="save_data">Save&nbsp;&nbsp;</a>
                                                                         <a class="btn default" href="#tab_1_7" data-toggle="tab" aria-expanded="false" id="prve7">Previous&nbsp;&nbsp;<i class="fa fa-angle-double-left" aria-hidden="true" ></i></a>
                                                                         <a class="btn green save_data" href="#" data-toggle="tab" aria-expanded="false" >Save All&nbsp;&nbsp;<i class="fa fa-angle-double-right" aria-hidden="true" ></i></a>
+                                                                        <button type="button" class="btn btn-info " data-toggle="modal" data-target="#myModal" id="final_Apprv">Final Approve</button>
                                                                     </div>
                                                                 </div>
                                                                 
@@ -3697,3 +3698,62 @@ var d = new Date(2017, 09, 01);
                                                              </div>
                                                             <!-- End other details Tab-->
                                                             </div></div></div></div></div></div></div></div></div></div>
+
+ <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmation</h4>
+        </div>
+        <div class="modal-body">
+           <p> Are you sure you want to send this for approval?
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn dark btn-outline">Edit</button>
+          <button type="button" data-dismiss="modal" class="btn green" id="continue_goal_set1">OK</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+
+<script type="text/javascript">
+$(function(){
+$("body").on('click','#final_Apprv',function(){
+    $("body").on('click','#continue_goal_set1',function(){
+       var data = {
+                'u_id' : $("#u_id").val(),
+                  };
+                                    console.log(data);
+                                    var base_url = window.location.origin;
+                                    $.ajax({                            
+                                        type : 'post',
+                                        datatype : 'html',
+                                        data : data,
+                                        url : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/location_submit',
+                                        
+                                        success : function(data)
+                                        {   
+alert(data);
+                                           if(data=="Notification Send"){
+                                           
+                                                    $("#err").show();
+                                                    $("#err").fadeOut(6000);
+                                                     $("#err").removeClass('alert-danger');
+                                                     $("#err").addClass('alert-success');
+                                                     $("#err").text("Notification Send");
+                                            }
+                                        }
+
+                                });
+        });
+});
+});
+</script>

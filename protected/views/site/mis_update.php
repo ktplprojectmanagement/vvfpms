@@ -974,6 +974,7 @@ $(document).ready(function(){
         var desgn_bfr_promo = $('option:selected', $('#desgn_bfr_promo')).val();
         var u_id=$('#u_id').val();
         if(promo_dt!= ""){
+            $("#promo_detals").attr("href", "#");
             if(desg_bfr_promo == ""){
                 $('#err').text("Please Select Designation Before Promotion");
                 $('#desg_bfr_promo').css('border','1px solid red');
@@ -1081,6 +1082,7 @@ $(document).ready(function(){
         var tranr_wef_dept = $('option:selected', $('#tranr_wef_dept')).val();
         var u_id=$('#u_id').val();
         if(trnsfr_frm_loc != ""){
+            $("#trans_dtls").attr("href", "#");
             if(tranr_wef_loc == ""){
                 $('#err').text("Please Select Transfer W.e.f (Location) ");
                 $('#tranr_wef_loc').css('border','1px solid red');
@@ -1167,6 +1169,7 @@ $(document).ready(function(){
         var attr_type = $('option:selected', $('#attr_type')).val();
         var u_id=$('#u_id').val();
         if(lst_wrk_dt != ""){
+             $("#leave_dtls").attr("href", "#");
             if(arrt_prd == ""){
                 $('#err').text("Please Enter Attrition Period ");
                 $('#arrt_prd').css('border','1px solid red');

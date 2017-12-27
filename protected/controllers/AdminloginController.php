@@ -65,7 +65,22 @@ class AdminloginController extends Controller
 	}
 
 
-	public function actionemployee_logout()
+	// public function actionemployee_logout()
+	// {
+	// 	$model=new LoginForm;
+	// 	$data = array(
+	// 				'login_flag' => 0, 
+	// 				);
+	// 		$update = Yii::app()->db->createCommand()->update('login',$data,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));
+	// 		Yii::app()->user->setState('Employee_id','');
+	// 		Yii::app()->user->setState('role_id','');
+	// 		Yii::app()->user->setState('Employee_name','');
+	// 		Yii::app()->user->setState('Employee_id','');
+	// 		Yii::app()->user->setState('employee_email','');
+	// 		Yii::app()->user->setState('appriaser_1','');
+	// 	return $this->redirect(['Index']);
+	// }
+public function actionemployee_logout()
 	{
 		$model=new LoginForm;
 		$data = array(
@@ -78,8 +93,8 @@ class AdminloginController extends Controller
 			Yii::app()->user->setState('Employee_id','');
 			Yii::app()->user->setState('employee_email','');
 			Yii::app()->user->setState('appriaser_1','');
-		return $this->redirect(['Index']);
+			Yii::app()->user->setState('session_current_time','');unset($_SESSION['number']);session_destroy();
+		return $this->redirect('/pms/index.php/Adminlogin');
 	}
-
 	
 }

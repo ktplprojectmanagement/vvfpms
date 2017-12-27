@@ -32,8 +32,16 @@ Yii::app()->user->setState("employee_email",$Email_id_data['0']['Email_id']);
 
 function actionreset_new($employee_id = null)
 	{	
+		if (Yii::app()->user->getState("Employee_id")!='') 
+		{
 		$this->render('//site/baseurl');	
 		$this->render('//site/reset_pass_view',array('employee_id'=>$employee_id));
+		}
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}
 	}
 
 	function actionrsest()

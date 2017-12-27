@@ -1,7 +1,308 @@
+<label id="yr" style="display:none"><?php echo Yii::app()->user->getState('financial_year_check');?></label>
+<?php echo $edit_flag; ?>
 
-      <label id='emp_dept_name' style="display:none"><?php if(isset($emp_data['0']['Department'])) { echo $emp_data['0']['Department']; } ?></label>
+<!--</script>-->
+<?php 
+
+$f_year=Yii::app()->user->getState('financial_year_check'); 
+
+
+$f_year_comp=explode('-',$f_year);
+// echo count($kpi_data);die();
+if(isset($f_year_comp['1']) && $f_year_comp['0']) {
+if((((date('Y')== $f_year_comp['1'] && date('m')< 3) || (date('Y') == $f_year_comp['0'] && date('m') > 3))) && (count($kpi_data) < 5 || $edit_flag=="1")){ ?>
+<script>
+$(document).ready(function(){
+    
+       $('#set_goal_sheet').css('display','block');
+    
+});
+</script>   
+<?php } }
+else
+{ ?>
+
+<script>
+$(document).ready(function(){
+    
+      //  alert("sssssssssssssssssssssssss");
+   
+    $('#set_goal_sheet').css('display','none');
+});
+</script>   
+
+<?php
+}
+?>
+        
+<?php
+$cnt_kra_cat_people1=0;$cnt_kra_cat_process1=0;$cnt_kra_cat_customer1=0;$cnt_kra_cat_business1=0;
+$cnt_kra_cat_people1_new=0;$cnt_kra_cat_process1_new=0;$cnt_kra_cat_customer1_new=0;$cnt_kra_cat_business1_new=0;
+$model= new KpiAutoSaveForm();
+$Employee_id=Yii::app()->user->getState("Employee_id");
+
+$year1=Yii::app()->user->getState('financial_year_check'); 
+
+$kategory_cnt=$model->get_kra_category($Employee_id,$year1);
+$kategory_cnt_new=$model->get_kra_category_new($Employee_id,$year1);
+
+print_r($kategory_cnt);?><br><?php
+print_r($kategory_cnt_new);
+$counts = array_count_values(array_column($kategory_cnt, 'KRA_category'));
+$counts_new = array_count_values(array_column($kategory_cnt_new, 'KRA_category'));
+
+//print_r($counts);
+$cnt=0;$cnt_cat=0;$cnt_cat_new=0;
+if(isset($counts['People']) && $counts['People']>2){
+    $cnt=1;
+}
+else if(isset($counts['Customer']) && $counts['Customer']>2){
+    $cnt=1;
+}
+else if(isset($counts['Process']) && $counts['Process']>2){
+    $cnt=1;
+}
+else if(isset($counts['Business']) && $counts['Business']>2){
+    $cnt=1;
+}
+else{
+    $cnt=0;
+    
+}
+
+
+
+
+$cnt_new=0;$cnt_cat_new=0;
+if(isset($counts_new['People']) && $counts_new['People']>2){
+    $cnt_new=1;
+}
+else if(isset($counts_new['Customer']) && $counts_new['Customer']>2){
+    $cnt_new=1;
+}
+else if(isset($counts_new['Process']) && $counts_new['Process']>2){
+    $cnt_new=1;
+}
+else if(isset($counts_new['Business']) && $counts_new['Business']>2){
+    $cnt_new=1;
+}
+else{
+    $cnt_new=0;
+    
+}
+
+
+
+
+
+
+
+
+if(isset($counts_new['People']) && ($counts_new['People']>1 || $counts_new['People']==1)){
+     $cnt_kra_cat_people1_new=1;
+}
+if(isset($counts_new['Customer']) && ($counts_new['Customer']>1 || $counts_new['Customer']==1)){
+     $cnt_kra_cat_customer1_new=1;
+}
+if(isset($counts_new['Process']) && ($counts_new['Process']>1 || $counts_new['Process']==1)){
+    $cnt_kra_cat_process1_new=1;
+}
+if(isset($counts_new['Business']) && ($counts_new['Business']>1 || $counts_new['Business']==1)){
+    $cnt_kra_cat_business1_new=1;
+}
+
+if(isset($counts_new['People']) && $counts_new['People']>1){
+    $cnt_cat_new=1;
+}
+else if(isset($counts_new['Customer']) && $counts_new['Customer']>1){
+    $cnt_cat=1;
+}
+else if(isset($counts_new['Process']) && $counts_new['Process']>1){
+    $cnt_cat_new=1;
+}
+else if(isset($counts_new['Business']) && $counts_new['Business']>1){
+    $cnt_cat_new=1;
+}
+else{
+    $cnt_cat_new=0;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+if(isset($counts['People']) && ($counts['People']>1 || $counts['People']==1)){
+     $cnt_kra_cat_people1=1;
+}
+if(isset($counts['Customer']) && ($counts['Customer']>1 || $counts['Customer']==1)){
+     $cnt_kra_cat_customer1=1;
+}
+if(isset($counts['Process']) && ($counts['Process']>1 || $counts['Process']==1)){
+    $cnt_kra_cat_process1=1;
+}
+if(isset($counts['Business']) && ($counts['Business']>1 || $counts['Business']==1)){
+    $cnt_kra_cat_business1=1;
+}
+
+if(isset($counts['People']) && $counts['People']>1){
+    $cnt_cat=1;
+}
+else if(isset($counts['Customer']) && $counts['Customer']>1){
+    $cnt_cat=1;
+}
+else if(isset($counts['Process']) && $counts['Process']>1){
+    $cnt_cat=1;
+}
+else if(isset($counts['Business']) && $counts['Business']>1){
+    $cnt_cat=1;
+}
+else{
+    $cnt_cat=0;
+    
+}
+
+
+
+
+$cnt_kra_cat_people=0;$cnt_kra_cat_process=0;$cnt_kra_cat_customer=0;$cnt_kra_cat_business=0;$total_ch_cat=4;$total_ch_cat1=4;
+if(isset($counts['People']) && $counts['People']==1){
+    $cnt_kra_cat_people=1;
+    $total_ch_cat = $total_ch_cat-1;
+}
+if(isset($counts['Customer']) && $counts['Customer']==1){
+    $cnt_kra_cat_customer=1;
+    $total_ch_cat = $total_ch_cat-1;
+}
+if(isset($counts['Process']) && $counts['Process']==1){
+    $cnt_kra_cat_process=1;
+    $total_ch_cat = $total_ch_cat-1;
+}
+if(isset($counts['Business']) && $counts['Business']==1){
+    $cnt_kra_cat_business=1;
+    $total_ch_cat = $total_ch_cat-1;
+}
+
+
+
+$ppl=0;$buis=0;$cust=0;$proc=0;
+if(isset($counts['People'])){
+    $ppl=$counts['People'];
+}
+if(isset($counts['Customer'])){
+    $cust=$counts['Customer'];
+}
+if(isset($counts['Process'])){
+    $proc=$counts['Process'];
+}
+if(isset($counts['Business'])){
+    $buis=$counts['Business'];
+}
+
+
+
+
+
+
+
+
+$cnt_kra_cat_people_new=0;$cnt_kra_cat_process_new=0;$cnt_kra_cat_customer_new=0;$cnt_kra_cat_business_new=0;$total_ch_cat_new=4;$total_ch_cat1_new=4;
+if(isset($counts_new['People']) && $counts_new['People']==1){
+    $cnt_kra_cat_people=1;
+    $total_ch_cat = $total_ch_cat-1;
+}
+if(isset($counts_new['Customer']) && $counts_new['Customer']==1){
+    $cnt_kra_cat_customer_new=1;
+    $total_ch_cat_new = $total_ch_cat_new-1;
+}
+if(isset($counts_new['Process']) && $counts_new['Process']==1){
+    $cnt_kra_cat_process_new=1;
+    $total_ch_cat_new = $total_ch_cat_new-1;
+}
+if(isset($counts_new['Business']) && $counts_new['Business']==1){
+    $cnt_kra_cat_business_new=1;
+    $total_ch_cat_new = $total_ch_cat_new-1;
+}
+
+
+
+$ppl_new=0;$buis_new=0;$cust_new=0;$proc_new=0;
+if(isset($counts_new['People'])){
+    $ppl_new=$counts_new['People'];
+}
+if(isset($counts_new['Customer'])){
+    $cust_new=$counts_new['Customer'];
+}
+if(isset($counts_new['Process'])){
+    $proc_new=$counts_new['Process'];
+}
+if(isset($counts_new['Business'])){
+    $buis_new=$counts_new['Business'];
+}
+
+?>
+    <lable id="kra_cat_cnt" style="display:none"><?php echo $cnt;?></lable>  
+    <lable id="kra_cat_cnt1" style="display:none"><?php echo $cnt_cat;?></lable>  
+    <lable id="kra_cat_cnt2" style="display:none"><?php echo $total_ch_cat;?></lable> 
+    <lable id="kra_cat_cnt31" style="display:none"><?php echo $total_ch_cat;?></lable> 
+    <lable id="cnt_kra_cat_people" style="display:none"><?php echo $cnt_kra_cat_people;?></lable> 
+    <lable id="cnt_kra_cat_process" style="display:none"><?php echo $cnt_kra_cat_process;?></lable> 
+    <lable id="cnt_kra_cat_customer" style="display:none"><?php echo $cnt_kra_cat_customer;?></lable> 
+    <lable id="cnt_kra_cat_business" style="display:none"><?php echo $cnt_kra_cat_business;?></lable> 
+    <lable id="cnt_kra_cat_people1" style="display:none"><?php echo $cnt_kra_cat_people1;?></lable> 
+    <lable id="cnt_kra_cat_process1" style="display:none"><?php echo $cnt_kra_cat_process1;?></lable> 
+    <lable id="cnt_kra_cat_customer1" style="display:none"><?php echo $cnt_kra_cat_customer1;?></lable> 
+    <lable id="cnt_kra_cat_business1" style="display:none"><?php echo $cnt_kra_cat_business1;?></lable> 
+
+    <lable id="kra_cat_cnt_new" ><?php echo $cnt_new;?></lable>  
+    <lable id="kra_cat_cnt1_new" ><?php echo $cnt_cat_new;?></lable>  
+    <lable id="kra_cat_cnt2_new" ><?php echo $total_ch_cat_new;?></lable> 
+    <lable id="kra_cat_cnt31_new" ><?php echo $total_ch_cat_new;?></lable> 
+    <lable id="cnt_kra_cat_people_new" ><?php echo $cnt_kra_cat_people_new;?></lable> 
+    <lable id="cnt_kra_cat_process_new" ><?php echo $cnt_kra_cat_process_new;?></lable> 
+    <lable id="cnt_kra_cat_customer_new" ><?php echo $cnt_kra_cat_customer_new;?></lable> 
+    <lable id="cnt_kra_cat_business_new" ><?php echo $cnt_kra_cat_business_new;?></lable> 
+    <lable id="cnt_kra_cat_people1_new" ><?php echo $cnt_kra_cat_people1_new;?></lable> 
+    <lable id="cnt_kra_cat_process1_new" ><?php echo $cnt_kra_cat_process1_new;?></lable> 
+    <lable id="cnt_kra_cat_customer1_new" ><?php echo $cnt_kra_cat_customer1_new;?></lable> 
+    <lable id="cnt_kra_cat_business1_new" ><?php echo $cnt_kra_cat_business1_new;?></lable>
+        
+        <link href="//fonts.googleapis.com/css?family=Oswald:400,300,700" rel="stylesheet" type="text/css" />
+        <!-- END LAYOUT FIRST STYLES -->
+
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/clockface/css/clockface.css" rel="stylesheet" type="text/css" />
+        <!-- END PAGE LEVEL PLUGINS -->
+        
+
+                                                           
+<label id='edit1'  style="display:none" ><?php echo $edit_flag; ?></label>
+       <label id='emp_dept_name' style="display:none"><?php if(isset($emp_data['0']['Department'])) { echo $emp_data['0']['Department']; } ?></label>
       <label id='emp_dept_name' style="display:none"><?php if(isset($emp_data['0']['Cadre'])) { echo $emp_data['0']['Cadre']; } ?></label>
       <script type="text/javascript">
+      function process(date){
+           var parts = date.split("/");
+           return new Date(parts[2], parts[1] - 1, parts[0]);
+        }
+        function addDays(myDate,days) {
+        return new Date(myDate.getTime() + days*24*60*60*1000);
+        }
+        function convert(str) {
+            var date = new Date(str),
+                mnth = ("0" + (date.getMonth()+1)).slice(-2),
+                day  = ("0" + date.getDate()).slice(-2);
+            return [day,mnth,date.getFullYear()].join("/");
+        }
            $(function(){
             for (var v = 0; v <= 3; v++) {
                     $(".target_value1"+v).removeAttr('id');
@@ -40,19 +341,19 @@
                 </style>
                 <style media="all" type="text/css">      
       #err { 
-       position: absolute; 
-       top: 0; right: 20; 
-       z-index: 10; 
-        width: 367px;
-    height: 60px;
-    border: 1px solid #4C9ED9;
-    text-align: center;
-    padding-top: 10px;
-    right: 45%;
-background-color: #AB5454;
-color: #FFF;
-font-weight: bold;    
-      }
+                position: absolute; 
+                top: 0; right: 20; 
+                z-index: 10; 
+                width: 426px;
+                height: 60px;
+                border: 1px solid #4C9ED9;
+                text-align: center;
+                padding-top: 10px;
+                right: 45%;
+                background-color: #AB5454;
+                color: #FFF;
+                font-weight: bold;    
+            }
       
    </style>
     <style type="text/css">
@@ -68,8 +369,8 @@ font-weight: bold;
 
  <style type="text/css">
        
-       table.mid-table td { border:1px solid red; height:55px;min-height: 55px;max-height: 55px }
-       table.mid-table th { border:1px solid red; height:55px;min-height: 55px;max-height: 55px }
+       table.mid-table td { border:1px solid red; height:55px;min-height: 55px;max-height: 55px}
+       table.mid-table th { border:1px solid red; height:55px;min-height: 55px;max-height: 55px}
        </style>
     <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery-ui.css" rel="stylesheet">
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -89,13 +390,52 @@ $(document).ready(function(){
        setInterval(save_idp_data,3000);  
     });
 </script>
+
+<script type="text/javascript">
+                $(function(){
+                   $("body").on('mouseover','.validate_field',function(){
+$(this).attr('data-content',$(this).val());
+$(this).popover('show');
+});
+});
+</script>
+   <script type="text/javascript">
+                $(function(){
+                   $("body").on('mouseout','.validate_field',function(){
+$(this).attr('data-content',$(this).val());
+$(this).popover('hide');
+});
+});
+</script>
+
+
+<script type="text/javascript">
+                $(function(){
+                   $("body").on('mouseover','.validate_field1',function(){
+$(this).attr('data-content',$(this).val());
+$(this).popover('show');
+});
+});
+</script>
+   <script type="text/javascript">
+                $(function(){
+                   $("body").on('mouseout','.validate_field1',function(){
+$(this).attr('data-content',$(this).val());
+$(this).popover('hide');
+});
+});
+</script>
+
+
 <script>
 function save_idp_data()
 {
-	var chk_cmnts = 0;var chk_cmnts1 = 0;var chk_cmnts2 = 0;var chk_compl = 0;var chk_compl1 = 0;
+//alert("hi");
+  var chk_cmnts = 0;var chk_cmnts1 = 0;var chk_cmnts2 = 0;var chk_compl = 0;var chk_compl1 = 0;
                     var get_list = $("#compulsory_id").text();
                     var get_list_value = get_list.split(';');
-                    var prgrm_cmd = ''; var chk = /[;]/; var topic = '';var date_value = '';var faculty_value = '';var development_data = '';var number_of_meetings = '';var faculty_value1 = '';
+                   
+                    var prgrm_cmd = ''; var chk = /[;]/; var topic = '';var date_value = '';var faculty_value = '';var development_data = '';var number_of_meetings = '';var faculty_value1 = '';var topic_diss1 = '';
                     for (var i = 0; i < $("#total_prog").text(); i++) {                  
                         
                         if (!($("#program_cmd-"+i).val() === undefined || $("#program_cmd-"+i).val() == '' || chk.test($("#program_cmd-"+i).val())))
@@ -131,15 +471,17 @@ function save_idp_data()
                                 development_data = $("#target_date"+i).val();
                                 number_of_meetings = $("#number_of_meetings"+i).val();
                                 faculty_value1 = $("#faculty_email_id"+i).val();
+                                topic_diss1 = $("#topic_to_be_diss"+i).val();
                             }
                             else
                             {
                                 development_data = development_data+';'+$("#target_date"+i).val();
                                 number_of_meetings = number_of_meetings+';'+$("#number_of_meetings"+i).val();
                                 faculty_value1 = faculty_value1+';'+$("#faculty_email_id"+i).val();
+                                topic_diss1 = topic_diss1+';'+$("#topic_to_be_diss"+i).val();
                             }
                     }
-                    
+            //alert(number_of_meetings);        
    str = $("#Reporting_officer1_id").text().replace(/\s+/g, '');
                             str1 = $("#emp_code").text().replace(/\s+/g, '');
                             var base_url = window.location.origin;
@@ -151,6 +493,7 @@ function save_idp_data()
                                 development_data: development_data,
                                 number_of_meetings: number_of_meetings,
                                 faculty_value1: faculty_value1,
+                                topic_diss1: topic_diss1,
                                 project_title: $("#project_title1").val(),
                                 review_date: $("#review_date").val(),
                                 target_end_date: $("#target_end_date").val(),
@@ -163,7 +506,7 @@ function save_idp_data()
                                 Reporting_officer1_id: str
                             };
 
-                   			str = $("#Reporting_officer1_id").text().replace(/\s+/g, '');
+                        str = $("#Reporting_officer1_id").text().replace(/\s+/g, '');
                             str1 = $("#emp_code").text().replace(/\s+/g, '');
                             var base_url = window.location.origin;
                              var detail_data = {
@@ -174,6 +517,7 @@ function save_idp_data()
                                 development_data: development_data,
                                 number_of_meetings: number_of_meetings,
                                 faculty_value1: faculty_value1,
+                                topic_diss1: topic_diss1,
                                 project_title: $("#project_title1").val(),
                                 review_date: $("#review_date").val(),
                                 target_end_date: $("#target_end_date").val(),
@@ -185,29 +529,36 @@ function save_idp_data()
                                 emp_code : str1,
                                 Reporting_officer1_id: str
                             };
-
+                  // alert($("#emp_code").text());
                             $.ajax({
                                 'type' : 'post',
                                 'datatype' : 'html',
                                 'data' : detail_data,
-                                'url' : base_url+'/index.php?r=IDP/save_data1',
+                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=IDP/save_data1',
                                 success : function(data)
                                 {
-                                   //alert(data);
+                             //alert(data);
                                 }
                             });
 }
-</script>       
+</script>  
+<label id="start_date" style="display:none" >01/Apr/<?php if(isset($f_year_comp['0'])) { echo $f_year_comp['0']; } ?></label>
+<label id="end_date" style="display:none" >31/Mar/<?php if(isset($f_year_comp['1'])) { echo $f_year_comp['1']; } ?></label>
+
+
             <script type="text/javascript">
             var error = '';
          var j = jQuery.noConflict();
                 j(function(){   
-                j(".date_pickup").datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '1900:2050',});
+                    var fSDate=$('#start_date').text();
+                    var fEDate=$('#end_date').text();
+                //j(".date_pickup11").datepicker({dateFormat: 'dd/M/yy', changeMonth: true,changeYear: true ,minDate: fSDate, maxDate: fEDate});   
+                j(".date_pickup").datepicker({dateFormat: 'dd/M/yy', changeMonth: true,changeYear: true ,minDate: fSDate, maxDate: fEDate});
         j(".date_pickup").attr('onkeydown','return false');  
                     $("#err").removeClass("alert-success"); 
                     $("#err").removeClass("alert-danger");               
                     $("body").on('click','.del_kpi',function(){
-                        j("#del_goal").modal('show');
+                        $("#del_goal").modal('show');                         
                         var id = $(this).attr('id');
                         var id_value = id.split('-');                        
                         var data = {
@@ -215,18 +566,22 @@ function save_idp_data()
                         };
                         var base_url = window.location.origin;
                         $("#del_goal_set").click(function(){
+                            $("#del_goal_set_kra").modal('show');
                              $.ajax({                            
                             type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=Setgoals1/kpi_del',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/kpi_del1',
                             success : function(data)
                             {
+                               //alert(data);
                                 $(".count_goal").text(data);
                                 if(data != '')
                                 {
                                     $("#output_div_"+id_value[1]).fadeOut(1000);
                                    $("output_div_"+id_value[1]).load(location.href + " .output_div"); 
+                                   $("#del_goal").modal('hide');
+                                   $("#del_goal_set_kra").modal('hide');
                                    location.reload();
                                 }
 
@@ -337,10 +692,11 @@ $("body").on('scroll','.validate_field',function(){
                            var last_id_value = class_value[3].substr(class_value[3].length - 1);
                             var string1 = /^([0-9])([.]{1})([0-9])*$/;
                             var ratio_chk1 = /^([0-9]{1,5}[:]{1}[0-9]{1,5})$/;
+                            var letter_chk = /([a-zA-Z]{1,})([0-9]{1,})*$/;
                             var chk = /[;-]/;
                             if($("#mask_number-"+last_id_value).find(':selected').val() == 'Text')
                                 {
-
+                                   //alert($(this).val()); 
                                     if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Text' && chk.test($(this).val())) 
                                     {
                                         $("#err").css('display','block');
@@ -382,6 +738,13 @@ $("body").on('scroll','.validate_field',function(){
                                     $("#err").addClass("alert-danger"); 
                                     $(this).css('border','1px solid red');
                                     $("#error_value").text("Only numbers are allowed");
+                                }
+                                else if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Days' && $(this).val() == '0' ) 
+                                {
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text("Please fill correct days number");
                                 }
                                 else
                                 {
@@ -457,7 +820,7 @@ $("body").on('scroll','.validate_field',function(){
                                         $("#err").css('display','block');
                                         $("#err").addClass("alert-danger"); 
                                         $(this).css('border','1px solid red');
-                                        $("#error_value").text("Minimum 1 and maximum 6 digits are allowed.");
+                                        $("#error_value").text("Minimum 1 number and maximum 6 digits are allowed.");
                                     }
                                     else if ($("#mask_number-"+id_value[1]).find(':selected').val() != 'Text' && $(this).val() != '' && !$.isNumeric($(this).val()))
                                     {
@@ -529,6 +892,13 @@ $("body").on('scroll','.validate_field',function(){
                                     $(this).css('border','1px solid red');
                                     $("#error_value").text("Only numbers are allowed");
                                 }
+                                else if ($("#mask_number-"+last_id_value).find(':selected').val() == 'Days' && $(this).val() == '0' ) 
+                                {
+                                    $("#err").css('display','block');
+                                    $("#err").addClass("alert-danger"); 
+                                    $(this).css('border','1px solid red');
+                                    $("#error_value").text("0 number is not allowed");
+                                }
                                 else
                                 {
                                      $("#err").css('display','none');
@@ -569,7 +939,7 @@ $("body").on('scroll','.validate_field',function(){
                                             type : 'post',
                                             datatype : 'html',
                                             data : selected_unit1,
-                                            url : base_url+'/index.php?r=Setgoals1/fetch_field',
+                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/fetch_field',
                                             success : function(data)
                                             {
                                                 var res = data.split(","); 
@@ -599,7 +969,7 @@ $("body").on('scroll','.validate_field',function(){
                                             type : 'post',
                                             datatype : 'html',
                                             data : kpi_value,
-                                            url : base_url+'/index.php?r=Setgoals1/kpi_list',
+                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/kpi_list',
                                             success : function(data)
                                             {
                                                 if (data != '') 
@@ -671,7 +1041,7 @@ $("body").on('scroll','.validate_field',function(){
                                         $("#unit_value-"+id_value[1]).removeAttr('disabled');
                                         $("#unit_value-"+id_value[1]).removeAttr('readonly');
                                         $(".target_value1"+id_value[1]).css('background-color','');
-                                        $(".target_value2"+id_value[1]).css('background-color','');
+                                        $(".target_value2"+id_value[1]).css('updateground-color','');
                                         $(".target_value3"+id_value[1]).css('background-color','');
                                         $(".target_value4"+id_value[1]).css('background-color','');
                                         $(".target_value5"+id_value[1]).css('background-color','');
@@ -701,11 +1071,57 @@ $("body").on('scroll','.validate_field',function(){
                                             $(".target_value5"+id_value[1]).attr('onkeydown','return false');
                                             // maskuse =  "99/99/9999";
                                             // $(".target_value1"+id_value[1]).inputmask("99/99/9999", { "mask": maskuse });
-                                          $j(".target_value1"+id_value[1]).datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '1900:2050',});
-                                            $j(".target_value2"+id_value[1]).datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '1900:2050',});
-                                            $j(".target_value3"+id_value[1]).datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '1900:2050',});
-                                            $j(".target_value4"+id_value[1]).datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '1900:2050',});
-                                            $j(".target_value5"+id_value[1]).datepicker({dateFormat: 'dd/M/yy',changeMonth: true,changeYear: true,yearRange: '1900:2050',});
+                                            
+                                          $j(".target_value1"+id_value[1]).datepicker({
+    minDate: "0",
+    maxDate: "+2Y",
+    defaultDate: "+1w",
+    dateFormat: 'dd/M/yy',
+    numberOfMonths: 1,
+    changeMonth: true,changeYear: true,minDate: '01/Apr/2017', maxDate: '31/Mar/2018',
+   
+    
+});
+                                            $j(".target_value2"+id_value[1]).datepicker({
+    minDate: "0",
+    maxDate: "+2Y",
+    defaultDate: "+1w",
+    dateFormat: 'dd/M/yy',
+    numberOfMonths: 1,
+    changeMonth: true,changeYear: true,minDate: '01/Apr/2017', maxDate: '31/Mar/2018',
+   
+    
+});
+                                            $j(".target_value3"+id_value[1]).datepicker({
+    minDate: "0",
+    maxDate: "+2Y",
+    defaultDate: "+1w",
+    dateFormat: 'dd/M/yy',
+    numberOfMonths: 1,
+    changeMonth: true,changeYear: true,minDate: '01/Apr/2017', maxDate: '31/Mar/2018',
+   
+    
+});
+                                            $j(".target_value4"+id_value[1]).datepicker({
+    minDate: "0",
+    maxDate: "+2Y",
+    defaultDate: "+1w",
+    dateFormat: 'dd/M/yy',
+    numberOfMonths: 1,
+    changeMonth: true,changeYear: true,minDate: '01/Apr/2017', maxDate: '31/Mar/2018',
+   
+    
+});
+                                            $j(".target_value5"+id_value[1]).datepicker({
+    minDate: "0",
+    maxDate: "+2Y",
+    defaultDate: "+1w",
+    dateFormat: 'dd/M/yy',
+    numberOfMonths: 1,
+    changeMonth: true,changeYear: true,minDate: '01/Apr/2017', maxDate: '31/Mar/2018',
+   
+    
+});
                                                                                        
                                            
                                             //$(".target_value1"+id_value[1]).addClass('input_custom_date');
@@ -784,11 +1200,11 @@ $("body").on('scroll','.validate_field',function(){
                                     <h4 class="modal-title">Confirmation</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p> Are you sure you want to send goalsheet & IDP to appraiser? </p>
+                                    <p> Are you sure you want to send goalsheet & IDP to your manager? </p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                                    <button type="button" data-dismiss="modal" class="btn border-blue-soft" id="continue_goal_set">Submit Goalsheet</button>
+                                    <button type="button" data-dismiss="modal" class="btn border-blue-soft" id="continue_goal_set">Submit</button>
                                 </div>
                             </div>
                         </div>
@@ -804,8 +1220,9 @@ $("body").on('scroll','.validate_field',function(){
                                     <p> Are you sure you want to delete this KRA? </p>
                                 </div>
                                 <div class="modal-footer">
+                                    <div id="del_goal_set_kra" style="display: none"><i class="fa fa-spinner fa-spin" style="font-size:24px;float: left;"></i></div>
                                     <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
-                                    <button type="button" data-dismiss="modal" class="btn border-blue-soft" id="del_goal_set">Delete</button>
+                                    <button type="button" class="btn border-blue-soft" id="del_goal_set">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -815,6 +1232,16 @@ $("body").on('scroll','.validate_field',function(){
                     <div class="page-content-container">
                         <div class="page-content-row">
                             <!-- END PAGE SIDEBAR -->
+                           <label id="edit_flag_set" style="display:none"><?php if(isset($edit_flag) && $edit_flag!="") { echo $edit_flag; }?></label> 
+                           <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Rules1" target="_blank"><button type="button" data-dismiss="modal" class="btn border-blue-soft" style="float:right">Rules For Goalsheet & IDP</button></a>
+                               <div class="form-group col-xs-3" <?php if(isset($edit_flag) && $edit_flag!="") { ?> style="display:none"<?php }?>>
+                                      <label>Select Year</label>
+                                        <select class="form-control " name="financial_year" id="financial_year">
+                                            <option>--Select--</option>
+                                            <option <?php if(Yii::app()->user->getState('financial_year_check') == "2016-2017") { echo "selected"; } ?>>2016-2017</option>
+                                            <option <?php if(Yii::app()->user->getState('financial_year_check') == "2017-2018") { echo "selected"; } ?>>2017-2018</option>
+                                        </select>
+                                    </div>
                             <div class="page-content-col">
 
                                 <!-- BEGIN PAGE BASE CONTENT -->
@@ -824,11 +1251,11 @@ $("body").on('scroll','.validate_field',function(){
 <lable id="gaolsheet_type" style="display:none"><?php if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] == "on") { echo '1'; }else{ echo '0'; } ?></lable>
                                 <div class="mt-bootstrap-tables" style="display: block">
 <?php
-if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] == "on") {
+//if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] == "on") {
 ?>
-<lable id="new_apr" style="display:none"><?php if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != "") { echo $emp_data['0']['new_kra_till_date']; }else { echo Yii::app()->user->getState("appriaser_1"); } ?></lable>
+<lable id="new_apr" style="display:none"><?php if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != "" && $emp_data['0']['new_kra_till_date'] != 0) { echo $emp_data['0']['new_kra_till_date']; }else { echo Yii::app()->user->getState("appriaser_1"); } ?></lable>
 <?php
-}
+//}
 ?>
                                     <div class="row">
                                      <?php 
@@ -836,13 +1263,13 @@ if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] =
                                        'id'=>'user-form',
                                         'enableClientValidation'=>true,
                                         'clientOptions'=>array('validateOnSubmit'=>true, 'validateOnType'=>true),
-                                        //'action' => $this->createUrl('Setgoals1/save_kpi'),                                        
+                                        //'action' => $this->createUrl('Setgoals/save_kpi'),                                        
                                     ));
                                     ?>
                                     <div class="col-md-5">
                                         <!--<label class="control-label">Number Of KRA &nbsp;</label>
                                         <div class="btn-group">
-                                        <?php echo CHtml::textField('No_of_KPI','',array('class'=>'form-control','id'=>'kra_num')); ?>
+                                        <?php echo CHtml::textField('No_of_KPI','',array('class'=>'form-control','id'=>'kra_num',"maxlength"=>"1000")); ?>
                                     </div> -->
                                    <!-- <?php echo CHtml::button('Create',array('id'=>'mybtn','class'=>'btn green','onclick'=>'js:get_kra_list();')); ?> -->
                                     
@@ -866,7 +1293,7 @@ if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] =
                                             type : 'post',
                                             datatype : 'html',
                                             data : number_of_kra,
-                                            url : base_url+'/index.php?r=Newemployee/getlist',
+                                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Newemployee/getlist',
                                             success : function(data)
                                             {
                                                 $("#get_goal_list").html(data);
@@ -875,8 +1302,8 @@ if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] =
                                     }                                   
                                 }
                                 </script>
-
-                                <div class="portlet box border-blue-soft bg-blue-soft">
+                             
+                                <div class="portlet box border-blue-soft bg-blue-soft" id="set_goal_sheet" style="margin-top: 70px;">
                                 <div class="portlet-title">
                                                                  
                                     <div class="caption">
@@ -884,14 +1311,6 @@ if(isset($emp_data['0']['new_kra_create']) && $emp_data['0']['new_kra_create'] =
                                 </div>                                     
                                 <div class="portlet-body" style="border: 1px solid rgb(76, 135, 185);">
                                     <div class="row table-responsive" style="margin-top: -15px;">
-                                         <div class="form-group col-xs-3">
-                                                        <label>Select Year</label>
-                                                        <select class="form-control " name="financial_year" id="financial_year">
-                                                            <option>2016-2017</option>
-                                                            <option>2017-2018</option>
-                                                            
-                                                        </select>
-                                                    </div>
                                                     <script>
                                                         $(document).ready(function(){
 var goal_year=$("#financial_year option:selected").text();
@@ -904,17 +1323,16 @@ var goal_year=$("#financial_year option:selected").text();
 //alert(goal_year);
 });
                                       </script>
-                                    <label id="edit_flag_set" style="display: none"><?php if(isset($edit_flag)) { echo $edit_flag; }?></label>
+                                    
                                         <table id="kpi_table" class="table table-striped table-bordered table-hover" style="background-color: #EEF1F5;">
                                                     <tr>
                                                             <td>
                                                                 KRA Category
                                                              </td>
                                                              <td colspan= 7 align="center" style="float: left;">                                                         
-                                                            <?php
-                                                            
+                                                            <?php 
+                                                            //print_r($kpi_auto_data);die();
                                                              if (isset($kra_list) && count($kra_list)>0) {
-                                                                
                                                                 $list_data = '';
                                                                 $models = new KRAStructureForm();
                                                                  $models1 = $models->findAll();
@@ -922,9 +1340,8 @@ var goal_year=$("#financial_year option:selected").text();
                                                              }
                                                             $kpi_category = '';$kpi_desc = '';$wtg = '';$kpi_count = '';$target_value1 = '';$target_unit = '';$kpi_id = '';
                                                            $format_list = array('Select' => 'Select','Days' => 'Days','Date' => 'Date','Units' => 'Units','Weight' => 'Weight','Ratio' => 'Ratio','Value' => 'Value','Percentage' => 'Percentage','Text' => 'Text');
-                                                            $wtage = array('0'=>'0','15'=>'15','20'=>'20','25'=>'25','30'=>'30','40'=>'40','50'=>'50');
-                                                            if (isset($kpi_data_edit)) {
-                                                                 //print_r($kpi_data_edit);die();
+                                                            $wtage = array('15'=>'15','20'=>'20','25'=>'25','30'=>'30','40'=>'40','50'=>'50');
+                                                            if (isset($kpi_data_edit) && count($kpi_data_edit)>0) {
                                                                $kpi_category[$kpi_data_edit['0']['KRA_category']] = array('selected' => 'selected');
                                                                //print_r($kpi_category);die();
                                                                $kpi_desc = $kpi_data_edit['0']['KRA_description'];
@@ -936,23 +1353,12 @@ var goal_year=$("#financial_year option:selected").text();
                                                                //print_r($target_unit);die();
                                                                $target_value1 = explode(';', $kpi_data_edit['0']['target_value1']);
                                                                $per_kpi_wt = explode(';', $kpi_data_edit['0']['KPI_target_value']);
+                                                               $kpi_category1 = $kpi_data_edit['0']['KRA_category'];
                                                             }
-                                                            else if(isset($kpi_auto_data) && count($kpi_auto_data)>0)
-                                                            {
-                                                                $kpi_category[$kpi_auto_data['0']['KRA_category']] = array('selected' => 'selected');
-                                                               $kpi_desc = $kpi_auto_data['0']['KRA_description'];
-                                                               $kpi_id = $kpi_auto_data['0']['KPI_id'];
-                                                               $list_count = explode(';', $kpi_auto_data['0']['target_unit']);
-                                                               $wtg[$kpi_auto_data['0']['target']] = array('selected' => 'selected');
-                                                               $kpi_count = explode(';', $kpi_auto_data['0']['kpi_list']);
-                                                               $target_unit = explode(';', $kpi_auto_data['0']['target_unit']);
-                                                               $target_value1 = explode(';', $kpi_auto_data['0']['target_value1']);
-                                                                $per_kpi_wt = explode(';', $kpi_auto_data['0']['KPI_target_value']);
-                                                                 //print_r($per_kpi_wt);die();
-                                                            }
+                                                           
                                                            $cities = array('Business'=>'Business','Process'=>'Process','People'=>'People','Customer'=>'Customer');
                                                              echo CHtml::dropDownList("target_value",'',$list,$htmlOptions=array('class'=>"form-control target_value",'style'=>"width: 186px;",'onchange'=>'js:get_target_value();','options' => $kpi_category));
-                                                            ?>
+                                                            ?><label id="kpi_cat_value-<?php echo $kpi_id; ?>" style="display:none"><?php if(isset($kpi_category1)) { echo $kpi_category1; } ?></label>
                                                         </td>
                                                     </tr>  
                                                     <tr>
@@ -960,7 +1366,7 @@ var goal_year=$("#financial_year option:selected").text();
                                                                 KRA Description
                                                              </td>
                                                              <td colspan=7 align="center" valign=bottom>                
-                                                            <?php echo CHtml::textField('KRA_description',$kpi_desc,array('style'=>'float: left;','class'=>'form-control'));  ?>
+                                                            <?php  echo CHtml::textField('KRA_description',$kpi_desc,array('style'=>'float: left;','class'=>'form-control',"maxlength"=>"1000")); ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -968,7 +1374,7 @@ var goal_year=$("#financial_year option:selected").text();
                                                                 Weightage
                                                              </td>
                                                              <td colspan=7 align="center" id="Weightage_list">
-                                                           <?php
+                                                           <?php 
                                                            echo CHtml::dropDownList("target_value",'',$wtage,$htmlOptions=array('class'=>"form-control Weightage",'id'=>'Weightage','style'=>"width: 186px;float: left;",'options' => $wtg));
                                                              ?>
                                                         </td>
@@ -978,7 +1384,7 @@ var goal_year=$("#financial_year option:selected").text();
                                                                 Reporting Manager
                                                              </td>
                                                              <td colspan=7 align="center" id="Weightage_list">
-                                                           <?php
+                                                           <?php 
                                                            $reporting_list = new EmployeeForm();
 $head_array = array();
                                             $where = 'where Employee_id = :Employee_id';
@@ -988,8 +1394,11 @@ $head_array = array();
 //print_r($emp_all_detail);die();
 
 
-$head_array['0'] = $emp_all_detail['0']['Reporting_officer1_id'];
-if ($emp_all_detail['0']['Reporting_officer2_id'] == '') {
+if (isset($emp_all_detail['0']['Reporting_officer1_id'])) {
+    $head_array['0'] = $emp_all_detail['0']['Reporting_officer1_id'];
+}
+
+if (isset($emp_all_detail['0']['Reporting_officer2_id']) && $emp_all_detail['0']['Reporting_officer2_id'] == '') {
     if ($emp_all_detail['0']['reporting_1_change'] !='' && strtotime(date('Y-m-d')) <= strtotime($emp_all_detail['0']['reporting_1_effective_date'])) {
                $head_array['1'] = $emp_all_detail['0']['reporting_1_change'];
     }
@@ -1001,7 +1410,8 @@ else
                $head_array['2'] = $emp_all_detail['0']['reporting_1_change'];
     }
 }
-//print_r($head_array);die();
+//print_r($KRA_category_auto);die();
+
 
                                          $records = $reporting_list->get_appraiser_list1();
                                          for ($k=0; $k < count($head_array); $k++) { 
@@ -1039,13 +1449,18 @@ else
                                                         <th style="text-align:center;"> (3)<br>Good Solid <br>Performance </th>
                                                         <th style="text-align:center;"> (4)<br>Superior <br>Performance </th>
                                                         <th style="text-align:center;">(5)<br>Outstanding <br>Performance </th>
+                                                        <?php if(isset($edit_flag) && $edit_flag=='1')
+                                             {?>
+                                                        <th style="text-align:center;">Delete </th>
+                                                        <?php } ?>
                                                     </tr>
                                                     </thead>
                                                    <tr id="other_format_text">
-                                                   <label id="kpi_list_number" style="display: none"><?php if($kpi_count != '')
+                                                   <label id="kpi_list_number" style="display:none"><?php if(isset($kpi_count) && $kpi_count != '' && count($kpi_count) != 1)
                                                     {
                                                         echo count($kpi_count);
-                                                    }?></label>
+                                                    }else if(isset($KRA_category_auto['0']['minimum_kpi'])) { echo $KRA_category_auto['0']['minimum_kpi']; } ?></label>
+                                                    <label id='min_kpiwt' style="display: none"><?php if(isset($KRA_category_auto['0']['min_kpi_wt']) && $KRA_category_auto['0']['min_kpi_wt'] != ''){ echo $KRA_category_auto['0']['min_kpi_wt']; }?></label>
                                                     <label id='min_kpi' style="display: none"><?php if(isset($KRA_category_auto['0']['minimum_kpi']) && $KRA_category_auto['0']['minimum_kpi'] != ''){ echo $KRA_category_auto['0']['minimum_kpi']; }?></label><label style="display: none" id='max_kpi'></label>
                                                     <label style="display: none" id='target_need1'></label>
                                                     <label style="display: none" id='target_need2'></label>
@@ -1053,14 +1468,13 @@ else
                                                     <label style="display: none" id='target_need4'></label>
                                                     <label style="display: none" id='target_need5'></label>                                                   
                                                     <?php 
-                                                    
                                                         $val = array();
                                                         $disable_select = true;
                                                         $disable_select1 = false;
                                                          if (isset($list_count) && $list_count!='') {
                                                             $cnt = 0;
                                                             $list_cnt = 0;
-                                                            //print_r(count($list_cnt));die();
+                                                            //print_r(count($list_count));die();
                                                             if (isset($KRA_category_auto['0']['minimum_kpi']) && count($list_count) == 1) {
                                                                 $list_cnt = $KRA_category_auto['0']['minimum_kpi'];
                                                             }
@@ -1068,21 +1482,18 @@ else
                                                             {
                                                                 $list_cnt = count($list_count);
                                                             }
+                                                            
+                                                            //print_r($KRA_category_auto['0']['minimum_kpi']);die();
                                                            
                                                             for ($i=0; $i < $list_cnt; $i++) {
-                                                             if (isset($target_unit[$cnt])) {
-                                                                $unit = $target_unit[$cnt];
                                                                 
-                                                                                       
-                                                                //echo $cnt;
-                                                                if (!isset($kpi_count[$i]) || $kpi_count=='') {
-                                                                   $kpi_count[$i] = '';
-                                                                }
-
-                                                                if (!isset($per_kpi_wt[$i]) || $per_kpi_wt=='') {
-                                                                   $per_kpi_wt[$i] = '';
-                                                                }
-                                                                if ($unit=='Select') {
+                                                                if(isset($target_unit[$cnt]))
+                                                                {
+                                                                    $unit = $target_unit[$cnt];
+                                                                }                   
+                                                                
+                                                                
+                                                                if (isset($unit) && $unit=='Select') {
                                                                     $unit_type[$unit] = array('selected' => 'selected');
                                                                     $unit_target = '';
                                                                     for ($j=0; $j < 5; $j++) { 
@@ -1091,7 +1502,7 @@ else
                                                                     $disable_select = true;
 
                                                                 }
-                                                                else if ($unit=='Days' || $unit=='Text' || $unit=='Ratio' || $unit=='Percentage' || $unit=='Date') { 
+                                                                else if (isset($unit) && $unit=='Days' || $unit=='Text' || $unit=='Ratio' || $unit=='Percentage' || $unit=='Date') { 
 
                                                                 $disable_select = false; 
                                                                 $disable_select1 = true;                                                                
@@ -1108,7 +1519,10 @@ else
                                                                     if (isset($target_value1[$i]) && $target_value1[$i] != '') {
                                                                        $val_data = explode('-',$target_value1[$i]);
                                                                         for ($j=0; $j < count($val_data); $j++) { 
-                                                                            $val[$i][$j] = $val_data[$j];
+                                                                            if(isset($val_data[$j]))
+                                                                            {
+                                                                                $val[$i][$j] = $val_data[$j];
+                                                                            }                                                                            
                                                                         }
                                                                         
                                                                     }
@@ -1122,16 +1536,16 @@ else
                                                                     
                                                                    
                                                                 }
-                                                                else if($unit=='Units' || $unit=='Weight' || $unit=='Value')
+                                                                else if(isset($unit) && $unit=='Units' || $unit=='Weight' || $unit=='Value')
                                                                 {
                                                                     $disable_select = true;
                                                                     $disable_select1 = false;
                                                                     $unit_type[$unit] = array('selected' => 'selected');
-                                                                   if (isset($target_value1[$i]) && count($target_unit[$cnt])>0 && ($target_value1[$i]!='' || $target_value1[$i]!=0)) {
+                                                                   if (isset($target_value1[$cnt]) && isset($target_value1[$i]) && count($target_unit[$cnt])>0 && ($target_value1[$i]!='' || $target_value1[$i]!=0)) {
                                                                        $unit_target = $target_value1[$i];
                                                                            for ($j=0; $j < 5; $j++) { 
                                                                             if ($j==0) {
-                                                                                $val[$i][$j] = round($unit_target*0.69,2);
+                                                                                $val[$i][$j] = '< '.round($unit_target*0.69,2);
                                                                             }
                                                                             else if($j==1)
                                                                             {
@@ -1163,60 +1577,228 @@ else
                                                                                                                                      
                                                                     
                                                                 }
-                                                               
                                                                  $cnt++;
+                                                                 if (isset($format_list)) {
+                                                 $format_list = $format_list;
+                                             }
+                                             else
+                                             {
+                                                $format_list = '';
+                                             }
+                                              if (isset($per_kpi_wt[$i])) {
+                                                 $per_kpi_wt[$i] = $per_kpi_wt[$i];
+                                             }
+                                             else
+                                             {
+                                                $per_kpi_wt[$i] = '';
+                                             }
+                                             if (isset($kpi_count[$i])) {
+                                                 $kpi_count[$i] = $kpi_count[$i];
+                                             }
+                                             else
+                                             {
+                                                $kpi_count[$i] = '';
+                                             }
+                                              if (isset($unit_type)) {
+                                                 $unit_type = $unit_type;
+                                             }
+                                             else
+                                             {
+                                                $unit_type = '';
+                                             }
+                                             if (isset($unit_target)) {
+                                                 $unit_target = $unit_target;
+                                             }
+                                             else
+                                             {
+                                                $unit_target = '';
+                                             }
+                                              if (isset($disable_select)) {
+                                                 $disable_select = $disable_select;
+                                             }
+                                             else
+                                             {
+                                                $disable_select = '';
+                                             }
+                                             if (isset($disable_select1)) {
+                                                 $disable_select1 = $disable_select1;
+                                             }
+                                             else
+                                             {
+                                                $disable_select1 = '';
+                                             }
+                                             if (isset($val[$i][0])) {
+                                                 $val[$i][0] = $val[$i][0];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][0] = '';
+                                             }
+                                             if (isset($val[$i][1])) {
+                                                 $val[$i][1] = $val[$i][1];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][1] = '';
+                                             }
+                                             if (isset($val[$i][2])) {
+                                                 $val[$i][2] = $val[$i][2];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][2] = '';
+                                             }
+                                             if (isset($val[$i][3])) {
+                                                 $val[$i][3] = $val[$i][3];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][3] = '';
+                                             }
+                                             if (isset($val[$i][4])) {
+                                                 $val[$i][4] = $val[$i][4];
+                                             }
+                                             else
+                                             {
+                                                $val[$i][4] = '';
+                                             }
+                                             
+                                                             if(isset($edit_flag) && $edit_flag!='')
+                                             {
  echo '<tr>
-<td id="kpilist_'.$i.'"  style="width: 10px;"><input type="text" class="form-control kpi_list"  style="display: none">'.CHtml::textField('kpi_list',$kpi_count[$i],array('class'=>'form-control kpi_list validate_field','id'=>'kpilistyii_'.$i.'','style'=>'width: 326px;','data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'<div id="kpi_list_drop_'.$i.'" style="position: absolute;border: 1px solid rgb(177, 178, 178);padding: 15px;display: none;background-color: rgb(177, 178, 178);opacity: 0.8;width: 326px;height: auto;max-height: 200px;overflow-y: scroll;"></div></td>
+<td id="kpilist_'.$i.'"  style="width: 10px;"><input type="text" class="form-control kpi_list"  style="display: none">'.CHtml::textField('kpi_list',$kpi_count[$i],array('maxlength'=>'1000','class'=>'form-control kpi_list validate_field','id'=>'kpilistyii_'.$i.'','style'=>'width: 326px;','data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'<div id="kpi_list_drop_'.$i.'" style="position: absolute;border: 1px solid rgb(177, 178, 178);padding: 15px;display: none;background-color: rgb(177, 178, 178);opacity: 0.8;width: 326px;height: auto;max-height: 200px;overflow-y: scroll;"></div></td>
 <td style="width: 225px;">'.CHtml::dropDownList("format_list",'',$format_list,$htmlOptions=array('class'=>'form-control format_list format_detail','id'=>'mask_number-'.$i,'options' => $unit_type)).'</td>
-<td>'.CHtml::textField('kpi_target_value',$per_kpi_wt[$i],array('class'=>'form-control fields validate_field','id'=>'kpi_target_value-'.$i)).'</td>
-<td id="value_field">'.CHtml::textField('unit_value','',array('class'=>'form-control validate_field','id'=>'unit_value','style'=>'display:none')).CHtml::textField('unit_value',$unit_target,array('class'=>'form-control validate_field value_field','id'=>'unit_value-'.$i.'','disabled' => $disable_select1,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
+<td>'.CHtml::textField('kpi_target_value',$per_kpi_wt[$i],array('class'=>'form-control fields ','id'=>'kpi_target_value-'.$i,"maxlength"=>"1000")).'</td>
+<td id="value_field">'.CHtml::textField('unit_value','',array('class'=>'form-control validate_field','id'=>'unit_value','style'=>'display:none',"maxlength"=>"1000")).CHtml::textField('unit_value',$unit_target,array('class'=>'form-control validate_field value_field','id'=>'unit_value-'.$i.'','disabled' => $disable_select1,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','style'=>'width:89px')).'</td>
 <td>'.CHtml::textField('target_value1',$val[$i][0],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value1".$i:"form-control fields validate_field target_value1".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
 <td>'.CHtml::textField('target_value2',$val[$i][1],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value2".$i:"form-control fields validate_field target_value2".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
 <td>'.CHtml::textField('target_value3',$val[$i][2],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value3".$i:"form-control fields validate_field target_value3".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td><td>'.CHtml::textField('target_value4',$val[$i][3],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value4".$i:"form-control fields validate_field target_value4".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
 <td>'.CHtml::textField('target_value5',$val[$i][4],array('class'=> ($unit=='Date') ? "form-control fields date_pickup validate_field target_value5".$i:"form-control fields validate_field target_value5".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
+<td><i class="fa fa-trash-o del_kra_kpi" style="cursor: pointer;font-size:24px;color: rgb(51, 122, 183);padding-left: 3px;padding-right: 8px;" id="del_kra_kpi-'.$kpi_id.'-'.$i.'" title="Delete" aria-hidden="true"></i></td>
 </tr>';   
                                  $unit_type='';
+                                             }
+                                             else{
+                                             
+                                         echo '<tr>
+<td id="kpilist_'.$i.'"  style="width: 10px;"><input type="text" class="form-control kpi_list"  style="display: none">'.CHtml::textField('kpi_list',$kpi_count[$i],array('maxlength'=>'1000','class'=>'form-control kpi_list validate_field','id'=>'kpilistyii_'.$i.'','style'=>'width: 326px;','data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'<div id="kpi_list_drop_'.$i.'" style="position: absolute;border: 1px solid rgb(177, 178, 178);padding: 15px;display: none;background-color: rgb(177, 178, 178);opacity: 0.8;width: 326px;height: auto;max-height: 200px;overflow-y: scroll;"></div></td>
+<td style="width: 225px;">'.CHtml::dropDownList("format_list",'',$format_list,$htmlOptions=array('class'=>'form-control format_list format_detail','id'=>'mask_number-'.$i,'options' => $unit_type)).'</td>
+<td>'.CHtml::textField('kpi_target_value',$per_kpi_wt[$i],array('class'=>'form-control fields ','id'=>'kpi_target_value-'.$i,"maxlength"=>"1000")).'</td>
+<td id="value_field">'.CHtml::textField('unit_value','',array('class'=>'form-control validate_field','id'=>'unit_value','style'=>'display:none',"maxlength"=>"1000")).CHtml::textField('unit_value',$unit_target,array('class'=>'form-control validate_field value_field','id'=>'unit_value-'.$i.'','disabled' => $disable_select1,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom','style'=>'width:89px')).'</td>
+<td>'.CHtml::textField('target_value1',$val[$i][0],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value1".$i:"form-control fields validate_field target_value1".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
+<td>'.CHtml::textField('target_value2',$val[$i][1],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value2".$i:"form-control fields validate_field target_value2".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
+<td>'.CHtml::textField('target_value3',$val[$i][2],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value3".$i:"form-control fields validate_field target_value3".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td><td>'.CHtml::textField('target_value4',$val[$i][3],array('class'=>($unit=='Date') ? "form-control fields date_pickup validate_field target_value4".$i:"form-control fields validate_field target_value4".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
+<td>'.CHtml::textField('target_value5',$val[$i][4],array('class'=> ($unit=='Date') ? "form-control fields date_pickup validate_field target_value5".$i:"form-control fields validate_field target_value5".$i,'disabled' => $disable_select,'data-toggle'=>'popover','data-trigger'=>'hover','data-placement'=>'bottom')).'</td>
+
+</tr>';   
+                                 $unit_type='';
+                  
+                                                 
+                                                 
+                                            // print_r("fdgfdgf");die();
                                                        } } } 
+                                                       
+                                                    ?>   
+                                                    <tr id="extra_kpi<?php echo $kpi_id; ?>">
                                                         
-                                                    ?>                                                    
+                                                    </tr> 
                                                 </table>
                                                     </tr>                                             
                                                 </table><br>
                                         <div class="col-md-7">
                                                      <?php if(isset($edit_flag) && $edit_flag!='')
-                                             {  echo CHtml::button('Update',array('class'=>'btn border-blue-soft','style'=>'float:right','id'=>'kpi_update_data')); ?>
+                                             {?>
+                                            <?php echo CHtml::button('Update',array('class'=>'btn border-blue-soft','style'=>'float:right','id'=>'kpi_update_data')); ?>
                                             <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Setgoals1/"><?php echo CHtml::button('Back',array('class'=>'btn border-blue-soft','style'=>'float:right;margin-right: 13px;')); ?></a>
-                                            <?php }else{  echo CHtml::button('Submit',array('class'=>'btn border-blue-soft','style'=>'float:right','id'=>'submit_kra','onclick'=>'js:kpi_save_data()')); ?>
+                                             <?php
+                                                if(isset($list_cnt))
+                                                {
+                                                  $list_cnt = $list_cnt;
+                                                }
+                                                else
+                                                {
+                                                  $list_cnt = '';
+                                                }
+                                                echo CHtml::button('Add KPI',array('class'=>'btn border-blue-soft add_kpi','style'=>'float:left;margin-left: 10px;','id'=>'add_kpi-'.$kpi_id.'-'.$list_cnt));
+ ?>
+                                            <?php }else{ ?>
+                                            <?php echo CHtml::button('Save',array('class'=>'btn border-blue-soft','style'=>'float:right','id'=>'submit_kra','onclick'=>'js:kpi_save_data()')); ?>
                                             <?php } ?>
+                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>                                                     
                                     </div>
-                                    <?php $this->endWidget();?>
+                                    <?php  $this->endWidget(); ?>
                                        
                                     </div> 
                                      
                                             <script type="text/javascript">
                                                 $(function(){
+                                                     $("body").on('change','#financial_year',function(){
+                                                          //alert($(this).val());
+                                                          var data = {
+                                                              getyear : $(this).val()
+                                                          };
+                                                          var base_url = window.location.origin;
+                                                           $.ajax({
+                                                                type : 'post',
+                                                                datatype : 'html',
+                                                                data : data,
+                                                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Login/set_new',
+                                                                success : function(data)
+                                                                { 
+                                                                    //alert(data);
+                                                                    location.reload();
+                                                                }
+                                                           });
+                                                      });
                                                     $('#employee_table').DataTable();
                                                 });
                                             </script>                                           
-                                
+                         <script>
+ var j = jQuery.noConflict();
+    j(function(){
+        //alert("sadsa");   
+         //var j = jQuery.noConflict();
+              var fSDate=$('#start_date').text();
+                    var fEDate=$('#end_date').text();
+                j(".date_pickup11").datepicker({
+    minDate: "0",
+    maxDate: "+2Y",
+    defaultDate: "+1w",
+    dateFormat: 'dd/M/yy',
+    numberOfMonths: 1,
+    changeMonth: true,changeYear: true,minDate: '01/Apr/2017', maxDate: '31/Mar/2018',
+   
+    
+});   
+                   
+ });
+</script>       
                                         <!-- BEGIN SAMPLE TABLE PORTLET-->
-
-<div class="portlet box border-blue-soft bg-blue-soft" <?php  if (!empty($errors) != "") { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?>>
-                                            <div class="portlet-title">
 <?php
+//$errors = array_filter($kpi_data2);
+
+?>
+<div class="portlet box border-blue-soft bg-blue-soft"  <?php if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != '0') {?> style ="display:block"<?php } else { ?>style ="display:none"<?php }?> >
+    <label id="new_goalsheet">
+            <?php if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != '0') { echo "1" ;}else{ echo " " ;}?>  
+    </label>
+    <div class="portlet-title">
+<?php
+
 if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != '') {
 $emp_data1 = new EmployeeForm;
 $where = 'where Email_id = :Email_id';
 $list = array('Email_id');
 $data = array($emp_data['0']['new_kra_till_date']);
 $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
+
 }
 ?>
-                                                <div class="caption"> New Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> From : <?php if(isset($emp_data['0']['reporting_1_effective_date'])) { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']))." To : ".date('d-M-Y', strtotime('Dec 31')); } ?>)                                                   
+                                                <div class="caption"> New Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname']) && isset($new_kra_till_date['0']['Emp_lname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']."  "; }  ?>)                                                   
                                                 </div>
                                                 <div class="tools">
                                                     <a href="javascript:;" class="collapse"></a>
@@ -1224,17 +1806,20 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                             </div>
                                             <div class="portlet-body flip-scroll">
  <?php
-                                            if (isset($kpi_data2)) { $cnt_num = 1; ?>
-                                            <label class='count_goal' id="count_goal" style="display: none"><?php echo count($kpi_data); ?></label>                                            
+  //print_r($kpi_data2);
+ //print_r($kpi_data2);die();
+
+                                            if (isset($kpi_data2) && count($kpi_data2)>0) { $cnt_num = 1;  ?>
+                                            <label class='count_goal_new' ><?php if(isset($kpi_data2)) { echo count($kpi_data2); } ?></label>                                            
                                           <?php     
                                         foreach ($kpi_data2 as $row) {  ?>
                                        <div class="portlet box border-blue-soft bg-blue-soft" id="output_div_<?php echo $row["KPI_id"]; ?>">
                                             <div class="portlet-title">
                                                 <div class="caption">                                                    
-                                                    <label id="total_<?php echo $cnt_num; ?>" style="display: none"><?php echo $row['target']; ?></label>
+                                                    <label id="total1_<?php echo $cnt_num; ?>" ><?php echo $row['target']; ?></label>
                                                    <?php echo "KRA Category : ".$row['KRA_category']; ?><?php echo ' / '."KRA Weightage : ".$row['target']; ?></div>
                                                 <div class="tools">
-                                                    <?php echo "KRA Approval Status : ".$row['KRA_status']; ?><a href="javascript:;" class="collapse"></a>
+                                                    <?php echo "KRA Approval Status 2: ".$row['KRA_status']; ?><a href="javascript:;" class="collapse"></a>
                                                 </div>
                                             </div>
                                             <div class="portlet-body flip-scroll">
@@ -1257,35 +1842,39 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php
+                                                        <?php 
                                                                 $kpi_list_data = '';
                                                                 $kpi_list_data = explode(';',$row['kpi_list']);
                                                                 $kpi_list_unit = explode(';',$row['target_unit']);
                                                                 $kpi_list_target = explode(';',$row['target_value1']); 
                                                                 $KPI_target_value = explode(';',$row['KPI_target_value']);
                                                                 $kpi_data_data = 0;
-                                                                for ($i=0; $i < count($kpi_list_data); $i++) { 
-                                                                    if ($kpi_list_data[$i] != '') {
-                                                                        if($kpi_data_data == '')
-                                                                        {
-                                                                            $kpi_data_data = 1;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            $kpi_data_data = 2;
-                                                                        }                                                                        
-                                                                    }
+                                                                if(isset($kpi_list_data) && count($kpi_list_data)>0)
+                                                                {
+                                                                    for ($i=0; $i < count($kpi_list_data); $i++) { 
+                                                                      if (isset($kpi_list_data) && $kpi_list_data[$i] != '') {
+                                                                          if(isset($kpi_data_data) && $kpi_data_data == '')
+                                                                          {
+                                                                              $kpi_data_data = 1;
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              $kpi_data_data = 2;
+                                                                          }                                                                        
+                                                                      }
+                                                                  }
                                                                 }
+                                                                
                                                             ?>
                                                            <?php
                                                                 $cnt = 0;
-                                                                for ($i=0; $i < count($kpi_list_data); $i++) { if ($kpi_list_data[$i]!='') { $cnt++;
+                                                                for ($i=0; $i < count($kpi_list_data); $i++) { if (isset($kpi_list_data[$i]) && $kpi_list_data[$i]!='') { $cnt++;
                                                             ?>
                                                                 <tr>
-                                                                    <td class="validate_field1"><?php echo $kpi_list_data[$i]; ?></td>
-                                                                    <td class="validate_field1"><?php echo $kpi_list_unit[$i]; ?></td>
-                                                                        <?php
-                                                                            if ($kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value') {
+                                                                    <td class="validate_field1"><?php if(isset($kpi_list_data[$i])) { echo $kpi_list_data[$i]; } ?></td>
+                                                                    <td class="validate_field1"><?php if(isset($kpi_list_unit[$i])) { echo $kpi_list_unit[$i]; } ?></td>
+                                                                        <?php 
+                                                                            if (isset($kpi_list_unit[$i]) && $kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value') {
                                                                                 ?>
                                                                                 <td class="validate_field1" >
 
@@ -1297,10 +1886,11 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                                 </td>
                                                                                 <td class="validate_field1">
                                                                                    
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $kpi_list_target[$i];  ?>">
-                                                                                        <?php echo strlen($KPI_target_value[$i] ) >= 20 ? 
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo$kpi_list_target[$i];  ?>">
+                                                                                        <?php if(isset($KPI_target_value[$i])) { 
+                                                                                        echo strlen($KPI_target_value[$i] ) >= 20 ? 
                                                                                         substr($KPI_target_value[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        $KPI_target_value[$i];  ?>
+                                                                                        $KPI_target_value[$i]; } ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                 <td class="validate_field1">
@@ -1308,7 +1898,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                                     <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.69,2);?>">
                                                                                         <?php echo strlen(round($kpi_list_target[$i]*0.69,2)) >= 20 ? 
                                                                                         substr(round($kpi_list_target[$i]*0.69,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*0.69,2);  ?>
+                                                                                        '< '.round($kpi_list_target[$i]*0.69,2);  ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                 <td class="validate_field1">
@@ -1407,6 +1997,219 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
 
                                         <div class="output_div1">
 <?php
+
+//print_r("fdgfdgf");die();
+if(isset($emp_data['0']['Reporting_officer1_id']) && $emp_data['0']['Reporting_officer1_id'] != '') {
+$emp_data1 = new EmployeeForm;
+$where = 'where Email_id = :Email_id';
+$list = array('Email_id');
+$data = array($emp_data['0']['Reporting_officer1_id']);
+$new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
+//print_r($kpi_data);die();
+}
+?>
+                                        <?php 
+                                            if (isset($kpi_data) && count($kpi_data)>0) { $cnt_num = 1; ?>
+                                            <label class='count_goal' id="count_goal1" style="display:none"><?php echo count($kpi_data); ?></label>
+                                            <div class="portlet box border-blue-soft bg-blue-soft">
+                                            <div class="portlet-title">
+                                                <!--<div class="caption"> Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> Till : <?php if(isset($emp_data['0']['reporting_1_effective_date']) && $emp_data['0']['reporting_1_effective_date']!= '0000-00-00') { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']. ' -1 day')); }else{ echo date('d-M-Y', strtotime('Dec 31')); } ?>)                                                    -->
+                                                <!--</div>-->
+                                                <div class="caption"> Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']; } ?>   )                                           
+                                                </div>
+                                                <div class="tools">
+                                                    <a href="javascript:;" class="collapse"></a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body flip-scroll">
+                                          <?php  
+                                          $ch_cnt = 0;
+                                        foreach ($kpi_data as $row) { $ch_cnt++; ?>
+                                       <div class="portlet box border-blue-soft bg-blue-soft" id="output_div_<?php echo $row["KPI_id"]; ?>">
+                                            <div class="portlet-title">
+                                                <div class="caption">                                                    
+                                                    <label id="total_<?php echo $cnt_num; ?>" ><?php echo $row['target']; ?></label>
+                                                   <?php echo "KRA Category ".$ch_cnt." : ".$row['KRA_category']; ?><?php echo ' / '."KRA Weightage : ".$row['target']; ?></div>
+                                                <div class="tools">
+                                                    <?php echo "KRA Approval Status : ".$row['KRA_status']; ?><a href="javascript:;" class="collapse"></a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body flip-scroll">
+                                                <table class="mid-table table table-striped table-hover table-bordered" id="sample_editable_1" >
+
+                                                    <thead>
+<tr><td style="text-align:center;" class="col-md-2"><b style="float: left;">KRA Description</b></td><td colspan="8" class="col-md-10"><?php echo $row['KRA_description']; ?></td></tr>
+                                                        <tr>
+                                                          <!--   <th width="20%"> KRA Category </th> -->
+                                                            <th> KPI List </th>
+                                                            <th class="numeric"> KPI Unit Format </th>
+                                                           <th class="numeric"> KPI Weightage </th>
+                                                           <th class="numeric"> KPI Target Value </th>
+                                                             <th style="text-align:center;"> (1)<br>Unsatisfactory <br>Performance </th>
+                                                        <th style="text-align:center;"> (2)<br>Needs<br>Improvement </th>
+                                                        <th style="text-align:center;"> (3)<br>Good Solid <br>Performance </th>
+                                                        <th style="text-align:center;"> (4)<br>Superior <br>Performance </th>
+                                                        <th style="text-align:center;">(5)<br>Outstanding <br>Performance </th>
+                                                           <!--  <th class="numeric"> Action </th> -->      
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                                $kpi_list_data = '';
+                                                                $kpi_list_data = explode(';',$row['kpi_list']);
+                                                                $kpi_list_unit = explode(';',$row['target_unit']);
+                                                                $kpi_list_target = explode(';',$row['target_value1']); 
+                                                                $KPI_target_value = explode(';',$row['KPI_target_value']);
+                                                                $kpi_data_data = 0;
+                                                                if(isset($kpi_list_data) && count($kpi_list_data)>0)
+                                                                {
+                                                                    for ($i=0; $i < count($kpi_list_data); $i++) { 
+                                                                      if (isset($kpi_list_data[$i]) && $kpi_list_data[$i] != '') {
+                                                                          if($kpi_data_data == '')
+                                                                          {
+                                                                              $kpi_data_data = 1;
+                                                                          }
+                                                                          else
+                                                                          {
+                                                                              $kpi_data_data = 2;
+                                                                          }                                                                        
+                                                                      }
+                                                                  }
+                                                                }
+                                                                
+                                                            ?>
+                                                           <?php 
+                                                                $cnt = 0;
+                                                                for ($i=0; $i < count($kpi_list_data); $i++) { if (isset($kpi_list_data[$i]) && $kpi_list_data[$i]!='') { $cnt++;
+                                                            ?>
+                                                                <tr>
+                                                                    <td class="validate_field1"><?php if(isset($kpi_list_data[$i])) { echo $kpi_list_data[$i]; } ?></td>
+                                                                    <td class="validate_field1"><?php if(isset($kpi_list_unit[$i])) { echo $kpi_list_unit[$i]; } ?></td>
+                                                                        <?php
+                                                                            if (isset($kpi_list_unit[$i]) && ($kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value')) {
+                                                                                ?>
+                                                                               
+                                                                                <td class="validate_field1">
+                                                                                   
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $kpi_list_target[$i];  ?>">
+                                                                                        <?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?>
+                                                                                        </lable>
+                                                                                </td>
+                                                                                 <td class="validate_field1" >
+
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $kpi_list_target[$i];  ?>">
+                                                                                        <?php echo strlen($kpi_list_target[$i]) >= 20 ? 
+                                                                                        substr($kpi_list_target[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                        $kpi_list_target[$i];  ?>
+                                                                                        </lable>
+                                                                                </td>
+                                                                                <td class="validate_field1">
+                                                                                 
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.69,2);?>">
+                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.69,2)) >= 20 ? 
+                                                                                        substr(round($kpi_list_target[$i]*0.69,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                        '< '.round($kpi_list_target[$i]*0.69,2);  ?>
+                                                                                        </lable>
+                                                                                </td>
+                                                                                <td class="validate_field1">
+                                                                                    <?php
+                                                                                        //echo round($kpi_list_target[$i]*0.70,2);
+                                                                                    ?>
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.70,2);?>">
+                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.70,2)) >= 20 ?  '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                        round($kpi_list_target[$i]*0.70,2)." to ".round($kpi_list_target[$i]*0.95,2);  ?>
+                                                                                        </lable>
+                                                                                </td>
+                                                                               
+                                                                             <td class="validate_field1">
+                                                                               
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.96,2);?>">
+                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.96,2) ) >= 20 ? 
+                                                                                        round($kpi_list_target[$i]*0.96,2)." to ".round($kpi_list_target[$i]*1.05,2) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                       round($kpi_list_target[$i]*0.96,2)." to ".round($kpi_list_target[$i]*1.05,2);  ?>
+                                                                                        </lable>
+                                                                             </td>
+                                                                                
+                                                                             <td class="validate_field1">
+                                                                             
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*1.06,2);  ?>">
+                                                                                        <?php echo strlen(round($kpi_list_target[$i]*1.06,2) ) >= 20 ? 
+                                                                                        round($kpi_list_target[$i]*1.06,2)." to ".round($kpi_list_target[$i]*1.29,2). '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                        round($kpi_list_target[$i]*1.06,2)." to ".round($kpi_list_target[$i]*1.29,2);  ?>
+                                                                                        </lable>
+                                                                             </td>
+                                                                                
+                                                                             <td class="validate_field1">
+                                                                           
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*1.39,2);  ?>">
+                                                                                        <?php echo strlen(round($kpi_list_target[$i]*1.39,2)) >= 20 ? 
+                                                                                        substr(round($kpi_list_target[$i]*1.39,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                        '> '.round($kpi_list_target[$i]*1.39,2);  ?>
+                                                                                        </lable>
+                                                                             </td>
+                                                                        <?php
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                        ?>
+                                                                                 <td><?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?></td>
+                                                                                <td class="validate_field1"></td>
+                                                                                <?php
+                                                                                if(isset($kpi_list_target[$i]))
+                                                                                {
+                                                                                    $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                }                                                                                
+                                                                                for ($j=0; $j < 5; $j++) { 
+                                                                                    if (isset($value_data[$j])) { ?>
+                                                                                     <td class="validate_field1">
+                                                                                        <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($value_data[$j])) { echo $value_data[$j]; } ?>">
+                                                                                        <?php echo strlen($value_data[$j]) >= 20 ? 
+                                                                                        substr($value_data[$j], 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                        $value_data[$j];  ?>
+                                                                                        </lable>
+
+                                                                                      </td>
+                                                                                <?php
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                   ?>
+                                                                                   <td><?php echo ""; ?></td>
+                                                                                   <?php 
+                                                                                }
+                                                                                }
+                                                                        ?>
+                                                                        <?php
+                                                                            }
+                                                                        ?>                                                                      
+                                                                </tr>
+                                                                <?php
+                                                                   } }
+                                                            ?>                              
+                                                    </tbody>
+                                                    <?php 
+                                                        if (isset($row['KRA_status']) && $row['KRA_status'] != 'Approved') {
+                                                    ?>
+                                                    <a href="<?php echo $this->createUrl('index.php/Setgoals1/kpi_edit', array('KPI_id' => $row['KPI_id']));
+     ?>"><?php echo CHtml::button('Edit',array('class'=>'btn border-blue-soft','style'=>'float:right')); ?></a><?php echo CHtml::button('Delete',array('class'=>'btn border-blue-soft del_kpi','id'=>'KPI_id-'.$row["KPI_id"],'style'=>'float:right;margin-right: 14px;')); ?>
+                                                    <?php
+                                                        }
+                                                        
+                                                    ?>                                                   
+                                                </table>                                                
+                                            </div>
+                                        </div>
+
+                                         <?php 
+                                        $cnt_num++; } }
+                                        ?>
+
+</div>
+</div>
+
+                                     
+  <div class="output_div1" style="display:none">
+<?php
 if(isset($emp_data['0']['Reporting_officer1_id']) && $emp_data['0']['Reporting_officer1_id'] != '') {
 $emp_data1 = new EmployeeForm;
 $where = 'where Email_id = :Email_id';
@@ -1416,8 +2219,8 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
 }
 ?>
                                         <?php
-                                            if (isset($kpi_data)) { $cnt_num = 1; ?>
-                                            <label class='count_goal' ><?php echo count($kpi_data); ?></label>
+                                            if (isset($kpi_data) && count($kpi_data)) { $cnt_num = 1; ?>
+                                            <label class='count_goal' id='count_goal' style="display: none"><?php echo count($kpi_data); ?></label>
                                             <div class="portlet box border-blue-soft bg-blue-soft">
                                             <div class="portlet-title">
                                                 <div class="caption"> Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> Till : <?php if(isset($emp_data['0']['reporting_1_effective_date']) && $emp_data['0']['reporting_1_effective_date']!= '0000-00-00') { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']. ' -1 day')); }else{ echo date('d-M-Y', strtotime('Dec 31')); } ?>)                                                    
@@ -1432,7 +2235,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                        <div class="portlet box border-blue-soft bg-blue-soft" id="output_div_<?php echo $row["KPI_id"]; ?>">
                                             <div class="portlet-title">
                                                 <div class="caption">                                                    
-                                                    <label id="total_<?php echo $cnt_num; ?>" style="display: none"><?php echo $row['target']; ?></label>
+                                                    <label id="total1_<?php echo $cnt_num; ?>" style="display: none"><?php echo $row['target']; ?></label>
                                                    <?php echo "KRA Category : ".$row['KRA_category']; ?><?php echo ' / '."KRA Weightage : ".$row['target']; ?></div>
                                                 <div class="tools">
                                                     <?php echo "KRA Approval Status : ".$row['KRA_status']; ?><a href="javascript:;" class="collapse"></a>
@@ -1465,7 +2268,9 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                 $kpi_list_target = explode(';',$row['target_value1']); 
                                                                 $KPI_target_value = explode(';',$row['KPI_target_value']);
                                                                 $kpi_data_data = 0;
-                                                                for ($i=0; $i < count($kpi_list_data); $i++) { 
+                                                                if(isset($kpi_list_data) && count($kpi_list_data)>0)
+                                                                {
+                                                                  for ($i=0; $i < count($kpi_list_data); $i++) { 
                                                                     if ($kpi_list_data[$i] != '') {
                                                                         if($kpi_data_data == '')
                                                                         {
@@ -1476,21 +2281,23 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                             $kpi_data_data = 2;
                                                                         }                                                                        
                                                                     }
+                                                                  }
                                                                 }
+                                                                
                                                             ?>
                                                            <?php
                                                                 $cnt = 0;
-                                                                for ($i=0; $i < count($kpi_list_data); $i++) { if ($kpi_list_data[$i]!='') { $cnt++;
+                                                                for ($i=0; $i < count($kpi_list_data); $i++) { if (isset($kpi_list_data[$i]) && $kpi_list_data[$i]!='') { $cnt++;
                                                             ?>
                                                                 <tr>
-                                                                    <td class="validate_field1"><?php echo $kpi_list_data[$i]; ?></td>
-                                                                    <td class="validate_field1"><?php echo $kpi_list_unit[$i]; ?></td>
+                                                                    <td class="validate_field1"><?php if(isset($kpi_list_data[$i])) { echo $kpi_list_data[$i]; } ?></td>
+                                                                    <td class="validate_field1"><?php if(isset($kpi_list_unit[$i])) { echo $kpi_list_unit[$i]; } ?></td>
                                                                         <?php
-                                                                            if ($kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value') {
+                                                                            if (isset($kpi_list_unit[$i]) && ($kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value')) {
                                                                                 ?>
                                                                                 <td class="validate_field1" >
 
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $kpi_list_target[$i];  ?>">
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo $kpi_list_target[$i]; } ?>">
                                                                                         <?php echo strlen($kpi_list_target[$i]) >= 20 ? 
                                                                                         substr($kpi_list_target[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
                                                                                         $kpi_list_target[$i];  ?>
@@ -1498,53 +2305,82 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                                 </td>
                                                                                 <td class="validate_field1">
                                                                                    
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $kpi_list_target[$i];  ?>">
-                                                                                        <?php echo strlen($KPI_target_value[$i] ) >= 20 ? 
-                                                                                        substr($KPI_target_value[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        $KPI_target_value[$i];  ?>
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo $kpi_list_target[$i]; } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($KPI_target_value[$i]))
+                                                                                        {
+                                                                                           echo strlen($KPI_target_value[$i] ) >= 20 ? 
+                                                                                            substr($KPI_target_value[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                            $KPI_target_value[$i]; 
+                                                                                        }
+                                                                                        ?>
                                                                                         </lable>
                                                                                 </td>
-                                                                                <td class="validate_field1">
-                                                                                 
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.69,2);?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.69,2)) >= 20 ? 
+                                                                                <td class="validate_field1">                                                                                 
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*0.69,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                           echo strlen(round($kpi_list_target[$i]*0.69,2)) >= 20 ? 
                                                                                         substr(round($kpi_list_target[$i]*0.69,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*0.69,2);  ?>
+                                                                                        '< '.round($kpi_list_target[$i]*0.69,2);
+                                                                                        }
+                                                                                         ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                 <td class="validate_field1">
                                                                                     <?php echo round($kpi_list_target[$i]*0.70,2);?>
-                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.70,2);?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.70,2)) >= 20 ? 
+                                                                                    <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if($kpi_list_target[$i]) { echo round($kpi_list_target[$i]*0.70,2); } ?>">
+                                                                                        <?php 
+                                                                                          if(isset($kpi_list_target[$i]))
+                                                                                          {
+                                                                                              echo strlen(round($kpi_list_target[$i]*0.70,2)) >= 20 ? 
                                                                                         substr(round($kpi_list_target[$i]*0.70,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*0.70,2);  ?>
+                                                                                        round($kpi_list_target[$i]*0.70,2); 
+                                                                                          }
+                                                                                         ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                
                                                                              <td class="validate_field1">
                                                                                
-                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*0.96,2);?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*0.96,2) ) >= 20 ? 
-                                                                                        substr(round($kpi_list_target[$i]*0.96,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                       round($kpi_list_target[$i]*0.96,2);  ?>
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if($kpi_list_target[$i]) { echo round($kpi_list_target[$i]*0.96,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                            echo strlen(round($kpi_list_target[$i]*0.96,2) ) >= 20 ? 
+                                                                                            substr(round($kpi_list_target[$i]*0.96,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                           round($kpi_list_target[$i]*0.96,2); 
+                                                                                        }
+                                                                                        ?>
                                                                                         </lable>
                                                                              </td>
                                                                                 
                                                                              <td class="validate_field1">
                                                                              
-                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*1.06,2);  ?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*1.06,2) ) >= 20 ? 
-                                                                                        substr(round($kpi_list_target[$i]*1.06,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*1.06,2);  ?>
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.06,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                            echo strlen(round($kpi_list_target[$i]*1.06,2) ) >= 20 ? 
+                                                                                            substr(round($kpi_list_target[$i]*1.06,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                            round($kpi_list_target[$i]*1.06,2); 
+                                                                                        }
+                                                                                        ?>
                                                                                         </lable>
                                                                              </td>
                                                                                 
                                                                              <td class="validate_field1">
                                                                            
-                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo round($kpi_list_target[$i]*1.39,2);  ?>">
-                                                                                        <?php echo strlen(round($kpi_list_target[$i]*1.39,2)) >= 20 ? 
-                                                                                        substr(round($kpi_list_target[$i]*1.39,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        round($kpi_list_target[$i]*1.39,2);  ?>
+                                                                                <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.39,2); } ?>">
+                                                                                        <?php 
+                                                                                        if(isset($kpi_list_target[$i]))
+                                                                                        {
+                                                                                            echo strlen(round($kpi_list_target[$i]*1.39,2)) >= 20 ? 
+                                                                                            substr(round($kpi_list_target[$i]*1.39,2) , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
+                                                                                            round($kpi_list_target[$i]*1.39,2);  
+                                                                                        }                                                                                        
+                                                                                        ?>
                                                                                         </lable>
                                                                              </td>
                                                                         <?php
@@ -1554,12 +2390,16 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                         ?>
                                                                                  <td></td>
                                                                                 <td class="validate_field1"><?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?></td>
-                                                                                <?php
-                                                                                $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                <?php 
+                                                                                if(isset($kpi_list_target[$i]))
+                                                                                {
+                                                                                    $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                }
+                                                                                
                                                                                 for ($j=0; $j < 5; $j++) { 
                                                                                     if (isset($value_data[$j])) {?>
                                                                                      <td class="validate_field1">
-                                                                                        <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo $value_data[$j]; ?>">
+                                                                                        <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php if(isset($value_data[$j])) { echo $value_data[$j]; } ?>">
                                                                                         <?php echo strlen($value_data[$j]) >= 20 ? 
                                                                                         substr($value_data[$j], 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
                                                                                         $value_data[$j]; ?>
@@ -1578,12 +2418,11 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                         ?>
                                                                         <?php
                                                                             }
-                                                                        ?>
-                                                                       <!--  <td class="numeric"><a href="<?php echo $this->createUrl('Setgoals1/kpi_edit', array('KPI_id' => $row['KPI_id']));
-     ?>"><i class="fa fa-pencil fa-fw" title="Delete" aria-hidden="true"></i></a><i class="fa fa-trash-o del_kpi" style="cursor: pointer;" id="KPI_id-<?php echo $row['KPI_id']; ?>" title="Delete" aria-hidden="true"></i></td> -->
+                                                                        ?>                                                                       
                                                                 </tr>
                                                                 <?php
                                                                    } }
+                                                                   //die();
                                                             ?>                              
                                                     </tbody>
                                                     <?php
@@ -1600,7 +2439,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                         </div>
 
                                          <?php 
-                                        $cnt_num++; } }
+                                        $cnt_num++; } } 
                                         ?>
 </div>
 </div>
@@ -1611,7 +2450,10 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
             $employee = new EmployeeForm;   
             $IDPForm =new IDPForm;  
             $Compare_Designation =new CompareDesignationForm;       
-            $program_data_result = $program_data->get_data();
+            $where = 'where  goal_set_year =:goal_set_year';
+                                    $list = array('goal_set_year');
+                                    $data = array(Yii::app()->user->getState('financial_year_check'));
+                                    $program_data_result = $program_data->get_kpi_data($where,$data,$list);
             
             $Employee_id = Yii::app()->user->getState("Employee_id");
             $where = 'where Employee_id = :Employee_id';
@@ -1630,16 +2472,9 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                 }
                 
             }
-           //$goal_set_year=$_POST['goal_year'];
-            //echo  $goal_set_year;
-            if($_POST['submit'] && $_POST['submit'] != 0)
-{
-   $goal_set_year=$_POST['goal_year'];
-}
-
-            $where = 'where Employee_id = :Employee_id AND goal_set_year = :goal_set_year';
+            $where = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
             $list = array('Employee_id','goal_set_year');
-            $data = array($Employee_id,'2017-2018');
+            $data = array($Employee_id,Yii::app()->user->getState('financial_year_check'));
             $IDP_data = $IDPForm->get_idp_data($where,$data,$list);
             //print_r($IDP_data);die();
             $where = 'where Email_id = :Email_id';
@@ -1673,7 +2508,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                 
                                                 <span class="caption-subject bold uppercase" style="color:#337ab7;">IDP</span>
                                             </div>
-                                            <lable id="compare_designation" style="display: none"><?php if(isset($designation_flag)) { echo $designation_flag; } ?></lable>
+                                            <lable id="compare_designation" style="display:none"><?php if(isset($designation_flag)) { echo $designation_flag; } ?></lable>
                                         </div>
                                         <lable id="Reporting_officer1_id" style="display: none">
                                            <?php  if(isset($emp_data)&& count($emp_data)>0){
@@ -1723,7 +2558,7 @@ $set_flag1 = "'disabled'= 'false'";
                                                         <div class="col-md-4">
                                                         <?php 
                                                            $today = date('d-m-Y'); 
-                                                         echo '2016-2017';?>
+                                                         echo Yii::app()->user->getState('financial_year_check'); ?>
                                                             
                                                         </div>
                                                     </div>
@@ -1763,7 +2598,10 @@ width: 100%;">&nbsp;&nbsp;
                                     <?php
                                      $compulsory = '';$compulsory_cnt = 1; 
                                     $program_data =new ProgramDataForm;  
-                                    $program_data_result = $program_data->get_data();       
+                                    $where = 'where  goal_set_year =:goal_set_year';
+                                    $list = array('goal_set_year');
+                                    $data = array(Yii::app()->user->getState('financial_year_check'));
+                                    $program_data_result = $program_data->get_kpi_data($where,$data,$list);
                                     if (isset($program_data_result) && count($program_data_result)>0) {
                                         for ($i=0; $i < count($program_data_result); $i++) {    
                                           if (isset($IDP_data['0']['program_comment'])) {
@@ -1778,8 +2616,12 @@ width: 100%;">&nbsp;&nbsp;
                                             if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['program_comment'])) {
                                                
                                                 for ($j=0; $j < count($cmt2); $j++) {
-                                                    $cmt1 = explode('?', $cmt2[$j]);
-                                                    if ($i == $cmt1[0]) {                                                            
+                                                    if(isset($cmt2[$j]))
+                                                    {
+                                                        $cmt1 = explode('?', $cmt2[$j]);
+                                                    }
+                                                    
+                                                    if (isset($cmt1[0]) && isset($cmt1[1]) && $i == $cmt1[0]) {                                                            
                                                          $cmnt = $cmt1[1];
                                                     }
                                                 }
@@ -1788,8 +2630,17 @@ width: 100%;">&nbsp;&nbsp;
                                             {
                                                 $cmnt = '';
                                             }
-                                                                                
-                                            if ($program_data_result[$i]['need'] == 1) {
+                                                                             
+                                            if (isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 2) {
+                                                if ($compulsory == '') {
+                                                   $compulsory = $i;
+                                                }
+                                                else
+                                                {
+                                                    $compulsory = $compulsory.';'.$i;
+                                                }
+                                            }
+                                            else if (isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 1) {
                                                 if ($compulsory == '') {
                                                    $compulsory = $i;
                                                 }
@@ -1804,29 +2655,43 @@ width: 100%;">&nbsp;&nbsp;
                                             ?>
                                             <tr class="error_row_chk" id="show_this-<?php echo $i; ?>"> 
                                                <!--  <td><?php echo $i; ?></td>   -->                 
-                                                <td class="prog_name" id="<?php echo $i; ?>"> <?php echo $program_data_result[$i]['program_name']; ?> <?php if($program_data_result[$i]['need'] == 1) { ?><label style="color: red">*</label><?php }else if($program_data_result[$i]['need'] == 2) { ?><label style="color: red">**</label><?php } ?>
-                                                <?php if($program_data_result[$i]['need'] == 2 && $program_data_result[$i]['location'] != '' && $program_data_result[$i]['location'] != 'undefined') { ?><label id = 'complusory_prg<?php echo $i; ?>' style="color: red;display: none"><?php echo $program_data_result[$i]['location']; ?></label><?php } ?>
+                                                <td class="prog_name" id="<?php echo $i; ?>"> <?php  if(isset($program_data_result[$i]['program_name'])) { echo $program_data_result[$i]['program_name']; } ?> <?php if(isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 1) { ?><label style="color: red">*</label><?php }else if(isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 2) { ?><label style="color: red">**</label><?php } ?>
+                                                <?php if(isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 2 && isset($program_data_result[$i]['location']) && $program_data_result[$i]['location'] != '' && $program_data_result[$i]['location'] != 'undefined') { ?><label id = 'complusory_prg<?php echo $i; ?>' style="color: red;display: none"><?php if(isset($program_data_result[$i]['location'])) { echo $program_data_result[$i]['location']; } ?></label><?php } ?>
                                                 </td>
-                                                <td> <?php echo $program_data_result[$i]['faculty_name']; ?> </td>
-                                                <td> <?php echo $program_data_result[$i]['training_days']; ?> </td>
+                                                <td> <?php if(isset($program_data_result[$i]['faculty_name'])) { echo $program_data_result[$i]['faculty_name']; } ?> </td>
+                                                <td> <?php if(isset($program_data_result[$i]['training_days'])) { echo $program_data_result[$i]['training_days']; } ?> </td>
                                                 <td class="col-md-4">
-                                                <?php 
-if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i));
+<?php if(isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 2 || $program_data_result[$i]['need']==1) {
+    $cmnt='This is mandatory';
+    if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
+echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i,"maxlength"=>"1000" ));
 }
 else
 {
-echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i));
+echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i,"maxlength"=>"1000"));
+}
+
+}
+
+else {?>        
+                                    
+                                                <?php 
+if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
+echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i,"maxlength"=>"1000"));
+}
+else
+{
+echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-control col-md-4 program_cmd",'id'=>'program_cmd-'.$i,"maxlength"=>"1000"));
 }
                                                     
-                                                ?> </td>
+                                            }    ?> </td>
                                               
                                             </tr>
                                             <?php 
                                     }
                                     } 
                                     ?>   
-                                                    
+                    
                                     <label id="compulsory_id" style="display: none"><?php echo $compulsory; ?></label>
                                     </tbody>
 
@@ -1849,7 +2714,7 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                                             </div>
                                                             <div class="col-md-2 bold">No. of days</label></div>
                                                             <div class="col-md-4 bold">
-                                                             Internal faculty name
+                                                             Faculty name
                                                             </div>
                                                   </div>
                            
@@ -1860,43 +2725,70 @@ echo CHtml::textField('program_cmd',$cmnt,$htmlOptions=array('class'=>"form-cont
                                                          $topic = '';$day = '';$faculty = '';
                                                          if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
                                                                 $topic1 = explode(';',$IDP_data['0']['extra_topic']);
-                                                                $topic = $topic1[0];
-                                                                $day1 = explode(';',$IDP_data['0']['extra_days']);
-                                                                $day = $day1[0];
-                                                                $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+                                                                if(isset($topic1[0]))
+                                                                {
+                                                                    $topic = $topic1[0];
+                                                                }
+                                                                if(isset($IDP_data['0']['extra_days']))
+                                                                {
+                                                                     $day1 = explode(';',$IDP_data['0']['extra_days']);
+                                                                }
+                                                                if(isset($day1[0]))
+                                                                {
+                                                                   $day = $day1[0];
+                                                                }
+                                                                if(isset($IDP_data['0']['extra_faculty']))
+                                                                {
+                                                                   $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+                                                                }
+                                                                if(isset($faculty2[0]))
+                                                                {
+                                                                   $faculty[$faculty2[0]] = array('selected' => 'selected');
+                                                                }
+                                                               
+                                                                
+                                                                
                                                                 // $faculty1 = explode('?',$faculty2[0]);                           
-                                                                $faculty[$faculty2[0]] = array('selected' => 'selected');
+                                                                
+                                                                
                                                                  //print_r($faculty);die();
                                                          }
                                                         if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('topic1',$topic,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 topic1"));
+echo CHtml::textField('topic1',$topic,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 topic1","maxlength"=>"1000"));
 }
 else
 {
-  echo CHtml::textField('topic1',$topic,$htmlOptions=array('class'=>"form-control col-md-4 topic1"));
+  echo CHtml::textField('topic1',$topic,$htmlOptions=array('class'=>"form-control col-md-4 topic1","maxlength"=>"1000"));
 } 
                                                          ?> 
                                                         </div>
                                                         <div class="col-md-2">
                                                             <?php 
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('days_required1',$day,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 days_required1")); 
+echo CHtml::textField('days_required1',$day,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 days_required1","maxlength"=>"1000")); 
 }
 else
 {
- echo CHtml::textField('days_required1',$day,$htmlOptions=array('class'=>"form-control col-md-4 days_required1")); 
+ echo CHtml::textField('days_required1',$day,$htmlOptions=array('class'=>"form-control col-md-4 days_required1","maxlength"=>"1000")); 
 } 
 
 ?> 
                                                         </div>
+
                                                         <div class="col-md-4">
                                                          <?php 
                                                              $reporting_list = new EmployeeForm();
-                                                             $records = $reporting_list->get_appraiser_list1();
+                                                             //$records = $reporting_list->get_appraiser_list1();
+                                                             $where = 'where Email_id != :Email_id';
+                                                                $list = array('Email_id');
+                                                                $data = array($emp_data['0']['Email_id']);
+                                                             $records = $reporting_list->get_reporting_data($where,$data,$list);
+                                                           //  print_r($records);die();
                                                              for ($k=0; $k < count($records); $k++) { 
+                                                               //  echo $emp_data['0']['Email_id'];
                                                                 $where = 'where Email_id = :Email_id';
                                                                 $list = array('Email_id');
-                                                                $data = array($records[$k]['Email_id']);
+                                                                $data = array($records[$k]['Reporting_officer1_id']);
                                                                 $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
                                                              }
                                                              $Cadre_id = array(); 
@@ -1909,6 +2801,9 @@ else
                                                                    
                                                                }
                                                              }
+                                                              $Cadre_id1['External Faculty'] = 'External Faculty';
+                                             //print_r($Cadre_id);die();
+                                             $Cadre_id = array_merge($Cadre_id,$Cadre_id1);
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
 echo CHtml::DropDownList('faculty_email_id1','faculty_email_id1',$Cadre_id,array('disabled' => 'disabled','class'=>'form-control faculty_email_id1','empty'=>'Select','options' => $faculty));
 }
@@ -1928,31 +2823,43 @@ else
                                                              if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
                                                                     $topic1 = explode(';',$IDP_data['0']['extra_topic']);
                                                                     if (isset($topic1[1])) {
-                                                                       $topic = $topic1[1];
-                                                                        $day1 = explode(';',$IDP_data['0']['extra_days']);
-                                                                        $day = $day1[1];
-                                                                        $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+                                                                        if (isset($topic1[1])) {
+                                                                            $topic = $topic1[1];
+                                                                        }
+                                                                        if (isset($IDP_data['0']['extra_days'])) {
+                                                                            $day1 = explode(';',$IDP_data['0']['extra_days']);
+                                                                        }
+                                                                        if (isset($day1[1])) {
+                                                                            $day = $day1[1];
+                                                                        }
+                                                                        if (isset($IDP_data['0']['extra_faculty'])) {
+                                                                            $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+                                                                        }
+                                                                        if (isset($faculty2[1])) {
+                                                                           $faculty[$faculty2[1]] = array('selected' => 'selected');
+                                                                        }
+                                                                        
                                                                         // $faculty1 = explode('?',$faculty2[0]);                           
-                                                                        $faculty[$faculty2[1]] = array('selected' => 'selected');
+                                                                        
                                                                     }
                                                              }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
- echo CHtml::textField('topic2',$topic,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 topic2"));
+ echo CHtml::textField('topic2',$topic,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 topic2","maxlength"=>"1000"));
 }
 else
 {
- echo CHtml::textField('topic2',$topic,$htmlOptions=array('class'=>"form-control col-md-4 topic2"));
+ echo CHtml::textField('topic2',$topic,$htmlOptions=array('class'=>"form-control col-md-4 topic2","maxlength"=>"1000"));
 }
                                                              ?> 
                                                         </div>
                                                         <div class="col-md-2">
                                                             <?php 
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('days_required2',$day,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 days_required2"));
+echo CHtml::textField('days_required2',$day,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 days_required2","maxlength"=>"1000"));
 }
 else
 {
-  echo CHtml::textField('days_required2',$day,$htmlOptions=array('class'=>"form-control col-md-4 days_required2")); 
+  echo CHtml::textField('days_required2',$day,$htmlOptions=array('class'=>"form-control col-md-4 days_required2","maxlength"=>"1000")); 
 }
 
 ?> 
@@ -1960,11 +2867,15 @@ else
                                                         <div class="col-md-4">
                                                           <?php 
                                                              $reporting_list = new EmployeeForm();
-                                                             $records = $reporting_list->get_appraiser_list1();
+                                                             //$records = $reporting_list->get_appraiser_list1();
+                                                             $where = 'where Email_id != :Email_id';
+                                                                $list = array('Email_id');
+                                                                $data = array($emp_data['0']['Email_id']);
+                                                             $records = $reporting_list->get_reporting_data($where,$data,$list);
                                                              for ($k=0; $k < count($records); $k++) { 
                                                                 $where = 'where Email_id = :Email_id';
                                                                 $list = array('Email_id');
-                                                                $data = array($records[$k]['Email_id']);
+                                                                $data = array($records[$k]['Reporting_officer1_id']);
                                                                 $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
                                                              }
                                                              $Cadre_id = array(); 
@@ -2020,12 +2931,13 @@ width: 100%;">&nbsp;&nbsp;
 </div>
                                                    </div>
                                                    <div class="form-group">                                                        
-                                                        <label class="control-label col-md-3 bold" style="text-align: left;">Relationship</label>
-                                                        <label class="control-label col-md-3 bold" style="text-align: left;">Name of leader</label>
-                                                        <label class="control-label col-md-2 bold" style="text-align: left;">Number of Meetings planned
-                                                        </label>
-                                                        <label class="control-label col-md-3 bold" style="text-align: left;">Target date</label>
-                                                        
+                                                        <label class="control-label col-md-3 bold" style="text-align: left;">Relationship<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
+                                                        <label class="control-label col-md-3 bold" style="text-align: left;">Name of leader<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
+                                                         <label class="control-label col-md-2 bold" style="text-align: left;">Number of Meetings planned
+                                                        <?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
+                                                        <label class="control-label col-md-2 bold" style="text-align: left;">Topic To be disscussed <?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
+                                                       
+                                                        <label class="control-label col-md-2 bold" style="text-align: left;">Due date<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     </div>
  <div class="form-group">
                                                        
@@ -2041,43 +2953,69 @@ width: 100%;">&nbsp;&nbsp;
                                                               //$faculty3[$faclty[0]] = array('selected' => 'selected');
                                                             }
                                 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('faculty_email_id3',$faculty3,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 faculty_email_id3",'id'=>'faculty_email_id3'));
+echo CHtml::textField('faculty_email_id3',$faculty3,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 faculty_email_id3",'id'=>'faculty_email_id3',"maxlength"=>"1000"));
 }
 else
 {
- echo CHtml::textField('faculty_email_id3',$faculty3,$htmlOptions=array('class'=>"form-control col-md-4 faculty_email_id3",'id'=>'faculty_email_id3'));
+ echo CHtml::textField('faculty_email_id3',$faculty3,$htmlOptions=array('class'=>"form-control col-md-4 faculty_email_id3",'id'=>'faculty_email_id3',"maxlength"=>"1000"));
 }
                                                              
                                                             ?>
                                                           </div>
-                                                       <div class="col-md-2">
-                                                             <?php 
+                                                                <div class="col-md-2">
+                                                            <?php 
                                                               $meet = '';
                                                               if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
                                                                 $meet = explode(';',$IDP_data['0']['meeting_planned']);
-                                                                $meet = $meet[0];
+                                                                if(isset($meet[0]))
+                                                                {
+                                                                    $meet = $meet[0];
+                                                                }                                                                
                                                               }
                                                               else
                                                               {
                                                                 $meet = '';
                                                               }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('number_of_meetings3',$meet,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 number_of_meetings3",'id'=>'number_of_meetings3'));
+echo CHtml::textField('number_of_meetings3',$meet,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 number_of_meetings3",'id'=>'number_of_meetings3',"maxlength"=>"1000"));
 }
 else
 {
- echo CHtml::textField('number_of_meetings3',$meet,$htmlOptions=array('class'=>"form-control col-md-4 number_of_meetings3",'id'=>'number_of_meetings3'));
+ echo CHtml::textField('number_of_meetings3',$meet,$htmlOptions=array('class'=>"form-control col-md-4 number_of_meetings3",'id'=>'number_of_meetings3',"maxlength"=>"1000"));
+}
+                                                             ?> 
+                                                          </div>
+                                                       <div class="col-md-2">
+                                                             <?php 
+                                                              $meet = '';
+                                                              if (isset($IDP_data['0']['topic_to_be_diss']) && $IDP_data['0']['topic_to_be_diss']!='') {
+                                                                $meet = explode(';',$IDP_data['0']['topic_to_be_diss']);
+                                                                if(isset($meet[0]))
+                                                                {
+                                                                    $meet = $meet[0];
+                                                                }  
+                                                              }
+                                                              else
+                                                              {
+                                                                $meet = '';
+                                                              }
+if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
+echo CHtml::textArea('topic_to_be_diss3',$meet,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 topic_to_be_diss3",'id'=>'topic_to_be_diss3',"maxlength"=>"1000"));
+}
+else
+{
+ echo CHtml::textArea('topic_to_be_diss3',$meet,$htmlOptions=array('class'=>"form-control col-md-4 topic_to_be_diss3",'id'=>'topic_to_be_diss3',"maxlength"=>"1000"));
 }
                                                                ?> 
                                                           </div>
                                                         <div class="col-md-2">
                                                             <?php 
                                                                   if (isset($IDP_data['0']['rel_target_date']) && $IDP_data['0']['rel_target_date']!='') { $rel2 = explode(';',$IDP_data['0']['rel_target_date']); ?>
-                                                                       <input class="form-control target_date3" type="text" value="<?php echo $rel2[0]; ?>" id="target_date3" <?php echo $set_flag1; ?>>
+                                                                       <input class="form-control fields date_pickup11   target_date3" type="text" value="<?php echo $rel2[0]; ?>" id="target_date3" <?php echo $set_flag1; ?> style="width: 130px;" >
                                                                    <?php }
                                                                     else
                                                                     { ?>
-                                                                       <input class="form-control target_date3" type="text"  id="target_date3" >
+                                                                        <input class="form-control fields date_pickup11  target_date3"  type="text"  id="target_date3" style="width: 130px;"  >
                                                                  <?php   }
                                                                 ?>
                                                         </div>
@@ -2115,43 +3053,71 @@ else
                                                             //  }
                                                             // echo CHtml::DropDownList('faculty_email_id4','faculty_email_id4',$Cadre_id,array('class'=>'form-control faculty_email_id4','empty'=>'Select','options' => $faculty4));
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
- echo CHtml::textField('faculty_email_id4',$faculty4,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 faculty_email_id4",'id'=>'faculty_email_id4'));
+ echo CHtml::textField('faculty_email_id4',$faculty4,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 faculty_email_id4",'id'=>'faculty_email_id4',"maxlength"=>"1000"));
 }
 else
 {
- echo CHtml::textField('faculty_email_id4',$faculty4,$htmlOptions=array('class'=>"form-control col-md-4 faculty_email_id4",'id'=>'faculty_email_id4'));
+ echo CHtml::textField('faculty_email_id4',$faculty4,$htmlOptions=array('class'=>"form-control col-md-4 faculty_email_id4",'id'=>'faculty_email_id4',"maxlength"=>"1000"));
 }
                                                             
                                                              ?>
                                                           </div>
-                                                       <div class="col-md-2">
+                                                        <div class="col-md-2">
                                                            <?php 
+                                                           
+                                                           //print_r($IDP_data['0']['meeting_planned']);die();
                                                            $meet = '';
                                                           if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
                                                             $meet = explode(';',$IDP_data['0']['meeting_planned']);
-                                                            $meet = $meet[1];
+                                                            if (isset($meet[1])) {
+                                                               $meet = $meet[1];
+                                                            }
+                                                            
+                                                          }
+                                                          else
+                                                          {
+                                                            $meet = '';
+                                                          }
+                                                          //print_r($meet);die();
+if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
+echo CHtml::textField('number_of_meetings4',$meet,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 number_of_meetings4",'id'=>'number_of_meetings4',"maxlength"=>"1000",$set_flag));
+}
+else
+{
+ echo CHtml::textField('number_of_meetings4',$meet,$htmlOptions=array('class'=>"form-control col-md-4 number_of_meetings4",'id'=>'number_of_meetings4',"maxlength"=>"1000"));
+}
+                                                           ?> 
+                                                          </div>
+                                                       <div class="col-md-2">
+                                                           <?php 
+                                                           $meet = '';
+                                                          if (isset($IDP_data['0']['topic_to_be_diss']) && $IDP_data['0']['topic_to_be_diss']!='') {
+                                                            $meet = explode(';',$IDP_data['0']['topic_to_be_diss']);
+                                                            if (isset($meet[1])) {
+                                                               $meet = $meet[1];
+                                                            }
                                                           }
                                                           else
                                                           {
                                                             $meet = '';
                                                           }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('number_of_meetings4',$meet,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 number_of_meetings4",'id'=>'number_of_meetings4',$set_flag));
+echo CHtml::textArea('topic_to_be_diss4',$meet,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 topic_to_be_diss4",'id'=>'topic_to_be_diss4',"maxlength"=>"1000",$set_flag));
 }
 else
 {
- echo CHtml::textField('number_of_meetings4',$meet,$htmlOptions=array('class'=>"form-control col-md-4 number_of_meetings4",'id'=>'number_of_meetings4'));
+ echo CHtml::textArea('topic_to_be_diss4',$meet,$htmlOptions=array('class'=>"form-control col-md-4 topic_to_be_diss4",'id'=>'topic_to_be_diss4',"maxlength"=>"1000"));
 }
                                                            ?> 
                                                           </div>
                                                         <div class="col-md-2">
                                                             <?php 
                                                                   if (isset($IDP_data['0']['rel_target_date']) && $IDP_data['0']['rel_target_date']!='') { $rel2 = explode(';',$IDP_data['0']['rel_target_date']); ?>
-                                                                       <input class="form-control target_date4" type="text" value="<?php echo $rel2[1]; ?>" id="target_date4" <?php echo $set_flag1; ?>>
+                                                                      <input class="form-control fields date_pickup11   target_date4" type="text" value="<?php echo $rel2[1]; ?>" id="target_date4" <?php echo $set_flag1; ?> style="width: 130px;">
                                                                    <?php }
                                                                     else
                                                                     { ?>
-                                                                       <input class="form-control target_date4" type="text"  id="target_date4">
+                                                                       <input class="form-control fields date_pickup11   target_date4" type="text"  id="target_date4" style="width: 130px;">
                                                                  <?php   }
                                                                 ?>
                                                         </div>
@@ -2166,7 +3132,7 @@ else
                                                     </div>
                                                    </div>
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label bold">Project Title</label>
+                                                    <label class="col-md-3 control-label bold">Project Title<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-9">
                                                      <?php 
                                                      $project_title = '';
@@ -2188,37 +3154,38 @@ else
                                                     </div>
                                                 </div>
                                                 <div class="form-group last">
-                                                    <label class="col-md-3 control-label bold">Review date</label>
+                                                    <label class="col-md-3 control-label bold">Review date<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-2">                                                        
                                                          <?php
                                                                   if (isset($IDP_data['0']['project_review_date'])) { ?>
-                                                                       <input class="form-control" <?php echo $set_flag1; ?>  type="text" value="<?php echo $IDP_data['0']['project_review_date']; ?>" id="review_date">
+                                                                       <input class="form-control fields date_pickup11 validate_field " <?php echo $set_flag1; ?>  type="text" value="<?php echo $IDP_data['0']['project_review_date']; ?>" id="review_date" maxlength="20">
                                                                    <?php }
                                                                     else
                                                                     { ?>
-                                                                       <input class="form-control" type="text" id="review_date">
-                                                                 <?php   }
+                                                                       <input  class="form-control fields date_pickup11 validate_field " type="text" id="review_date" maxlength="20">
+                                                                 <?php   } 
                                                                 ?>
                                                     </div>
                                                 </div>
 
                                                    <div class="form-group">
-                                                    <label class="col-md-3 control-label bold">Target end date</label>
-                                                    <div class="col-md-2">
+                                                    <label class="col-md-3 control-label bold">Due Date<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
+                                                   <div class="col-md-2">
                                                         
                                                                 <?php
                                                                   if (isset($IDP_data['0']['project_end_date'])) {  ?>
-                                                                       <input class="form-control" <?php echo $set_flag1; ?>  type="text" value="<?php echo $IDP_data['0']['project_end_date']; ?>" id="target_end_date">
+                                                                  <input class="form-control fields date_pickup11 validate_field " <?php echo $set_flag1; ?>  type="text" value="<?php echo $IDP_data['0']['project_end_date']; ?>" id="target_end_date" maxlength="20" >
+                                                                       
                                                                    <?php }
                                                                     else
                                                                     { ?>
-                                                                       <input class="form-control" type="text" id="target_end_date">
+                                                                       <input  class="form-control fields date_pickup11 validate_field " type="text" id="target_end_date" maxlength="20">
                                                                  <?php   }
                                                                 ?>
                                                     </div>
                                                 </div>
                                                 <div class="form-group last">
-                                                    <label class="col-md-3 control-label bold">Project scope</label>
+                                                    <label class="col-md-3 control-label bold">Project scope<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-9">
                                                         <?php 
                                                         $project_scope = '';
@@ -2230,18 +3197,37 @@ else
                                                           $project_scope = '';
                                                         }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('project_scope',$project_scope,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_scope"));
+echo CHtml::textField('project_scope',$project_scope,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_scope","maxlength"=>"1000"));
 }
 else
 {
- echo CHtml::textField('project_scope',$project_scope,$htmlOptions=array('class'=>"form-control col-md-4 project_scope"));
+ echo CHtml::textField('project_scope',$project_scope,$htmlOptions=array('class'=>"form-control col-md-4 project_scope","maxlength"=>"1000"));
 }
                                                          ?> 
                                                     </div>
                                                 </div>
+                                                
+           <div id="del_krakpi" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                    <h4 class="modal-title">Confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p> Are you sure you want to delete this KPI? </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                                    <button type="button" class="btn border-blue-soft" id="continue_del_krakpi">Ok</button>
+                                    <div id="show_spin_kpi" style="display: none"><i class="fa fa-spinner fa-spin" style="font-size:24px;float: left;"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                                                 <div class="form-group last">
-                                                    <label class="col-md-3 control-label bold ">Project exclusions</label>
+                                                    <label class="col-md-3 control-label bold ">Project exclusions<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-9">
                                                         <?php 
                                                         $project_exclusion = '';
@@ -2253,11 +3239,11 @@ else
                                                           $project_exclusion = '';
                                                         }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
-echo CHtml::textField('project_exclusion',$project_exclusion,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_exclusion"));
+echo CHtml::textField('project_exclusion',$project_exclusion,$htmlOptions=array('disabled' => 'disabled','class'=>"form-control col-md-4 project_exclusion","maxlength"=>"1000","maxlength"=>"1000"));
 }
 else
 {
- echo CHtml::textField('project_exclusion',$project_exclusion,$htmlOptions=array('class'=>"form-control col-md-4 project_exclusion"));
+ echo CHtml::textField('project_exclusion',$project_exclusion,$htmlOptions=array('class'=>"form-control col-md-4 project_exclusion","maxlength"=>"1000"));
 }
                                                          ?> 
                                                     </div>
@@ -2282,7 +3268,7 @@ else
                                             <form action="#" id="form-username" class="form-horizontal form-bordered">
 
                                                 <div class="form-group">
-                                                    <label class="col-md-3 control-label bold">Project deliverables (Target at rating 3: good solid performance)</label>
+                                                    <label class="col-md-3 control-label bold">Project deliverables (Target at rating 3: good solid performance)<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-9">
                                                         <?php 
                                                          $Project_deliverables = '';
@@ -2304,7 +3290,7 @@ else
                                                     </div>
                                                 </div>
                                                 <div class="form-group last">
-                                                    <label class="col-md-3 control-label bold">What is the employee expected to learn from this project</label>
+                                                    <label class="col-md-3 control-label bold">Learning Goals<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-9">
                                                        <?php 
                                                        $expected = '';
@@ -2327,7 +3313,7 @@ else
                                                 </div>
 
                                                    <div class="form-group">
-                                                    <label class="col-md-3 control-label bold">Reviewer(s) name</label>
+                                                    <label class="col-md-3 control-label bold">Reviewer(s) name<?php if(isset($designation_flag) && $designation_flag >0 ) { ?><label style="color:red">*</label><?php } ?></label>
                                                     <div class="col-md-9">
                                                         <?php 
                                                         $review_name = '';
@@ -2339,13 +3325,13 @@ else
                                                           $review_name = '';
                                                         }
 if(isset($IDP_data['0']['set_status']) && count($IDP_data)>0 && $IDP_data['0']['set_status']=='Approved') {
- echo CHtml::textField('reviewer_nm',$review_name,$htmlOptions=array('disabled' => 'disabled','maxlength'=>80,'class'=>"form-control col-md-4 reviewvers_name"));
+ echo CHtml::textField('reviewer_nm',$review_name,$htmlOptions=array('disabled' => 'disabled','maxlength'=>80,'class'=>"form-control col-md-4 reviewvers_name",'maxlength'=>80,));
 }
 else
 {
  echo CHtml::textField('reviewer_nm',$review_name,$htmlOptions=array('maxlength'=>80,'class'=>"form-control col-md-4 reviewvers_name"));
 }
-                                                         ?> 
+                                                       ?> 
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -2359,25 +3345,22 @@ else
                                 </div>
                             </div>
                             
-                            <div class="row">                             
-                                <div class="col-md-offset-3 col-md-9">
-
-                                 <button type="button" class="btn btn-primary save_data1" style="float: right;">
-                                    Send IDP for approval</button>
-                                
-</div>
-                            </div>
                                         <!-- END SAMPLE TABLE PORTLET-->      
-                                       <?php 
-                                        echo CHtml::button('Send to manager for approval',array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>'send_for_appraisal','onclick'=>'js:send_notification();'));
+                                        <?php 
+                                        //print_r($kpi_data);die();
                                             if (isset($kpi_data) && count($kpi_data)>0) { ?>
                                           <div id="show_spin" style="display: none"><i class="fa fa-spinner fa-spin" style="font-size:24px"></i></div>     
-                                         <div class="btn-group col-md-6" style="float:left">
-                    <?php if((isset($kpi_data['0']['KRA_status_flag']) && !($kpi_data['0']['KRA_status_flag']>0) || $emp_data[0]['new_kra_create'] == 'on')) { ?>
-                                        <?php echo CHtml::button('Send to manager for approval',array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>'send_for_appraisal','onclick'=>'js:send_notification();')); ?><?php } ?>
-                                       
+                                         <div class="btn-group col-md-12" style="float:left">
+                    <?php if((isset($kpi_data['0']['kra_complete_flag']) && $kpi_data['0']['kra_complete_flag']==0) || (isset($emp_data[0]['new_kra_create']) && $emp_data[0]['new_kra_create'] == 'on')) { ?>
+                    <input name="term_condition" value="term_condition" id="term_condition" type="checkbox">
+                    <lable id="blink_me" style="color: red;"> I agree to the goals and IDP filled above
+</lable>
+                                        <?php echo CHtml::button('Send to manager for approval',array('class'=>'btn border-blue-soft send_for_appraisal','style'=>'float:right','id'=>'send_for_appraisal')); ?><?php } ?>
+                                        <?php } ?>
+                                        <?php echo CHtml::button('Download PDF',array('class'=>'btn border-blue-soft download_goal','style'=>'float:right;margin-right:20px','id'=>'getdata')); ?>
                                     </div>                        
                                 </div>
+
                                 <!-- END PAGE BASE CONTENT -->
                             </div>
                         </div>
@@ -2392,13 +3375,13 @@ else
                 }
                 </style>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                <script type="text/javascript">
+                 <script type="text/javascript">
                      $(function(){
                 $("#kpi_update_data").click(function(){                    
                     var kra_des = $("#KRA_description").val();
                     var string = /^(0[1-9]|[0-3][0-3])([/]{1})(0[1-9]|1[0-2])([/]{1})((19|20)[0-9]{2})$/;
                     var string_num = /^([0-9])*$/;
-                     var data_length = kra_des.length;
+                     var data_length = kra_des.length;var tot_kpi_wt1 = 0;var tot_kpi_wt = 0;var tot_kpi_wt_final = 0;var final_kpi_wt = '';
                      //alert(data_length);
                     if (data_length==0)
                     {
@@ -2426,40 +3409,50 @@ else
                         }
                         else if(wtg_value == '0')
                         {
-                            error = 'Please select Weightage.';
                         }
                         else
                         {
 
-                            var kpi_list_data = 0;var add_value = 0;final_kpi_total = 0;var final_kpi_wt = '';
+                            var kpi_list_data = 0;var add_value = 0;final_kpi_total = 0;var final_kpi_wt = '';var er = '';
                             for (var i = 0; i < kra_num; i++) {
                             
                                 if ($("#kpilistyii_"+i).val()!= '' && $("#mask_number-"+i).find(':selected').val()!='Select') 
-                                {
+                                {tot_kpi_wt1++;
                                     kpi_list_data = parseInt(kpi_list_data)+parseInt(1);
                                 }
+                                 
                                 
-                                if ($("#kpi_target_value-"+i).val() != '' && $.isNumeric($("#kpi_target_value-"+i).val())) 
-                                {
-                                    if (final_kpi_wt == '') 
-                                    {
-                                        final_kpi_wt = $("#kpi_target_value-"+i).val();
-                                        final_kpi_total = $("#kpi_target_value-"+i).val();
+                               if ($("#kpi_target_value-"+i).val() != 0 && $("#kpi_target_value-"+i).val() != '' && $.isNumeric($("#kpi_target_value-"+i).val())) 
+                                {tot_kpi_wt++;
+                                    if(parseInt($("#kpi_target_value-"+i).val()) < parseInt($("#min_kpiwt").text()))
+                                    {                      
+                                        error = "Minimum KPI Weightage allowed is "+$("#min_kpiwt").text();break;
                                     }
                                     else
                                     {
-                                       final_kpi_wt = final_kpi_wt+';'+$("#kpi_target_value-"+i).val();
-                                        final_kpi_total = parseFloat(final_kpi_total)+parseFloat($("#kpi_target_value-"+i).val());
+                                            if (final_kpi_wt == '') 
+                                            {
+                                                final_kpi_wt = $("#kpi_target_value-"+i).val();
+                                                final_kpi_total = $("#kpi_target_value-"+i).val();
+                                            }
+                                            else
+                                            {
+                                               final_kpi_wt = final_kpi_wt+';'+$("#kpi_target_value-"+i).val();
+                                                final_kpi_total = parseFloat(final_kpi_total)+parseFloat($("#kpi_target_value-"+i).val());
+                                            }
                                     }
-                                   
                                 }
                                 else if(!$.isNumeric($("#kpi_target_value-"+i).val()) && $("#kpi_target_value-"+i).val() != '')
                                 {                                     
                                     error = "Please enter only numbers in KPI Weightage field.";break;
                                 }
+                                else if($("#kpilistyii_"+i).val()!= '' && i>0 && (($("#kpi_target_value-"+i).val() != '' && $("#kpi_target_value-"+(i-1)).val() == '') || ($("#kpi_target_value-"+i).val() == '' && $("#kpi_target_value-"+(i-1)).val() != '')))
+                                {                      
+                                    error = "Please enter KPI Weightage for all KPI field.";break;
+                                }
                                 
                             }
-                            
+                           
                             if(error == '')
                             {                                
                                 if (kpi_list_data <  $("#min_kpi").text()) 
@@ -2469,6 +3462,7 @@ else
                                 else
                                 {                             
                                     for (var i = 0; i < kra_num; i++) {
+                                    //alert(i);
                                    if ($("#mask_number-"+i).find(':selected').val() != 'Select' && $("#kpilistyii_"+i).val() != '') 
                                     {
                                         
@@ -2492,15 +3486,18 @@ else
                                                 kpi_list = kpi_list+';'+$("#kpilistyii_"+i).val();
                                                 kpi_unit = kpi_unit+';'+$("#mask_number-"+i).find(':selected').val();
                                                 
+                                                
                                             }
                                           
                                         }
                                         if (selected_value != 'Units' && selected_value != 'Weight' && selected_value != 'Value') 
                                         {
-                                            if(selected_value == 'Percentage' || selected_value == 'Days')
+                                            if(selected_value == 'Days')
                                             {
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                   $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need1").text() != 'undefined' || $("#target_need1").text() === undefined) && $(".target_value1"+i).val()!='' && !$.isNumeric($(".target_value1"+i).val()))
@@ -2509,7 +3506,9 @@ else
                                                 }
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
-                                                     error = 'Target 2 value is compulsory.';break;
+                                                     $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
+                                                    error = 'Target 2 value is compulsory.';break; 
                                                 }
                                                 else if(($("#target_need2").text() != 'undefined' || $("#target_need2").text() === undefined) && $(".target_value2"+i).val()!='' && !$.isNumeric($(".target_value2"+i).val()))
                                                 {
@@ -2517,7 +3516,9 @@ else
                                                 }
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need3").text() != 'undefined' || $("#target_need3").text() === undefined) && $(".target_value3"+i).val()!='' && !$.isNumeric($(".target_value3"+i).val()))
                                                 {
@@ -2525,7 +3526,9 @@ else
                                                 }
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                    $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need4").text() != 'undefined' || $("#target_need4").text() === undefined) && $(".target_value4"+i).val()!='' && !$.isNumeric($(".target_value4"+i).val()))
                                                 {
@@ -2533,7 +3536,9 @@ else
                                                 }
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need5").text() != 'undefined' || $("#target_need5").text() === undefined) && $(".target_value5"+i).val()!='' && !$.isNumeric($(".target_value5"+i).val()))
                                                 {
@@ -2541,7 +3546,101 @@ else
                                                 }
                                                 else
                                                 {
-                                                    error = '';
+                                                     for(var ch = 5;ch>0;ch--)
+                                                    {
+                                                    
+                                                        var d= parseInt(ch)-parseInt(1);
+                                                        if(d>0)
+                                                        {
+                                                        //alert(parseInt($(".target_value"+ch+i).val())<parseInt($(".target_value"+d+i).val()));
+                                                        if((parseInt($(".target_value"+ch+i).val())>parseInt($(".target_value"+d+i).val())) || (parseInt($(".target_value"+ch+i).val())==parseInt($(".target_value"+d+i).val())))
+                                                          {
+                                                             er = "Days should be in descending order and repetition is not allowed";
+                                                            // alert(parseInt($(".target_value"+ch+i).val()));alert(parseInt($(".target_value"+d+i).val()));
+                                                          }
+                                                          //alert($(".target_value"+ch+i).val());alert(parseInt($(".target_value"+d+i).val()));
+                                                        }
+                                                    }
+                                                   
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
+                                                    }
+
+                                                }
+                                                //alert(er);
+                                            }
+                                            else if(selected_value == 'Percentage')
+                                            {
+                                                if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
+                                                {
+                                                   $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
+                                                    error = 'Target 1 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need1").text() != 'undefined' || $("#target_need1").text() === undefined) && $(".target_value1"+i).val()!='' && !$.isNumeric($(".target_value1"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
+                                                {
+                                                    $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
+                                                    error = 'Target 2 value is compulsory.';break; 
+                                                }
+                                                else if(($("#target_need2").text() != 'undefined' || $("#target_need2").text() === undefined) && $(".target_value2"+i).val()!='' && !$.isNumeric($(".target_value2"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
+                                                {
+                                                     $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need3").text() != 'undefined' || $("#target_need3").text() === undefined) && $(".target_value3"+i).val()!='' && !$.isNumeric($(".target_value3"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
+                                                {
+                                                     $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need4").text() != 'undefined' || $("#target_need4").text() === undefined) && $(".target_value4"+i).val()!='' && !$.isNumeric($(".target_value4"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
+                                                {
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need5").text() != 'undefined' || $("#target_need5").text() === undefined) && $(".target_value5"+i).val()!='' && !$.isNumeric($(".target_value5"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else
+                                                {
+                                                    var er = '';
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {
+                                                    //alert($(".target_value"+ch+i).val());alert($(".target_value"+d+i).val());
+                                                        //var d= parseInt(ch)-parseInt(1);
+                                                        for(var d = ch-1;d>0;d--)
+                                                        {
+                                                          if($(".target_value"+ch+i).val()==$(".target_value"+d+i).val())
+                                                          {
+                                                             er = "Repetition is not allowed";
+                                                          }
+                                                        }
+                                                    }
                                                     if (kpi_value == '')
                                                     {
                                                         kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
@@ -2557,36 +3656,168 @@ else
                                             {
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                   $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }                                               
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
-                                                     error = 'Target 2 value is compulsory.';break;
+                                                    $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
+                                                    error = 'Target 2 value is compulsory.';break; 
                                                 }                                                
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }                                                
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                    $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }                                                
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }                                                
                                                 else
                                                 {
-                                                    error = '';
+                                                    var er = '';var asc = 0;var desc = 0;
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {   
+                                                        var date1 =  $(".target_value"+ch+i).val().split("/");
+                                                        var date_pos = '';
+                                                        if(date1[1] == "Jan")
+                                                        {
+                                                         date_pos = '01';
+                                                        }
+                                                        else if(date1[1] == "Feb")
+                                                        {
+                                                         date_pos = '02';
+                                                        }
+                                                        else if(date1[1] == "Mar")
+                                                        {
+                                                         date_pos = '03';
+                                                        }
+                                                        else if(date1[1] == "Apr")
+                                                        {
+                                                         date_pos = '04';
+                                                        }
+                                                        else if(date1[1] == "May")
+                                                        {
+                                                         date_pos = '05';
+                                                        }
+                                                        else if(date1[1] == "Jun")
+                                                        {
+                                                         date_pos = '06';
+                                                        }
+                                                        else if(date1[1] == "Jul")
+                                                        {
+                                                         date_pos = '07';
+                                                        }
+                                                        else if(date1[1] == "Aug")
+                                                        {
+                                                         date_pos = '08';
+                                                        }
+                                                        else if(date1[1] == "Sep")
+                                                        {
+                                                         date_pos = '09';
+                                                        }
+                                                        else if(date1[1] == "Oct")
+                                                        {
+                                                         date_pos = '10';
+                                                        }
+                                                        else if(date1[1] == "Nov")
+                                                        {
+                                                         date_pos = '11';
+                                                        }
+                                                        else if(date1[1] == "Dec")
+                                                        {
+                                                         date_pos = '12';
+                                                        }
+                                                        var date11 = date1[0]+'/'+date_pos+'/'+date1[2];
+                                                        var d= parseInt(ch)-parseInt(1);
+                                                        if(d != 0)
+                                                        {
+                                                           var date2 =  $(".target_value"+d+i).val().split("/");
+                                                            var date_pos = '';
+                                                        if(date2[1] == "Jan")
+                                                        {
+                                                         date_pos = '01';
+                                                        }
+                                                        else if(date2[1] == "Feb")
+                                                        {
+                                                         date_pos = '02';
+                                                        }
+                                                        else if(date2[1] == "Mar")
+                                                        {
+                                                         date_pos = '03';
+                                                        }
+                                                        else if(date2[1] == "Apr")
+                                                        {
+                                                         date_pos = '04';
+                                                        }
+                                                        else if(date2[1] == "May")
+                                                        {
+                                                         date_pos = '05';
+                                                        }
+                                                        else if(date2[1] == "Jun")
+                                                        {
+                                                         date_pos = '06';
+                                                        }
+                                                        else if(date2[1] == "Jul")
+                                                        {
+                                                         date_pos = '07';
+                                                        }
+                                                        else if(date2[1] == "Aug")
+                                                        {
+                                                         date_pos = '08';
+                                                        }
+                                                        else if(date2[1] == "Sep")
+                                                        {
+                                                         date_pos = '09';
+                                                        }
+                                                        else if(date2[1] == "Oct")
+                                                        {
+                                                         date_pos = '10';
+                                                        }
+                                                        else if(date2[1] == "Nov")
+                                                        {
+                                                         date_pos = '11';
+                                                        }
+                                                        else if(date2[1] == "Dec")
+                                                        {
+                                                         date_pos = '12';
+                                                        }
+                                                        var date12 = date2[0]+'/'+date_pos+'/'+date2[2];
+                                                        if(process(date11) < process(date12))
+                                                            { 
+                                                              asc = parseInt(asc)+parseInt(1);
+                                                            }
+                                                            if(process(date11) > process(date12))
+                                                            { 
+                                                              desc = parseInt(desc)+parseInt(1);
+                                                            }
+                                                        }
+                                                    }
+                                                    //alert(asc);alert(desc);
+                                                    if(desc!=4 && asc !=4)
+                                                    { 
+                                                      er = "Date should be either in ascending or descending order and repetition is not allowed.";
+                                                    }
                                                     if (kpi_value == '')
                                                     {
                                                         kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
                                                     }
                                                     else
                                                     {                                    
-                                                            kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
+                                                        kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
                                                     }
-
+                                                        //alert(er); 
                                                 }
                                             }
                                             else if(selected_value == 'Text')
@@ -2595,6 +3826,8 @@ else
                                                 var chk = /[;-]/;
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                    $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }
                                                 else if(($(".target_value1"+i).val()!='' && chk.test($(".target_value1"+i).val())) || ($(".target_value1"+i).val()!='' && $(".target_value1"+i).val().length>2000))
@@ -2603,6 +3836,8 @@ else
                                                 }
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
+                                                     $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
                                                      error = 'Target 2 value is compulsory.';break;
                                                 }
                                                else if(($(".target_value2"+i).val()!='' && chk.test($(".target_value2"+i).val())) || ($(".target_value2"+i).val()!='' && $(".target_value2"+i).val().length>2000))
@@ -2611,7 +3846,9 @@ else
                                                 }
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }
                                                 else if(($(".target_value3"+i).val()!='' && chk.test($("#target_need3").text())) || ($(".target_value3"+i).val()!='' && $("#target_need3").text().length>2000))
                                                 {
@@ -2619,7 +3856,9 @@ else
                                                 }
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                     $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }
                                                 else if(($(".target_value4"+i).val()!='' && chk.test($(".target_value4"+i).val())) || ($(".target_value4"+i).val()!='' && $(".target_value4"+i).val().length>2000))
                                                 {
@@ -2627,7 +3866,9 @@ else
                                                 }
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }
                                                else if(($(".target_value4"+i).val()!='' && chk.test($(".target_value5"+i).val())) || ($(".target_value4"+i).val()!='' && $(".target_value5"+i).val().length>2000))
                                                 {
@@ -2636,14 +3877,14 @@ else
                                                 else
                                                 {
                                                     error = '';var chk1 = /[;]/;
-                                                    if (kpi_value == '')
-                                                    {
-                                                        kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
-                                                    }
+                                                   if (kpi_value == '')
+                                                        {
+                                                            kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
+                                                        }
+                                                        else
+                                                        {                                    
+                                                                kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
+                                                        }
                                                 }
                                             }
                                             else if(selected_value == 'Ratio')
@@ -2651,6 +3892,8 @@ else
                                                 var ratio_chk = /^([0-9]{1,5}[:]{1}[0-9]{1,5})$/;
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                  $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need1").text() != 'undefined' || $("#target_need1").text() === undefined) && $(".target_value1"+i).val()!='' && !ratio_chk.test($(".target_value1"+i).val()))
@@ -2659,6 +3902,8 @@ else
                                                 }
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
+                                                    $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
                                                      error = 'Target 2 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need2").text() != 'undefined' || $("#target_need2").text() === undefined) && $(".target_value2"+i).val()!='' && !ratio_chk.test($(".target_value2"+i).val()))
@@ -2667,7 +3912,9 @@ else
                                                 }
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need3").text() != 'undefined' || $("#target_need3").text() === undefined) && $(".target_value3"+i).val()!='' && !ratio_chk.test($(".target_value3"+i).val()))
                                                 {
@@ -2675,7 +3922,9 @@ else
                                                 }
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                     $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need4").text() != 'undefined' || $("#target_need4").text() === undefined) && $(".target_value4"+i).val()!='' && !ratio_chk.test($(".target_value4"+i).val()))
                                                 {
@@ -2683,7 +3932,9 @@ else
                                                 }
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need5").text() != 'undefined' || $("#target_need5").text() === undefined) && $(".target_value5"+i).val()!='' && !ratio_chk.test($(".target_value5"+i).val()))
                                                 {
@@ -2691,7 +3942,19 @@ else
                                                 }
                                                 else
                                                 {
-                                                    error = '';
+                                                    var er = '';
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {
+                                                    //alert($(".target_value"+ch+i).val());alert($(".target_value"+d+i).val());
+                                                        //var d= parseInt(ch)-parseInt(1);
+                                                        for(var d = ch-1;d>0;d--)
+                                                        {
+                                                          if($(".target_value"+ch+i).val()==$(".target_value"+d+i).val())
+                                                          {
+                                                             er = "Repetition is not allowed";
+                                                          }
+                                                        }
+                                                    }
                                                     if (kpi_value == '')
                                                     {
                                                         kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
@@ -2736,7 +3999,7 @@ else
                                         }
                                         if (final_kpi_total != '' && final_kpi_total != 100) 
                                         {
-                                            error = 'The Total for kpi score should be 100';break;
+                                            error = 'The Total for KPI score should be 100';break;
                                         }
                                         else
                                         {                                                    
@@ -2745,8 +4008,8 @@ else
 
                                     }                                   
                                     else
-                                    {
-                                        error = '';
+                                    { 
+                                        //error = '';
                                         if ($("#mask_number-"+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+i).val() != '' || $("#unit_value-"+i).val() != '')) 
                                         {
                                              error = 'Please Fill Correct KPI Details';break;
@@ -2759,9 +4022,13 @@ else
                                             {
                                                 error = 'Please Fill Correct KPI Details';break;
                                             }
+                                            else if(er != '')
+                                            {
+                                                 error = er;break;
+                                            }
                                             else
                                             {
-                                                error = '';
+                                                error = '';er = '';
                                                 // if (final_kpi_total != 100) 
                                                 // {
                                                 //     error = 'The Total for kpi score should be 100';break;
@@ -2771,14 +4038,31 @@ else
                                                 //    error = '';
                                                 // }
                                             }                                         
-                                    }       
+                                    } 
+                                    if(er != '')
+                                    {
+                                         error = er;break;
+                                    }
+                                    else if(tot_kpi_wt !=0 && tot_kpi_wt1 != tot_kpi_wt)
+                                    {
+                                        error = "Please enter KPI Weightage for all KPI field.";break;
+                                    }
+                                    else
+                                    {
+                                        error = '';er = '';
+                                    }
+                                    
                             }
                                                               
                                 } 
                             }
                             
                         }
-                        
+                        $(window).scroll(function()
+                        {
+                            $('#err').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});  
+                        });  
+                        //alert(final_kpi_wt);
                         var data = {
                             'KRA_category' : $("#target_value").find(':selected').val(),
                             'KRA_description' : $("#KRA_description").val(),
@@ -2805,19 +4089,21 @@ else
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Setgoals1/update_kpi',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/update_kpi',
                                 success : function(data)
-                                {                                   
+                                {                              
                                     if (data == "success")
                                     {
                                         //alert(data);
                                         //get_notify("KRA Updated successfully");
-                                        $(".output_div1").load(location.href + " .output_div1");
+                                        
                                         $("#err").show();  
                                          $("#err").fadeOut(6000);
                                          $("#error_value").text("Successfully updated");
                                          $("#err").removeClass("alert-danger");
                                         $("#err").addClass("alert-success");
+                                        window.location.href = base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1';
+                                        //location.reload();
                                     }
                                     
                                 }
@@ -2834,6 +4120,7 @@ else
                         $("#err").addClass("alert-danger");
                     }
                 });
+                //alert($("#new_apr").text());
                });
                 </script>
                 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -2846,9 +4133,10 @@ else
 
                 function kpi_save_data_new()
                 {
+                   //alert("fddfgfd");
                     var kra_des = $("#KRA_description").val();
                     var kra_data_target = ''; var kra_data_value_details = {};$cnt = 0;$kra_description_data='';$kra_wt_data='';
-                    var kra_num = $("#kpi_list_number").text();var kpi_list = '';var kpi_unit = '';var kpi_value = '';var kpi_total = 0;var kpi_target_total = '';var kra_complete_flag = 0;var final_kpi_wt = '';
+                    var kra_num = $("#kpi_list_number").text();var kpi_list = '';var kpi_unit = '';var kpi_value = '';var kpi_total = 0;var kpi_target_total = '';var kra_complete_flag = 0;var final_kpi_wt = 0;
                         var selected_unit = $(".format_list").find(':selected').val();
                         var wtg_value = $("#Weightage").find(':selected').val();
                         var catergory = $("#target_value").find(':selected').val();
@@ -2864,6 +4152,11 @@ else
                     {
                        kra_description_data = $("#KRA_description").val();                     
                     }
+                    else
+                    {
+                        kra_description_data = '';
+                    }
+
                     if($("#Weightage").find(':selected').val() != '0')
                     {
                        kra_wt_data = $("#Weightage").find(':selected').val();                     
@@ -2873,7 +4166,20 @@ else
                         var t1,t2,t3,t4,t5;
                         var string_num = /^([0-9])$/;
                          for (var i = 0; i < kra_num; i++) {                            
-                                
+                                //alert(i);
+                                if($("#kpilistyii_"+i).val() != '')
+                                {
+                                    if(final_kpi_wt == '0')
+                                    {
+                                        final_kpi_wt = $("#kpi_target_value-"+i).val();
+                                    }
+                                    else
+                                    {
+                                        final_kpi_wt = final_kpi_wt+';'+$("#kpi_target_value-"+i).val();
+                                    }
+                                }
+                                    
+                                            
                                     var selected_unit = $("#mask_number-"+i).find(':selected').val();
                                     if (kpi_unit == '')
                                     {
@@ -2883,14 +4189,24 @@ else
                                     {
                                         kpi_unit = kpi_unit+';'+$("#mask_number-"+i).find(':selected').val();
                                     }
-                                    if (final_kpi_wt == '') 
-                                    {
-                                        final_kpi_wt = $("#kpi_target_value-"+i).val();
-                                    }
-                                    else
-                                    {
-                                       final_kpi_wt = final_kpi_wt+';'+$("#kpi_target_value-"+i).val();
-                                    } 
+                                    
+                                     var chk1 = /[;]/;
+                                        if(!chk1.test($("#kpilistyii_"+i).val()))
+                                        {
+                                            if (kpi_list == '')
+                                            {
+                                                kpi_list = $("#kpilistyii_"+i).val();
+                                                
+                                            }
+                                            else
+                                            {
+                                                kpi_list = kpi_list+';'+$("#kpilistyii_"+i).val();
+                                                
+                                            }
+                                        }
+                                        
+                                        
+                        
                                     if(selected_unit == 'Units' || selected_unit == 'Weight' || selected_unit == 'Value')
                                     {
                                        if (kpi_value == '')
@@ -2901,136 +4217,60 @@ else
                                         {
                                             kpi_value = kpi_value+';'+$("#unit_value-"+i).val();
                                         } 
+                                         
                                     }
                                     else if (selected_unit == 'Percentage' || selected_unit == 'Ratio' || selected_unit == 'Days' || selected_unit == 'Date' || selected_unit == 'Text') 
                                     {
+                                        
                                         var chk = /[;-]/;
 
-                                         if (($(".target_value1"+i).val()!='' && !chk.test($(".target_value1"+i).val())) && ($(".target_value2"+i).val()!='' && !chk.test($(".target_value2"+i).val())) && ($(".target_value3"+i).val()!='' && !chk.test($(".target_value3"+i).val())) && ($(".target_value4"+i).val()!='' && !chk.test($(".target_value4"+i).val())) && ($(".target_value5"+i).val()!='' && !chk.test($(".target_value5"+i).val()))) 
-                                        {
+                                         
                                         var date_data = '';
-                                        t1 = $(".target_value1"+i).val();
-                                        t2 = $(".target_value2"+i).val();
-                                        t3 = $(".target_value3"+i).val();
-                                        t4 = $(".target_value4"+i).val();
-                                        t5 = $(".target_value5"+i).val();
-                                        if (selected_unit == 'Date') 
-                                        { 
-                                            if (string.test(t1)) 
-                                             {
-                                                date_data = t1+'-'+''+'-'+''+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t2)) 
-                                             {
-                                                date_data = ''+'-'+t2+'-'+''+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t3)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+t3+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t4)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+''+'-'+t4+'-'+'';
-                                             }
-                                             if (string.test(t5)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+''+'-'+''+'-'+t5;
-                                             }
-                                             //////////////////// 2 ///////////////////////////
-                                             if (string.test(t1) && string.test(t2)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+''+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t1) && string.test(t3)) 
-                                             {
-                                                date_data = t1+'-'+''+'-'+t3+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t1) && string.test(t4)) 
-                                             {
-                                                date_data = t1+'-'+''+'-'+''+'-'+t4+'-'+'';
-                                             }
-                                            if (string.test(t1) && string.test(t5)) 
-                                             {
-                                                date_data = t1+'-'+''+'-'+''+'-'+''+'-'+t5;
-                                             }
-                                             if (string.test(t2) && string.test(t3)) 
-                                             {
-                                                date_data = ''+'-'+t2+'-'+t3+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t2) && string.test(t4)) 
-                                             {
-                                                date_data = ''+'-'+t2+'-'+''+'-'+t4+'-'+'';
-                                             }
-                                             if (string.test(t2) && string.test(t5)) 
-                                             {
-                                                date_data = ''+'-'+t2+'-'+''+'-'+''+'-'+t5;
-                                             }
-                                             if (string.test(t3) && string.test(t4)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+t3+'-'+t4+'-'+'';
-                                             }
-                                             if (string.test(t3) && string.test(t5)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+t3+'-'+''+'-'+t5;
-                                             }
-                                             if (string.test(t4) && string.test(t5)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+''+'-'+t4+'-'+t5;
-                                             }                                            
-                                             /////////////////////// 3/////////////////////
-                                             if (string.test(t1) && string.test(t2) && string.test(t3)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+t3+'-'+''+'-'+'';
-                                             }
-                                             if (string.test(t1) && string.test(t2) && string.test(t4)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+''+'-'+t4+'-'+'';
-                                             }
-                                             if (string.test(t1) && string.test(t2) && string.test(t5)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+''+'-'+''+'-'+t5;
-                                             }
-                                             if (string.test(t2) && string.test(t3) && string.test(t4)) 
-                                             {
-                                                date_data = ''+'-'+t2+'-'+t3+'-'+t4+'-'+'';
-                                             }
-                                             if (string.test(t2) && string.test(t4) && string.test(t5)) 
-                                             {
-                                                date_data = ''+'-'+t2+'-'+''+'-'+t4+'-'+t5;
-                                             }
-                                             if (string.test(t3) && string.test(t4) && string.test(t5)) 
-                                             {
-                                                date_data = ''+'-'+''+'-'+t3+'-'+t4+'-'+t5;
-                                             }
-                                             if (string.test(t4) && string.test(t5) && string.test(t1)) 
-                                             {
-                                                date_data = t1+'-'+''+'-'+''+'-'+t4+'-'+t5;
-                                             }
-                                             //////////////// 3 /////////////////////////////////////
-                                             if (string.test(t1) && string.test(t2) && string.test(t3) && string.test(t4)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+t3+'-'+t4+'-'+'';
-                                             }
-                                             if (string.test(t1) && string.test(t2) && string.test(t3) && string.test(t5)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+t3+'-'+''+'-'+t5;
-                                             }
-                                             //////////////// 5 ////////////////////////////////
-                                             if (string.test(t1) && string.test(t2) && string.test(t3) && string.test(t4) && string.test(t5)) 
-                                             {
-                                                date_data = t1+'-'+t2+'-'+t3+'-'+t4+'-'+t5;
-                                             }
-                                             if (kpi_value == '') 
-                                            {
-                                                kpi_value = date_data;
-                                            }
-                                            else
-                                            {
-                                                kpi_value = kpi_value+';'+date_data;
-                                            } 
+                                        if(t1 == '')
+                                        {
+                                            t1 = 0;
                                         }
                                         else
                                         {
+                                            t1 = $(".target_value1"+i).val();
+                                        }
+                                        
+                                        if(t2 == '')
+                                        {
+                                            t2 = 0;
+                                        }
+                                        else
+                                        {
+                                            t2 = $(".target_value2"+i).val();
+                                        }
+                                        
+                                        if(t3 == '')
+                                        {
+                                            t3 = 0;
+                                        }
+                                        else
+                                        {
+                                            t3 = $(".target_value3"+i).val();
+                                        }
+                                        
+                                        if(t4 == '')
+                                        {
+                                            t4 = 0;
+                                        }
+                                        else
+                                        {
+                                            t4 = $(".target_value4"+i).val();
+                                        }
+                                        
+                                        if(t5 == '')
+                                        {
+                                            t5 = 0;
+                                        }
+                                        else
+                                        {
+                                            t5 = $(".target_value5"+i).val();
+                                        }
+                                        
                                             if (kpi_value == '') 
                                             {
                                                 kpi_value = t1+'-'+t2+'-'+t3+'-'+t4+'-'+t5;
@@ -3039,27 +4279,14 @@ else
                                             {
                                                 kpi_value = kpi_value+';'+t1+'-'+t2+'-'+t3+'-'+t4+'-'+t5;
                                             }
-                                        }                                        
-                                    }
-                                    
-                                    var chk1 = /[;]/;
-                                    if(!chk1.test($("#kpilistyii_"+i).val()))
-                                    {
-                                        if (kpi_list == '')
-                                        {
-                                            kpi_list = $("#kpilistyii_"+i).val();
-                                            
-                                        }
-                                        else
-                                        {
-                                            kpi_list = kpi_list+';'+$("#kpilistyii_"+i).val();
-                                            
-                                        }
-                                    }
-
-                                  }  
+                                  } 
+                                        
+                                        
+                                        
+                                   
                             }
                     }
+                    //alert(final_kpi_wt);
                     var kpi_total_number = 0;
                     if (data_length==0)
                     {
@@ -3160,7 +4387,7 @@ else
                         }
                     }
 
-                    //alert(kpi_total_number);
+                    //alert(kpi_value);
                     if (kpi_total_number < kpi_list_data) 
                     {
                         kra_complete_flag = 0;
@@ -3169,6 +4396,7 @@ else
                     {
                         kra_complete_flag = 1;
                     }
+
 
                         var data = {
                             'KRA_category' : kra_data_target,
@@ -3182,6 +4410,8 @@ else
                             'kra_complete_flag' : kra_complete_flag,
                             'apr_id' : $("#new_apr").text()
                         };
+                        
+                        
                         console.log(data);
                         var j = jQuery.noConflict();
                         var base_url = window.location.origin;
@@ -3190,7 +4420,7 @@ else
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Setgoals1/save_kpi',
+                               url : base_url+$("#basepath").attr('value')+'/index.php?r=setgoals1/save_kpi',
                                 success : function(data)
                                 {
                                     // if (data != '') 
@@ -3200,12 +4430,16 @@ else
                                    //alert(data);
                                     if (data == "Success")
                                     {
+                                       // $("#err").show();  
+                                        // $("#err").fadeOut(6000);
+                                         //$("#error_value").text("Successfully Save");
+                                        
                                          //alert(data);
                                         updated_kpi_value = kpi_id_value;
                                         // alert(kpi_id_value);
                                         //get_notify("KRA added successfully");
                                        $(".output_div1").load(location.href + " .output_div1");
-                                        //location.reload();
+                                      //  $('#user-form')[0].reset();
                                     }
                                     // else if(data == 1)
                                     // {
@@ -3221,9 +4455,19 @@ else
 
                 function kpi_save_data()
                 {
+                $(window).scroll(function()
+                        {
+                        var tp = parseInt($(window).scrollTop()+"px");
+                        if($(window).scrollTop() == '590')
+                        {
+                        tp = parseInt($(window).scrollTop()+"px")+parseInt($(window).scrollTop()+"px");
+                        }
+                            $('#err').animate({top:tp },{queue: false, duration: 350});  
+                        });  
+                 //alert($("#min_kpiwt").text());
                     //alert("jhjk");
                     var kra_des = $("#KRA_description").val();
-                    var final_kpi_total = 0;
+                    var final_kpi_total = 0;var er = '';
                     //var string = /^(0[1-9]|[0-3][0-3])([/]{1})(0[1-9]|1[0-2])([/]{1})((19|20)[0-9]{2})$/;
                     var string_num = /^([0-9])*$/;
                      var data_length = kra_des.length;
@@ -3244,7 +4488,7 @@ else
                     if(error == '')
                     {
                         //alert("proceed");
-                        var kra_num = $("#kpi_list_number").text();var kpi_list = '';var kpi_unit = '';var kpi_value = '';var kpi_total = 0;var kpi_target_total = '';
+                        var kra_num = $("#kpi_list_number").text();var kpi_list = '';var kpi_unit = '';var kpi_value = '';var kpi_total = 0;var kpi_target_total = '';var tot_kpi_wt1 = 0;var tot_kpi_wt = 0;
                         var selected_unit = $(".format_list").find(':selected').val();
                         var wtg_value = $("#Weightage").find(':selected').val();
                         var catergory = $("#target_value").find(':selected').val();
@@ -3265,30 +4509,41 @@ else
                         {
 
                             var kpi_list_data = 0;var add_value = 0;final_kpi_total = 0;var final_kpi_wt = '';
-                            for (var i = 0; i < kra_num; i++) {
-                            
+                            for (var i = 0; i < kra_num; i++) { 
+                            //alert($("#min_kpiwt").text());
                                 if ($("#kpilistyii_"+i).val()!= '' && $("#mask_number-"+i).find(':selected').val()!='Select') 
                                 {
                                     kpi_list_data = parseInt(kpi_list_data)+parseInt(1);
                                 }
                                  if ($("#kpi_target_value-"+i).val() != '' && $.isNumeric($("#kpi_target_value-"+i).val())) 
-                                {
-                                    if (final_kpi_wt == '') 
-                                    {
-                                        final_kpi_wt = $("#kpi_target_value-"+i).val();
-                                        final_kpi_total = $("#kpi_target_value-"+i).val();
+                                {tot_kpi_wt++;
+                                    if(parseInt($("#kpi_target_value-"+i).val()) < parseInt($("#min_kpiwt").text()))
+                                    {                      
+                                        error = "Minimum KPI Weightage allowed is "+$("#min_kpiwt").text();break;
                                     }
                                     else
                                     {
-                                       final_kpi_wt = final_kpi_wt+';'+$("#kpi_target_value-"+i).val();
-                                        final_kpi_total = parseFloat(final_kpi_total)+parseFloat($("#kpi_target_value-"+i).val());
+                                            if (final_kpi_wt == '') 
+                                            {
+                                                final_kpi_wt = $("#kpi_target_value-"+i).val();
+                                                final_kpi_total = $("#kpi_target_value-"+i).val();
+                                            }
+                                            else
+                                            {
+                                               final_kpi_wt = final_kpi_wt+';'+$("#kpi_target_value-"+i).val();
+                                                final_kpi_total = parseFloat(final_kpi_total)+parseFloat($("#kpi_target_value-"+i).val());
+                                            }
                                     }
-                                   
                                 }
                                 else if(!$.isNumeric($("#kpi_target_value-"+i).val()) && $("#kpi_target_value-"+i).val() != '')
                                 {                                     
                                     error = "Please enter only numbers in KPI Weightage field.";break;
                                 }
+                                else if($("#kpilistyii_"+i).val()!= '' && i>0 && (($("#kpi_target_value-"+i).val() != '' && $("#kpi_target_value-"+(i-1)).val() == '') || ($("#kpi_target_value-"+i).val() == '' && $("#kpi_target_value-"+(i-1)).val() != '')))
+                                {                      
+                                    error = "Please enter KPI Weightage for all KPI field.";break;
+                                }
+                                
                             }
                             
                             if(error == '')
@@ -3298,12 +4553,12 @@ else
                                     error = 'Please Fill minimum '+$("#min_kpi").text()+' KPI';                                   
                                 }
                                 else
-                                {                             
+                                { 
+                                    
                                     for (var i = 0; i < kra_num; i++) {
                                    if ($("#mask_number-"+i).find(':selected').val() != 'Select' && $("#kpilistyii_"+i).val() != '') 
                                     {
-                                        
-                                        var selected_value = $("#mask_number-"+i).find(':selected').val();
+                                        var selected_value = $("#mask_number-"+i).find(':selected').val();tot_kpi_wt1++;
                                          var chk1 = /[;]/;
                                         if(chk1.test($("#kpilistyii_"+i).val()))
                                         {
@@ -3311,8 +4566,8 @@ else
                                         }
                                         else
                                         {
-                        error = '';
-                        if (kpi_list == '')
+                                            error = '';
+                                            if (kpi_list == '')
                                             {
                                                 kpi_list = $("#kpilistyii_"+i).val();
                                                 kpi_unit = $("#mask_number-"+i).find(':selected').val();
@@ -3324,14 +4579,28 @@ else
                                                 kpi_unit = kpi_unit+';'+$("#mask_number-"+i).find(':selected').val();
                                                 
                                             }
+                                           
+                                             
                                           
                                         }
                                         if (selected_value != 'Units' && selected_value != 'Weight' && selected_value != 'Value') 
                                         {
-                                            if(selected_value == 'Percentage' || selected_value == 'Days')
+                                            if(selected_value == 'Days')
                                             {
+                                                <!--var target1=$("#target_need1").text();-->
+                                                <!--var target2=$("#target_need2").text();-->
+                                                <!--var target3=$("#target_need3").text();-->
+                                                <!--var target4=$("#target_need4").text();-->
+                                                <!--var target5=$("#target_need5").text();-->
+                                                <!--if(target1 <= target2){-->
+                                                <!--    error = 'Target 1 greater.';break;-->
+                                                <!--}-->
+                                                <!--else -->
+                                                
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                    $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need1").text() != 'undefined' || $("#target_need1").text() === undefined) && $(".target_value1"+i).val()!='' && !$.isNumeric($(".target_value1"+i).val()))
@@ -3340,6 +4609,8 @@ else
                                                 }
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
+                                                    $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
                                                      error = 'Target 2 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need2").text() != 'undefined' || $("#target_need2").text() === undefined) && $(".target_value2"+i).val()!='' && !$.isNumeric($(".target_value2"+i).val()))
@@ -3348,7 +4619,9 @@ else
                                                 }
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                     $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need3").text() != 'undefined' || $("#target_need3").text() === undefined) && $(".target_value3"+i).val()!='' && !$.isNumeric($(".target_value3"+i).val()))
                                                 {
@@ -3356,7 +4629,9 @@ else
                                                 }
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                     $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need4").text() != 'undefined' || $("#target_need4").text() === undefined) && $(".target_value4"+i).val()!='' && !$.isNumeric($(".target_value4"+i).val()))
                                                 {
@@ -3364,7 +4639,9 @@ else
                                                 }
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                    $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need5").text() != 'undefined' || $("#target_need5").text() === undefined) && $(".target_value5"+i).val()!='' && !$.isNumeric($(".target_value5"+i).val()))
                                                 {
@@ -3372,7 +4649,139 @@ else
                                                 }
                                                 else
                                                 {
-                                                    error = '';
+                                                  
+                                                
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {
+                                                    
+                                                        var d= parseInt(ch)-parseInt(1);
+                                                        if(d>0)
+                                                        {
+                                                        //alert(parseInt($(".target_value"+ch+i).val())<parseInt($(".target_value"+d+i).val()));
+                                                        if((parseInt($(".target_value"+ch+i).val())>parseInt($(".target_value"+d+i).val())) || (parseInt($(".target_value"+ch+i).val())==parseInt($(".target_value"+d+i).val())))
+                                                          {
+                                                             er = "Days should be in descending order and repetition is not allowed";
+                                                            // alert(parseInt($(".target_value"+ch+i).val()));alert(parseInt($(".target_value"+d+i).val()));
+                                                          }
+                                                          //alert($(".target_value"+ch+i).val());alert(parseInt($(".target_value"+d+i).val()));
+                                                        }
+                                                    }
+                                                   
+                                                    if (kpi_value == '')
+                                                    {
+                                                        kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
+                                                    }
+                                                    else
+                                                    {                                    
+                                                            kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
+                                                    }
+
+                                                }
+                                                //alert(er);
+                                               
+                                            }
+                                           else if(selected_value == 'Percentage' )
+                                            {
+                                                if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
+                                                {
+                                                    $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
+                                                    error = 'Target 1 value is compulsory.';break;
+                                                }
+                                                else if($(".target_value1"+i).val()=='0')
+                                                {
+                                                    $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
+                                                    error = '0 value is not allowed';break;
+                                                }
+                                                else if(($("#target_need1").text() != 'undefined' || $("#target_need1").text() === undefined) && $(".target_value1"+i).val()!='' && !$.isNumeric($(".target_value1"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
+                                                {
+                                                     $(".target_value2"+i).css('border','1px solid red');
+                                                     $(".target_value2"+i).focus();
+                                                     error = 'Target 2 value is compulsory.';break; 
+                                                }
+                                                else if($(".target_value2"+i).val()=='0')
+                                                {
+                                                     $(".target_value2"+i).css('border','1px solid red');
+                                                     $(".target_value2"+i).focus();
+                                                      error = '0 value is not allowed';break;
+                                                }
+                                                else if(($("#target_need2").text() != 'undefined' || $("#target_need2").text() === undefined) && $(".target_value2"+i).val()!='' && !$.isNumeric($(".target_value2"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
+                                                {
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
+                                                }
+                                                else if($(".target_value3"+i).val()=='0')
+                                                {
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need3").text() != 'undefined' || $("#target_need3").text() === undefined) && $(".target_value3"+i).val()!='' && !$.isNumeric($(".target_value3"+i).val()))
+                                                {
+                                                     $(".target_value3"+i).css('border','1px solid red');
+                                                     $(".target_value3"+i).focus();
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
+                                                {
+                                                    $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
+                                                }
+                                                else if($(".target_value4"+i).val()=='0')
+                                                {
+                                                    $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need4").text() != 'undefined' || $("#target_need4").text() === undefined) && $(".target_value4"+i).val()!='' && !$.isNumeric($(".target_value4"+i).val()))
+                                                {
+                                                     $(".target_value4"+i).css('border','1px solid red');
+                                                     $(".target_value4"+i).focus(); 
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
+                                                {
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
+                                                }
+                                                else if($(".target_value5"+i).val()=='0')
+                                                {
+                                                     $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
+                                                }
+                                                else if(($("#target_need5").text() != 'undefined' || $("#target_need5").text() === undefined) && $(".target_value5"+i).val()!='' && !$.isNumeric($(".target_value5"+i).val()))
+                                                {
+                                                     error = 'Only numbers are allowed for Days/Percentage.';break;
+                                                }
+                                                
+                                                else
+                                                {
+                                                   
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {
+                                                    //alert($(".target_value"+ch+i).val());alert($(".target_value"+d+i).val());
+                                                        //var d= parseInt(ch)-parseInt(1);
+                                                        for(var d = ch-1;d>0;d--)
+                                                        {
+                                                          if($(".target_value"+ch+i).val()==$(".target_value"+d+i).val())
+                                                          {
+                                                             er = "Repetition is not allowed";
+                                                          }
+                                                        }
+                                                    }
                                                     if (kpi_value == '')
                                                     {
                                                         kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
@@ -3386,29 +4795,164 @@ else
                                             }
                                             else if(selected_value == 'Date')
                                             {
+                                                var asc = 0;var desc = 0;
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                    $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }                                               
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
-                                                     error = 'Target 2 value is compulsory.';break;
+                                                     $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
+                                                     error = 'Target 2 value is compulsory.';break; 
                                                 }                                                
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }                                                
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                    $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }                                                
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                    $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }                                                
                                                 else
                                                 {
-                                                    error = '';
+                                                   var asc = 0;var desc = 0;
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {   
+                                                        var date1 =  $(".target_value"+ch+i).val().split("/");
+                                                        var date_pos = '';
+                                                        if(date1[1] == "Jan")
+                                                        {
+                                                         date_pos = '01';
+                                                        }
+                                                        else if(date1[1] == "Feb")
+                                                        {
+                                                         date_pos = '02';
+                                                        }
+                                                        else if(date1[1] == "Mar")
+                                                        {
+                                                         date_pos = '03';
+                                                        }
+                                                        else if(date1[1] == "Apr")
+                                                        {
+                                                         date_pos = '04';
+                                                        }
+                                                        else if(date1[1] == "May")
+                                                        {
+                                                         date_pos = '05';
+                                                        }
+                                                        else if(date1[1] == "Jun")
+                                                        {
+                                                         date_pos = '06';
+                                                        }
+                                                        else if(date1[1] == "Jul")
+                                                        {
+                                                         date_pos = '07';
+                                                        }
+                                                        else if(date1[1] == "Aug")
+                                                        {
+                                                         date_pos = '08';
+                                                        }
+                                                        else if(date1[1] == "Sep")
+                                                        {
+                                                         date_pos = '09';
+                                                        }
+                                                        else if(date1[1] == "Oct")
+                                                        {
+                                                         date_pos = '10';
+                                                        }
+                                                        else if(date1[1] == "Nov")
+                                                        {
+                                                         date_pos = '11';
+                                                        }
+                                                        else if(date1[1] == "Dec")
+                                                        {
+                                                         date_pos = '12';
+                                                        }
+                                                        var date11 = date1[0]+'/'+date_pos+'/'+date1[2];
+                                                        var d= parseInt(ch)-parseInt(1);
+                                                        if(d != 0)
+                                                        {
+                                                           var date2 =  $(".target_value"+d+i).val().split("/");
+                                                            var date_pos = '';
+                                                        if(date2[1] == "Jan")
+                                                        {
+                                                         date_pos = '01';
+                                                        }
+                                                        else if(date2[1] == "Feb")
+                                                        {
+                                                         date_pos = '02';
+                                                        }
+                                                        else if(date2[1] == "Mar")
+                                                        {
+                                                         date_pos = '03';
+                                                        }
+                                                        else if(date2[1] == "Apr")
+                                                        {
+                                                         date_pos = '04';
+                                                        }
+                                                        else if(date2[1] == "May")
+                                                        {
+                                                         date_pos = '05';
+                                                        }
+                                                        else if(date2[1] == "Jun")
+                                                        {
+                                                         date_pos = '06';
+                                                        }
+                                                        else if(date2[1] == "Jul")
+                                                        {
+                                                         date_pos = '07';
+                                                        }
+                                                        else if(date2[1] == "Aug")
+                                                        {
+                                                         date_pos = '08';
+                                                        }
+                                                        else if(date2[1] == "Sep")
+                                                        {
+                                                         date_pos = '09';
+                                                        }
+                                                        else if(date2[1] == "Oct")
+                                                        {
+                                                         date_pos = '10';
+                                                        }
+                                                        else if(date2[1] == "Nov")
+                                                        {
+                                                         date_pos = '11';
+                                                        }
+                                                        else if(date2[1] == "Dec")
+                                                        {
+                                                         date_pos = '12';
+                                                        }
+                                                        var date12 = date2[0]+'/'+date_pos+'/'+date2[2];
+                                                            if(process(date11) < process(date12))
+                                                            { 
+                                                              asc = parseInt(asc)+parseInt(1);
+                                                            }
+                                                            if(process(date11) > process(date12))
+                                                            { 
+                                                              desc = parseInt(desc)+parseInt(1);
+                                                            }
+                                                           //alert(desc);
+                                                        }
+                                                     
+                                                    }
+                                                    //alert(asc);alert(desc);
+                                                      if(desc!=4 && asc !=4)
+                                                      { 
+                                                         er = "Date should be either in ascending or descending order and repetition is not allowed.";
+                                                      }
                                                     if (kpi_value == '')
                                                     {
                                                         kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
@@ -3417,8 +4961,8 @@ else
                                                     {                                    
                                                             kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
                                                     }
-
                                                 }
+                                               //alert(er);
                                             }
                                             else if(selected_value == 'Text')
                                             {
@@ -3426,6 +4970,8 @@ else
                                                 var chk = /[;-]/;
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                    $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }
                                                 else if(($(".target_value1"+i).val()!='' && chk.test($(".target_value1"+i).val())) || ($(".target_value1"+i).val()!='' && $(".target_value1"+i).val().length>2000))
@@ -3434,7 +4980,9 @@ else
                                                 }
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
-                                                     error = 'Target 2 value is compulsory.';break;
+                                                     $(".target_value2"+i).css('border','1px solid red');
+                                                     $(".target_value2"+i).focus();
+                                                     error = 'Target 2 value is compulsory.';break; 
                                                 }
                                                else if(($(".target_value2"+i).val()!='' && chk.test($(".target_value2"+i).val())) || ($(".target_value2"+i).val()!='' && $(".target_value2"+i).val().length>2000))
                                                 {
@@ -3442,7 +4990,9 @@ else
                                                 }
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                     $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }
                                                 else if(($(".target_value3"+i).val()!='' && chk.test($("#target_need3").text())) || ($(".target_value3"+i).val()!='' && $("#target_need3").text().length>2000))
                                                 {
@@ -3450,7 +5000,9 @@ else
                                                 }
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                     $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }
                                                 else if(($(".target_value4"+i).val()!='' && chk.test($(".target_value4"+i).val())) || ($(".target_value4"+i).val()!='' && $(".target_value4"+i).val().length>2000))
                                                 {
@@ -3458,7 +5010,9 @@ else
                                                 }
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                       $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }
                                                else if(($(".target_value4"+i).val()!='' && chk.test($(".target_value5"+i).val())) || ($(".target_value4"+i).val()!='' && $(".target_value5"+i).val().length>2000))
                                                 {
@@ -3468,13 +5022,14 @@ else
                                                 {
                                                     error = '';var chk1 = /[;]/;
                                                     if (kpi_value == '')
-                                                    {
-                                                        kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
-                                                    }
-                                                    else
-                                                    {                                    
-                                                            kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
-                                                    }
+                                                        {
+                                                            kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
+                                                        }
+                                                        else
+                                                        {                                    
+                                                                kpi_value = kpi_value+';'+$(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();                                   
+                                                        }
+                                                    
                                                 }
                                             }
                                             else if(selected_value == 'Ratio')
@@ -3482,6 +5037,8 @@ else
                                                 var ratio_chk = /^([0-9]{1,5}[:]{1}[0-9]{1,5})$/;
                                                 if($("#target_need1").text() != 'undefined' && $(".target_value1"+i).val()=='')
                                                 {
+                                                   $(".target_value1"+i).css('border','1px solid red');
+                                                    $(".target_value1"+i).focus();
                                                     error = 'Target 1 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need1").text() != 'undefined' || $("#target_need1").text() === undefined) && $(".target_value1"+i).val()!='' && !ratio_chk.test($(".target_value1"+i).val()))
@@ -3490,7 +5047,9 @@ else
                                                 }
                                                 else if($("#target_need2").text() != 'undefined' && $(".target_value2"+i).val()=='')
                                                 {
-                                                     error = 'Target 2 value is compulsory.';break;
+                                                    $(".target_value2"+i).css('border','1px solid red');
+                                                    $(".target_value2"+i).focus();
+                                                    error = 'Target 2 value is compulsory.';break; 
                                                 }
                                                 else if(($("#target_need2").text() != 'undefined' || $("#target_need2").text() === undefined) && $(".target_value2"+i).val()!='' && !ratio_chk.test($(".target_value2"+i).val()))
                                                 {
@@ -3498,7 +5057,9 @@ else
                                                 }
                                                 else if($("#target_need3").text() != 'undefined' && $(".target_value3"+i).val()=='')
                                                 {
-                                                     error = 'Target 3 value is compulsory.';break;
+                                                    $(".target_value3"+i).css('border','1px solid red');
+                                                    $(".target_value3"+i).focus();
+                                                    error = 'Target 3 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need3").text() != 'undefined' || $("#target_need3").text() === undefined) && $(".target_value3"+i).val()!='' && !ratio_chk.test($(".target_value3"+i).val()))
                                                 {
@@ -3506,7 +5067,9 @@ else
                                                 }
                                                 else if($("#target_need4").text() != 'undefined' && $(".target_value4"+i).val()=='')
                                                 {
-                                                     error = 'Target 4 value is compulsory.';break;
+                                                    $(".target_value4"+i).css('border','1px solid red');
+                                                    $(".target_value4"+i).focus(); 
+                                                    error = 'Target 4 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need4").text() != 'undefined' || $("#target_need4").text() === undefined) && $(".target_value4"+i).val()!='' && !ratio_chk.test($(".target_value4"+i).val()))
                                                 {
@@ -3514,7 +5077,9 @@ else
                                                 }
                                                 else if($("#target_need5").text() != 'undefined' && $(".target_value5"+i).val()=='')
                                                 {
-                                                     error = 'Target 5 value is compulsory.';break;
+                                                    $(".target_value5"+i).css('border','1px solid red');
+                                                    $(".target_value5"+i).focus(); 
+                                                    error = 'Target 5 value is compulsory.';break;
                                                 }
                                                 else if(($("#target_need5").text() != 'undefined' || $("#target_need5").text() === undefined) && $(".target_value5"+i).val()!='' && !ratio_chk.test($(".target_value5"+i).val()))
                                                 {
@@ -3522,7 +5087,19 @@ else
                                                 }
                                                 else
                                                 {
-                                                    error = '';
+                                                   
+                                                    for(var ch = 5;ch>0;ch--)
+                                                    {
+                                                    //alert($(".target_value"+ch+i).val());alert($(".target_value"+d+i).val());
+                                                        //var d= parseInt(ch)-parseInt(1);
+                                                        for(var d = ch-1;d>0;d--)
+                                                        {
+                                                          if($(".target_value"+ch+i).val()==$(".target_value"+d+i).val())
+                                                          {
+                                                             er = "Repetition is not allowed";
+                                                          }
+                                                        }
+                                                    }
                                                     if (kpi_value == '')
                                                     {
                                                         kpi_value = $(".target_value1"+i).val()+'-'+$(".target_value2"+i).val()+'-'+$(".target_value3"+i).val()+'-'+$(".target_value4"+i).val()+'-'+$(".target_value5"+i).val();
@@ -3545,7 +5122,7 @@ else
                                             }
                     else if ($("#unit_value-"+i).val() == 0 || $("#unit_value-"+i).val().length>6)
                                             {
-                                                error = 'Minimum 1 and maximum 6 digits are allowed.';break;
+                                                error = 'Minimum 1 number and maximum 6 digits are allowed.';break;
                                             }                       
                                             else if (!$.isNumeric($("#unit_value-"+i).val())) 
                                             {
@@ -3570,14 +5147,14 @@ else
                                             error = 'The Total for kpi score should be 100';break;
                                         }
                                         else
-                                        {                                                    
-                                           error = '';
+                                        {
+                                            error = '';
                                         }
 
                                     }                                   
                                     else
                                     {
-                                        error = '';
+                                         error = '';
                                         if ($("#mask_number-"+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+i).val() != '' || $("#unit_value-"+i).val() != '')) 
                                         {
                                              error = 'Please Fill Correct KPI Details';break;
@@ -3587,26 +5164,45 @@ else
                                             error = 'Please Fill Correct KPI Details';break;
                                         }
                                         else if(($("#mask_number-"+i).find(':selected').val() == 'Select' && ($("#kpilistyii_"+i).val() != '' || $("#unit_value-"+i).val() != '')) || ($("#kpilistyii_"+i).val() == '' && $("#mask_number-"+i).find(':selected').val() != 'Select'))
-                                            {
-                                                error = 'Please Fill Correct KPI Details';break;
-                                            }
-                                            else
-                                            {
-                                                error = '';
-                                                // if (final_kpi_total != 100) 
-                                                // {
-                                                //     error = 'The Total for kpi score should be 100';break;
-                                                // }
-                                                // else
-                                                // {                                                    
-                                                //    error = '';
-                                                // }
-                                            }                                         
-                                    }       
+                                        {
+                                            error = 'Please Fill Correct KPI Details';break;
+                                        }
+                                        else if(er != '')
+                                        {
+                                             error = er;break;
+                                        }
+                                        else if(tot_kpi_wt !=0 && tot_kpi_wt1 != tot_kpi_wt)
+                                        {
+                                            error = "Please enter KPI Weightage for all KPI field.";break;
+                                        }
+                                        else
+                                        {
+                                            error = '';
+                                            // if (final_kpi_total != 100) 
+                                            // {
+                                            //     error = 'The Total for kpi score should be 100';break;
+                                            // }
+                                            // else
+                                            // {                                                    
+                                            //    error = '';
+                                            // }
+                                        }                                         
+                                    }  
+                                    
                             }
-                                                              
+                            if(er != '')
+                            {
+                                 error = er;
+                            }
+                            else
+                            {
+                                er = '';
+                            }
+                            //alert(er);
+                                                
                                 } 
                             }
+                            
                             
                         }
                         
@@ -3614,6 +5210,7 @@ else
                         {
                             kpi_id_value = updated_kpi_value;
                         }
+                        //alert(tot_kpi_wt1);alert(tot_kpi_wt);
                         //alert(error);
                         var data = {
                             'KRA_category' : $("#target_value").find(':selected').val(),
@@ -3645,17 +5242,19 @@ else
                                 type : 'post',
                                 datatype : 'html',
                                 data : data,
-                                url : base_url+'/index.php?r=Setgoals1/savekpi',
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/savekpi',
                                 success : function(data)
                                 {
-                                    //alert(data);
+                                   // alert(data);
                                     if (data == "Success")
                                     {
                                         updated_kpi_value = kpi_id_value;
                                        $(".output_div1").load(location.href + " .output_div1");
+
                                         location.reload();
                                        
                                     }
+                                    
                                     
                                 }
                             });
@@ -3665,7 +5264,7 @@ else
                     }
                     else
                     {
-
+                       
                         $("#err").show();  
                         //$("#err").fadeOut(6000);
                         $("#error_value").text(error);
@@ -3675,23 +5274,80 @@ else
                  
                 $(function(){
                     $("body").on('click','.send_for_appraisal',function(){
-            $("#err").removeClass("alert-success"); 
+                    $("#err").removeClass("alert-success"); 
                     $("#err").removeClass("alert-danger");
-                     var total = 0;
-                    var total_goal = $("#count_goal").text();
-                  //alert(total_goal);
+                    var total = 0;
+                    var total_goal = $("#count_goal1").text();
+                    var total_new = 0;
+                    var total_goal_new = $(".count_goal_new").text();
                     var j = jQuery.noConflict();
                     console.log(total_goal);
                     $(window).scroll(function()
                     {
                         $('#err').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});  
                     });
+
+if(total_goal_new!=0){
+                    if(total_goal_new < 4)
+                    {
+                        $("#err").show();  
+                        $("#err").fadeOut(6000);
+                        $("#error_value").text("Minimum 4 KRA Required for New Goalsheet.");
+                        $("#err").addClass("alert-danger");
+                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }                    
+                    else
+                    {
+                      //alert(total_goal_new);  
+                        for (var i = 1; i <= total_goal_new; i++) 
+                        {
+                            
+                                if(total_new != 0)
+                                {
+                                    //alert(i);
+                                    total_new = parseInt(total_new)+parseInt($("#total1_"+i).text());
+                                } 
+                                else
+                                {
+                                    total_new = $("#total1_"+i).text();
+                                }
+                        }
+                var kra_cat_new=parseInt($('#kra_cat_cnt_new').text());
+                if(!($('#cnt_kra_cat_people1_new').text() == 1 && $('#cnt_kra_cat_process1_new').text() == 1 && $('#cnt_kra_cat_customer1_new').text() == 1 && $('#cnt_kra_cat_business1_new').text() == 1))
+                        {
+                             $("#err").show();  
+                            $("#err").fadeOut(6000);
+                            $("#error_value").text("Selection of all KRA category is mandatory for New Goalsheet");
+                            $("#err").addClass("alert-danger");
+                             $("html, body").animate({ scrollTop: 0 }, "slow");
+                        }
+                       else if(kra_cat_new!= 0){
+                            $("#err").show();  
+                            $("#err").fadeOut(6000);
+                            $("#error_value").text(" KRA category should not repeat more than 2 times for New Goalsheet.");
+                            $("#err").addClass("alert-danger");
+                             $("html, body").animate({ scrollTop: 0 }, "slow");
+                       }
+                       else if (total_new!=100) 
+                        {
+                            $("#err").show();  
+                            $("#err").fadeOut(6000);
+                            $("#error_value").text("Total of KRA should be 100 only for New Goalsheet.");
+                            $("#err").addClass("alert-danger");
+                             $("html, body").animate({ scrollTop: 0 }, "slow");
+                           
+                        }
+
+}
+}
+
                     if(total_goal < 4)
                     {
                         $("#err").show();  
                         $("#err").fadeOut(6000);
                         $("#error_value").text("Minimum 4 KRA Required.");
                         $("#err").addClass("alert-danger");
+                         $("html, body").animate({ scrollTop: 0 }, "slow");
                     }                    
                     else
                     {
@@ -3700,6 +5356,7 @@ else
                             
                                 if(total != 0)
                                 {
+                                    //alert(i);
                                     total = parseInt(total)+parseInt($("#total_"+i).text());
                                 } 
                                 else
@@ -3707,13 +5364,40 @@ else
                                     total = $("#total_"+i).text();
                                 }
                         }
-                            //alert(total);
-                        if (total!=100) 
+
+
+
+
+
+
+
+
+                        //alert(total);
+                        //alert($('#cnt_kra_cat_people1').text()); alert($('#cnt_kra_cat_process1').text()); alert($('#cnt_kra_cat_customer1').text()); alert($('#cnt_kra_cat_business1').text());
+                        var kra_cat=parseInt($('#kra_cat_cnt').text());
+                        //alert(kra_cat);
+                        if(!($('#cnt_kra_cat_people1').text() == 1 && $('#cnt_kra_cat_process1').text() == 1 && $('#cnt_kra_cat_customer1').text() == 1 && $('#cnt_kra_cat_business1').text() == 1))
+                        {
+                             $("#err").show();  
+                            $("#err").fadeOut(6000);
+                            $("#error_value").text("Selection of all KRA category is mandatory");
+                            $("#err").addClass("alert-danger");
+                             $("html, body").animate({ scrollTop: 0 }, "slow");
+                        }
+                       else if(kra_cat!= 0){
+                            $("#err").show();  
+                            $("#err").fadeOut(6000);
+                            $("#error_value").text(" KRA category should not repeat more than 2 times.");
+                            $("#err").addClass("alert-danger");
+                             $("html, body").animate({ scrollTop: 0 }, "slow");
+                       }
+                       else if (total!=100) 
                         {
                             $("#err").show();  
                             $("#err").fadeOut(6000);
                             $("#error_value").text("Total of KRA should be 100 only.");
                             $("#err").addClass("alert-danger");
+                             $("html, body").animate({ scrollTop: 0 }, "slow");
                            
                         }
                         else
@@ -3729,13 +5413,13 @@ else
                                                 if (get_list_value[j] == i && ($("#program_cmd-"+get_list_value[j]).val() === undefined || $("#program_cmd-"+get_list_value[j]).val() == '' || chk.test($("#program_cmd-"+get_list_value[j]).val())))
                                                 {
                                                     chk_cmnts = 0;chk_compl = 0;
-                                                    $("#program_cmd-"+get_list_value[j]).css('border-color','red');break;
+                                                    $("#program_cmd-"+get_list_value[j]).css('border-color','red');$("#program_cmd"+i).focus();break;
                                                    
                                                 } 
                                                 else if($("#program_cmd-"+get_list_value[j]).val().length>500)
                                                 {
                                                 chk_cmnts = 0;chk_compl = 0;chk_compl1 = 1;
-                                                                                        $("#program_cmd-"+get_list_value[j]).css('border-color','red');break;
+                                                                                        $("#program_cmd-"+get_list_value[j]).css('border-color','red');$("#program_cmd"+i).focus();break;
                                                 }
                                                 else if (get_list_value[j] == i && ($("#program_cmd-"+get_list_value[j]).val() != 'undefined' && $("#program_cmd-"+get_list_value[j]).val() != '' || !chk.test($("#program_cmd-"+get_list_value[j]).val())))
                                                 {chk_compl1 = 0;
@@ -3752,7 +5436,8 @@ else
                                                     {  
                                                       //alert(comp_loc_list[k]);
                                                         chk_cmnts = 0;chk_compl = 0;
-                                                        $("#program_cmd-"+i).css('border-color','red');break;
+                                                        $("#program_cmd-"+i).css('border-color','red'); $("#program_cmd"+i).focus();
+                                                        break;
                                                        
                                                     }  
                                                     else if (comp_loc_list[k] != $("#company_loc").text() && ($("#program_cmd-"+i).val() != 'undefined' && $("#program_cmd-"+i).val() != '' || !chk.test($("#program_cmd-"+i).val())))
@@ -3777,17 +5462,33 @@ else
                                          chk_cmnts++;
                                     }                
                                 }
-                                for (var i = 0; i < 2; i++) {
-                                   if (!($(".topic"+i).val() === undefined && $("#days_required"+i).val() === undefined && $("#faculty_email_id"+i).find(":selected").val() === undefined)) 
+                                for (var i = 1; i < 3; i++) {
+                                   
+                                   if (!($(".topic"+i).val() === undefined && $("#days_required"+i).val() === undefined || $("#faculty_email_id"+i).find(":selected").val() === undefined || $("#faculty_email_id"+i).find(":selected").val()=='Select')) 
                                    {
-                                    
-                                        if (($(".topic"+i).val()!='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select'))) || ($(".topic"+i).val()!='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()!='' || $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()!='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select')))  || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select')))  || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()!='' || $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()!='' && $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()!='' && $("#faculty_email_id"+i).find(":selected").val()!='Select') && ($("#days_required"+i).val()!='' && !$.isNumeric($("#days_required"+i).val()))))
-                                            {
-                                                $(".topic"+i).css('border-color','red');
-                                                $("#days_required"+i).css('border-color','red');
-                                                $("#faculty_email_id"+i).css('border-color','red');
-                                                chk_cmnts1++;
-                                            }
+                                     
+                                        if(($('.topic'+i).val()=="" || $('.topic'+i).val()=== undefined) && ( ($("#days_required"+i).val()!="" || !($("#days_required"+i).val()) === undefined || $("#faculty_email_id"+i).find(":selected").val()!='')))
+                        {
+                            $(".topic"+i).css('border-color','red');
+                            $(".topic"+i).focus();
+                            <!--$("#days_required"+i).css('border-color','red');-->
+                            <!--$("#faculty_email_id"+i).css('border-color','red');-->
+                            chk_cmnts1++;
+                        }
+                        else if(($("#days_required"+i).val()=='' ||$("#days_required"+i).val()=== undefined ) && ($(".topic"+i).val()!="" || !($(".topic"+i).val()) === undefined || $("#faculty_email_id"+i).find(":selected").val()!='')){
+                            $(".topic"+i).css('border-color','');
+                            $("#days_required"+i).css('border-color','red');
+                            $("#days_required"+i).focus();
+                            <!--$("#faculty_email_id"+i).css('border-color','red');-->
+                            chk_cmnts1++;
+                        }
+                        else if(($("#faculty_email_id"+i).find(":selected").val()=='Select' || $("#faculty_email_id"+i).find(":selected").val()=='' ) && ($(".topic"+i).val()!="" || !($(".topic"+i).val()) === undefined ||$(".topic"+i).val()!="" || !($(".topic"+i).val()) === undefined) ){
+                            $(".topic"+i).css('border-color','');
+                            $("#days_required"+i).css('border-color','');
+                            $("#faculty_email_id"+i).css('border-color','red');
+                            $("#faculty_email_id"+i).focus();
+                            chk_cmnts1++;
+                        }
                                             else
                                             { chk_cmnts1== 0;
                                                 if (topic == '') 
@@ -3813,14 +5514,28 @@ else
                                     chk_cmnts1 = 0;
                                    }                                 
                                 }
+                                var comp_desg=parseInt($("#compare_designation").text());
+                                if(comp_desg == 1){
                                 for (var i = 3; i <= 4; i++) {
-                                   if (($(".target_date"+i).val()!='' && ($("#number_of_meetings"+i).val()!='' && ($("#faculty_email_id"+i).val()=='' || $("#faculty_email_id"+i).val()===undefined))) || ($(".target_date"+i).val()=='' && ($("#number_of_meetings"+i).val()!='' && !$.isNumeric($("#number_of_meetings"+i).val()) && ($("#faculty_email_id"+i).val()!='' || $("#faculty_email_id"+i).val()!='undefined'))) || ($(".target_date"+i).val()!='' && ($("#number_of_meetings"+i).val()=='' && ($("#faculty_email_id"+i).val()!='' || $("#faculty_email_id"+i).val()!='undefined'))) || ($(".target_date"+i).val()=='' && ($("#number_of_meetings"+i).val()=='' && ($("#faculty_email_id"+i).val()=='' || $("#faculty_email_id"+i).val()=='undefined'))))
+                                   if($("#faculty_email_id"+i).val()=='' || $("#faculty_email_id"+i).val()===undefined)
                                     {
-                                        $(".target_date"+i).css('border-color','red');
-                                        $("#number_of_meetings"+i).css('border-color','red');
+                                        <!--$(".target_date"+i).css('border-color','red');-->
+                                        <!--$("#number_of_meetings"+i).css('border-color','red');-->
                                         $("#faculty_email_id"+i).css('border-color','red');
                                         chk_cmnts2++;
                                     }
+                                     else if($('#number_of_meetings'+i).val()=="" || $('#number_of_meetings'+i).val()=== undefined || !$.isNumeric($("#number_of_meetings"+i).val())){
+                                        $("#number_of_meetings"+i).css('border-color','red');
+                                        $("#faculty_email_id"+i).css('border-color','');
+                                         chk_cmnts2++;
+                                    }
+                                    else if($(".target_date"+i).val()=='' || $(".target_date"+i).val()=== undefined){
+                                       $(".target_date"+i).css('border-color','red');
+                                        $("#number_of_meetings"+i).css('border-color','');
+                                        $("#faculty_email_id"+i).css('border-color','');
+                                        chk_cmnts2++;
+                                    }
+                                   
                                     else
                                     {
                                         chk_cmnts2== 0;
@@ -3842,7 +5557,8 @@ else
                                         $("#error_spec2").text("");
                                     }
                                 }
-                    
+                    }
+                   
                    str = $("#Reporting_officer1_id").text().replace(/\s+/g, '');
                                             str1 = $("#emp_code").text().replace(/\s+/g, '');
                                             var base_url = window.location.origin;
@@ -3868,47 +5584,48 @@ else
 
                                            if (chk_cmnts == 0 || chk_compl<get_list_value.length) 
                                     {
-                                         $('body').animate({
-                                            scrollTop: ($(".error_row_chk").first().offset().top)
+                                        $('body').animate({
+                                            scrollTop: ($(".program_cmd").first().offset().top)
                                         },500);
                                           $("#error_spec1").text("Please fill all required fields for program comments(Note : special character ';' not allowed).");                          
                                     }
                                     else if(chk_cmnts1 != 0)
                                     {
-                                         $('body').animate({
-                                            scrollTop: ($(".error_row_chk").first().offset().top)
-                                        },500);
+                                        <!-- $('body').animate({-->
+                                        <!--    scrollTop: ($(".error_row_chk").first().offset().top)-->
+                                        <!--},500);-->
                                           $("#error_spec1").text("Please provide all the details if you need other program.");   
                                     }
-                                    //else if(chk_cmnts2 != 0)
-                                    //{
-                                         //$('body').animate({
-                                          //  scrollTop: ($(".error_row_chk2").first().offset().top)
-                                       // },500);
-                                       //   $("#error_spec2").text("Please provide all the details for Development through developmental relationships.");   
-                                    //}
+                                    else if(chk_cmnts2 != 0)
+                                    {
+              
+                                          $("#error_spec2").text("Please provide all the details for Development through developmental relationships.");   
+                                    }
                                     else
                                     {
                                         $("#error_spec1").text("");
                                         $("#error_spec2").text("");
-                                        if($("#project_title1").val() == '' || $("#project_title1").val().length>500)
+                                        var comp_desg=parseInt($('#compare_designation').text());
+                                        if(comp_desg == 1 && ($("#project_title1").val() == '' || $("#project_title1").val().length>500))
                                         {
                                              $('body').animate({
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $("#project_title1").css('border-color','red');
-                                                $("#error_spec4").text("Please provide project title(Note: 500characters are maximum limit).");   
+                                                $("#project_title1").focus();
+                                                $("#error_spec4").text("Please provide project title(Note: 50characters are maximum limit).");   
                                         }
-                                        else if($("#review_date").val() == '')
+                                        else if(comp_desg == 1 &&($("#review_date").val() == ''))
                                         {
                                              $("#project_title1").css('border-color','');
                                              $('body').animate({
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $("#review_date").css('border-color','red');
+                                                $("#review_date").focus();
                                                 $("#error_spec4").text("Please provide project review date.");
                                         }
-                                        else if($("#target_end_date").val() == '')
+                                        else if(comp_desg == 1 &&($("#target_end_date").val() == ''))
                                         {
                                            $("#project_title1").css('border-color','');
                                             $("#review_date").css('border-color','');
@@ -3916,9 +5633,10 @@ else
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $("#target_end_date").css('border-color','red');
+                                                $("#target_end_date").focus();
                                                 $("#error_spec4").text("Please provide project target end date.");
                                         }
-                                        else if($("#project_scope").val() == '' || $("#project_scope").val().length>500)
+                                        else if(comp_desg == 1 && ($("#project_scope").val() == '' || $("#project_scope").val().length>500))
                                         {
                                             $("#project_title1").css('border-color','');
                                             $("#review_date").css('border-color','');
@@ -3927,9 +5645,10 @@ else
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $("#project_scope").css('border-color','red');
+                                                $("#project_scope").focus();
                                                 $("#error_spec4").text("Please provide project scope(Note: 500characters are maximum limit).");   
                                         }
-                                        else if($("#project_exclusion").val() == '' || $("#project_exclusion").val().length>500)
+                                        else if(comp_desg == 1 &&($("#project_exclusion").val() == '' || $("#project_exclusion").val().length>500))
                                         {
                                             $("#project_title1").css('border-color','');
                                             $("#review_date").css('border-color','');
@@ -3939,9 +5658,10 @@ else
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $("#project_exclusion").css('border-color','red');
+                                                $("#project_exclusion").focus();
                                                 $("#error_spec4").text("Please provide project exclusion(Note: 500characters are maximum limit).");   
                                         }
-                                         else if($(".project_deliverables").val() == '' || $(".project_deliverables").val().length>500)
+                                         else if(comp_desg == 1 &&($(".project_deliverables").val() == '' || $(".project_deliverables").val().length>500))
                                         {
                                             $("#project_title1").css('border-color','');
                                             $("#review_date").css('border-color','');
@@ -3951,9 +5671,10 @@ else
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $(".project_deliverables").css('border-color','red');
+                                                $(".project_deliverables").focus();
                                                 $("#error_spec4").text("Please provide comments in project deliverables field(Note: 500 characters are maximum limit).");   
                                         }
-                                        else if($(".learn_from").val() == '' || $(".learn_from").val().length>300)
+                                        else if(comp_desg == 1 &&($(".learn_from").val() == '' || $(".learn_from").val().length>300))
                                         {
                                           $("#project_title1").css('border-color','');
                                             $("#review_date").css('border-color','');
@@ -3964,9 +5685,10 @@ else
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $(".learn_from").css('border-color','red');
+                                                $(".learn_form").focus();
                                                 $("#error_spec4").text("Please provide comments in what is expected to learn from this project(Note: 300 characters are maximum limit).");   
                                         }
-                                        else if($(".reviewvers_name").val() == '' || $(".reviewvers_name").val().length>50)
+                                        else if(comp_desg == 1 && ($(".reviewvers_name").val() == '' || $(".reviewvers_name").val().length>50))
                                         {
                                           $("#project_title1").css('border-color','');
                                             $("#review_date").css('border-color','');
@@ -3978,6 +5700,7 @@ else
                                                 scrollTop: ($(".error_row_chk1").first().offset().top)
                                             },500);
                                                 $(".reviewvers_name").css('border-color','red');
+                                                 $(".reviewvers_name").focus();
                                                 $("#error_spec4").text("Please provide reviewer(s) name(Note: 50 characters are maximum limit).");   
                                         }
                                         else
@@ -4004,12 +5727,12 @@ else
                                                 emp_code : str1,
                                                 Reporting_officer1_id: str
                                             };
-
+ 
                                             $.ajax({
                                                 'type' : 'post',
                                                 'datatype' : 'html',
                                                 'data' : detail_data,
-                                                'url' : base_url+'/index.php?r=IDP/save_data1',
+                                                'url' : base_url+$("#basepath").attr('value')+'/index.php?r=IDP/save_data1',
                                                 success : function(data)
                                                 {
                                                     $("#project_title1").css('border-color','');
@@ -4017,30 +5740,42 @@ else
                                                     $("#target_end_date").css('border-color','');
                                                     $("#project_scope").css('border-color','');
                                                     $("#project_exclusion").css('border-color','');
+                                                    $(".project_deliverables").css('border-color','');
+                                                    $(".learn_from").css('border-color','');
+                                                    $(".reviewvers_name").css('border-color','');
                                                     $("#error_spec1").text("");
                                                     $("#error_spec2").text("");
                                                     $("#error_spec3").text("");
                                                     $("#error_spec4").text("");
-                                                    jQuery("#static").modal('show');
-                                                    $("#continue_goal_set").click(function(){
-                                                        $("#show_spin").show();
-                                                         var base_url = window.location.origin;
-                                                            $.ajax({
-                                                                type : 'post',
-                                                                datatype : 'html',
-                                                                url : base_url+'/index.php?r=Setgoals1/sendmail',
-                                                                success : function(data)
-                                                                {
-                                                                    //alert(data);
-                                                                    $("#show_spin").hide(); 
-                                                                    $("#send_for_appraisal").hide();
-                                                                    $("#err").show();  
-                                                                    $("#err").fadeOut(6000);
-                                                                    $("#error_value").text("Notification Sent to appraiser");
-                                                                    $("#err").addClass("alert-success");                       
-                                                                }
+                                                    if($("#term_condition:checked").val() != 'term_condition')
+                                                    {
+                                                        
+                                                        $("#blink_me").addClass('blink_me');
+                                                    }
+                                                    else
+                                                    {
+                                                         jQuery("#static").modal('show');
+                                                            $("#continue_goal_set").click(function(){
+                                                                $("#show_spin").show();
+                                                                 var base_url = window.location.origin;
+                                                                    $.ajax({
+                                                                        type : 'post',
+                                                                        datatype : 'html',
+                                                                        url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/sendmail',
+                                                                        success : function(data)
+                                                                        {
+                                                                            //alert(data);
+                                                                            $("#show_spin").hide(); 
+                                                                            $("#send_for_appraisal").hide();
+                                                                            $("#err").show();  
+                                                                            $("#err").fadeOut(6000);
+                                                                            $("#error_value").text("Notification Sent to your manager");
+                                                                            $("#err").addClass("alert-success");                       
+                                                                        }
+                                                                    });
                                                             });
-                                                    });
+                                                    }
+                                                    
                                                 }
                                             });
                                         }
@@ -4060,8 +5795,81 @@ else
           
                 function get_target_value()
                 {
-                    //alert($('.target_value').find(':selected').val());
-                     var selected_unit = {
+                  
+                    var business=0;var people=0;var customer=0;var process=0;
+                    
+                    var kar_cat=$('.target_value').find(':selected').val();
+                    //alert(kar_cat);
+                    process=<?php echo $proc ?>;
+                    business=<?php echo $buis ?>;
+                    people=<?php  echo $ppl ?>;
+                    customer=<?php echo $cust ?>;
+                    process_new=<?php echo $proc_new ?>;
+                    business_new=<?php echo $buis_new ?>;
+                    people_new=<?php  echo $ppl_new ?>;
+                    customer_new=<?php echo $cust_new ?>;
+                    var total_goal_new = $(".count_goal_new").text();
+                    var new_goal_flg=($('#new_goalsheet').text()).trim();
+                    //var total_goal_new = $(".count_goal_new").text();
+                    var edt =$('#edit1').text();
+                    if(edt == ""){
+                        var edt_flg=0;
+                    }
+                    else{
+                        var edt_flg=1;
+                    }
+                    $("#kra_cat_cnt31").text(0);
+                    $("#kra_cat_cnt31_new").text(0);
+                    //alert($('#cnt_kra_cat_people').text());
+
+
+                    if(new_goal_flg == ''){
+                    if($('#kra_cat_cnt2').text() != 0 && (($('#cnt_kra_cat_people').text() == 1 && kar_cat=="People") || ($('#cnt_kra_cat_customer').text() == 1 && kar_cat=="Customer") || ($('#cnt_kra_cat_process').text() == 1 && kar_cat=="Process") || ($('#cnt_kra_cat_business').text() == 1 && kar_cat=="Business")))
+                    {
+                        $("#err").show();  
+                        $("#err").fadeOut(6000);
+                        $("#error_value").text("Selection of all KRA category is mandatory");
+                        $("#err").addClass("alert-danger");
+                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }
+                    else if($('#kra_cat_cnt1').text() == 1 && ($('#cnt_kra_cat_people').text() > 1 || $('#cnt_kra_cat_process').text() > 1 || $('#cnt_kra_cat_customer').text() > 1 || $('#cnt_kra_cat_business').text() > 1))
+                    {
+                         $("#err").show();  
+                        $("#err").fadeOut(6000);
+                        $("#error_value").text("Selection of all KRA category is mandatory");
+                        $("#err").addClass("alert-danger");
+                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }
+                    else if(parseInt(process) >= 2 && kar_cat=="Process"){
+                              
+             
+                     $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category");
+               
+                     
+                    }
+                    else if(parseInt(business) >= 2 && kar_cat=="Business"){
+                        $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category");
+                    
+                    }
+                   else if(parseInt(people) >= 2 && kar_cat=="People"){
+                        $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category");
+                     
+                    }
+                    else if(parseInt(customer) >= 2 && kar_cat=="Customer"){
+                         $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category");
+                    
+                    }
+                    else if(edt_flg == 0) {
+
+                    var selected_unit = {
                             'kra_category' : $('.target_value').find(':selected').val(),
                     }
                     $("#get_target_value").css('display','none');
@@ -4071,15 +5879,17 @@ else
                             type : 'post',
                             datatype : 'json',
                             data : selected_unit,
-                            url : base_url+'/index.php?r=Setgoals1/gettarget_value',
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/gettarget_value',
                             success : function(data)
                             { 
                                 //alert(detail[2]);
                                 var detail = jQuery.parseJSON(data);
+                                //alert(detail[5]);
                                 $("#kpi_record").html(detail[0]);
                                 $("#kpi_list_number").html(detail[1]);
                                 $("#min_kpi").text(detail[2]);
                                 $("#max_kpi").text(detail[3]);
+                                $("#min_kpiwt").text(detail[5]);
                                 var target_value_need = detail[4].split(';');
                                 $("#target_need1").text(target_value_need[0]);
                                 $("#target_need2").text(target_value_need[1]);
@@ -4088,7 +5898,92 @@ else
                                 $("#target_need5").text(target_value_need[4]);
                             }
                         });
+                        }
                 }
+                else{
+//alert($('#kra_cat_cnt2_new').text());alert($('#cnt_kra_cat_people_new').text());alert($('#cnt_kra_cat_customer_new').text());alert($('#cnt_kra_cat_process_new').text());alert($('#cnt_kra_cat_business_new').text());
+                    if($('#kra_cat_cnt2_new').text() != 0 && (($('#cnt_kra_cat_people_new').text() == 1 && kar_cat=="People") || ($('#cnt_kra_cat_customer_new').text() == 1 && kar_cat=="Customer") || ($('#cnt_kra_cat_process_new').text() == 1 && kar_cat=="Process") || ($('#cnt_kra_cat_business_new').text() == 1 && kar_cat=="Business")))
+                    {
+                        alert("1");
+                        $("#err").show();  
+                        $("#err").fadeOut(6000);
+                        $("#error_value").text("Selection of all KRA category is mandatory");
+                        $("#err").addClass("alert-danger");
+                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }
+                    else if($('#kra_cat_cnt1_new').text() == 1 && ($('#cnt_kra_cat_people_new').text() > 1 || $('#cnt_kra_cat_process_new').text() > 1 || $('#cnt_kra_cat_customer_new').text() > 1 || $('#cnt_kra_cat_business_new').text() > 1))
+                    { alert("2");
+                         $("#err").show();  
+                        $("#err").fadeOut(6000);
+                        $("#error_value").text("Selection of all KRA category is mandatory for New Goalsheet");
+                        $("#err").addClass("alert-danger");
+                         $("html, body").animate({ scrollTop: 0 }, "slow");
+                    }
+                    else if(parseInt(process_new) >= 2 && kar_cat=="Process"){
+                        alert("3");
+                      $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category for New Goalsheet");
+               
+                     
+                    }
+                    else if(parseInt(business_new) >= 2 && kar_cat=="Business"){
+                        alert("4");
+                        $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category for New Goalsheet");
+                    
+                    }
+                   else if(parseInt(people_new) >= 2 && kar_cat=="People"){
+                    alert("5");
+                        $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category for New Goalsheet");
+                     
+                    }
+                    else if(parseInt(customer_new) >= 2 && kar_cat=="Customer"){
+                        alert("6");
+                         $("#err").show();  
+                     $("#err").fadeOut(6000);
+                    $("#error_value").text("Please select another KRA category for New Goalsheet");
+                    
+                    }
+                    else  {
+alert("7");
+                    var selected_unit = {
+                            'kra_category' : $('.target_value').find(':selected').val(),
+                    }
+                    $("#get_target_value").css('display','none');
+                    
+                    var base_url = window.location.origin;
+                     $.ajax({
+                            
+                            type : 'post',
+                            datatype : 'json',
+                            data : selected_unit,
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/gettarget_value',
+                            success : function(data)
+                            { 
+                                //alert(detail[2]);
+                                var detail = jQuery.parseJSON(data);
+                                //alert(detail[5]);
+                                $("#kpi_record").html(detail[0]);
+                                $("#kpi_list_number").html(detail[1]);
+                                $("#min_kpi").text(detail[2]);
+                                $("#max_kpi").text(detail[3]);
+                                $("#min_kpiwt").text(detail[5]);
+                                var target_value_need = detail[4].split(';');
+                                $("#target_need1").text(target_value_need[0]);
+                                $("#target_need2").text(target_value_need[1]);
+                                $("#target_need3").text(target_value_need[2]);
+                                $("#target_need4").text(target_value_need[3]);
+                                $("#target_need5").text(target_value_need[4]);
+                            }
+                        });
+                        }
+                }
+
+            }
                 $(function(){
                 ////////////
                 })
@@ -4101,166 +5996,11 @@ else
             <!-- END CONTENT -->
             
         </div>
-        <!-- END CONTAINER -->
-
-       <label id = 'company_loc'><?php if(isset($emp_data['0']['company_location'])) { echo $emp_data['0']['company_location']; } ?></label>
-         <script type="text/javascript">
-             $(function(){
-$(window).scroll(function()
-                    {
-                        $('#err').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});  
-                    });
-               $(".save_data").click(function(){
-                    var chk_cmnts = 0;var chk_cmnts1 = 0;var chk_compl = 0;var chk_compl1 = 0;
-                    var get_list = $("#compulsory_id").text();
-                    var get_list_value = get_list.split(';');
-                    var prgrm_cmd = ''; var topic = '';var date_value = '';var faculty_value = '';var chk = /[;]/;
-                    for (var i = 0; i < $("#total_prog").text(); i++) {
-                        if (get_list != '') 
-                        {
-                            for (var j = 0; j < get_list_value.length; j++) {                                
-                                    if (get_list_value[j] == i && ($("#program_cmd-"+get_list_value[j]).val() === undefined || $("#program_cmd-"+get_list_value[j]).val() == '' || chk.test($("#program_cmd-"+get_list_value[j]).val())))
-                                    {
-                                        chk_cmnts = 0;chk_compl = 0;
-                                        $("#program_cmd-"+get_list_value[j]).css('border-color','red');break;
-                                       
-                                    } 
-else if($("#program_cmd-"+get_list_value[j]).val().length>500)
-{
-chk_cmnts = 0;chk_compl = 0;chk_compl1 = 1;
-                                        $("#program_cmd-"+get_list_value[j]).css('border-color','red');break;
-} 
-                                    else if (get_list_value[j] == i && ($("#program_cmd-"+get_list_value[j]).val() != 'undefined' && $("#program_cmd-"+get_list_value[j]).val() != '' || !chk.test($("#program_cmd-"+get_list_value[j]).val())))
-                                    {chk_compl1 = 0;
-                                        $("#program_cmd-"+get_list_value[j]).css('border-color','');chk_compl++;
-                                    }         
-                            }
-                        }
-if($("#program_cmd-"+i).val() != 'undefined' && $("#program_cmd-"+i).val() != '' && $("#program_cmd-"+i).val().length>500)
-{
-chk_compl1 = 1;
- $("#program_cmd-"+i).css('border-color','red');break;
-
-}
-else if ($("#program_cmd-"+i).val() != 'undefined' && $("#program_cmd-"+i).val() != '' && !chk.test($("#program_cmd-"+i).val()))
-                        {chk_compl1 = 0;
-                            if (prgrm_cmd == '') 
-                            {
-                                prgrm_cmd = i+'?'+$("#program_cmd-"+i).val();
-                            }
-                            else
-                            {
-                                prgrm_cmd = prgrm_cmd+';'+i+'?'+$("#program_cmd-"+i).val();
-                            }
-                            $("#program_cmd-"+get_list_value[j]).css('border-color','');
-                             chk_cmnts++;
-                        }
-                        // else
-                        // {
-                        //   chk_cmnts = 0;
-                        // }                         
-                    }
-                    //alert(chk_compl);
-                    for (var i = 1; i <= 2; i++) {
-                       if (($(".topic"+i).val()!='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select'))) || ($(".topic"+i).val()!='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()!='' || $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()!='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select')))  || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select')))  || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()!='' || $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()!='' && $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()!='' && $("#faculty_email_id"+i).find(":selected").val()!='Select') && ($("#days_required"+i).val()!='' && !$.isNumeric($("#days_required"+i).val()))))
-                        {
-                            $(".topic"+i).css('border-color','red');
-                            $("#days_required"+i).css('border-color','red');
-                            $("#faculty_email_id"+i).css('border-color','red');
-                            chk_cmnts1++;
-                        }
-                        else
-                        { chk_cmnts1== 0;
-                            if (topic == '') 
-                            {
-                                topic = $(".topic"+i).val();
-                                date_value = $("#days_required"+i).val();
-                                faculty_value = $("#faculty_email_id"+i).find(":selected").val();
-                            }
-                            else
-                            {
-                                topic = topic+';'+$(".topic"+i).val();
-                                date_value = date_value+';'+$("#days_required"+i).val();
-                                faculty_value = faculty_value+';'+$("#faculty_email_id"+i).find(":selected").val();
-                            }
-                            $(".topic"+i).css('border-color','');
-                            $("#days_required"+i).css('border-color','');
-                            $("#faculty_email_id"+i).css('border-color','');
-                            $("#error_spec1").text("");
-                        }
-                    }
-                    
-if (chk_compl1 == 1) 
-                    {
-                         $('body').animate({
-                            scrollTop: ($(".error_row_chk").first().offset().top)
-                        },500);
-                          $("#error_spec1").text("Maximum 500 characters are allowed for program comments.");                          
-                    }
-else if (chk_cmnts == 0 || chk_compl<get_list_value.length) 
-                    {
-                         $('body').animate({
-                            scrollTop: ($(".error_row_chk").first().offset().top)
-                        },500);
-                          $("#error_spec1").text("Please fill all required fields for program comments(Note : special character ';' not allowed).");                          
-                    }
-                    else if(chk_cmnts1 != 0)
-                    {
-                         $('body').animate({
-                            scrollTop: ($(".error_row_chk").first().offset().top)
-                        },500);
-                          $("#error_spec1").text("Please provide all the details if you need other program.");   
-                    }                    
-                    else
-                    {
-                        var base_url = window.location.origin;
-                        str = $("#Reporting_officer1_id").text().replace(/\s+/g, '');
-                        str1 = $("#emp_code").text().replace(/\s+/g, '');
-                        $("#error_spec1").text("");
-                        var detail_data = {
-                            prgrm_cmd: prgrm_cmd,
-                            topic: topic,
-                            date_value: date_value,
-                            faculty_value: faculty_value,
-                            emp_code : str1,
-                            Reporting_officer1_id: str
-                        };                       
-                        $.ajax({
-                            'type' : 'post',
-                            'datatype' : 'html',
-                            'data' : detail_data,
-                            'url' : base_url+'/index.php?r=IDP/save_data',
-                            success : function(data)
-                            {
-                              jQuery("#static").modal('show');
-                              $("#continue_IDP_set").click(function(){
-                                $("#updation_spinner").css('display','block');
-                                     $.ajax({
-                                    'type' : 'post',
-                                    'datatype' : 'html',
-                                    'data' : detail_data,
-                                    'url' : base_url+'/index.php?r=IDP/send_for_approval',
-                                    success : function(data)
-                                    {
-                                      jQuery("#static").modal('toggle');
-                                      $("#updation_spinner").css('display','none');
-                                        $("#err").show();  
-                                        $("#err").fadeOut(6000);
-                                        $("#err").text("Notification Send to appraiser Successfully.");
-                                        $("#err").addClass("alert-success");  
-
-                                    }
-                                  });
-                                  });
-                            }
-                        });
-                        //alert(chk_cmnts);
-                    }
-                    
-                });
-
-
-                $(".save_data1").click(function(){
+        
+        <script>
+            
+             $(".send_for_appraisal").click(function(){
+                    //alert("hello");
                     var chk_cmnts = 0;var chk_cmnts1 = 0;var chk_cmnts2 = 0;var chk_compl = 0;var chk_compl1 = 0;
                     var get_list = $("#compulsory_id").text();
                     var get_list_value = get_list.split(';');
@@ -4272,13 +6012,13 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                                     if (get_list_value[j] == i && ($("#program_cmd-"+get_list_value[j]).val() === undefined || $("#program_cmd-"+get_list_value[j]).val() == '' || chk.test($("#program_cmd-"+get_list_value[j]).val())))
                                     {
                                         chk_cmnts = 0;chk_compl = 0;
-                                        $("#program_cmd-"+get_list_value[j]).css('border-color','red');break;
+                                        $("#program_cmd-"+get_list_value[j]).css('border-color','red');$("#program_cmd"+i).focus();break;
                                        
                                     } 
-                                    else if($("#program_cmd-"+get_list_value[j]).val().length>500)
+                                     if($("#program_cmd-"+get_list_value[j]).val().length>500)
                                     {
                                     chk_cmnts = 0;chk_compl = 0;chk_compl1 = 1;
-                                                                            $("#program_cmd-"+get_list_value[j]).css('border-color','red');break;
+                                                                            $("#program_cmd-"+get_list_value[j]).css('border-color','red');$("#program_cmd"+i).focus();break;
                                     }
                                     else if (get_list_value[j] == i && ($("#program_cmd-"+get_list_value[j]).val() != 'undefined' && $("#program_cmd-"+get_list_value[j]).val() != '' || !chk.test($("#program_cmd-"+get_list_value[j]).val())))
                                     {chk_compl1 = 0;
@@ -4295,7 +6035,7 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                                         {  
                                           //alert(comp_loc_list[k]);
                                             chk_cmnts = 0;chk_compl = 0;
-                                            $("#program_cmd-"+i).css('border-color','red');break;
+                                            $("#program_cmd-"+i).css('border-color','red');$("#program_cmd"+i).focus();break;
                                            
                                         }  
                                         else if (comp_loc_list[k] != $("#company_loc").text() && ($("#program_cmd-"+i).val() != 'undefined' && $("#program_cmd-"+i).val() != '' || !chk.test($("#program_cmd-"+i).val())))
@@ -4321,10 +6061,22 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                         }                
                     }
                     for (var i = 1; i <= 2; i++) {
-                       if (($(".topic"+i).val()!='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select'))) || ($(".topic"+i).val()!='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()!='' || $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()!='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select')))  || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()=='' || $("#faculty_email_id"+i).find(":selected").val()=='Select')))  || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()!='' || $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()=='' && ($("#days_required"+i).val()=='' && ($("#faculty_email_id"+i).find(":selected").val()!='' && $("#faculty_email_id"+i).find(":selected").val()!='Select'))) || ($(".topic"+i).val()!='' && ($("#faculty_email_id"+i).find(":selected").val()!='' && $("#faculty_email_id"+i).find(":selected").val()!='Select') && ($("#days_required"+i).val()!='' && !$.isNumeric($("#days_required"+i).val()))))
+                       if($('.topic'+i).val()=="" || $('.topic'+i).val()=== undefined )
                         {
                             $(".topic"+i).css('border-color','red');
+                            <!--$("#days_required"+i).css('border-color','red');-->
+                            <!--$("#faculty_email_id"+i).css('border-color','red');-->
+                            chk_cmnts1++;
+                        }
+                        else if($("#days_required"+i).val()=='' ||$("#days_required"+i).val()=== undefined ){
+                            <!--$(".topic"+i).css('border-color','red');-->
                             $("#days_required"+i).css('border-color','red');
+                            <!--$("#faculty_email_id"+i).css('border-color','red');-->
+                            chk_cmnts1++;
+                        }
+                        else if($("#faculty_email_id"+i).find(":selected").val()=='Select' ||$("#faculty_email_id"+i).find(":selected").val()=='' ){
+                            <!--$(".topic"+i).css('border-color','red');-->
+                            <!--$("#days_required"+i).css('border-color','red');-->
                             $("#faculty_email_id"+i).css('border-color','red');
                             chk_cmnts1++;
                         }
@@ -4348,14 +6100,36 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                             $("#error_spec1").text("");
                         }
                     }
+                    
+                    var comp_desg=parseInt($('#compare_designation').text());
+                    if(comp_desg == 1){
                     for (var i = 3; i <= 4; i++) {
-                       if (($(".target_date"+i).val()!='' && ($("#number_of_meetings"+i).val()!='' && ($("#faculty_email_id"+i).val()=='' || $("#faculty_email_id"+i).val()===undefined))) || ($(".target_date"+i).val()=='' && ($("#number_of_meetings"+i).val()!='' && !$.isNumeric($("#number_of_meetings"+i).val()) && ($("#faculty_email_id"+i).val()!='' || $("#faculty_email_id"+i).val()!='undefined'))) || ($(".target_date"+i).val()!='' && ($("#number_of_meetings"+i).val()=='' && ($("#faculty_email_id"+i).val()!='' || $("#faculty_email_id"+i).val()!='undefined'))) || ($(".target_date"+i).val()=='' && ($("#number_of_meetings"+i).val()=='' && ($("#faculty_email_id"+i).val()=='' || $("#faculty_email_id"+i).val()=='undefined'))))
-                        {
-                            $(".target_date"+i).css('border-color','red');
-                            $("#number_of_meetings"+i).css('border-color','red');
-                            $("#faculty_email_id"+i).css('border-color','red');
-                            chk_cmnts2++;
-                        }
+                       if($("#faculty_email_id"+i).val()=='' || $("#faculty_email_id"+i).val()===undefined)
+                                    {
+                                        <!--$(".target_date"+i).css('border-color','red');-->
+                                        <!--$("#number_of_meetings"+i).css('border-color','red');-->
+                                        $("#faculty_email_id"+i).css('border-color','red');
+                                         $("#faculty_email_id"+i).focus();
+                                        chk_cmnts2++;
+                                    }
+                                    else if($('#topic_to_be_diss'+i).val() == "" || $('#topic_to_be_diss'+i).val() === undefined){
+                                        $('#topic_to_be_diss'+i).css('border-color','red');
+                                        $('#topic_to_be_diss'+i).focus();chk_cmnts2++;
+                                    }
+                                     else if($('#number_of_meetings'+i).val()=="" || $('#number_of_meetings'+i).val()=== undefined || !$.isNumeric($("#number_of_meetings"+i).val())){
+                                        $("#number_of_meetings"+i).css('border-color','red');
+                                        $("#number_of_meetings"+i).focus();
+                                        $("#faculty_email_id"+i).css('border-color','');
+                                         chk_cmnts2++;
+                                    }
+                                    else if($(".target_date"+i).val()=='' || $(".target_date"+i).val()=== undefined){
+                                       $(".target_date"+i).css('border-color','red');
+                                       $(".target_date"+i).focus();
+                                        $("#number_of_meetings"+i).css('border-color','');
+                                        $("#faculty_email_id"+i).css('border-color','');
+                                        chk_cmnts2++;
+                                    }
+                                     
                         else
                         {
                             chk_cmnts2== 0;
@@ -4377,7 +6151,7 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                             $("#error_spec2").text("");
                         }
                     }
-                    
+                  }  
    str = $("#Reporting_officer1_id").text().replace(/\s+/g, '');
                             str1 = $("#emp_code").text().replace(/\s+/g, '');
                             var base_url = window.location.origin;
@@ -4403,105 +6177,83 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
 
                            if (chk_cmnts == 0 || chk_compl<get_list_value.length) 
                     {
-                         $('body').animate({
-                            scrollTop: ($(".error_row_chk").first().offset().top)
-                        },500);
+                        
                           $("#error_spec1").text("Please fill all required fields for program comments(Note : special character ';' not allowed).");                          
                     }
-               
-                    
-                    else
+                     if(chk_cmnts1 != 0)
                     {
-                        $("#error_spec1").text("");
-                        $("#error_spec2").text("");
-                        if($("#project_title1").val() == '' || $("#project_title1").val().length>500)
+                        <!-- $('body').animate({-->
+                        <!--    scrollTop: ($(".error_row_chk").first().offset().top)-->
+                        <!--},500);-->
+                          $("#error_spec1").text("Please provide all the details if you need other program.");   
+                    }
+                    
+                  
+                    
+                    
+                    
+                    
+                    
+                     if(chk_cmnts2 != 0)
+                    {
+                         $('body').animate({
+                            scrollTop: ($(".error_row_chk2").first().offset().top)
+                        },500);
+                          $("#error_spec2").text("Please provide all the details for Development through developmental relationships.");   
+                    }
+                    
+                    
+                    
+                      var comp_desg=parseInt($('#compare_designation').text());
+           
+                   if(comp_desg == 1 && ($("#project_title1").val() == '' || $("#project_title1").val().length>500))
                         {
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $("#project_title1").css('border-color','red');
-                                $("#error_spec3").text("Please provide project title(Note: 500characters are maximum limit).");   
+                                //$("#error_spec3").text("Please provide project title(Note: 500characters are maximum limit).");   
                         }
-                        else if($("#review_date").val() == '')
+                         if(comp_desg == 1 && ($("#review_date").val() == ''))
                         {
-                             $("#project_title1").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $("#review_date").css('border-color','red');
-                                $("#error_spec3").text("Please provide project review date.");
+                                //$("#error_spec3").text("Please provide project review date.");
                         }
-                        else if($("#target_end_date").val() == '')
+                         if(comp_desg == 1 && ($("#target_end_date").val() == ''))
                         {
-                           $("#project_title1").css('border-color','');
-                            $("#review_date").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $("#target_end_date").css('border-color','red');
-                                $("#error_spec3").text("Please provide project target end date.");
+                               // $("#error_spec3").text("Please provide project target end date.");
                         }
-                        else if($("#project_scope").val() == '' || $("#project_scope").val().length>500)
+                         if(comp_desg == 1 && ($("#project_scope").val() == '' || $("#project_scope").val().length>500))
                         {
-                            $("#project_title1").css('border-color','');
-                            $("#review_date").css('border-color','');
-                            $("#target_end_date").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $("#project_scope").css('border-color','red');
-                                $("#error_spec3").text("Please provide project scope(Note: 500characters are maximum limit).");   
+                               // $("#error_spec3").text("Please provide project scope(Note: 500characters are maximum limit).");   
                         }
-                        else if($("#project_exclusion").val() == '' || $("#project_exclusion").val().length>500)
+                         if(comp_desg == 1 && ($("#project_exclusion").val() == '' || $("#project_exclusion").val().length>500))
                         {
-                            $("#project_title1").css('border-color','');
-                            $("#review_date").css('border-color','');
-                            $("#target_end_date").css('border-color','');
-                             $("#project_scope").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $("#project_exclusion").css('border-color','red');
-                                $("#error_spec3").text("Please provide project exclusion(Note: 500characters are maximum limit).");   
+                                //$("#error_spec3").text("Please provide project exclusion(Note: 500characters are maximum limit).");   
                         }
-                         else if($(".project_deliverables").val() == '' || $(".project_deliverables").val().length>500)
+                         if(comp_desg == 1 && ($(".project_deliverables").val() == '' || $(".project_deliverables").val().length>500))
                         {
-                            $("#project_title1").css('border-color','');
-                            $("#review_date").css('border-color','');
-                            $("#target_end_date").css('border-color','');
-                             $("#project_scope").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $(".project_deliverables").css('border-color','red');
-                                $("#error_spec4").text("Please provide comments in project deliverables field(Note: 500 characters are maximum limit).");   
+                               // $("#error_spec4").text("Please provide comments in project deliverables field(Note: 500 characters are maximum limit).");   
                         }
-                        else if($(".learn_from").val() == '' || $(".learn_from").val().length>300)
+                         if(comp_desg == 1 && ($(".learn_from").val() == '' || $(".learn_from").val().length>300))
                         {
-                          $("#project_title1").css('border-color','');
-                            $("#review_date").css('border-color','');
-                            $("#target_end_date").css('border-color','');
-                             $("#project_scope").css('border-color','');
-                             $(".project_deliverables").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
+                   
                                 $(".learn_from").css('border-color','red');
-                                $("#error_spec4").text("Please provide comments in what is expected to learn from this project(Note: 300 characters are maximum limit).");   
+                               // $("#error_spec4").text("Please provide comments in what is expected to learn from this project(Note: 300 characters are maximum limit).");   
                         }
-                        else if($(".reviewvers_name").val() == '' || $(".reviewvers_name").val().length>50)
+                         if(comp_desg == 1 && ($(".reviewvers_name").val() == '' || $(".reviewvers_name").val().length>50))
                         {
-                          $("#project_title1").css('border-color','');
-                            $("#review_date").css('border-color','');
-                            $("#target_end_date").css('border-color','');
-                             $("#project_scope").css('border-color','');
-                             $(".project_deliverables").css('border-color','');
-                             $(".learn_from").css('border-color','');
-                             $('body').animate({
-                                scrollTop: ($(".error_row_chk1").first().offset().top)
-                            },500);
+
                                 $(".reviewvers_name").css('border-color','red');
-                                $("#error_spec4").text("Please provide reviewer(s) name(Note: 50 characters are maximum limit).");   
+                               // $("#error_spec4").text("Please provide reviewer(s) name(Note: 50 characters are maximum limit).");   
                         }
                         else
                         {
@@ -4527,38 +6279,7 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                                 emp_code : str1,
                                 Reporting_officer1_id: str
                             };
-//alert(prgrm_cmd);
-                            $.ajax({
-                                'type' : 'post',
-                                'datatype' : 'html',
-                                'data' : detail_data,
-                                'url' : base_url+'/index.php?r=IDP/save_data1',
-                                success : function(data)
-                                {
-                                    alert(data);
-                                   jQuery("#static").modal('show');
-                              $("#continue_IDP_set").click(function(){
-                                $("#updation_spinner").css('display','block');
-                                     $.ajax({
-                                    'type' : 'post',
-                                    'datatype' : 'html',
-                                    'data' : detail_data,
-                                    'url' : base_url+'/index.php?r=IDP/send_for_approval',
-                                    success : function(data)
-                                    {
-                                      jQuery("#static").modal('toggle');
-                                      $("#updation_spinner").css('display','none');
-                                    $("#err").css('display','block');
-                                    $("#err").addClass("alert-danger"); 
-                                    $("#err").text("Notification Send to appraiser Successfully.");
-                                      window.setTimeout(function() {
-    window.location.href = base_url+'/index.php/User_dashboard';
-}, 1000);  
-                                    }
-                                  });
-                                  });
-                                }
-                            });
+
 
                             $("#project_title1").css('border-color','');
                             $("#review_date").css('border-color','');
@@ -4571,10 +6292,1137 @@ else if (chk_cmnts == 0 || chk_compl<get_list_value.length)
                             $("#error_spec4").text("");
                             //alert(chk_cmnts);
                         }
-                        
-                    }
                     
                     
                 });
-             });
-         </script>
+
+        </script>
+        <!-- END CONTAINER -->
+<script>
+<!--$("#submit_kra").click(function(){-->
+<!--$("#target_value").val($("#target_value option:first").val());-->
+<!--$("#Weightage").val($("#Weightage option:first").val());-->
+<!--$(".format_detail").val($(".format_detail option:first").val());-->
+<!--$("#KRA_description").val("");-->
+<!--$(".kpi_list").val("");-->
+<!--$('.fields').val("");-->
+<!--});-->
+</script>
+
+<script>
+    
+    $("body").on('click','.add_kpi',function(){
+                       // alert($(this).attr('id'));
+                        var value = $(this).attr('id');
+                        var get_id = value.split('-');
+                        //alert(get_id);
+$(this).css('display','none');
+                        //alert($(this).attr('id'));
+                        //alert($("#kpi_cat_value-"+get_id[1]).text());
+                         var selected_unit = {
+                                'kra_category' : $("#kpi_cat_value-"+get_id[1]).text(),
+                                'kra_id' : get_id[1],
+                                'kpi_last_id' : get_id[2],
+                                //'extra_kpi' : $("#no_ki_extra-"+get_id[1]).val(),
+                'extra_kpi' : 1,
+                        }
+                       // alert($('.target_value').find(':selected').val());
+                        var base_url = window.location.origin;
+                         $.ajax({
+                                type : 'post',
+                                datatype : 'json',
+                                data : selected_unit,
+                                url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/gettarget_value2',
+                                success : function(data)
+                                { 
+                                    //alert(data);
+var detail = jQuery.parseJSON(data);
+//alert(detail);
+                                  if(detail[0] == '<lable style="color:red">Maximum 7 KPI are allowed to add.</lable>')
+{
+ $("#err").css('display','block');
+$("#err").fadeOut(6000);
+$("#error_value").text("Maximum 7 KPI are allowed to add.");
+$('#'+get_id[1]).css('display','none');
+}
+else
+{
+   // alert("get_id[1]");
+$("#extra_kpi"+get_id[1]).show(); 
+$("#extra_kpi"+get_id[1]).html(detail[0]);
+//$("#kpi_list_number"+get_id[1]).text(detail[1]);
+var cnt=parseInt($('#kpi_list_number').text());
+
+var newcnt=cnt+1;
+//alert(newcnt);
+$("#kpi_list_number").text(newcnt);
+} 
+                                
+                                }
+                            });
+});
+
+$("body").on('click','.del_kra_kpi',function(){
+
+                        var this_id = $(this).attr('id');
+                       var splited = this_id.split('-');
+                       $("#del_krakpi").modal('show');
+
+                        var data =  {
+                                last_id : splited[2],
+                                kra_id : splited[1],
+                            };
+                            $("#continue_del_krakpi").click(function(){
+                                $("#show_spin_kpi").css('display','block');
+                                    $.ajax({
+                                    type : 'post',
+                                    data : data,
+                                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals1/krakpi_del',
+                                    success : function(data)
+                                    {
+                                        //alert(data);
+                                        $("#show_spin_kpi").css('display','none');
+                                        $("#del_krakpi").modal('toggle');
+                                        if(data == 1)
+                                        {
+                                            $("#output_div_edit").load(location.href + " #output_div_edit");
+                        $("#extra_"+splited[1]).css('display','block');
+                        location.reload();
+                                        }
+                                    }
+                                });
+                            });
+                      
+                          });
+</script>
+
+
+
+<script>
+
+
+$('.form-control-inline').keypress(function(e) {
+    e.preventDefault();
+});
+
+
+
+</script>
+
+<script>
+$(function(){
+$("#getdata").click(function(){
+var base_url = window.location.origin;
+save_detail_pdf();
+});
+});
+function save_detail_pdf()
+                { 
+                    var base_url = window.location.origin;
+                    var data = {
+                        doc : $('#year_end_emppdf').html(),
+                        emp_id : $('#emp_id').text(),
+                        year1:$('#yr').text(),
+                    };
+                    $.ajax({                            
+                    type : 'post',
+                    datatype : 'html',
+                    data : data,
+                    url : base_url+$("#basepath").attr('value')+'/index.php?r=Checkattach/check_goal_idp',
+                    success : function(data)
+                    {
+
+                        location.href = base_url+$("#basepath").attr('value')+'/Goalsheet_docs/goalsheet'+'_'+$("#femp_name").text()+'_'+$("#lemp_name").text()+$('#yr').text()+'.pdf'; 
+                    }
+                    });                 
+                }
+</script>
+
+<style>
+.hide_this
+{
+display:none;
+}
+</style>
+<?php 
+//echo Yii::app()->request->baseUrl; 
+?>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS -->
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/moment.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/clockface/js/clockface.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN THEME GLOBAL SCRIPTS -->
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/scripts/app.min.js" type="text/javascript"></script>
+        <!-- END THEME GLOBAL SCRIPTS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS -->
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/pages/scripts/components-date-time-pickers.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL SCRIPTS -->
+        <!-- BEGIN THEME LAYOUT SCRIPTS -->
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/layouts/layout5/scripts/layout.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+        
+        
+<lable id='emp_id' class="hide_this" style="display: none"><?php echo $emp_data['0']['Employee_id']; ?></lable>
+<lable id='femp_name' class="hide_this" style="display: none"><?php echo $emp_data['0']['Emp_fname']; ?></lable>
+<lable id='lemp_name' class="hide_this" style="display: none"><?php echo $emp_data['0']['Emp_lname']; ?></lable>        
+ <style>
+ th
+ {
+     font-size: 14px;
+ }
+ td
+ {
+     font-size: 14px;
+ }
+ </style>          
+        
+
+         <div id="year_end_emppdf" style="display:none">
+<?php 
+$notification_data =new NotificationsForm;
+        $emploee_data =new EmployeeForm;
+        $kra=new KpiAutoSaveForm;
+        $where = 'where Employee_id = :Employee_id';
+        $list = array('Employee_id');
+        $data = array(Yii::app()->user->getState("Employee_id"));
+        $employee_data = $emploee_data->get_employee_data($where,$data,$list);
+
+        $where1 = 'where  Employee_id = :Employee_id and goal_set_year = :goal_set_year';
+        $list1 = array('Employee_id','goal_set_year');
+        $data2 = array(Yii::app()->user->getState("Employee_id"),Yii::app()->user->getState('financial_year_check'));
+        $kpi_data = $kra->get_kpi_list($where1,$data2,$list1);  
+        
+
+$where = 'where Email_id = :Email_id';
+      $list = array('Email_id');
+      $data = array($employee_data['0']['Reporting_officer1_id']);
+      $mgr_data = $emploee_data->get_employee_data($where,$data,$list);
+
+?>
+
+<div id="target_goal" download>
+<style type="text/css">
+
+</style>
+<label style="font-size:8px;">Employee Name :  <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_data['0']['Emp_fname'].' '.$employee_data['0']['Emp_lname']; }?></label><br><label style="float: right;font-size:8px;">Manager's Name :  <?php if(isset($mgr_data) && count($mgr_data)>0){
+                     echo $mgr_data[0]['Emp_fname']." ".$mgr_data[0]['Emp_lname'];}
+                ?></label><br/>
+<label style="font-size:8px;">Goalsheet Of Year:  <?php echo Yii::app()->user->getState('financial_year_check'); ?></label>
+<?php                                            if (isset($kpi_data) && count($kpi_data)>0) { $cnt_num = 1;    ?>
+                                            <label class='count_goal' style="display: none"><?php echo count($kpi_data); ?></label>
+                                          <?php     
+                                        foreach ($kpi_data as $row) {  ?>
+                                        <div  style="margin-top:-79px">
+                                        <div class="portlet box border-blue-soft bg-blue-soft" id="output_div_<?php echo $row["KPI_id"]; ?>">
+                                            <div class="portlet-title">
+                                                <div class="caption" style="font-weight:bold; font-size:8px; color: black;">                                                  
+                                                    <label id="total_<?php echo $cnt_num; ?>" ><?php echo $row['target']; ?>aaa</label>
+                                                   </div>
+                                                <div class="tools" style="font-weight:bold; font-size:8px; color: black;">
+                                                    <?php echo "KRA Category : ".$row['KRA_category']; ?><br>
+                                                    <?php echo "KRA Weightage : ".$row['target']; ?><br>
+                                                    <?php echo "KRA Description : ".$row['KRA_description']; ?>
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="portlet-body flip-scroll expand_goal<?php echo $cnt_num; ?>">    
+                                            
+                                                <table  class="table table-striped table-hover table-bordered" id="sample_editable_1" style="margin-top:20px;border-collapse: collapse;color:black;border: 1px solid black;">
+                                                    <thead>
+                                                         <tr id="get_target_value">
+                                                        <th style="background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> Key Performance Indicator (KPI) description  </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> Unit </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> KPI Weightage </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;">  Value </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> (1)<br>Unsatisfactory <br>Performance </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> (2)<br>Needs<br>Improvement </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> (3)<br>Good Solid <br>Performance </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;"> (4)<br>Superior <br>Performance </th>
+                                                        <th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;">(5)<br>Outstanding <br>Performance </th>
+ 
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                                $kpi_list_data = '';
+                                                                $kpi_list_data = explode(';',$row['kpi_list']);
+                                                                $kpi_list_unit = explode(';',$row['target_unit']);
+                                                                $kpi_list_target = explode(';',$row['target_value1']); 
+ $year_end_achive = explode(';',$row['year_end_achieve']); 
+ $year_end_achive1 = explode(';',$row['year_end_reviewa']); 
+                                if($row['KPI_target_value']=='')
+                                {
+                                 $KPI_target_value = '';
+                                }
+                                else
+                                {
+                                $KPI_target_value = explode(';',$row['KPI_target_value']); 
+                                }
+
+                                                                
+                                                                $kpi_data_data = 0;
+                                                                if(isset($kpi_list_data) && count($kpi_list_data)>0)
+                                                                {
+                                                                    for ($i=0; $i < count($kpi_list_data); $i++) { 
+                                                                    if (isset($kpi_list_data[$i]) && $kpi_list_data[$i] != '') {
+                                                                        if(isset($kpi_data_data) && $kpi_data_data == '')
+                                                                        {
+                                                                            $kpi_data_data = 1;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            $kpi_data_data = $kpi_data_data+1;
+                                                                        }                                                                        
+                                                                    }
+                                                                }                                                               
+                                
+                                                            ?>
+                                                           <?php
+                                                                $cnt = 0;
+                                                                for ($i=0; $i < count($kpi_list_data); $i++) { if (isset($kpi_list_data[$i]) && $kpi_list_data[$i]!='') { $cnt++;
+                                if (!isset($KPI_target_value[$i])) {
+                                                                        $KPI_target_value[$i] = '';                                                                       
+                                                                    }
+                                                                }
+                                                            ?>
+                                                                <tr>
+                                                                    <td style="height: 30px;border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_data[$i])) { echo $kpi_list_data[$i]; } ?></td>
+                                                                    <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_unit[$i])) { echo $kpi_list_unit[$i]; } ?></td>
+                                                                        <?php      
+                                                                            if (isset($kpi_list_unit[$i]) && $kpi_list_unit[$i] == 'Units' || $kpi_list_unit[$i] == 'Weight' || $kpi_list_unit[$i] == 'Value') {
+                                                                                ?>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_target[$i])) { echo $kpi_list_target[$i]; } ?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_target[$i])) { echo '< '.round($kpi_list_target[$i]*0.69,2); } ?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*0.70,2)." to ".round($kpi_list_target[$i]*0.95,2); }?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*0.96,2)." to ".round($kpi_list_target[$i]*1.05,2); }?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.06,2)." to ".round($kpi_list_target[$i]*1.29,2); }?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($kpi_list_target[$i])) { echo round($kpi_list_target[$i]*1.39,2); }?></td>
+                                                                        <?php
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                        ?>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($KPI_target_value[$i])) { echo $KPI_target_value[$i]; } ?></td>
+                                                                                <td style="border: 1px solid black;font-size: 5px;"></td>
+                                                                                <?php
+                                                                                if(isset($kpi_list_target[$i]))
+                                                                                {
+                                                                                    $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                }
+                                                                                
+                                                                                for ($j=0; $j < 5; $j++) { 
+                                                                                    if (isset($value_data[$j])) {?>
+                                                                                     <td style="border: 1px solid black;font-size: 5px;"><?php if(isset($value_data[$j])) { echo $value_data[$j]; } ?></td>
+                                                                                <?php
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                   ?>
+                                                                                   <td style="border: 1px solid black;font-size: 5px;"><?php echo ""; ?></td>
+                                                                                   <?php 
+                                                                                }
+                                                                    }
+                                                                        ?>
+                                                                        <?php
+                                                                            }
+                                                                        ?>
+
+                                                                </tr>
+                                                                <?php
+                                                                   } }
+                                                            ?>                              
+                                                    </tbody>
+                                                                                              
+                                                </table>   
+                                               </div>                                           
+                                            </div>
+                                        </div>
+                                         <?php 
+                                        $cnt_num++; } }
+                                        ?>
+                                        </div>
+                                        </body>
+                                       
+                                       </html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title></title>
+  <meta name="generator" content="LibreOffice 5.0.2.2 (Linux)"/>
+  <meta name="author" content="Charles Carvalho"/>
+  <meta name="created" content="2016-04-26T10:03:00"/>
+  <meta name="changedby" content="Charles Carvalho"/>
+  <meta name="changed" content="2016-05-17T10:25:00"/>
+  <meta name="AppVersion" content="14.0000"/>
+  <meta name="DocSecurity" content="0"/>
+  <meta name="HyperlinksChanged" content="false"/>
+  <meta name="LinksUpToDate" content="false"/>
+  <meta name="ScaleCrop" content="false"/>
+  <meta name="ShareDoc" content="false"/>
+  <style type="text/css">
+    @page { margin-left: 1.27cm; margin-right: 1.27cm; margin-top: 1.25cm; margin-bottom: 1.27cm }
+    p { margin-bottom: 0.25cm; direction: ltr; line-height: 120%; text-align: left; orphans: 2; widows: 2 }
+  </style>
+</head>
+<body lang="en-IN" dir="ltr">
+<?php
+$emp_id_goal1 = '';
+if(isset($emp_data['0']['Employee_id']) && $emp_data['0']['Employee_id'] !='') 
+{ 
+$emp_id_goal1 = $emp_data['0']['Employee_id']; 
+} 
+
+      $model = new LoginForm; 
+      $program_data =new ProgramDataForm;
+      $employee = new EmployeeForm; 
+      $IDPForm =new IDPForm;  
+      $Compare_Designation =new CompareDesignationForm;   
+      $where = 'where  goal_set_year =:goal_set_year';
+                                    $list = array('goal_set_year');
+                                    $data = array(Yii::app()->user->getState('financial_year_check'));
+                                    $program_data_result = $program_data->get_kpi_data($where,$data,$list);
+      //$program_data_result = $program_data->get_data();
+    // print_r($program_data_result);die();
+      //$Employee_id = Yii::app()->user->getState("Employee_id");
+      $where = 'where Employee_id = :Employee_id';
+      $list = array('Employee_id');
+      $data = array(Yii::app()->user->getState("Employee_id"));
+      $emp_data = $employee->get_employee_data($where,$data,$list);
+      $designation_flag = 0;
+ 
+      if(isset($emp_data['0']['Designation']) && $emp_data['0']['Designation'] != '') {
+        $where = 'where designation = :designation';
+        $list = array('designation');
+        $data = array($emp_data['0']['Designation']);
+        $Compare_Designation1 = $Compare_Designation->get_designation_flag($where,$data,$list);
+        if (isset($Compare_Designation1['0']['flag'])) {
+          $designation_flag = $Compare_Designation1['0']['flag'];
+        }
+        
+      }
+      $where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year';
+      $list = array('Employee_id','goal_set_year');
+      $data = array(Yii::app()->user->getState("Employee_id"),Yii::app()->user->getState('financial_year_check'));
+      $IDP_data = $IDPForm->get_idp_data($where,$data,$list);
+      //print_r($IDP_data);die();
+      //print_r(Yii::app()->user->getState('emp_id1'));die();
+      $where = 'where Email_id = :Email_id';
+      $list = array('Email_id');
+      $data = array($emp_data['0']['Reporting_officer1_id']);
+      $mgr_data = $employee->get_employee_data($where,$data,$list);
+//print_r($emp_data);die();
+   ?>
+   <lable id='emp_id' style="display: none"><?php echo 'vvf57e264fd8d3ef'; ?></lable>
+<div id="target_idp" >
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
+<script type="text/javascript" src="http://cdn.uriit.ru/jsPDF/libs/adler32cs.js/adler32cs.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js
+"></script>
+<script type="text/javascript" src="libs/Blob.js/BlobBuilder.js"></script>
+<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.addimage.js"></script>
+<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.standard_fonts_metrics.js"></script>
+<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.split_text_to_size.js"></script>
+<script type="text/javascript" src="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.from_html.js"></script>
+<div>
+    
+  <label >Individual Development Plan (WI.CHR.03 F.NO. 1)</label>
+</div><br>
+<table cellpadding="3" cellspacing="0" >
+<thead>
+<th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;padding:10px"><b> Employee Name </b></th>
+<th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;padding:10px"><b> Manager’s name </b></th>
+<th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;padding:10px"><b>Employee ID </b></th>
+<th style="text-align:center;background-color: #4C87B9;font-size: 7px;border: 1px solid black;padding:10px"><b>Year </b></th>
+</thead>
+<tbody>
+<tr>
+<td style="border: 1px solid #00000a;">
+ <?php 
+                if(isset($emp_data)&& count($emp_data)>0){
+                      echo $emp_data[0]['Emp_fname']." ".$emp_data[0]['Emp_lname'];
+}?>
+</td>
+<td style="border: 1px solid #00000a;">
+ <?php if(isset($mgr_data) && count($mgr_data)>0){
+                     echo $mgr_data[0]['Emp_fname']." ".$mgr_data[0]['Emp_lname'];}
+                ?>
+</td>
+<td style="border: 1px solid #00000a;">
+<?php  if(isset($emp_data)&& count($emp_data)>0){
+                   echo $emp_data[0]['Employee_id'];   }?> 
+</td>
+<td style="border: 1px solid #00000a;">
+<?php 
+                   $today = date('d-m-Y'); 
+                 echo Yii::app()->user->getState('financial_year_check');?>
+</td>
+</tr>
+</tbody>
+  
+</table>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><span lang="en-US"><i><b>Please
+discuss your strengths and work related weaknesses with your manager
+and identify your training needs. Your development will happen
+through the following ways:</b></i></span></font></p>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><span lang="en-US"><b>Part
+A: Development through Instructor led training in Classroom</b></span></font></p>
+<table cellpadding="3" cellspacing="0" >
+  <col width="17">
+  <col width="207">
+  <col width="71">
+  <col width="33">
+  <col width="306">
+  <tr>
+    <td height="23" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif">No</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <b>Name of program</b>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <b>Faculty</b>
+    </td>
+    <td  style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <b><font face="Cambria, serif">Days</b>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <b>Please explain why the training is
+      needed</b></td>
+<!--<td width="50" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--<p><font face="Cambria, serif">Program completed</font></p></td><td width="100" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--<p><font face="Cambria, serif">Comments</font></p></td>-->
+    </td>
+  </tr>
+  <?php 
+     $compulsory = '';
+    if (isset($program_data_result) && count($program_data_result)>0) {
+        for ($i=0; $i < count($program_data_result); $i++) {                                            
+            if (isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 1) {
+                if ($compulsory == '') {
+                   $compulsory = $i;
+                }
+                else
+                {
+                    $compulsory = $compulsory.';'.$i;
+                }
+            }
+
+            ?>   
+  <tr valign="top"> 
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"> <?php echo $i+1; ?> </td> 
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm" class="prog_name" id="nm<?php echo $i; ?>"> <?php if(isset($program_data_result[$i]['program_name'])) { echo $program_data_result[$i]['program_name']; } ?> <?php if($program_data_result[$i]['need'] == 1) { ?><label style="color: red">*</label><?php }else if($program_data_result[$i]['need'] == 2) { ?><label style="color: red">**</label><?php } ?>
+            
+            </td>
+            <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"> <?php if(isset($program_data_result[$i]['faculty_name'])) { echo $program_data_result[$i]['faculty_name']; } ?> </td>
+            <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"> <?php if(isset($program_data_result[$i]['training_days'])) { echo $program_data_result[$i]['training_days']; } ?> </td>
+            <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+            <?php 
+            $cmnt = '';$prg_state1 = '';$prg_state_com1 = '';
+            if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['program_comment']) && isset($IDP_data['0']['Year_end_prg_status']) && isset($IDP_data['0']['Year_end_prg_comments'])) {
+                $cmt2 = explode(';', $IDP_data['0']['program_comment']);
+                $prg_state = explode('^', $IDP_data['0']['Year_end_prg_status']);
+                $prg_state_com = explode('^', $IDP_data['0']['Year_end_prg_comments']);
+                if(isset($cmt2) && count($cmt2)>0)
+                {
+                  for ($j=0; $j < count($cmt2); $j++) {
+                        $cmt1 = explode('?', $cmt2[$j]);
+                        if (isset($cmt1[1]) && isset($cmt1[0]) && $i == $cmt1[0]) {                                                            
+                             $cmnt = $cmt1[1];
+                             if(isset($prg_state[$j]))
+                             {
+                                $prg_state1 = $prg_state[$j];
+                             }
+                             if(isset($prg_state_com[$j]))
+                             {
+                                $prg_state_com1 = $prg_state_com[$j];
+                             }                             
+                             
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                $cmnt = '';
+            }
+
+                echo $cmnt;
+            ?> </td>
+      </tr>
+      <?php      
+
+      } }
+      //print_r("gfdgfd");die();
+      ?>
+</table>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Cambria, serif"><lable style="color: red">*</lable>Mandatory
+for all employees to attend this program</font></p>
+<p style="margin-bottom: 0cm; line-height: 100%"><font face="Cambria, serif"><lable style="color: red">**</lable>Mandatory
+for employees working at locations covered by the certifications</font></p>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><br/>
+</p>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><i>If
+you need a program that is not mentioned above, please use the space
+below. Please note this program may be offered if at least 20 people
+request for it. </i></font>
+</p>
+<table cellpadding="3" cellspacing="0">
+  <tr valign="top">
+    <td  style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>No</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Topics required</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>No. of Days</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Internal faculty name</b></font></p>
+    </td>
+<!--<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--      <p><font face="Cambria, serif"><b>Program Completed</b></font></p>-->
+<!--    </td>-->
+<!--<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--      <p><font face="Cambria, serif"><b>Reviews</b></font></p>-->
+<!--    </td>-->
+  </tr>
+  <?php
+    $topic = '';$day = '';$faculty = '';
+       if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
+              $topic1 = explode(';',$IDP_data['0']['extra_topic']);
+              if(isset($topic1[0]))
+              {
+                $topic = $topic1[0];
+              }
+              if(isset($IDP_data['0']['extra_days']))
+              {
+                $day1 = explode(';',$IDP_data['0']['extra_days']);
+              }
+              if(isset($IDP_data['0']['Extra_year_end_prg_status']))
+              {
+                $finaltopic = explode('^',$IDP_data['0']['Extra_year_end_prg_status']);
+              }
+              if(isset($IDP_data['0']['Extra_year_end_prg_comments']))
+              {
+                $finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
+              }
+
+if(isset($day1[0]))
+{
+$day = $day1[0];
+}
+if(isset($IDP_data['0']['extra_faculty']))
+              {
+                $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+              }
+              
+              
+              // $faculty1 = explode('?',$faculty2[0]); 
+if(isset($faculty2[0]))
+{
+$faculty[$faculty2[0]] = array('selected' => 'selected');
+ $reporting_list = new EmployeeForm();
+             $records = $reporting_list->get_appraiser_list1();
+             
+                $where = 'where Email_id = :Email_id';
+                $list = array('Email_id');
+                $data = array($faculty2[0]);
+                $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
+}                         
+                          
+             
+             
+       }
+  ?>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif">1</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $topic; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $day; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php if(isset($faculty2[0])) { echo $faculty2[0]; } ?>
+      </p>
+    </td>
+<!--<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--      <p><br/>-->
+<!--      <?php if(isset($finaltopic[0])) { echo $finaltopic[0]; } ?>-->
+<!--      </p>-->
+<!--    </td>-->
+<!--<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--      <p><br/>-->
+<!--      <?php if(isset($finaltopic_cmt[0])) { echo $finaltopic_cmt[0]; } ?>-->
+<!--      </p>-->
+<!--    </td>-->
+  </tr>
+  <?php
+    $topic = '';$day = '';$faculty = '';$finaltopic1 = '';$finaltopic_cmt1 = '';
+    if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
+
+    if(isset($IDP_data['0']['extra_topic']))
+              {
+                $topic1 = explode(';',$IDP_data['0']['extra_topic']);
+              }
+              if(isset($IDP_data['0']['Extra_year_end_prg_status']))
+              {
+                $finaltopic = explode('^',$IDP_data['0']['Extra_year_end_prg_status']);
+              }
+              if(isset($IDP_data['0']['Extra_year_end_prg_comments']))
+              {
+                $finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
+              }
+//print_r($IDP_data);die();
+        if (isset($topic1[1])) {
+           $topic = $topic1[1];
+            $day1 = explode(';',$IDP_data['0']['extra_days']);
+if(isset($day1[1]))
+{
+$day = $day1[1];
+}
+            
+            $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+            // $faculty1 = explode('?',$faculty2[0]);  
+if(isset($faculty2[1]))
+{
+$faculty[$faculty2[1]] = array('selected' => 'selected');
+ $reporting_list = new EmployeeForm();
+             $records = $reporting_list->get_appraiser_list1();
+             
+                $where = 'where Email_id = :Email_id';
+                $list = array('Email_id');
+                $data = array($faculty2[1]);
+                $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
+}                         
+            
+        }
+       
+    }
+  ?>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif">2</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $topic; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $day; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php if(isset($faculty2[1])) { echo $faculty2[1]; } ?>
+      </p>
+    </td>
+<!--<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--      <p><br/>-->
+<!--      <?php if(isset($finaltopic[1])) { echo $finaltopic[1]; } ?>-->
+<!--      </p>-->
+<!--    </td>-->
+<!--<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">-->
+<!--      <p><br/>-->
+<!--      <?php if(isset($finaltopic_cmt[1])) { echo $finaltopic_cmt[1]; } ?>-->
+<!--      </p>-->
+<!--    </td>-->
+  </tr>
+</table>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><i><u><b>Note:
+Part B and Part C are to be filled by only AGM and above employees.</b></u></i></font></p>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><b>Part
+B: Development through developmental relationships</b></font></p>
+<table cellpadding="3" cellspacing="0">
+  <?php
+    $faculty3 = '';
+        if (isset($IDP_data['0']['leader_name'])) {
+                if(isset($IDP_data['0']['leader_name']))
+              {
+                $faclty = explode(';',$IDP_data['0']['leader_name']);
+              }
+              if(isset($IDP_data['0']['Relationship_year_end_status']))
+              {
+                $relfinaltopic = explode('^',$IDP_data['0']['Relationship_year_end_status']);
+              }
+              if(isset($IDP_data['0']['Relationship_year_end_comments']))
+              {
+                $relfinaltopic_cmt = explode('^',$IDP_data['0']['Relationship_year_end_comments']);
+              }
+          
+
+          if (isset($faclty[0])) {
+            $faculty3 = $faclty[0];
+          }
+          //$faculty3[$faclty[0]] = array('selected' => 'selected');
+        }
+  ?>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>No</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Relationship</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Name of leader</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Number of Meetings planned</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Target date</b></font></p>
+    </td>
+<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Program Completed</b></font></p>
+    </td>
+<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Reviews</b></font></p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td height="43" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif">1</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Coaching</b></font><font face="Cambria, serif">
+      through leader in own function for </font><font face="Cambria, serif"><b>functional</b></font><font face="Cambria, serif">
+      inputs</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $faculty3; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php
+        $meet = '';
+              if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
+                $meet = explode(';',$IDP_data['0']['meeting_planned']);
+                if(isset($meet[0]))
+{
+$meet = $meet[0];
+}
+                
+              }
+              else
+              {
+                $meet = '';
+              }
+      ?>
+      <?php echo $meet; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        
+        <?php
+                if (isset($IDP_data['0']['rel_target_date'])) { $rel2 = explode(';',$IDP_data['0']['rel_target_date']); ?>
+                     <?php if(isset($rel2[0])) { echo $rel2[0]; } ?>
+                 <?php }
+                  else
+                  { ?>
+                     <?php echo ''; ?>
+               <?php   }
+              ?>
+      </p>
+    </td>
+<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php if(isset($relfinaltopic[0])) { echo $relfinaltopic[0]; } ?>
+      </p>
+    </td>
+<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php if(isset($relfinaltopic_cmt[0])) { echo $relfinaltopic_cmt[0]; } ?>
+      </p>
+    </td>
+  </tr>
+  <?php 
+    $faculty4 = '';
+    if (isset($IDP_data['0']['leader_name'])) {
+      $faclty = explode(';',$IDP_data['0']['leader_name']);
+      if (isset($faclty[1])) {
+        $faculty4 = $faclty[1];
+      }
+    }
+    ?>
+  <tr valign="top">
+    <td height="42" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif">2</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Coaching</b></font><font face="Cambria, serif">
+      through leader in own function for </font><font face="Cambria, serif"><b>functional</b></font><font face="Cambria, serif">
+      inputs</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $faculty4; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php
+        $meet = '';
+              if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
+                $meet = explode(';',$IDP_data['0']['meeting_planned']);
+                if(isset($meet[1]))
+{
+$meet = $meet[1];
+}
+              }
+              else
+              {
+                $meet = '';
+              }
+      ?>
+      <?php echo $meet; ?>
+      </p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        
+        <?php
+                if (isset($IDP_data['0']['rel_target_date'])) { $rel2 = explode(';',$IDP_data['0']['rel_target_date']); ?>
+                     <?php if(isset($rel2[1])) { echo $rel2[1]; } ?>
+                 <?php }
+                  else
+                  { ?>
+                     <?php echo ''; ?>
+               <?php   }
+              ?>
+      </p>
+    </td>
+<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php if(isset($relfinaltopic[1])) { echo $relfinaltopic[1]; } ?>
+      </p>
+    </td>
+<td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php if(isset($relfinaltopic_cmt[1])) { echo $relfinaltopic_cmt[1]; } ?>
+      </p>
+    </td>
+  </tr>
+
+</table>
+ <?php 
+ $project_title = '';
+    if (isset($IDP_data['0']['project_title'])) {
+      $project_title = $IDP_data['0']['project_title'];
+    }
+    else
+    {
+      $project_title = '';
+    }
+    ?>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><b>Part
+C: Development through action learning projects</b></font></p>
+<table cellpadding="3" cellspacing="0">
+    <td height="42" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Project Title</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+      <?php echo $project_title; ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td height="14" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Review date</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        <?php
+                  if (isset($IDP_data['0']['project_review_date'])) { ?>
+                      <?php echo $IDP_data['0']['project_review_date']; ?>
+                   <?php }
+                    else
+                    { ?>
+                       <?php echo ""; ?>
+                 <?php   }
+                ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Target end date</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+         <?php
+                  if (isset($IDP_data['0']['project_end_date'])) { ?>
+                      <?php echo $IDP_data['0']['project_end_date']; ?>
+                   <?php }
+                    else
+                    { ?>
+                       <?php echo ""; ?>
+                 <?php   }
+                ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Project scope</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+         <?php 
+                  $project_scope = '';
+                  if (isset($IDP_data['0']['project_scope'])) {
+                    $project_scope = $IDP_data['0']['project_scope'];
+                  }
+                  else
+                  {
+                    $project_scope = '';
+                  }
+                  echo $project_scope;
+                  ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td height="47" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Project exclusions</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        <?php 
+                $project_exclusion = '';
+                if (isset($IDP_data['0']['project_exclusion'])) {
+                  $project_exclusion = $IDP_data['0']['project_exclusion'];
+                }
+                else
+                {
+                  $project_exclusion = '';
+                }
+                 echo $project_exclusion;
+                ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Project deliverables </b></font><font face="Cambria, serif">(Target
+      at rating 3: good solid performance)</font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        <?php 
+                 $Project_deliverables = '';
+                if (isset($IDP_data['0']['Project_deliverables'])) {
+                  $Project_deliverables = $IDP_data['0']['Project_deliverables'];
+                }
+                else
+                {
+                  $Project_deliverables = '';
+                }
+                echo $Project_deliverables;
+                ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>What is the employee expected to
+      learn from this project</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        <?php 
+               $expected = '';
+                if (isset($IDP_data['0']['learn_from_project'])) {
+                  $expected = $IDP_data['0']['learn_from_project'];
+                }
+                else
+                {
+                  $expected = '';
+                }
+                echo $expected;
+            ?>
+      </p>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Reviewer(s) name</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><br/>
+        <?php 
+                $review_name = '';
+                if (isset($IDP_data['0']['Reviewer'])) {
+                  $review_name = $IDP_data['0']['Reviewer'];
+                }
+                else
+                {
+                  $review_name = '';
+                }
+                echo $review_name;
+                ?>
+      </p>
+    </td>
+  </tr>
+<tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Project Status
+</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><?php if (isset($IDP_data['0']['Year_end_prog_status'])) { echo $IDP_data['0']['Year_end_prog_status']; } ?></p>
+    </td>
+  </tr>
+<tr valign="top">
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cmda; padding-right: 0.19cm">
+      <p><font face="Cambria, serif"><b>Project Status Comments</b></font></p>
+    </td>
+    <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
+      <p><?php if (isset($IDP_data['0']['Year_end_prog_comments'])) { echo $IDP_data['0']['Year_end_prog_comments']; } ?></p>
+    </td>
+  </tr>
+</table>
+<p style="margin-bottom: 0.35cm; line-height: 115%"><br/>
+<br/>
+
+</p>
+</div>
+
+
+
+
+                                       </body>
+                                       
+                                       </html>
+
+
+ 

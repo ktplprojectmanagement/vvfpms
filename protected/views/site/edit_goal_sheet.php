@@ -1890,7 +1890,7 @@ $KRA_status_flag = $kpi_auto_data[$a]['0']['KRA_status'];
                                                     </tr>
 <tr>
                                                                                 <td>
-                                                                Reporting Manager
+                                                                Reporting Manager1
                                                              </td>
                                                              <td colspan=7 align="center" id="Weightage_list">
                                                            <?php 
@@ -1903,7 +1903,8 @@ $head_array = array();
 
                                             if(isset($emp_all_detail['0']['Reporting_officer1_id']))
                                             {
-                                                $head_array['0'] = $emp_all_detail['0']['Reporting_officer1_id'];
+                                                //$head_array['0'] = $emp_all_detail['0']['Reporting_officer1_id'];
+                                                $head_array['0'] = Yii::app()->user->getState("employee_email");
                                             }
 
 if (isset($emp_all_detail['0']['reporting_1_change']) && $emp_all_detail['0']['reporting_1_change'] !='' && strtotime(date('Y-m-d')) <= strtotime($emp_all_detail['0']['reporting_1_effective_date'])) {

@@ -764,30 +764,57 @@ class MIS_locController extends Controller
 
 		function actionlocation_submit()
 {
-	echo"hiiiiiiiiiiiiiii";die();
-		IsSMTP();
-		$mailer->IsHTML(true);
-		$mailer->SMTPAuth = true;
-		$mailer->SMTPSecure = "ssl";
-		$mailer->Host = "smtp.gmail.com";
-		$mailer->Port = 465;
-		$mailer->Username = "demo.appraisel@gmail.com";
-		$mailer->Password = "appraisel@123";
-		$mailer->From = "employee.kritva@gmail.com";
-		$mailer->FromName = "Test";
-		$mailer->AddAddress("employee.kritva@gmail.com");
-		$mailer->Subject = "Someone sent you an email.";
-		$mailer->Body = "Hi, This is just a test email using PHP Mailer and Yii Framework.";
-		if (!$mailer->Send())
-		{
-		    echo "Message sent successfully!";
-		}
-		else 
-		{
-		    echo "Fail to send your message!";
-		}
-}
+
+
+
+
+			require 'PHPMailer-master/PHPMailerAutoload.php';
+			$mail = new PHPMailer;
+
+			//$mail->SMTPDebug = 3;      
+			$emploee_data =new EmployeeForm;
+			$Employee_id = '123456';	
+			$where = 'where Employee_id = :Employee_id';
+			$list = array('Employee_id');
+			$data = array($Employee_id);
+			$employee_data = $emploee_data->get_employee_data($where,$data,$list);    
+
+			$emploee_data1 =new EmployeeForm;
+			//$Employee_id = $_POST['emp_id'];	
+			$where = 'where Email_id = :Email_id';
+			$list = array('Email_id');
+			$data = array(Yii::app()->user->getState("employee_email"));
+			$employee_data1 = $emploee_data1->get_employee_data($where,$data,$list);                      // Enable verbose debug output
+
+			$params = array('mail_data'=>$employee_data,'mail_data1'=>$employee_data1);
+
+			$mail->isSMTP();                                      // Set mailer to use SMTP
+			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
+			$mail->SMTPAuth = true;                               // Enable SMTP authentication
+			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
+			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+			$mail->Port = 587;                                    // TCP port to connect to
+
+			$mail->setFrom('vvf.pms@vvfltd.com', $employee_data['0']['Emp_fname'].' '.$employee_data['0']['Emp_lname']);
+			
+			$message = $this->renderPartial('//site/mail/appraiser_to_emp2',$params,TRUE);           // Name is optional
+			
+			$mail->AddAddress('demo.appraisel@gmail.com'); 
+			$mail->addCC('employee.kritva@gmail.com');
+			$mail->addCC('demo.appraisel@gmail.com');
+			$mail->msgHTML($message);
+			$mail->Subject = 'MIS Approval Request';
+			$mail->Body    = $message;
+			
+			if(!$mail->send()) {
+			    echo 'Message could not be sent.';
+			    echo 'Mailer Error: ' . $mail->ErrorInfo;
+			} 
+			else {
+			    echo 'Message has been sent';
+			}
 
 }
 
-?>
+}

@@ -166,6 +166,7 @@ public function actioncheck_goal_idp()
 
 	public function actioncheck_midgoal_idp()
 	{
+		//echo "hi";die();
 		$notification_data =new NotificationsForm;
 		$emploee_data =new EmployeeForm;
 		$kra=new KpiAutoSaveForm;
@@ -174,7 +175,7 @@ public function actioncheck_goal_idp()
 		$data = array($_POST['emp_id']);
 		$yr=$_POST['year1'];
 		$yr=trim($yr);
-		//echo $yr;die();
+		//echo $_POST['emp_id'];die();
 		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
 		
 		$file_name = 'Midreview'.'_'.trim($employee_data['0']['Emp_fname']).'_'.trim($employee_data['0']['Emp_lname']).trim($yr).'.pdf';

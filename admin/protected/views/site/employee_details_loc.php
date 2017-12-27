@@ -365,12 +365,11 @@ margin-left: -105px;"></label>
                                                                 </thead>
                                                                 <tbody>
                                                                 <?php
-                                                               // print_r($model);die();
+                                                           
                                                                     if (isset($model) && count($model)>0) {
                                                                        foreach ($model as $row) {
                                                                 ?>                                                                
                                                                     <tr class="odd gradeX">
-                                                                        
                                                                         <td><?php echo $row['Employee_id']; ?></td>
                                                                         <td><?php echo $row['Emp_fname']." ".$row['Emp_lname']; ?></td>
                                                                         <td style="display:none"><?php echo $row['Emp_fname']; ?></td>
@@ -453,10 +452,9 @@ margin-left: -105px;"></label>
                                                                         <td style="display:none"><?php echo $row['Age_months']; ?></td>
                                                                         <td style="display:none"><?php echo $row['comp_name']; ?></td>
                                                                         <td style="display:none"><?php echo $row['personal_email']; ?></td>
-                                                                        <td ><a style="text-decoration: none;" href="<?php echo Yii::app()->createUrl('index.php/MIS/Mis_update', array('u_id' => $row['u_id']));?>"><span class="label label-sm label-warning" style="background-color:#337AB7;"> Check </span></a></td>
+                                                                        <td ><a style="text-decoration: none;" href="<?php echo Yii::app()->createUrl('index.php/MIS_loc/Mis_update', array('u_id' => $row['u_id']));?>"><span class="label label-sm label-warning" style="background-color:#337AB7;"> Check </span></a></td>
                                                                     </tr>
-                                                                    
-                                                                  <?php
+                                                                    <?php
                                                                     }
                                                                     }else
                                                                     {?>

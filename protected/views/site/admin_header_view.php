@@ -98,8 +98,10 @@ $telemetryClient->flush();
                             </a>
                         </li>
                         <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
-                            <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Adminlogin" class="dropdown-toggle">
-                                <i class="fa fa-sign-out" style="color:white;padding-right: 30px;"></i>
+                            <!-- <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Adminlogin" class="dropdown-toggle"> -->
+                            <!-- <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Adminlogin" class="dropdown-toggle"> -->
+                                <!-- <i class="fa fa-sign-out" style="color:white;padding-right: 30px;"></i> -->
+                                 <i class="icon-logout" id="log_out_chk" onclick="log_out_chk()" style="color:#fff;font-size:20px;padding-top:20px"></i>
                             </a>
                         </li>
                     </ul>
@@ -195,3 +197,32 @@ $telemetryClient->flush();
                         </li>
                     </ul>
                 </div>
+<script type="text/javascript">
+            function log_out_chk()
+            {
+                var base_url = window.location.origin;
+                window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Adminlogin/employee_logout';
+            }
+                $(function(){ 
+                    $("#header_inbox_bar").click(function(){
+                        var data = {
+                            'Employee_id' : $("#emp_id").text(),
+                            'chk_flag' : '1'
+                        };
+                        var base_url = window.location.origin;
+                        $.ajax({
+                            type : 'post',
+                            datatype : 'html',
+                            data : data,
+                            url : base_url+$("#basepath").attr('value')+'/index.php?r=Setgoals/update_notificationflag',
+                            success : function(data)
+                            {
+                                $("#notify_circle1").css('display','none'); 
+                                $("#notify_circle2").css('display','none'); 
+                                $("#seen_notification").css('display','none');
+                                $("#seen_notification1").css('display','block');                              
+                            }
+                        });
+                    });
+                });
+            </script>

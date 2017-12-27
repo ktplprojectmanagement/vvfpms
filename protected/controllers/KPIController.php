@@ -34,12 +34,19 @@ class KPIController extends Controller
 
 			$diff_Department = $employee->get_department_list();
 			$diff_cluster = $employee->get_distinct_list('cluster_name','where 1');
-
+			if (Yii::app()->user->getState("Employee_id")!='') {
+			$selected_option = 'kra_set';
 			$selected_option = 'kpi_set';
 			$this->render('//site/script_file');
 			$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 			$this->render('//site/KPI_form',array('model'=>$model,'employee_list'=>$employee_result,'kra_result'=>$kra_result,'employee_list_data'=>$employee_list,'appraiser_list'=>$appraiser_list_data,'diff_Department'=>$diff_Department,'diff_cluster'=>$diff_cluster));
 			$this->render('//site/admin_footer_view');
+		}
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}	
 		
 	}
 

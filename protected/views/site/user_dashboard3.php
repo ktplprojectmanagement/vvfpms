@@ -1287,6 +1287,7 @@ $yearEndidp_appr=0;
 </div>
 </div>
 <!-- END WIDGET THUMB -->
+
 </div>
 </div>
 </div>
@@ -1299,6 +1300,7 @@ $yearEndidp_appr=0;
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
            

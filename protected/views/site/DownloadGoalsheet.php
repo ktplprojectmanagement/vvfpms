@@ -62,14 +62,53 @@ if($row['0']['Employee_id'] != '')
 <?php 
                                         $this->endWidget(); 
                                         ?>
+
+
+
+
+<?php
+$file_id="0";
+$filename="https://kritva.in/pms/Goalsheet_docs/goalsheet_".$row['0']['Emp_fname']."_".$row['0']['Emp_lname'].Yii::app()->user->getState('financial_year_check');
+
+$file_headers = @get_headers($filename);
+
+if($file_headers[0] == 'HTTP/1.1 404 Not Found'){
+      $file_id="1";
+} else if ($file_headers[0] == 'HTTP/1.1 302 Found' && $file_headers[7] == 'HTTP/1.1 404 Not Found'){
+   $file_id="2";
+} else {
+   $file_id="3";
+}
+
+
+
+?>
+<?php if($file_id=="3") { ?>
 <td>
+<a href="<?php echo Yii::app()->request->baseUrl; ?>/Goalsheet_docs/goalsheet_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?><?php echo Yii::app()->user->getState('financial_year_check');?>".".pdf">Download</a>
+
+</td>
+<?php } else if($file_id=="1"){?>
+<td><a  data-toggle="modal" href="#basic"> Download </a></td>
+<?php }?>
+
+
+
+
+
+<!-- <td>
 
 <a href="<?php echo Yii::app()->request->baseUrl; ?>/Goalsheet_docs/goalsheet_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?><?php echo Yii::app()->user->getState('financial_year_check');?>".".pdf">Download</a>
 
 
 
 
-</td><!-- 
+</td> -->
+
+
+
+
+<!-- 
 <td><a href="<?php echo Yii::app()->request->baseUrl; ?>/IDP_docs/IDP_<?php echo $row['0']['Emp_fname']."_".$row['0']['Emp_lname'];?>.pdf">Download</a></td> -->
 
                                                             </tr>                                                       
@@ -93,6 +132,27 @@ if($row['0']['Employee_id'] != '')
             <!-- END CONTENT -->           
         </div>
         <!-- END CONTAINER -->
+
+         <div class="modal fade" id="basic" tabindex="-1" role="basic" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                                                <h4 class="modal-title">PDF not available</h4>
+                                                            </div>
+                                                            <div class="modal-body"> Sorry , Goal sheet of this employee is not available. </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <!-- /.modal-content -->
+                                                    </div>
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+
+                                                
 <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
                                                 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
                                                 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>

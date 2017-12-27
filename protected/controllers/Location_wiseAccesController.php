@@ -7,9 +7,17 @@ class Location_wiseAccesController extends Controller
 		$employee_data=new Employee1Form;
 		$employee_data=$employee_data->getdata();
 		//print_r($employee_data);die();
+		if (Yii::app()->user->getState("Employee_id")!='') 
+		{
 		$this->render('//site/script_file');
 		$this->render('//site/admin_header_view');
 		$this->render('//site/Location_wise',array('employee_data'=>$employee_data));
+}
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}
 	}
         	function actionemployee_profile($Employee_id = null)
 	{
@@ -47,6 +55,8 @@ $where = 'where Employee_id = :Employee_id';
 		$this->render('//site/admin_header_view',array('employee_data'=>$employee_data,'selected_option'=>$selected_option));
 		$this->render('//site/approve_changes',array('employee_data_main'=>$employee_data_main,'employee_data'=>$employee_data,'model'=>$model,'Reporting_officer_name'=>$Reporting_officer_name));
 		$this->render('//site/admin_footer_view');
+
+
 		
 	}
 function actiondel_Emp_profile(){

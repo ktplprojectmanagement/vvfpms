@@ -1651,7 +1651,7 @@ else
 //$errors = array_filter($kpi_data2);
 
 ?>
-<div class="portlet box border-blue-soft bg-blue-soft" <?php  if (!empty($errors) != "") { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?>>
+<div class="portlet box border-blue-soft bg-blue-soft"  <?php if(isset($emp_data['0']['new_kra_till_date']) && $emp_data['0']['new_kra_till_date'] != '0') {?> style ="display:block"<?php } else { ?>style ="display:none"<?php }?> >
                                             <div class="portlet-title">
 <?php
 
@@ -1664,7 +1664,7 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
 
 }
 ?>
-                                                <div class="caption"> New Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname']) && isset($new_kra_till_date['0']['Emp_lname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']." / "; } ?> From : <?php if(isset($emp_data['0']['reporting_1_effective_date'])) { echo date('d-M-Y', strtotime($emp_data['0']['reporting_1_effective_date']))." To : ".date('d-M-Y', strtotime('Dec 31')); } ?>)                                                   
+                                                <div class="caption"> New Goalsheet (Reporting Manager : <?php if(isset($new_kra_till_date['0']['Emp_fname']) && isset($new_kra_till_date['0']['Emp_lname'])) { echo $new_kra_till_date['0']['Emp_fname']." ".$new_kra_till_date['0']['Emp_lname']."  "; }  ?>)                                                   
                                                 </div>
                                                 <div class="tools">
                                                     <a href="javascript:;" class="collapse"></a>
@@ -1753,9 +1753,10 @@ $new_kra_till_date = $emp_data1->get_employee_data($where,$data,$list);
                                                                                 <td class="validate_field1">
                                                                                    
                                                                                     <lable data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<?php echo$kpi_list_target[$i];  ?>">
-                                                                                        <?php echo strlen($KPI_target_value[$i] ) >= 20 ? 
+                                                                                        <?php if(isset($KPI_target_value[$i])) { 
+                                                                                        echo strlen($KPI_target_value[$i] ) >= 20 ? 
                                                                                         substr($KPI_target_value[$i] , 0, 20) . '<lable style="cursor:pointer;color:blue"> >></lable>' : 
-                                                                                        $KPI_target_value[$i];  ?>
+                                                                                        $KPI_target_value[$i]; } ?>
                                                                                         </lable>
                                                                                 </td>
                                                                                 <td class="validate_field1">

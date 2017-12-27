@@ -61,14 +61,19 @@ class NewemployeeController extends Controller
 		{
 			$atd_post_value = 'manual';
 		}
-
+if (Yii::app()->user->getState("Employee_id")!='') {
 		$selected_option = 'newemployee';
 		$this->render('//site/script_file');
 		//$this->render('//site/baseurl');
 		$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_registration',array('model'=>$model,'prefix_value'=>$prefix_value,'post_value'=>$post_value,'atd_prefix_value'=>$atd_prefix_value,'atd_post_value'=>$atd_post_value));
 		$this->render('//site/admin_footer_view');
-		
+	}
+	else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}	
 		
 	}
 
@@ -127,7 +132,7 @@ class NewemployeeController extends Controller
 
 	public function actionemployee_master()
 	{
-		
+		if (Yii::app()->user->getState("Employee_id")!='') {
 			$model=new EmployeeForm;
 			$data = $model->getdata();
 			$selected_option = 'employee_master';
@@ -135,7 +140,12 @@ class NewemployeeController extends Controller
 			$this->render('//site/admin_header_view',array('selected_option'=>$selected_option));
 			$this->render('//site/employee_record',array('model'=>$data));
 			$this->render('//site/admin_footer_view');
-		
+		}
+		else{
+		$model=new LoginForm;
+		$this->render('//site/baseurl');
+		$this->render('//site/user_login_view',array('model'=>$model));
+		}	
 		
 	}
 

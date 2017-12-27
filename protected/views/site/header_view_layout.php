@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
+<script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
         <meta charset="utf-8" />
         <title>Appraisal Portal</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,7 +31,7 @@
        
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css_extended/layout.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo Yii::app()->request->baseUrl; ?>/css_extended/blue-steel.min.css" rel="stylesheet" type="text/css" />
-      
+
         <link rel="shortcut icon" href="52.172.210.251/pms/favicon.ico" />
             <style type="text/css">
             .btn
@@ -162,6 +166,7 @@ var basepath = $("#basepath").attr('value');
         //print_r($menu_settings_data1);die();
     ?>
     <body class="page-container-bg-solid">
+
 <?php
 require_once 'vendor/autoload.php';
 $telemetryClient = new \ApplicationInsights\Telemetry_Client();

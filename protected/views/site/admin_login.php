@@ -3,6 +3,11 @@
     <!-- BEGIN HEAD -->
 
     <head>
+                <script type="text/javascript"> //<![CDATA[ 
+var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.comodo.com/" : "http://www.trustlogo.com/");
+document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script>
         <meta charset="utf-8" />
         <title>User Login</title>
         <meta name="description" content="Performance Management System" />
@@ -342,6 +347,15 @@ var base_url = window.location.origin;
                         
             </script>
         <div class="login-footer">
+        <script language="JavaScript" type="text/javascript">
+        TrustLogo("https://kritva.in/comodo_secure_seal_76x26_transp.png", "CL1", "none");
+        </script>
+        <style type="text/css">
+        #tl_popupCL1
+        {
+            display: none
+        }
+        </style>
                         <div class="row bs-reset">
                             <div class="col-xs-5 bs-reset">
                                 
