@@ -1068,7 +1068,7 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
 		$mail->Host = 'smtp.office365.com'; 
 		$mail->SMTPAuth = true;                          
 		$mail->Username = 'vvf.pms@vvfltd.com';    
-		$mail->Password = 'Dream@200';                         
+		$mail->Password = 'Kritva@5Jan';                 
 		$mail->SMTPSecure = 'tls';                          
 		$mail->Port = 587; 
 		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname']);
@@ -1236,7 +1236,7 @@ $notification_data->notification_type = 'Mid Review Done';
 		$mail->Host = 'smtp.office365.com'; 
 		$mail->SMTPAuth = true;                          
 		$mail->Username = 'vvf.pms@vvfltd.com';    
-		$mail->Password = 'Dream@200';                         
+		$mail->Password = 'Kritva@5Jan';                      
 		$mail->SMTPSecure = 'tls';                          
 		$mail->Port = 587; 
 		$mail->setFrom('vvf.pms@vvfltd.com',$employee_data2['0']['Emp_fname']." ".$employee_data2['0']['Emp_lname']);

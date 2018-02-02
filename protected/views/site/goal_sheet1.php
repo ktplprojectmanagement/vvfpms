@@ -431,9 +431,7 @@ $(document).ready(function(){
                             <h1>Mid Review</h1>
 
                         </div>
-                        
-                        <label id="dotted_mgr"><?php if (isset($employee_data['0']['Reporting_officer2_id']) && $employee_data['0']['Reporting_officer2_id']!='' && $employee_data['0']['Reporting_officer2_id'] == Yii::app()->user->getState("employee_email")){ echo "1";} else{ echo "0";}?></label>
-                         <h4 style="float: right;"><?php  if(isset($employee_data['0']['Emp_fname'])) { echo 'Employee Name : '.$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'].' / '; } ?>
+                         <h4 style="float: right;"><?php if(isset($employee_data['0']['Emp_fname'])) { echo 'Employee Name : '.$employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'].' / '; } ?>
                              <lable style="float: right;"><?php if(isset($employee_data['0']['Department'])) { echo 'Department : '.$employee_data['0']['Department']; } ?></lable>
                         </h4>
                         <!-- END PAGE TITLE -->
@@ -1963,14 +1961,11 @@ margin-top: -37px;
 
 
 
+<label id='mgr'><?php if(isset($show_idp) && count($show_idp)>0 && $show_idp != ''){echo "1";}else{echo "0";}?></label>
 
+<div class="portlet box blue" 
 
-<div class="portlet box blue feedback" 
-
-<?php 
-if (isset($employee_data['0']['Reporting_officer2_id']) && $employee_data['0']['Reporting_officer2_id']!='' && $employee_data['0']['Reporting_officer2_id'] == Yii::app()->user->getState("employee_email")){ ?> style="border: 1px solid rgb(76, 135, 185);background-color:rgb(76, 135, 185); display:none" <?php } else{ ?>style="border: 1px solid rgb(76, 135, 185);background-color:rgb(76, 135, 185);"<?php } ?>
-
-
+<?php if(isset($show_idp) && count($show_idp)>0 && $show_idp != ''){ ?>style="border: 1px solid rgb(76, 135, 185);background-color:rgb(76, 135, 185);display:block"<?php }else{ ?>style="border: 1px solid rgb(76, 135, 185);background-color:rgb(76, 135, 185);display:none"<?php } ?>
 
 >
                                         <div class="portlet-title" style="border: 1px solid rgb(76, 135, 185);background-color:rgb(76, 135, 185)">
@@ -2905,7 +2900,8 @@ review of <?php if(isset($employee_data['0']['Emp_fname'])) { echo $employee_dat
 
 
 $(".send_for_appraisal").click(function(){
-  //alert("hello");
+  alert($('#mgr').text());
+      var mgr =$('#mgr').text();
       var error_count = 0;var error_count1 = 0;var error_count2 = '';
       var id_value = $("#total_kra_id").text();
       var id = id_value.split(';');
@@ -2922,9 +2918,10 @@ $(".send_for_appraisal").click(function(){
     var prgrm_cmd = ''; var extra_prgrm_cmd = ''; var topic = '';var date_value = '';var faculty_value = '';var chk = /[;]/; 
     var extra_cnt = $("#extra_program_count").text().replace(/\s+/g, '');
     var err1="1";var err2="2";var err3="3";var err4="4";var err5="5";var err6="6";var err7="7";
-if($('#dotted_mgr').text()=='0'){
 
-if($('#mgr_cmt1').val() == '' || $('#mgr_cmt1').val() === undefined){
+                
+if(mgr=='1'){
+                if($('#mgr_cmt1').val() == '' || $('#mgr_cmt1').val() === undefined){
                     $('#mgr_cmt1').css('border','1px solid red');
                     $('#mgr_cmt1').focus();
                     $('#err').show();
@@ -3036,7 +3033,7 @@ if($('#mgr_cmt1').val() == '' || $('#mgr_cmt1').val() === undefined){
     }
     
     
-    
+}   
     
     
     for (var i = 0; i < $("#total_prog").text(); i++) {
@@ -3070,7 +3067,7 @@ if($('#mgr_cmt1').val() == '' || $('#mgr_cmt1').val() === undefined){
         }
     }
     
-    }    
+        
         
     for (var j = 0; j < $("#total_kra_number").text(); j++) {
         var mid_review_status = '';

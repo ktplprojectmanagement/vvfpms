@@ -95,7 +95,7 @@
 
                             // alert(mid_review);
                             var program_review_by_emp = ''; var mid_emp_trn_prog_stat='';
-                            $("#program_review_by_emp-"+0).val("fddfd");
+                            //$("#program_review_by_emp-"+0).val("fddfd");
                               for (var i = 0; i < $("#total_prog").text(); i++) 
                               {
                                         if (program_review_by_emp == '') 

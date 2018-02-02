@@ -6888,3 +6888,372 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/pms/admin/index.php/favicon.ico
 ---
+2018/01/11 08:08:41 [error] [php] Undefined variable: desg (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:179)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/Designation_change
+2018/01/15 05:58:57 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2018/01/15 06:00:08 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS_loc/favicon...')
+#3 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/MIS_loc/favicon.ico
+---
+2018/01/15 06:00:17 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/views/site/mis_update_loc.php:1952)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(869): MIS_locController->renderFile()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(782): MIS_locController->renderPartial()
+#2 /backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php(548): MIS_locController->render()
+#3 unknown(0): MIS_locController->actionMis_update()
+#4 /backup/test/var/www/html/pms/admin/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs()
+#5 /backup/test/var/www/html/pms/admin/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /backup/test/var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#8 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#9 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#10 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#12 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/Mis_update/u_id/favicon.ico
+2018/01/15 06:12:04 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:799)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/location_submit
+2018/01/15 06:12:09 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:799)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/location_submit
+2018/01/15 06:12:09 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:799)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/location_submit
+2018/01/15 06:12:14 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:799)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/location_submit
+2018/01/15 06:12:14 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:799)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/location_submit
+2018/01/15 06:12:14 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:799)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/location_submit
+2018/01/15 06:48:11 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "MIS". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/MIS
+---
+2018/01/15 10:04:53 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2018/01/15 10:05:56 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS_loc/favicon...')
+#3 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/MIS_loc/favicon.ico
+---
+2018/01/19 11:38:21 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2018/01/19 12:14:55 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:15:02 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:15:08 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:15:14 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:15:16 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:15:30 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:16:03 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:16:36 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:16:41 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:16:45 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/19 12:16:46 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 04:39:53 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2018/01/22 04:49:36 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 04:49:39 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 05:03:55 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2018/01/22 05:28:20 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/favicon.ico
+---
+2018/01/22 05:33:15 [error] [exception.CHttpException.404] CHttpException: The system is unable to find the requested action "favicon.ico". in /backup/test/var/www/html/pms/admin/framework/web/CController.php:483
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(270): CController->missingAction('favicon.ico')
+#1 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): CController->run('favicon.ico')
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('MIS_loc/favicon...')
+#3 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#4 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/pms/admin/index.php/MIS_loc/favicon.ico
+---
+2018/01/22 06:08:18 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:08:20 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:08:22 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:08:42 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:08:45 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:08:49 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:08:51 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php:135)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#2 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#3 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#4 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#5 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/ReprtngMgr
+2018/01/22 06:44:35 [error] [php] Undefined offset: 0 (/backup/test/var/www/html/pms/admin/protected/views/site/mis_update_loc.php:1952)
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CController.php(869): MIS_locController->renderFile()
+#1 /backup/test/var/www/html/pms/admin/framework/web/CController.php(782): MIS_locController->renderPartial()
+#2 /backup/test/var/www/html/pms/admin/protected/controllers/MIS_locController.php(587): MIS_locController->render()
+#3 unknown(0): MIS_locController->actionMis_update()
+#4 /backup/test/var/www/html/pms/admin/framework/web/actions/CAction.php(109): ReflectionMethod->invokeArgs()
+#5 /backup/test/var/www/html/pms/admin/framework/web/actions/CInlineAction.php(47): CInlineAction->runWithParamsInternal()
+#6 /backup/test/var/www/html/pms/admin/framework/web/CController.php(308): CInlineAction->runWithParams()
+#7 /backup/test/var/www/html/pms/admin/framework/web/CController.php(286): MIS_locController->runAction()
+#8 /backup/test/var/www/html/pms/admin/framework/web/CController.php(265): MIS_locController->runActionWithFilters()
+#9 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(282): MIS_locController->run()
+#10 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController()
+#11 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#12 /backup/test/var/www/html/pms/admin/index.php(13): CWebApplication->run()
+REQUEST_URI=/pms/admin/index.php/MIS_loc/Mis_update/u_id/favicon.ico
+2018/01/30 07:21:29 [error] [exception.CHttpException.404] CHttpException: Unable to resolve the request "index.html". in /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php:286
+Stack trace:
+#0 /backup/test/var/www/html/pms/admin/framework/web/CWebApplication.php(141): CWebApplication->runController('index.html')
+#1 /backup/test/var/www/html/pms/admin/framework/base/CApplication.php(185): CWebApplication->processRequest()
+#2 /backup/test/var/www/html/pms/admin/index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/pms/admin/index.php/index.html
+---

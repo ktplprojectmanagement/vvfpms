@@ -26,6 +26,33 @@
         $(".hasDatepicker").keypress(function(e){ e.preventDefault(); });
     });
   </script>
+
+    <script type="text/javascript">
+$(document).ready(function(){
+    $("#dot_mgr_sap").focusout(function(){
+       var rep_sap=$('#dot_mgr_sap').val();
+        //alert(rep_sap);
+        var rep_mgr_data={
+            rep_sap:rep_sap,
+        };
+        $.ajax({
+                'type' : 'post',
+                'datatype' : 'html',
+                'data' : rep_mgr_data,
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/ReprtngMgr',
+                success : function(data)
+                {
+                   
+                    var report=data.split('-');
+                    $("#dot_mgr").val(report['0']);
+                    
+                }
+            });
+    });
+    
+});
+  </script>
+
   <script>
   $( function() {
      $("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
@@ -177,6 +204,43 @@
                                 }
                             });
                         });
+
+                        $('#clust_nm').change(function(){
+                           //alert("hi");
+                            var cluster_name = {
+                                'cluster_name' : $('#clust_nm').find(':selected').val()
+                            }
+                            var base_url = window.location.origin;  
+                            $.ajax({
+                                 dataType :'html',
+                                 type :'post',
+                                 data : cluster_name,
+                                 url : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/clustre_head_list',
+                                 success : function(data) {   
+                               // alert(data)           ;
+                                    $('#clust_hd').html(data);                              
+                                }
+                            });
+                        });
+
+                        $("#lst_wrk_dt").change(function(){
+                           if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        }); 
+                        $("#lst_wrk_dt").focusout(function(){
+                           if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        });
+
+
                     });
      
   </script>
@@ -796,7 +860,7 @@ $(document).ready(function(){
         // var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
         var rep1_attd = $('#rep1_attd').val();
         var rep1_appr = $('#rep1_appr').val();
-        var dot_mgr = $('option:selected', $('#dot_mgr')).val();
+        var dot_mgr = $('#dot_mgr').val();
         // var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
         var mgr_mgr =  $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
@@ -1537,7 +1601,7 @@ $(document).ready(function(){
         // var rep1_appr = $('option:selected', $('#rep1_appr')).val();
         var rep1_attd = $('#rep1_attd').val();
         var rep1_appr = $('#rep1_appr').val();
-        var dot_mgr = $('option:selected', $('#dot_mgr')).val();
+        var dot_mgr = $('#dot_mgr').val();
         // var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
         var mgr_mgr =  $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
@@ -2773,7 +2837,16 @@ var d = new Date(2017, 09, 01);
 
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
+                                        <div class="form-group">
+                                                                <label class="col-md-3 control-label">Dotted Line Manager SAP Code<span style="color:red">*</span>
+                                                                </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control" placeholder="Enter Dotted Line Manager SAP Code" type="text" id="dot_mgr_sap">
+                                               
+                                            </div>
+                                        </div>
+
+                                                               <!--  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Dotted Line Manager
                                                                     </label>
                                                                     <div class="col-md-6">
@@ -2809,7 +2882,18 @@ var d = new Date(2017, 09, 01);
                                           }?>    
                                                                                 <span class="help-block"> Select Dotted Line Manager</span>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
+                                     <div class="form-group">
+                                        <label class="col-md-3 control-label">Dotted Line Manager</label>
+                                        <div class="col-md-6">
+
+                                            <?php if($employee_data['0']['Reporting_1_for_appraisal']==""){ ?>
+                                            <input class="form-control validate_field" placeholder="Enter Dotted Line Manager" type="rep1_attd" id="dot_mgr" disabled> </div>
+                                            <?php  } else { ?> 
+                                            <input class="form-control validate_field" placeholder="Enter Dotted Line Manager" type="dot_mgr" id="dot_mgr" value='<?php echo $employee_data['0']['Reporting_officer2_id'];?>' disabled>
+                                            <?php }?>        
+                                        </div>
+                                    </div>
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Manager's Manager
                                                                     </label>
@@ -3675,7 +3759,7 @@ var d = new Date(2017, 09, 01);
                                                                                     <?php } ?>
                                                                                     <option value="">Select</option>
                                                                                     <option value="Active">Active</option>
-                                                                                    <option value="Left">Left</option>
+                                                                                    <option value="Left">Inactive</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Employee Status</span>
                                                                     </div>

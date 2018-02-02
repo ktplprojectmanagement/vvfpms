@@ -26,27 +26,53 @@
         $(".hasDatepicker").keypress(function(e){ e.preventDefault(); });
     });
   </script>
+    <script type="text/javascript">
+    $(function(){
+        $('#othr_exp').focusout(function(){
+             var    other_exp=0; 
+             other_exp=$('#othr_exp').val(); 
+             var vvf_exp = $('#vvf_exp').val();
+             var vvf_expr=vvf_exp.split("years");
+             var tot_expn=parseInt(other_exp)+parseInt(vvf_expr[0]);
+             $('#tot_exp').val((parseInt(other_exp)+parseInt(vvf_expr[0]))+''+'Years');
+        });
+    });
+    </script>
   <script>
   $( function() {
-     $("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
-//             var newdate = ($("#dob").val()).split("-").reverse().join("-");
-//            // alert(newdate);
-//            // alert(this.val());
+//      $("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
+// //             var newdate = ($("#dob").val()).split("-").reverse().join("-");
+// //            // alert(newdate);
+// //            // alert(this.val());
 
-//             var age = getAge(this);
+// //             var age = getAge(this);
+// //             var months=age.split("years");
+// //             //alert(months);
+// //           $('#age_yrs').val(months[0]+'Years');
+// //           $('#age_mnt').val(months[1]);
+// //             console.log(age);
+// //             //alert(age);
+// // $('#dob').val(newdate);
+//             var yrs=$("#dob").val().split("-");
+//             var yr=parseInt(yrs[0])+60;
+//             var retire_dt= yrs[2]+"-"+yrs[1]+"-"+yr;
+//             $('#dt_retire').val(retire_dt);
+//             var newdate = ($("#dob").val()).split("-").reverse().join("-");
+//             var age = getAge($("#dob").val());
 //             var months=age.split("years");
-//             //alert(months);
-//           $('#age_yrs').val(months[0]+'Years');
-//           $('#age_mnt').val(months[1]);
+//             $('#age_yrs').val(months[0]+''+'Years');
+//             $('#age_mnt').val(months[1]);
 //             console.log(age);
-//             //alert(age);
-// $('#dob').val(newdate);
+//             $('#dob').val(newdate);
+
+//         });
+$("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
             var yrs=$("#dob").val().split("-");
             var yr=parseInt(yrs[0])+60;
             var retire_dt= yrs[2]+"-"+yrs[1]+"-"+yr;
             $('#dt_retire').val(retire_dt);
             var newdate = ($("#dob").val()).split("-").reverse().join("-");
-            var age = getAge($("#dob").val());
+            var age = getAge(this);
             var months=age.split("years");
             $('#age_yrs').val(months[0]+''+'Years');
             $('#age_mnt').val(months[1]);
@@ -346,6 +372,92 @@ $(document).ready(function(){
 });
 
   </script>
+    <script>
+                       $(function(){
+
+                        $('#state').change(function(){
+                            var state_name = {
+                                'state_name' : $('#state').find(':selected').val()
+                            }
+                            var base_url = window.location.origin;  
+                            $.ajax({
+                                 dataType :'html',
+                                 type :'post',
+                                 data : state_name,
+                                 url : base_url+$("#basepath").attr('value')+'/index.php/MIS/city_list',
+                                 success : function(data) {              
+                                    $('#city').html(data);                              
+                                }
+                            });
+                        });
+
+                        $('#clust_nm').change(function(){
+                            var cluster_name = {
+                                'cluster_name' : $('#clust_nm').find(':selected').val()
+                            }
+                            var base_url = window.location.origin;  
+                            $.ajax({
+                                 dataType :'html',
+                                 type :'post',
+                                 data : cluster_name,
+                                 url : base_url+$("#basepath").attr('value')+'/index.php/MIS/clustre_head_list',
+                                 success : function(data) {   
+                               // alert(data)           ;
+                                    $('#clust_hd').html(data);                              
+                                }
+                            });
+                        });
+                        $("#lst_wrk_dt").change(function(){
+                            if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        });
+                        $("#lst_wrk_dt").focusout(function(){
+                            if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        });
+
+
+
+                            $('#dot_mgr_sap').focusout(function(){
+       
+        var rep_sap=$('#dot_mgr_sap').val();
+        //alert(rep_sap);
+        var rep_mgr_data={
+            rep_sap:rep_sap,
+        };
+        $.ajax({
+                'type' : 'post',
+                'datatype' : 'html',
+                'data' : rep_mgr_data,
+                'url' : base_url+$("#basepath").attr('value')+'/index.php/MIS/ReprtngMgr',
+                success : function(data)
+                {
+                    //alert(data);
+                    var report=data.split('-');
+                    $("#dot_mgr").val(report['0']);
+                    // $("#rep1_appr").val(report['0']);
+                    // $("#mgr_mgr").val(report['1']);
+                    //alert(report);
+                }
+            });
+    });
+
+
+                            
+                    });
+
+
+     
+  </script>
+
   <script>
     $(document).ready(function(){
    
@@ -1432,7 +1544,7 @@ $(document).ready(function(){
         // var rep1_appr = $('option:selected', $('#rep1_appr')).val();
         var rep1_attd = $('#rep1_attd').val();
         var rep1_appr =  $('#rep1_appr').val();
-        var dot_mgr = $('option:selected', $('#dot_mgr')).val();
+        var dot_mgr = $('#dot_mgr').val();
         //var mgr_mgr = $('option:selected', $('#mgr_mgr')).val();
         var mgr_mgr = $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
@@ -1637,46 +1749,9 @@ $("#cost_center").change(function () {
   </script>
 
 <script type="text/javascript">
- $(function(){
+$(function(){
 var d = new Date(2017, 09, 01);
 
-
-
-        //     if($('#dob').val() != ''){
-
-        //     var yrs=$("#dob").val().split("-");
-        //     var yr=parseInt(yrs[2])+60;
-        //     var retire_dt= yrs[0]+"-"+yrs[1]+"-"+yr;
-        //     $('#dt_retire').val(retire_dt);
-        //     var newdate = ($("#dob").val()).split("-").reverse().join("-");
-        //     //alert(newdate);
-        //     var age = getAge(newdate);
-        //     var months=age.split("years");
-        //     $('#age_yrs').val(months[0]+''+'Years');
-        //     $('#age_mnt').val(months[1]);
-        //     console.log(age);
-            
-
-
-
-
-         
-        // }
-        // if($("#doj_vvf").val() !=''){
-        //     var newdate1 = ($("#doj_vvf").val()).split("-").reverse().join("-");
-        //     var exp = getAge(newdate1);
-        //     var exp_yr=exp.split("years");
-        //     var other_exp= 0 ;
-        //     $('#vvf_exp').val(exp_yr[0]+''+'Years');
-           
-        //     if ($('#othr_exp').val()!='') {
-        //         other_exp=$('#othr_exp').val(); 
-            
-        //     };
-        //     var tot_expn=parseInt(other_exp)+parseInt(exp_yr[0]);
-            
-        //     $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
-        // }
         if($('#dob').val() != ''){
 
             var yrs=$("#dob").val().split("-");
@@ -1915,7 +1990,7 @@ var d = new Date(2017, 09, 01);
                                                             <div class="tab-pane active" id="tab_1_1">
                                                                 <form action="#" class="form-horizontal">
                                                                      <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Company Name</label>
+                                                                    <label class="col-md-3 control-label">Company Name<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="comp_nm">
                                                                                     <option value="">Select</option>
@@ -1930,7 +2005,7 @@ var d = new Date(2017, 09, 01);
                                                                             </div>
                                                                 </div>
                                                                     <div class="form-group">
-                                                                    <label class="col-md-3 control-label">First Name
+                                                                    <label class="col-md-3 control-label">First Name<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php 
@@ -1948,7 +2023,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Last Name
+                                                                    <label class="col-md-3 control-label">Last Name<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php
@@ -2011,7 +2086,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                   <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Contact Number</label>
+                                                                    <label class="col-md-3 control-label">Contact Number<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         <?php if(isset($employee_data) && ($employee_data['0']['contact']!="")){?>
                                                                         <input class="form-control validate_field" placeholder="Enter Contact number" type="email" id="contact" value="<?php echo $employee_data['0']['contact'];?>" > </div>
@@ -2021,7 +2096,7 @@ var d = new Date(2017, 09, 01);
                                                                             <?php }
                                                                         ?></div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Permanent Address</label>
+                                                                    <label class="col-md-3 control-label">Permanent Address<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                          <?php
                                                                          if(isset($employee_data) && ($employee_data['0']['Permanent_address']!="")){?>
@@ -2035,7 +2110,7 @@ var d = new Date(2017, 09, 01);
                                                                         </div>
                                                                     </div>
                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">State</label>
+                                                                    <label class="col-md-3 control-label">State<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         <?php 
                                                                             $cluster_name_models = new StateCityForm();
@@ -2052,7 +2127,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">District/City/Area</label>
+                                                                    <label class="col-md-3 control-label">District/City/Area<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         <?php
                                                                          if(isset($employee_data) && ($employee_data['0']['city']!="")){?>
@@ -2066,7 +2141,7 @@ var d = new Date(2017, 09, 01);
                                                                             </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Pincode</label>
+                                                                    <label class="col-md-3 control-label">Pincode<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         <?php
                                                                          if(isset($employee_data) && ($employee_data['0']['Pincode']!="")){?>
@@ -2077,7 +2152,7 @@ var d = new Date(2017, 09, 01);
                                                                  <?php } ?>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Basic Qualification (uptil Graduation)</label>
+                                                                    <label class="col-md-3 control-label">Basic Qualification (uptil Graduation)<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 
                                                                                 <?php
@@ -2120,7 +2195,7 @@ var d = new Date(2017, 09, 01);
                                                                    <?php } ?>  
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Marital Status</label>
+                                                                    <label class="col-md-3 control-label">Marital Status<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="marital_stat">
                                                                                      <?php
@@ -2139,7 +2214,7 @@ var d = new Date(2017, 09, 01);
                                                                     
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">No of Dependents</label>
+                                                                    <label class="col-md-3 control-label">No of Dependents<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="no_of_depend">
                                                                                      <?php
@@ -2158,7 +2233,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Blood Group</label>
+                                                                    <label class="col-md-3 control-label">Blood Group<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="bld_grp">
                                                                                     <?php
@@ -2174,13 +2249,13 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="B -ve">B -ve</option>
                                                                                     <option value="AB -ve">AB -ve</option>
                                                                                     <option value="O -ve">O -ve</option>
-                                                                                    
+                                                                                    <option value="Bombay">Bombay</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Blood Group </span>
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">PAN Card No.
+                                                                    <label class="col-md-3 control-label">PAN Card No.<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php
@@ -2194,7 +2269,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Aadhar number
+                                                                    <label class="col-md-3 control-label">Aadhar number<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php
@@ -2207,7 +2282,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Date of Birth
+                                                                    <label class="col-md-3 control-label">Date of Birth<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php
@@ -2247,7 +2322,7 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Gender</label>
+                                                                    <label class="col-md-3 control-label">Gender<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="gender">
                                                                                 <?php
@@ -2311,7 +2386,7 @@ var d = new Date(2017, 09, 01);
                                                                     <div class="form-group">
                                                                     <label class="col-md-3 control-label">
                                                                     
-                                                                    Position Code
+                                                                    Position Code<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <?php
@@ -2328,7 +2403,7 @@ var d = new Date(2017, 09, 01);
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Departments
+                                                                    <label class="col-md-3 control-label">Departments<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 <!-- <select class="form-control" id="dept">
@@ -2384,50 +2459,27 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">BU
+                                                                    <label class="col-md-3 control-label">BU<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                               <!--  <select class="form-control" id="bu">
+
+                                                                                <select class="form-control" id="bu">
+                                                                                         <?php if(isset($employee_data['0']['BU']) &&($employee_data['0']['BU']!="")){ ?> 
+                                                                                        <option value="<?php echo $employee_data['0']['BU'];?>"><?php echo $employee_data['0']['BU'];?></option>
+                                                                                    <?php }?>
                                                                                     <option value="">Select</option>
-                                                                                    <option value="Corporate Shared Services">Corporate Shared Services</option>
-                                                                                    <option value="Oleochemicals">Oleochemicals</option>
-                                                                                    <option value="Corporate Shared Services
-                                                                                    ">Corporate Shared Services
-                                                                                    </option>
-                                                                                    <option value=" Corporate Shared Services"> Corporate Shared Services</option>
-                                                                                    <option value="Select">Select</option>
-                                                                                    <option value="Contract Manufacturing">Contract Manufacturing</option>
-                                                                                    <option value="Personal Care Products">Personal Care Products</option>
-                                                                                    <option value="Consumer Products Division">Consumer Products Division</option>
-                                                                                    <option value="Contract Manufacturing
-                                                                                    ">Contract Manufacturing
-                                                                                    </option>
-                                                                                    <option value="SMC">SMC</option>
-                                                                                    <option value="CSS">CSS</option>
-                                                                                    <option value="PCP">PCP</option>
-                                                                                    <option value="Consumer Products Division Marketing">Consumer Products Division Marketing</option>
-                                                                                </select> -->
-                                                                                <?php 
-                                                                                     $cluster_name_models = new ClusterForm();
-                                                                                     $cluster_name_model = new EmployeeForm();
-                                                                                   
-                                                                                      $records=$cluster_name_model->get_bu_list();
-                                                                                      //print_r($records);die();
-                                                                                     $list = CHtml::listData($records,'BU', 'BU'); 
-                                                                                     $arr_clus = array();
-                                                                                     $arr_clus[$employee_data['0']['BU']] = array('selected' => true);  
-                                                                                     if($employee_data['0']['BU']==""){
-                                                                                        echo CHtml::activeDropDownList($cluster_name_model,'BU',$list,array('id'=>"bu",'class'=>'form-control bu','empty'=>'Select')); 
-                                                                                     }
-                                                                                     else{
-                                                                                        echo CHtml::activeDropDownList($cluster_name_model,'BU',$list,array('id'=>"bu",'class'=>'form-control bu','options'=>$arr_clus)); 
-                                                                                     }
-                                                                                     ?>
+                                                                                    <option value="Consumer Products Division">Consumer Products Division (CPD)</option>
+                                                                                    <option value="Contract Manufacturing">Contract Manufacturing Business (CMB)</option>
+                                                                                    <option value="Corporate Shared Services">Corporate Shared Services (CSS)</option>
+                                                                                    <option value="Oleochemicals">Oleochemicals (Oleo)</option>
+                                                                                    
+                                                                                    
+                                                                                </select>    
                                                                                 <span class="help-block"> Select BU</span>
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Cadre
+                                                                    <label class="col-md-3 control-label">Cadre<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="cadre">
@@ -2435,31 +2487,70 @@ var d = new Date(2017, 09, 01);
                                                                                         <option value="<?php echo $employee_data['0']['Cadre'];?>"><?php echo $employee_data['0']['Cadre'];?></option>
                                                                                     <?php }?>
                                                                                     <option value="">Select</option>
+                                                                                    <option value="Associate">Associate</option>
+                                                                                    <option value="Apprentice">Apprentice</option>
+                                                                                    <option value="GET">GET</option>
                                                                                     <option value="JMC">JMC</option>
                                                                                     <option value="MMC">MMC</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="OC">OC</option>
                                                                                     <option value="SMC">SMC</option>
+                                                                                    <option value="Trainee">Trainee</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Cadre</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Grade
+                                                                    <label class="col-md-3 control-label">Grade<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="grade">
                                                                                     <?php if(isset($employee_data['0']['Grade']) &&($employee_data['0']['Grade']!="")){ ?> 
                                                                                         <option value="<?php echo $employee_data['0']['Grade'];?>"><?php echo $employee_data['0']['Grade'];?></option>
                                                                                     <?php }?>
-                                                                                    <option value="">Select</option>
-                                                                                    <option value="JMC">JMC</option>
-                                                                                    <option value="MMC">MMC</option>
-                                                                                    <option value="SMC">SMC</option>
+                                                                                    <option value="A">A</option>
+                                                                                    <option value="A1">A1</option>
+                                                                                    <option value="A2">A2</option>
+                                                                                    <option value="A3">A3</option>
+                                                                                    <option value="D">D</option>
+                                                                                    <option value="EG">EG</option>
+                                                                                    <option value="EG-0">EG-0</option>
+                                                                                    <option value="EG-1">EG-1</option>
+                                                                                    <option value="EG-2">EG-2</option>
+                                                                                    <option value="EG-3">EG-3</option>
+                                                                                    <option value="EG-4">EG-4</option>
+                                                                                    <option value="EG-5">EG-5</option>
+                                                                                    <option value="EG-6">EG-6</option>
+                                                                                    <option value="EG-7">EG-7</option>
+                                                                                    <option value="EG-8">EG-8</option>
+                                                                                    <option value="EG-9">EG-9</option>
+                                                                                    <option value="EG-10">EG-10</option>
+                                                                                    <option value="EG-11">EG-11</option>
+                                                                                    <option value="EG-12">EG-12</option>
+                                                                                    <option value="EG-13">EG-13</option>
+                                                                                    <option value="GET">GET</option>
+                                                                                    <option value="HSK">HSK</option>
+                                                                                    <option value="J1">J1</option>
+                                                                                    <option value="J2">J2</option>
+                                                                                    <option value="J3">J3</option>
+                                                                                    <option value="M-0">M-0</option>
+                                                                                    <option value="M1">M1</option>
+                                                                                    <option value="M2">M2</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="S1">S1</option>
+                                                                                    <option value="S2">S2</option>
+                                                                                    <option value="SG">SG</option>
+                                                                                    <option value="SK">SSK</option>
+                                                                                    <option value="T1">T1</option>
+                                                                                    <option value="T2">T2</option>
+                                                                                    <option value="TR">TR</option>
+                                                                                    <option value="USK">USK</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Grade</span>
                                                                     </div>
                                                                 </div>
-                                                                                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Designation
+                                                             <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Designation<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 
@@ -2483,9 +2574,13 @@ var d = new Date(2017, 09, 01);
                                                                     </div>
                                                                 </div> 
                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Location-Working at</label>
+                                                                    <label class="col-md-3 control-label">Location-Working at<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
-                                                                                <!-- <select class="form-control" id="loc_work">
+<select class="form-control" id="loc_work">
+                                                                        <?php if(isset($employee_data['0']['company_location']) &&($employee_data['0']['company_location']!="")){ ?> 
+                                                                                        <option value="<?php echo $employee_data['0']['company_location'];?>"><?php echo $employee_data['0']['company_location'];?></option>
+                                                                                    <?php }?>
+                                                                                
                                                                                     <option value="">Select</option>
                                                                                     <option value="0">Corporate</option>
                                                                                     <option value="1">Sion</option>
@@ -2499,38 +2594,43 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="9">Daman</option>
                                                                                     <option value="10">Chennai</option>
                                                                                     <option value="11">New Delhi</option>
-                                                                                    <option value="12">Taloja</option>
-                                                                                </select> -->
+                                                                                   
+                                                                                </select>
                                                                                 <?php 
-                                                                                        $records=array();
-                                                                                        $cluster_name_models = new ClusterForm();
-                                                                                        $records = $cluster_name_models->get_list('company_location');
-                                                                                        $location_details=$records['0']['company_location'];
-                                                                                        $location1=explode(';',$location_details);
-                                                                                        $status1 = '';
-                                                                                        $status1[$employee_data['0']['company_location']] = array('selected' => true);
+                                                                                        // $records=array();
+                                                                                        // $cluster_name_models = new ClusterForm();
+                                                                                        // $records = $cluster_name_models->get_list('company_location');
+                                                                                        // $location_details=$records['0']['company_location'];
+                                                                                        // $location1=explode(';',$location_details);
+                                                                                        // $status1 = '';
+                                                                                        // $status1[$employee_data['0']['company_location']] = array('selected' => true);
 
-                                                                                        $list_data = array();
-                                                                                        for ($i=0; $i < count($location1); $i++) { 
-                                                                                            $list_data[$location1[$i]] = $location1[$i];
-                                                                                        }
-                                                                                        //echo $employee_data['0']['company_location'];
-                                                                                        if(isset($employee_data['0']['company_location']) && $employee_data['0']['company_location']==''){
-                                                                                             echo CHtml::dropDownList("location",'',$list_data,$htmlOptions=array('id'=>'loc_work','class'=>"form-control location",'empty'=>'Select'));
+                                                                                        // $list_data = array();
+                                                                                        // for ($i=0; $i < count($location1); $i++) { 
+                                                                                        //     $list_data[$location1[$i]] = $location1[$i];
+                                                                                        // }
+                                                                                        // //echo $employee_data['0']['company_location'];
+                                                                                        // if(isset($employee_data['0']['company_location']) && $employee_data['0']['company_location']==''){
+                                                                                        //      echo CHtml::dropDownList("location",'',$list_data,$htmlOptions=array('id'=>'loc_work','class'=>"form-control location",'empty'=>'Select'));
 
-                                                                                        }
-                                                                                        else{
-                                                                                            echo CHtml::dropDownList("location",'',$list_data,$htmlOptions=array('id'=>'loc_work','class'=>"form-control location",'options' => $status1));
-                                                                                        }
+                                                                                        // }
+                                                                                        // else{
+                                                                                        //     echo CHtml::dropDownList("location",'',$list_data,$htmlOptions=array('id'=>'loc_work','class'=>"form-control location",'options' => $status1));
+                                                                                        // }
                                                                                         
                                                                                 ?>
                                                                                 <span class="help-block"> Select Location-Working at </span>
                                                                             </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Location-Payroll at</label>
+                                                                    <label class="col-md-3 control-label">Location-Payroll at<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
-                                                                                <!-- <select class="form-control" id="loc_pay">
+                                                                     
+                                                                                 <select class="form-control" id="loc_work">s
+                                                                                <?php if(isset($employee_data['0']['Location_payroll_at']) && $employee_data['0']['Location_payroll_at']!=''){ ?>
+                                                                                <option value="<?php echo $employee_data['0']['Location_payroll_at'];?>" ><?php echo $employee_data['0']['Location_payroll_at'];?></option>
+                                                                        <?php }?>
+                                                                               
                                                                                     <option value="">Select</option>
                                                                                     <option value="0">Corporate</option>
                                                                                     <option value="1">Sion</option>
@@ -2544,41 +2644,24 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="9">Daman</option>
                                                                                     <option value="10">Chennai</option>
                                                                                     <option value="11">New Delhi</option>
-                                                                                    <option value="12">Taloja</option>
-                                                                                </select> -->
-                                                                                <?php 
-                                                                                        $records=array();
-                                                                                        $cluster_name_models = new ClusterForm();
-                                                                                        $records = $cluster_name_models->get_list('company_location');
-                                                                                        $location_details=$records['0']['company_location'];
-                                                                                        $location1=explode(';',$location_details);
-                                                                                        $status1 = '';
-                                                                                        $status1[$employee_data['0']['Location_payroll_at']] = array('selected' => true);
-
-                                                                                        $list_data = array();
-                                                                                        for ($i=0; $i < count($location1); $i++) { 
-                                                                                            $list_data[$location1[$i]] = $location1[$i];
-                                                                                        }
-                                                                                        //echo $employee_data['0']['Location_payroll_at'];
-                                                                                        if(isset($employee_data['0']['Location_payroll_at']) && $employee_data['0']['Location_payroll_at']==''){
-                                                                                             echo CHtml::dropDownList("location",'',$list_data,$htmlOptions=array('id'=>'loc_pay','class'=>"form-control location",'empty'=>'Select'));
-
-                                                                                        }
-                                                                                        else{
-                                                                                            echo CHtml::dropDownList("location",'',$list_data,$htmlOptions=array('id'=>'loc_pay','class'=>"form-control location",'options' => $status1));
-                                                                                        }
-                                                                                        
-                                                                                ?>
+                                                                                   
+                                                                                </select>
+                                                                               
                                                                                 <span class="help-block"> Select Location-Payroll at </span>
                                                                             </div>
                                                                 </div>
                                                                
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Cluster Name</label>
+                                                                    <label class="col-md-3 control-label">Cluster Name<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
-                                                                                <!-- <select class="form-control" id="clust_nm">
+                                                                               
+                                                                                <select class="form-control" id="clust_nm">
+                                                                                    <?php if(isset($employee_data['0']['cluster_name']) && $employee_data['0']['cluster_name']!=''){ ?>
+                                                                                <option value="<?php echo $employee_data['0']['cluster_name'];?>" ><?php echo $employee_data['0']['cluster_name'];?></option>
+                                                                        <?php }?>
+                                                                               
                                                                                     <option value="">Select</option>
-                                                                                   <option value="R&amp;D">R&amp;D</option>
+                                                                                    <option value="R&amp;D">R&amp;D</option>
                                                                                     <option value="Oleo Non Mfg">Oleo Non Mfg</option>
                                                                                     <option value="Sewree Operations">Sewree Operations</option>
                                                                                     <option value="HR/Security/Admin">HR/Security/Admin</option>
@@ -2589,32 +2672,10 @@ var d = new Date(2017, 09, 01);
                                                                                     <option value="SMC Cluster">SMC Cluster</option>
                                                                                     <option value="Miscellaneous">Miscellaneous</option>
                                                                                     <option value="CPD">CPD</option>
-                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM
-                                                                                    ">Finance / IT / Indirect Tax/Excise/EXIM
-                                                                                    </option>
                                                                                     <option value="CMB Manufacturing">CMB Manufacturing</option>
                                                                                     <option value="PCP Quality">PCP Quality</option>
                                                                                     <option value="Promoters">Promoters</option>
-                                                                                    <option value="Oleo Non Mfg
-                                                                                    ">Oleo Non Mfg
-                                                                                    </option>
-                                                                                </select> -->
-                                                                                <?php 
-                                                                                     $cluster_name_models = new ClusterForm();
-                                                                                     $cluster_name_model = new EmployeeForm();
-                                                                                   
-                                                                                      $records=$cluster_name_model->get_cluster_list();
-                                                                                     
-                                                                                     $list = CHtml::listData($records,'cluster_name', 'cluster_name'); 
-                                                                                     $arr_clus = array();
-                                                                                     $arr_clus[$employee_data['0']['cluster_name']] = array('selected' => true);  
-                                                                                     if(isset($employee_data['0']['cluster_name']) && $employee_data['0']['cluster_name']==""){
-                                                                                        echo CHtml::activeDropDownList($cluster_name_model,'cluster_name',$list,array('id'=>"clust_nm",'class'=>'form-control cluster_name','empty'=>'Select')); 
-                                                                                     }
-                                                                                     else{
-                                                                                        echo CHtml::activeDropDownList($cluster_name_model,'cluster_name',$list,array('id'=>"clust_nm",'class'=>'form-control cluster_name','options'=>$arr_clus)); 
-                                                                                     }
-                                                                                     ?>
+                                                                                </select>
                                                                                 <span class="help-block"> Select Cluster Name </span>
                                                                     </div>
                                                                 </div>
@@ -2636,7 +2697,7 @@ var d = new Date(2017, 09, 01);
                                                             <div class="tab-pane" id="tab_1_3">
                                                                  <form action="#" class="form-horizontal">
                                                                     <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Reporting Mgr SAP Code
+                                                                    <label class="col-md-3 control-label">Reporting Mgr SAP Code<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                        <?php if(isset($employee_data['0']['Reporting_Mgr_SAP_Code']) && $employee_data['0']['Reporting_Mgr_SAP_Code']==""){ ?>
@@ -2720,35 +2781,7 @@ var d = new Date(2017, 09, 01);
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                     
-                         <?php 
-                                      //    $reporting_list = new EmployeeForm();
-                                      //    $records = $reporting_list->get_appraiser_list();
-                                      //    for ($k=0; $k < count($records); $k++) { 
-                                      //       $where = 'where Email_id = :Email_id';
-                                      //       $list = array('Email_id');
-                                      //       $data = array($records[$k]['Reporting_officer1_id']);
-                                      //       $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                      //    }    
-                                      //    $Cadre_id = array();                                 
-                                      //   for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                      //   if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                      //      $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                      //   }
-                                           
-                                      //  }
-                                      
-                                      //       $where = 'where Email_id = :Email_id';
-                                      //       $list = array('Email_id');
-                                      //       $data = array($employee_data['0']['Reporting_1_for_appraisal']);
-                                      //       $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-                                      //       $status1 = '';
-                                      //       $status1[$employee_data['0']['Reporting_1_for_appraisal']] = array('selected' => true);
-                                      //       if($employee_data['0']['Reporting_1_for_appraisal']==""){
-                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_appr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
-                                      // }
-                                      //   else{
-                                      //       echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'rep1_appr','class'=>'form-control repoting_officer','options' => $status1)); 
-                                      //     }?>      
+
                                        <?php if($employee_data['0']['Reporting_1_for_appraisal']==""){ ?>
                                     <input class="form-control validate_field" placeholder="Enter Reporting-1 (For appraisal)" type="rep1_appr" id="rep1_appr">
                                     <?php  } else { ?> 
@@ -2757,100 +2790,68 @@ var d = new Date(2017, 09, 01);
                                          <!--    <span class="help-block"> Select Reporting-1 (For appraisal)</span> -->
                                                                     </div>
                                                                 </div>
-                                                                <div class="form-group">
+
+
+                                                                         <div class="form-group">
+                                                                <label class="col-md-3 control-label">Dotted Line Manager SAP Code<span style="color:red">*</span>
+                                                                </label>
+                                                                <div class="col-md-6">
+                                                                    <input class="form-control" placeholder="Enter Dotted Line Manager SAP Code" type="text" id="dot_mgr_sap">
+                                                                   
+                                                                </div>
+                                                            </div>
+
+<div class="form-group">
+<label class="col-md-3 control-label">Dotted Line Manager</label>
+<div class="col-md-6">
+
+<?php if($employee_data['0']['Reporting_1_for_appraisal']==""){ ?>
+<input class="form-control validate_field" placeholder="Enter Dotted Line Manager" type="rep1_attd" id="dot_mgr" disabled> </div>
+<?php  } else { ?> 
+<input class="form-control validate_field" placeholder="Enter Dotted Line Manager" type="dot_mgr" id="dot_mgr" value='<?php echo $employee_data['0']['Reporting_officer2_id'];?>' disabled>
+<?php }?>        
+</div>
+
+                                                 <!--                <div class="form-group">
                                                                     <label class="col-md-3 control-label">Dotted Line Manager
                                                                     </label>
-                                                                    <div class="col-md-6">
-                                                                        <?php 
-                                                                            // $reporting_list = new EmployeeForm();
-                                                                            // $records = $reporting_list->get_appraiser_list();
-                                                                            // // echo count($records);die();
-                                                                            // for ($k=0; $k < count($records); $k++) { 
-                                                                            // $where = 'where Email_id = :Email_id ';
-                                                                            // $list = array('Email_id','pms_status');
-                                                                            // $data = array($records[$k]['Reporting_officer1_id'],'Active');
-                                                                            // $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                                                            // }
-                                                                            
-                                                                            // $Report_id = array(); 
-                                                                            
-                                                                            // for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                                                            // if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                                                            // $Report_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                                                            // }
-                                                                            
-                                                                            // }
-                                                                            
-                                                                            // echo CHtml::dropDownList("dot_mgr",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
-                                                                        ?>
-                                                                        <?php 
-                                      //    $reporting_list = new EmployeeMaster1Form();
-                                      //    $records = $reporting_list->get_appraiser_dotted();
-                                      //   //print_r($records);die();
-
-                                      //    for ($k=0; $k < count($records); $k++) { 
-                                      //       $where = 'where email = :email';
-                                      //       $list = array('email');
-                                      //       $data = array($records[$k]['Reporting_officer2_id']);
-                                      //       $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                      //    }  
-                                      //    //print_r($Reporting_officer_data);die();
-                                      //    $Cadre_id = array();                                 
-                                      //   for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                      //       //print_r($Reporting_officer_data[$l]['0']['email']);die();
-                                      //   if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && isset($Reporting_officer_data[$l]['0']['email'])) {
-                                      //      $Cadre_id[$Reporting_officer_data[$l]['0']['email']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                      //   }
-                                           
-                                      //  }
-                                      
-                                      //       $where = 'where email = :email';
-                                      //       $list = array('email');
-                                      //       $data = array($employee_data['0']['Reporting_officer2_id']);
-                                      //       $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-                                      //       $status1 = '';
-                                      //       $status1[$employee_data['0']['Reporting_officer2_id']] = array('selected' => true);
-                                      //       if($employee_data['0']['Reporting_officer2_id']==""){
-                                      //       echo CHtml::dropDownList('dot_mgr','',$Cadre_id,$htmlOptions=array('class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
-                                      // }
-                                      //   else{
-                                      //       echo CHtml::dropDownList('dot_mgr','',$Cadre_id,$htmlOptions=array('class'=>'form-control repoting_officer','options' => $status1)); 
-                                      //     }?>
+                                                                    <div class="col-md-6"> -->
+    
 
 
 
                                       <?php 
-                                         $reporting_list = new EmployeeForm();
-                                         $records = $reporting_list->get_appraiser_list();
-                                         for ($k=0; $k < count($records); $k++) { 
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($records[$k]['Reporting_officer1_id']);
-                                            $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
-                                         }    
-                                         $Cadre_id = array();                                 
-                                        for ($l=0; $l < count($Reporting_officer_data); $l++) { 
-                                        if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
-                                           $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
-                                        }
+                                     //     $reporting_list = new EmployeeForm();
+                                     //     $records = $reporting_list->get_appraiser_list();
+                                     //     for ($k=0; $k < count($records); $k++) { 
+                                     //        $where = 'where Email_id = :Email_id';
+                                     //        $list = array('Email_id');
+                                     //        $data = array($records[$k]['Reporting_officer1_id']);
+                                     //        $Reporting_officer_data[$k] = $reporting_list->get_employee_data($where,$data,$list);
+                                     //     }    
+                                     //     $Cadre_id = array();                                 
+                                     //    for ($l=0; $l < count($Reporting_officer_data); $l++) { 
+                                     //    if (isset($Reporting_officer_data[$l]['0']['Emp_fname']) && isset($Reporting_officer_data[$l]['0']['Emp_lname']) && $Reporting_officer_data[$l]['0']['Email_id']) {
+                                     //       $Cadre_id[$Reporting_officer_data[$l]['0']['Email_id']] = $Reporting_officer_data[$l]['0']['Emp_fname']." ".$Reporting_officer_data[$l]['0']['Emp_lname'];
+                                     //    }
                                            
-                                       }
-                                     // echo $employee_data['0']['Reporting_officer2_id'];
-                                            $where = 'where Email_id = :Email_id';
-                                            $list = array('Email_id');
-                                            $data = array($employee_data['0']['Reporting_1_for_appraisal']);
-                                            $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-                                            $status1 = '';
-                                            $status1[$employee_data['0']['Reporting_officer2_id']] = array('selected' => true);
-                                            if($employee_data['0']['Reporting_1_for_appraisal']==""){
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'dot_mgr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
-                                      }
-                                        else{
-                                            echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'dot_mgr','class'=>'form-control repoting_officer','options' => $status1)); 
-                                          }?>    
-                                                                                <span class="help-block"> Select Dotted Line Manager</span>
+                                     //   }
+                                     // // echo $employee_data['0']['Reporting_officer2_id'];
+                                     //        $where = 'where Email_id = :Email_id';
+                                     //        $list = array('Email_id');
+                                     //        $data = array($employee_data['0']['Reporting_1_for_appraisal']);
+                                     //        $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
+                                     //        $status1 = '';
+                                     //        $status1[$employee_data['0']['Reporting_officer2_id']] = array('selected' => true);
+                                     //        if($employee_data['0']['Reporting_1_for_appraisal']==""){
+                                     //        echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'dot_mgr','class'=>'form-control repoting_officer','options' => $status1,'empty'=>'Select'));
+                                     //  }
+                                     //    else{
+                                     //        echo CHtml::dropDownList('Reporting_officer1_id','',$Cadre_id,$htmlOptions=array('id'=>'dot_mgr','class'=>'form-control repoting_officer','options' => $status1)); 
+                                     //      }?>    
+<!--                                                                                 <span class="help-block"> Select Dotted Line Manager</span>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                                  <div class="form-group">
                                                                     <label class="col-md-3 control-label">Manager's Manager
                                                                     </label>
@@ -2941,7 +2942,7 @@ var d = new Date(2017, 09, 01);
                                                                                 
                                                                            //      echo CHtml::dropDownList("clust_hd",'',$Report_id,$htmlOptions=array('class'=>"form-control cadre",'empty'=>'Select'));
                                                                             ?>
-                                                                                                                                                                                   <?php 
+                                        <?php 
                                          $reporting_list = new EmployeeForm();
                                          $records = $reporting_list->get_appraiser_list();
                                          for ($k=0; $k < count($records); $k++) { 
@@ -3260,9 +3261,15 @@ var d = new Date(2017, 09, 01);
                                                                                 <option value="<?php echo $employee_data['0']['Cadre']?>" Selected><?php echo $employee_data['0']['Cadre']?></option>
                                                                        <?php } ?>
                                                                                     <option value="">Select</option>
+                                                                                    <option value="Associate">Associate</option>
+                                                                                    <option value="Apprentice">Apprentice</option>
+                                                                                    <option value="GET">GET</option>
                                                                                     <option value="JMC">JMC</option>
                                                                                     <option value="MMC">MMC</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="OC">OC</option>
                                                                                     <option value="SMC">SMC</option>
+                                                                                    <option value="Trainee">Trainee</option>
                                                                               </select>
                                                                               <span class="help-block">Select Cadre before Promotion</span>
                                                                     </div>
@@ -3275,10 +3282,43 @@ var d = new Date(2017, 09, 01);
                                                                             <?php  if(isset($employee_data) && ($employee_data['0']['Grade'] !="")){ ?>
                                                                                 <option value="<?php echo $employee_data['0']['Grade']?>" Selected><?php echo $employee_data['0']['Grade']?></option>
                                                                        <?php } ?>
-                                                                                    <option value="">Select</option>
-                                                                                    <option value="JMC">JMC</option>
-                                                                                    <option value="MMC">MMC</option>
-                                                                                    <option value="SMC">SMC</option>
+                                                                                     <option value="A">A</option>
+                                                                                    <option value="A1">A1</option>
+                                                                                    <option value="A2">A2</option>
+                                                                                    <option value="A3">A3</option>
+                                                                                    <option value="D">D</option>
+                                                                                    <option value="EG">EG</option>
+                                                                                    <option value="EG-0">EG-0</option>
+                                                                                    <option value="EG-1">EG-1</option>
+                                                                                    <option value="EG-2">EG-2</option>
+                                                                                    <option value="EG-3">EG-3</option>
+                                                                                    <option value="EG-4">EG-4</option>
+                                                                                    <option value="EG-5">EG-5</option>
+                                                                                    <option value="EG-6">EG-6</option>
+                                                                                    <option value="EG-7">EG-7</option>
+                                                                                    <option value="EG-8">EG-8</option>
+                                                                                    <option value="EG-9">EG-9</option>
+                                                                                    <option value="EG-10">EG-10</option>
+                                                                                    <option value="EG-11">EG-11</option>
+                                                                                    <option value="EG-12">EG-12</option>
+                                                                                    <option value="EG-13">EG-13</option>
+                                                                                    <option value="GET">GET</option>
+                                                                                    <option value="HSK">HSK</option>
+                                                                                    <option value="J1">J1</option>
+                                                                                    <option value="J2">J2</option>
+                                                                                    <option value="J3">J3</option>
+                                                                                    <option value="M-0">M-0</option>
+                                                                                    <option value="M1">M1</option>
+                                                                                    <option value="M2">M2</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="S1">S1</option>
+                                                                                    <option value="S2">S2</option>
+                                                                                    <option value="SG">SG</option>
+                                                                                    <option value="SK">SSK</option>
+                                                                                    <option value="T1">T1</option>
+                                                                                    <option value="T2">T2</option>
+                                                                                    <option value="TR">TR</option>
+                                                                                    <option value="USK">USK</option>
                                                                             </select>
                                                                             <span class="help-block">Select Previous Grade</span>
                                                                             <!--   <input class="form-control" placeholder="Enter Previous Grade" type="text" id="prev_cadre"> -->
@@ -3333,9 +3373,15 @@ var d = new Date(2017, 09, 01);
                                                                                 <option value="<?php echo $employee_data['0']['cadre_before_redesignation']?>" Selected><?php echo $employee_data['0']['cadre_before_redesignation']?></option>
                                                                        <?php } ?>
                                                                                 <option value="">Select</option>
-                                                                                <option value="JMC">JMC</option>
-                                                                                <option value="MMC">MMC</option>
-                                                                                <option value="SMC">SMC</option>
+                                                                                    <option value="Associate">Associate</option>
+                                                                                    <option value="Apprentice">Apprentice</option>
+                                                                                    <option value="GET">GET</option>
+                                                                                    <option value="JMC">JMC</option>
+                                                                                    <option value="MMC">MMC</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="OC">OC</option>
+                                                                                    <option value="SMC">SMC</option>
+                                                                                    <option value="Trainee">Trainee</option>
                                                                         </select>
                                                                         <span class="help-block">Select Cadre before Redesignation </span>
                                                                                <!-- <input class="form-control" placeholder="Enter Cadre before Redesignation" type="text" id="cdr_bfr_redesgn"> -->
@@ -3349,10 +3395,43 @@ var d = new Date(2017, 09, 01);
                                                                             <?php  if(isset($employee_data) && ($employee_data['0']['Grade_before_redesignation_grade'] !="")){ ?>
                                                                                 <option value="<?php echo $employee_data['0']['Grade_before_redesignation_grade']?>" Selected><?php echo $employee_data['0']['Grade_before_redesignation_grade']?></option>
                                                                        <?php } ?>
-                                                                            <option value="">Select</option>
-                                                                            <option value="JMC">JMC</option>
-                                                                            <option value="MMC">MMC</option>
-                                                                            <option value="SMC">SMC</option>
+                                                                             <option value="A">A</option>
+                                                                                    <option value="A1">A1</option>
+                                                                                    <option value="A2">A2</option>
+                                                                                    <option value="A3">A3</option>
+                                                                                    <option value="D">D</option>
+                                                                                    <option value="EG">EG</option>
+                                                                                    <option value="EG-0">EG-0</option>
+                                                                                    <option value="EG-1">EG-1</option>
+                                                                                    <option value="EG-2">EG-2</option>
+                                                                                    <option value="EG-3">EG-3</option>
+                                                                                    <option value="EG-4">EG-4</option>
+                                                                                    <option value="EG-5">EG-5</option>
+                                                                                    <option value="EG-6">EG-6</option>
+                                                                                    <option value="EG-7">EG-7</option>
+                                                                                    <option value="EG-8">EG-8</option>
+                                                                                    <option value="EG-9">EG-9</option>
+                                                                                    <option value="EG-10">EG-10</option>
+                                                                                    <option value="EG-11">EG-11</option>
+                                                                                    <option value="EG-12">EG-12</option>
+                                                                                    <option value="EG-13">EG-13</option>
+                                                                                    <option value="GET">GET</option>
+                                                                                    <option value="HSK">HSK</option>
+                                                                                    <option value="J1">J1</option>
+                                                                                    <option value="J2">J2</option>
+                                                                                    <option value="J3">J3</option>
+                                                                                    <option value="M-0">M-0</option>
+                                                                                    <option value="M1">M1</option>
+                                                                                    <option value="M2">M2</option>
+                                                                                    <option value="MT">MT</option>
+                                                                                    <option value="S1">S1</option>
+                                                                                    <option value="S2">S2</option>
+                                                                                    <option value="SG">SG</option>
+                                                                                    <option value="SK">SSK</option>
+                                                                                    <option value="T1">T1</option>
+                                                                                    <option value="T2">T2</option>
+                                                                                    <option value="TR">TR</option>
+                                                                                    <option value="USK">USK</option>
                                                                         </select>
                                                                         <span class="help-block">Select Grade before Redesignation </span>
                                                                                <!-- <input class="form-control" placeholder="Enter Grade before Redesignation  Grade" type="text" id="grd_bfr_redgn"> -->
@@ -3810,7 +3889,7 @@ var d = new Date(2017, 09, 01);
                                                                                     <?php } ?>
                                                                                     <option value="">Select</option>
                                                                                     <option value="Active">Active</option>
-                                                                                    <option value="Left">Left</option>
+                                                                                    <option value="Inactive">Inactive</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Employee Status</span>
                                                                     </div>

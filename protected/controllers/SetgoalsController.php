@@ -5,6 +5,13 @@ class SetgoalsController extends Controller
 	public $the_id = "";
 	public function actionIndex()
 	{
+		$model11 = new LoginForm;	
+		if(Yii::app()->user->getState("Employee_name")==''){
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login',array('model'=>$model11));
+		}
+		else{
+
 
 		$date = date('d/m/Y');
 		$date = str_replace('/', '-', $date);
@@ -97,14 +104,24 @@ if ($emp_data['0']['reporting_1_change'] != '' && strtotime($emp_data['0']['repo
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
 		$this->render('//site/baseurl');
+
 		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 		$this->render('//site/set_goal_auto_save',array('model'=>$model,'kra_list'=>$kra_types,'kpi_data_edit'=>$kpi_data,'KRA_category_auto'=>$KRA_category,'kpi_data'=>$kpi_data_saved,'kpi_data1'=>$kpi_data,'emp_data'=>$emp_data,'prg_cnt'=>$prg_cnt,'goal_sub_check_flag'=>$goal_sub_check_flag,'kpi_data2'=>$kpi_data2,'edit_flag'=>""));
 		$this->render('//site/footer_view_layout');
 		
+}
 	}
 
 	function actionapprovegoal_list()
 	{
+		$model11 = new LoginForm;	
+		if(Yii::app()->user->getState("Employee_name")==''){
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login',array('model'=>$model11));
+		}
+		else{
+
+
 		Yii::app()->user->setState('emp_id1','');
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
@@ -149,6 +166,7 @@ if ($emp_data['0']['reporting_1_change'] != '' && strtotime($emp_data['0']['repo
 		$this->render('//site/goal_list_view',array('kpi_data'=>$kpi_data,'kpi_data1'=>$kpi_data1,'employee_data'=>$employee_data,'approved_list'=>'approved_list'));
 	//	$this->render('//site/footer_view_layout');
 	}
+}
 
 	function actionkpi_list()
 	{
@@ -845,7 +863,7 @@ function actionsavekpi1()
 			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
 			$mail->SMTPAuth = true;                               // Enable SMTP authentication
 			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
-			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->Password = 'Kritva@5Jan';                           // SMTP password
 			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 			$mail->Port = 587;                                    // TCP port to connect to
 
@@ -978,7 +996,7 @@ $notification_data->notification_type = 'KPI Deletion';
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@200';                         
+				$mail->Password = 'Kritva@5Jan';                      
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 				
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
@@ -1285,6 +1303,14 @@ $notification_data->notification_type = 'KPI Deletion';
 	function actionemp_kpi_edit()
 	{
 	    
+		$model11 = new LoginForm;	
+		if(Yii::app()->user->getState("Employee_name")==''){
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login',array('model'=>$model11));
+		}
+		else{
+
+
 		if (isset($_POST['emp_id'])) {
 			Yii::app()->user->setState('emp_id1',$_POST['emp_id']);
 $emp_id = Yii::app()->user->getState('emp_id1');
@@ -1449,22 +1475,22 @@ $where = 'where goal_set_year = :goal_set_year';
 		$this->render('//site/edit_goal_sheet',array('kpi_auto_data'=>$kpi_data , 'model'=>$model,'kra_list'=>$kra,'kpi_data'=>$kpi_data,'program_data_result'=>$program_data_result,'kpi_data_edit'=>$kpi_data_edit,'apr_chk_flag'=>'1','KRA_category_auto'=>$KRA_category,'emp_data'=>$emp_data,'edit_flag_chk'=>1,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp));
 		$this->render('//site/footer_view_layout');
 	}
-
+}
 function actionemp_kpi_edit1()
 	{
                 
 		if (isset($_POST['emp_id'])) {
 			Yii::app()->user->setState('emp_id1',$_POST['emp_id']);
-$emp_id = Yii::app()->user->getState('emp_id1');
-		}
-else if(Yii::app()->user->getState('emp_id1'))
-                {
-$emp_id = Yii::app()->user->getState('emp_id1');
-                }
-		else
-		{
+			$emp_id = Yii::app()->user->getState('emp_id1');
+			}
+			else if(Yii::app()->user->getState('emp_id1'))
+			{
+			$emp_id = Yii::app()->user->getState('emp_id1');
+			}
+			else
+			{
 			$emp_id = '';
-		}
+			}
 		
 		$model=new KpiAutoSaveForm;
 		$kra=new KRAStructureForm;
@@ -1681,7 +1707,7 @@ $notification_data->notification_type = 'KRA Deletion';
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@200';                         
+				$mail->Password = 'Kritva@5Jan';                         
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname']);
@@ -1902,7 +1928,7 @@ if($employee_data['0']['Reporting_officer2_id'] != Yii::app()->user->getState("e
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@200';                         
+				$mail->Password = 'Kritva@5Jan';                    
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 
 				$mail->setFrom('vvf.pms@vvfltd.com',$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
@@ -1955,7 +1981,7 @@ if($employee_data['0']['invalid_email'] != '1')
 				$mail->Host = 'smtp.office365.com'; 
 				$mail->SMTPAuth = true;                          
 				$mail->Username = 'vvf.pms@vvfltd.com';    
-				$mail->Password = 'Dream@200';                         
+				$mail->Password = 'Kritva@5Jan';                    
 				$mail->SMTPSecure = 'tls';                          
 				$mail->Port = 587; 
               	$params = array('mail_data'=>$employee_data);
@@ -2017,7 +2043,7 @@ $notification_data->notification_type = 'Goal Approval_pending';
 		$mail->Host = 'smtp.office365.com'; 
 		$mail->SMTPAuth = true;                          
 		$mail->Username = 'vvf.pms@vvfltd.com';    
-		$mail->Password = 'Dream@200';                         
+		$mail->Password = 'Kritva@5Jan';                         
 		$mail->SMTPSecure = 'tls';                          
 		$mail->Port = 587; 		    
 

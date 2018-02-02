@@ -25,6 +25,19 @@ class MISController extends Controller
 		$list_data = CHtml::listData($city_state_record,'city', 'city');
 		echo CHtml::dropDownList("city",'',$list_data,$htmlOptions=array('class'=>'form-control format_list city','id'=>'city'));
 	}
+	
+	function actionclustre_head_list()
+	{
+		$city_state = new ClusterForm;
+		$city = '';
+		$where = 'where cluster_name = :cluster_name';
+		$list = array('cluster_name');
+		$data = array($_POST['cluster_name']);
+		//$city_state_record = $city_state->get_city_data($where,$data,$list,'city');
+		$cluster_head_record = $city_state->get_cluster_data($where,$data,$list,'clusterhead_name');
+		$list_data = CHtml::listData($cluster_head_record,'clusterhead_name', 'clusterhead_name');
+		echo CHtml::dropDownList("clusterhead_name",'',$list_data,$htmlOptions=array('class'=>'form-control format_list city','id'=>'clust_hd'));
+	}
 	function actionSave()
 	{
 		 $model=new EmployeeMaster1Form;
@@ -630,22 +643,23 @@ class MISController extends Controller
 		
 		$sap_id=$_POST['rep_sap'];
 		
-		$model=new EmployeeForm;
+		$model=new EmployeeMaster1Form;
 		$where = 'where Employee_id = :Employee_id';
 		$list = array('Employee_id');
 		$data = array($_POST['rep_sap']);
 		
 		$employee_data = $model->get_employee_data($where,$data,$list);
-		$reporting_nm = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
-		
 
-		$where ='where email_id = :email_id';
-		$list =array('email_id');
-		$data = array($employee_data['0']['Reporting_officer1_id']);
-		$employee_data1 = $model->get_employee_data($where,$data,$list);
-		$reporting_rep = $employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname'];
+		$reporting_nm = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
+		//print_r($employee_data);die();
+
+		// $where ='where email_id = :email_id';
+		// $list =array('email_id');
+		// $data = array($employee_data['0']['Reporting_officer1_id']);
+		// $employee_data1 = $model->get_employee_data($where,$data,$list);
+		$reporting_rep = $employee_data['0']['Reporting_1_for_time_n_attendance'];
 		$reporting =$reporting_nm."-".$reporting_rep;
-		 print_r($reporting);
+		print_r($reporting);
 		 
 	}
 

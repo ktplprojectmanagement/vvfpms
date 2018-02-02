@@ -122,28 +122,66 @@ class MIS_locController extends Controller
 	//   	}
 	// }
 
+	// function actionReprtngMgr(){
+		
+	// 	$sap_id=$_POST['rep_sap'];
+		
+	// 	$model=new EmployeeForm;
+	// 	$where = 'where Employee_id = :Employee_id';
+	// 	$list = array('Employee_id');
+	// 	$data = array($_POST['rep_sap']);
+		
+	// 	$employee_data = $model->get_employee_data($where,$data,$list);
+	// 	$reporting_nm = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
+		
+
+	// 	$where ='where email_id = :email_id';
+	// 	$list =array('email_id');
+	// 	$data = array($employee_data['0']['Reporting_officer1_id']);
+	// 	$employee_data1 = $model->get_employee_data($where,$data,$list);
+	// 	$reporting_rep = $employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname'];
+	// 	$reporting =$reporting_nm."-".$reporting_rep;
+	// 	 print_r($reporting);
+		 
+	// }
+
 	function actionReprtngMgr(){
 		
 		$sap_id=$_POST['rep_sap'];
 		
-		$model=new EmployeeForm;
+		$model=new EmployeeMaster1Form;
 		$where = 'where Employee_id = :Employee_id';
 		$list = array('Employee_id');
 		$data = array($_POST['rep_sap']);
 		
 		$employee_data = $model->get_employee_data($where,$data,$list);
-		$reporting_nm = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
-		
 
-		$where ='where email_id = :email_id';
-		$list =array('email_id');
-		$data = array($employee_data['0']['Reporting_officer1_id']);
-		$employee_data1 = $model->get_employee_data($where,$data,$list);
-		$reporting_rep = $employee_data1['0']['Emp_fname']." ".$employee_data1['0']['Emp_lname'];
+		$reporting_nm = $employee_data['0']['Emp_fname']." ".$employee_data['0']['Emp_lname'];
+		//print_r($employee_data);die();
+
+		// $where ='where email_id = :email_id';
+		// $list =array('email_id');
+		// $data = array($employee_data['0']['Reporting_officer1_id']);
+		// $employee_data1 = $model->get_employee_data($where,$data,$list);
+		$reporting_rep = $employee_data['0']['Reporting_1_for_time_n_attendance'];
 		$reporting =$reporting_nm."-".$reporting_rep;
-		 print_r($reporting);
+		print_r($reporting);
 		 
 	}
+
+	function actionclustre_head_list()
+	{
+		$city_state = new ClusterForm;
+		$city = '';
+		$where = 'where cluster_name = :cluster_name';
+		$list = array('cluster_name');
+		$data = array($_POST['cluster_name']);
+		//$city_state_record = $city_state->get_city_data($where,$data,$list,'city');
+		$cluster_head_record = $city_state->get_cluster_data($where,$data,$list,'clusterhead_name');
+		$list_data = CHtml::listData($cluster_head_record,'clusterhead_name', 'clusterhead_name');
+		echo CHtml::dropDownList("clusterhead_name",'',$list_data,$htmlOptions=array('class'=>'form-control format_list city','id'=>'clust_hd'));
+	}
+
 
 	function actioncostCenter_change(){
 		$code=$_POST['cost_center'];
@@ -505,6 +543,7 @@ class MIS_locController extends Controller
 
 		$model=new EmployeeMaster1Form;
 		$loc=Yii::app()->user->getState('admin_location');
+		//print_r($loc);die();
 		if($loc=="Corporate"){
 		$data=$model->get_locwise_list();
 		}
@@ -514,7 +553,7 @@ class MIS_locController extends Controller
 		$data = array($loc);
 		$data = $model->get_employee_data($where,$data,$list);
 		}
-		
+		//print_r($data);die();
 		//$data = $model->getdata();
 		$selected_option = 'employee_master1';
 		$this->render('//site/script_file');
@@ -792,7 +831,7 @@ class MIS_locController extends Controller
 			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
 			$mail->SMTPAuth = true;                               // Enable SMTP authentication
 			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
-			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->Password = 'Kritva@5Jan';                        // SMTP password
 			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 			$mail->Port = 587;                                    // TCP port to connect to
 

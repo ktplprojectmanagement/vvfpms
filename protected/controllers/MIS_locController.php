@@ -504,6 +504,7 @@ class MIS_locController extends Controller
 
 		$model=new EmployeeMaster1Form;
 		$loc=Yii::app()->user->getState('admin_location');
+		//echo $loc;
 		if($loc=="Corporate"){
 		$data=$model->get_locwise_list();
 		}
@@ -513,7 +514,7 @@ class MIS_locController extends Controller
 		$data = array($loc);
 		$data = $model->get_employee_data($where,$data,$list);
 		}
-		
+		print_r($data);die();
 		//$data = $model->getdata();
 		$selected_option = 'employee_master1';
 		$this->render('//site/script_file');

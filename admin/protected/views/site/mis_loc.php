@@ -148,6 +148,43 @@ var d = new Date(2017, 09, 01);
             $('#tot_exp').val((parseInt(other_exp)+parseInt(exp_yr[0]))+' '+'Years');
 });
   </script>
+  <script type="text/javascript">
+$(document).ready(function(){
+    $("#dot_mgr_sap").focusout(function(){
+       var rep_sap=$('#dot_mgr_sap').val();
+        //alert(rep_sap);
+        var rep_mgr_data={
+            rep_sap:rep_sap,
+        };
+        $.ajax({
+                'type' : 'post',
+                'datatype' : 'html',
+                'data' : rep_mgr_data,
+                'url' : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/ReprtngMgr',
+                success : function(data)
+                {
+                   
+                    var report=data.split('-');
+                    $("#dot_mgr").val(report['0']);
+                    
+                }
+            });
+    });
+    
+});
+  </script>
+  <script type="text/javascript">
+$(function(){
+    $('#othr_exp').focusout(function(){
+         var    other_exp=0; 
+         other_exp=$('#othr_exp').val(); 
+         var vvf_exp = $('#vvf_exp').val();
+         var vvf_expr=vvf_exp.split("years");
+         var tot_expn=parseInt(other_exp)+parseInt(vvf_expr[0]);
+         $('#tot_exp').val((parseInt(other_exp)+parseInt(vvf_expr[0]))+''+'Years');
+    });
+});
+</script>
   <script>
                        $(function(){
 //alert(window.location.origin+$("#basepath").attr('value')+'/admin/index.php');
@@ -166,6 +203,24 @@ var d = new Date(2017, 09, 01);
                                 }
                             });
                         });
+
+                        $("#lst_wrk_dt").change(function(){
+                           if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        }); 
+                        $("#lst_wrk_dt").focusout(function(){
+                           if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        });
+
                     });
      
   </script>
@@ -791,7 +846,7 @@ $(document).ready(function(){
         var rep1_appr = $('option:selected', $('#rep1_appr')).val();
         var rep1_attd = $('#rep1_attd').val();
         var rep1_appr = $('#rep1_appr').val();
-        var dot_mgr = $('option:selected', $('#dot_mgr')).val();
+        var dot_mgr = $('#dot_mgr').val();
         var mgr_mgr = $('#mgr_mgr').val();
         var clust_hd = $('option:selected', $('#clust_hd')).val();
         var u_id=$('#u_id').val();
@@ -1502,6 +1557,28 @@ $("#cost_center").change(function () {
                 });
 });
 
+
+$('#clust_nm').change(function(){
+                           //alert("hi");
+                            var cluster_name = {
+                                'cluster_name' : $('#clust_nm').find(':selected').val()
+                            }
+                            var base_url = window.location.origin;  
+                            $.ajax({
+                                 dataType :'html',
+                                 type :'post',
+                                 data : cluster_name,
+                                 url : base_url+$("#basepath").attr('value')+'/admin/index.php/MIS_loc/clustre_head_list',
+                                 success : function(data) {   
+                               // alert(data)           ;
+                                    $('#clust_hd').html(data);                              
+                                }
+                            });
+                        });
+
+
+
+
 });
   </script>
   <script>
@@ -1707,7 +1784,7 @@ $("#cost_center").change(function () {
                                                             <div class="tab-pane active" id="tab_1_1">
                                                                 <form action="#" class="form-horizontal">
                                                                     <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Company Name</label>
+                                                                    <label class="col-md-3 control-label">Company Name<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="comp_nm">
                                                                                     <option value="">Select</option>
@@ -1718,7 +1795,7 @@ $("#cost_center").change(function () {
                                                                             </div>
                                                                 </div>
                                                                     <div class="form-group">
-                                                                    <label class="col-md-3 control-label">First Name
+                                                                    <label class="col-md-3 control-label">First Name<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control validate_field" placeholder="Enter First Name" type="text" id="fname">
@@ -1726,7 +1803,7 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Last Name
+                                                                    <label class="col-md-3 control-label">Last Name<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control validate_field" placeholder="Enter Last Name" type="text" id="lname">
@@ -1760,13 +1837,13 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Contact Number</label>
+                                                                    <label class="col-md-3 control-label">Contact Number<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control validate_field" placeholder="Enter Contact number" type="email" id="contact"> </div>
                                                                     
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Permanent Address</label>
+                                                                    <label class="col-md-3 control-label">Permanent Address<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         
                                                                             <textarea class="form-control" rows="3" placeholder="Enter Address" id="perm_add"></textarea>
@@ -1774,7 +1851,7 @@ $("#cost_center").change(function () {
                                                                         </div>
                                                                     </div>
                                                                <div class="form-group">
-                                                                    <label class="col-md-3 control-label">State</label>
+                                                                    <label class="col-md-3 control-label">State<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                         <?php 
                                                                             $cluster_name_models = new StateCityForm();
@@ -1782,11 +1859,11 @@ $("#cost_center").change(function () {
                                                                             $list = CHtml::listData($records,'state', 'state');                                        
                                                                             echo CHtml::activeDropDownList($cluster_name_models,'state',$list,array('class'=>'form-control state','id'=>'state','empty'=>'Select')); 
                                                                         ?>
-                                                                        <span class="help-block"> Select State </span>
+                                                                        <span class="help-block"> Select State<span style="color:red">*</span> </span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">District/City/Area</label>
+                                                                    <label class="col-md-3 control-label">District/City/Area<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <!--<select class="form-control" id="city">-->
                                                                                 <!--    <option value="">Select</option>-->
@@ -1798,13 +1875,13 @@ $("#cost_center").change(function () {
                                                                             </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Pincode</label>
+                                                                    <label class="col-md-3 control-label">Pincode<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                     <input class="form-control validate_field" placeholder="Enter Pincode" type="text" id="pin"></div>
                                                                 
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Basic Qualification (uptil Graduation)</label>
+                                                                    <label class="col-md-3 control-label">Basic Qualification (uptil Graduation)<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <!--<select class="form-control" id="quali">-->
                                                                                 <!--    <option value="">Select</option>-->
@@ -1836,7 +1913,7 @@ $("#cost_center").change(function () {
                                                                    
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Marital Status</label>
+                                                                    <label class="col-md-3 control-label">Marital Status<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="marital_stat">
                                                                                     <option value="">Select</option>
@@ -1851,7 +1928,7 @@ $("#cost_center").change(function () {
                                                                     
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">No of Dependents</label>
+                                                                    <label class="col-md-3 control-label">No of Dependents<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="no_of_depend">
                                                                                     <option value="">Select</option>
@@ -1866,7 +1943,7 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Blood Group</label>
+                                                                    <label class="col-md-3 control-label">Blood Group<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="bld_grp">
                                                                                     <option value="">Select</option>
@@ -1878,27 +1955,27 @@ $("#cost_center").change(function () {
                                                                                     <option value="B -ve">B -ve</option>
                                                                                     <option value="AB -ve">AB -ve</option>
                                                                                     <option value="O -ve">O -ve</option>
-                                                                                    
+                                                                                    <option value="Bombay">Bombay</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Blood Group </span>
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">PAN Card No.
+                                                                    <label class="col-md-3 control-label">PAN Card No.<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control validate_field" placeholder="Enter PAN Card No." type="text" id="pan">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group ">
-                                                                    <label class="col-md-3 control-label">Aadhar number
+                                                                    <label class="col-md-3 control-label">Aadhar number<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control validate_field" placeholder="Enter Aadhar number" type="text" id="aadhar">
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Date of Birth
+                                                                    <label class="col-md-3 control-label">Date of Birth<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control" placeholder="Enter Date of Birth" type="text" id="dob">
@@ -1919,7 +1996,7 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Gender</label>
+                                                                    <label class="col-md-3 control-label">Gender<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="gender">
                                                                                     <option value="">Select</option>
@@ -1965,7 +2042,7 @@ $("#cost_center").change(function () {
                                                                 <form action="#" class="form-horizontal">
                                                                     <div class="form-group">
                                                                     <label class="col-md-3 control-label">
-                                                                    Position Code
+                                                                    Position Code<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                         <input class="form-control" id="pos_code" placeholder="Enter Position Code" type="text">
@@ -1974,14 +2051,10 @@ $("#cost_center").change(function () {
                                                                 </div>
                                                                
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Departments
+                                                                    <label class="col-md-3 control-label">Departments<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
-                                                                                <!-- <select class="form-control" id="dept">
-                                                                                    <option value="">Select</option>
-                                                                                    <option value="IT">IT</option>
-                                                                                    <option value="Hr">Hr</option>
-                                                                                </select> -->
+                                                                                
                                                                                 <?php 
                                                                                  $cluster_name_models = new ClusterForm();
                                                                                  $cluster_name_model = new EmployeeForm();
@@ -2020,7 +2093,7 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">BU
+                                                                    <label class="col-md-3 control-label">BU<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="bu">
@@ -2036,13 +2109,12 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Cadre
-                                                                    </label>
+                                                                    <label class="col-md-3 control-label">Cadre<span style="color:red">*</span></label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="cadre">
                                                                                     <option value="">Select</option>
                                                                                     <option value="Associate">Associate</option>
-                                                                                    <option value="Graduate Engineer Trainee">Graduate Engineer Trainee</option>
+                                                                                    <option value="GET">GET</option>
                                                                                     <option value="JMC">JMC</option>
                                                                                     <option value="Management Trainee">Management Trainee</option>
                                                                                     <option value="MMC">MMC</option>
@@ -2055,7 +2127,7 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Grade
+                                                                    <label class="col-md-3 control-label">Grade<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="grade">
@@ -2102,7 +2174,7 @@ $("#cost_center").change(function () {
                                                                     </div>
                                                                 </div>
                                                                  <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Designation
+                                                                    <label class="col-md-3 control-label">Designation<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                                 <select class="form-control" id="desgn">
@@ -2112,13 +2184,10 @@ $("#cost_center").change(function () {
                                                                                     <option value="Executive">Executive</option>
                                                                                     <option value="Senior Manager">Senior Manager</option>
                                                                                     <option value="Manager">Manager</option>
-                                                                                   
                                                                                     <option value="Assistant General Manager">Assistant General Manager</option>
                                                                                     <option value="General Manager">General Manager</option>
                                                                                     <option value="Vice President">Vice President</option>
-                                                                                    <option value="Senior Manager 
-                                                                                    ">Senior Manager 
-                                                                                    </option>
+                                                                                    <option value="Senior Manager">Senior Manager</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Designation</span>
                                                                     </div>
@@ -2153,29 +2222,7 @@ $("#cost_center").change(function () {
                                                                 <div class="form-group">
                                                                     <label class="col-md-3 control-label">Location-Payroll at</label>
                                                                     <div class="col-md-6">
-                                                                               <!--  <select class="form-control" id="loc_pay">
-                                                                                    <option value="">Select</option>
-                                                                                    <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
-                                                                                   <!--  <option value="Taloja">Taloja</option> -->
-                                                                                <!-- </select>  -->
-                                                                                <!-- <select class="form-control" id="loc_pay">
-                                                                                    <option value="">Select</option>
-                                                                                    <?php 
-                                                                                    $loc = "Taloja";
-                                                                                    //if($loc !='Corporate'){ ?>
-                                                                                        <option value="Taloja">Taloja</option>
-                                                                                        <!-- <option value="<?php echo Yii::app()->user->getState('admin_location'); ?>"><?php echo Yii::app()->user->getState('admin_location'); ?></option> -->
-                                                                                    <?php //}
-                                                                                    //else//{
-                                                                                        //?>
-                                                                                        <!-- <option value="Corporate">Corporate</option>
-                                                                                        <option value="Chennai">Chennai</option>
-                                                                                        <option value="Kolkata">Kolkata</option>
-                                                                                        <option value="Kutch-II">Kutch-II</option>
-                                                                                        <option value="Palanpur">Palanpur</option>
-                                                                                        <option value="Raipur">Raipur</option>      -->  
-                                                                                    <?php //}
-                                                                                    ?>
+                                
                                                                                     
                                                                                     <select class="form-control" id="loc_pay">
                                                                                     <option value="">Select</option>
@@ -2191,7 +2238,7 @@ $("#cost_center").change(function () {
                                                                                     <option value="9">Daman</option>
                                                                                     <option value="10">Chennai</option>
                                                                                     <option value="11">New Delhi</option>
-                                                                                    <option value="12">Taloja</option>
+                                                                                   
                                                                                 </select>
                                                                                <!-- </select> -->
                                                                                 <span class="help-block"> Select Location-Payroll at </span>
@@ -2214,14 +2261,11 @@ $("#cost_center").change(function () {
                                                                                     <option value="SMC Cluster">SMC Cluster</option>
                                                                                     <option value="Miscellaneous">Miscellaneous</option>
                                                                                     <option value="CPD">CPD</option>
-                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM">Finance / IT / Indirect Tax/Excise/EXIM
-                                                                                    </option>
+                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM">Finance / IT / Indirect Tax/Excise/EXIM</option>
                                                                                     <option value="CMB Manufacturing">CMB Manufacturing</option>
                                                                                     <option value="PCP Quality">PCP Quality</option>
                                                                                     <option value="Promoters">Promoters</option>
-                                                                                    <option value="Oleo Non Mfg
-                                                                                    ">Oleo Non Mfg
-                                                                                    </option>
+                                                                                    <option value="Oleo Non Mfg">Oleo Non Mfg</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Cluster Name </span>
                                                                     </div>
@@ -2265,11 +2309,18 @@ $("#cost_center").change(function () {
                                                                             <input class="form-control validate_field" placeholder="Enter Reporting-1 (For appraisal)" type="rep1_appr" id="rep1_appr"> </div>
                                                                     
                                                                 </div>
-                                                                
                                                                 <div class="form-group">
-                                                                    <label class="col-md-3 control-label">Dotted Line Manager
+                                                                    <label class="col-md-3 control-label">Dotted Line Manager SAP Code<span style="color:red">*</span>
                                                                     </label>
                                                                     <div class="col-md-6">
+                                                                        <input class="form-control" placeholder="Enter Dotted Line Manager SAP Code" type="text" id="dot_mgr_sap">
+
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Dotted Line Manager
+                                                                    </label> -->
+                                                                   <!--  <div class="col-md-6">
                                                                         <?php 
                                                                             $reporting_list = new EmployeeForm();
                                                                             $records = $reporting_list->get_appraiser_list();
@@ -2296,9 +2347,21 @@ $("#cost_center").change(function () {
                                                                         ?>
                                                                                 <span class="help-block"> Select Dotted Line Manager</span>
                                                                     </div>
+                                                                </div> -->
+                                                            
+
+                                                                    <div class="form-group">
+                                                                    <label class="col-md-3 control-label">Dotted Line Manager</label>
+                                                                    <div class="col-md-6">
+                                                            
+                                                                            <input class="form-control validate_field" placeholder="Enter Dotted Line Manager" type="rep1_attd" id="dot_mgr"> </div>
+                                                                   
                                                                 </div>
-                                                                
-                                                                                                                           <div class="form-group">
+
+
+
+
+                                                                   <div class="form-group">
                                                                     <label class="col-md-3 control-label">Manager's Manager</label>
                                                                     <div class="col-md-6">
 
@@ -2659,19 +2722,19 @@ $("#cost_center").change(function () {
                                                                     </label>
                                                                     <div class="col-md-6">
                                                                          <select class="form-control" id="trnsfr_frm_loc">
-                                                                           <option value="">Select</option>
-                                                                                    <option value="Corporate">Corporate</option>
-                                                                                    <option value="Sion">Sion</option>
-                                                                                    <option value="Taloja" >Taloja</option>
-                                                                                    <option value="Raipur">Raipur</option>
-                                                                                    <option value="Kolkata">Kolkata</option>
-                                                                                    <option value="Baddi">Baddi</option>
-                                                                                    <option value="Tiljala">Tiljala</option>
-                                                                                    <option value="Kutch-II">Kutch-II</option>
-                                                                                    <option value="Palanpur">Palanpur</option>
-                                                                                    <option value="Daman">Daman</option>
-                                                                                    <option value="Chennai">Chennai</option>
-                                                                                    <option value="New Delhi">New Delhi</option>
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="0">Corporate</option>
+                                                                                    <option value="1">Sion</option>
+                                                                                    <option value="2">Taloja</option>
+                                                                                    <option value="3">Raipur</option>
+                                                                                    <option value="4">Kolkata</option>
+                                                                                    <option value="5">Baddi</option>
+                                                                                    <option value="6">Tiljala</option>
+                                                                                    <option value="7">Kutch-II</option>
+                                                                                    <option value="8">Palanpur</option>
+                                                                                    <option value="9">Daman</option>
+                                                                                    <option value="10">Chennai</option>
+                                                                                    <option value="11">New Delhi</option>
                                                                        </select>
                                                                        <span class="help-block"> Select Transferred From (Location)</span>
                                                                    </div>
@@ -2945,7 +3008,7 @@ $("#cost_center").change(function () {
                                                                         <select class="form-control" id="emp_sta">
                                                                                     <option value="">Select</option>
                                                                                     <option value="Active">Active</option>
-                                                                                    <option value="Left">Left</option>
+                                                                                    <option value="Inactive">Inactive</option>
                                                                                 </select>
                                                                                 <span class="help-block"> Select Employee Status</span>
                                                                     </div>

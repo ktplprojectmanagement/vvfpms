@@ -46,9 +46,9 @@ class AdminloginController extends Controller
 					Yii::app()->user->setState('Employee_name',$result['Emp_fname']);
 					Yii::app()->user->setState('Employee_id',$result['Employee_id']);
 					Yii::app()->user->setState('employee_email',$result['Email_id']);
-					$prev_date = date('Y').'-'.date('Y',strtotime('+1 year'));
+					$prev_date = '2017-2018';
 					
-				    Yii::app()->user->setState('financial_year_check',$prev_date);
+				    Yii::app()->user->setState('financial_year_check','2017-2018');
 					$data = array(
 						'Employee_id' => $result['Employee_id'], 
 					);

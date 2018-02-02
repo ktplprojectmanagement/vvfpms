@@ -26,6 +26,18 @@
         $(".hasDatepicker").keypress(function(e){ e.preventDefault(); });
     });
   </script>
+  <script type="text/javascript">
+    $(function(){
+        $('#othr_exp').focusout(function(){
+             var    other_exp=0; 
+             other_exp=$('#othr_exp').val(); 
+             var vvf_exp = $('#vvf_exp').val();
+             var vvf_expr=vvf_exp.split("years");
+             var tot_expn=parseInt(other_exp)+parseInt(vvf_expr[0]);
+             $('#tot_exp').val((parseInt(other_exp)+parseInt(vvf_expr[0]))+''+'Years');
+        });
+    });
+    </script>
   <script>
   $( function() {
      $("#dob").datepicker({dateFormat: 'yy-mm-dd',changeMonth: true,changeYear: true,yearRange: '1900:2050'}).on('change', function () {
@@ -90,6 +102,41 @@ $('#dob').val(newdate);
                                 }
                             });
                         });
+
+                        $("#lst_wrk_dt").change(function(){
+                           if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        }); 
+                        $("#lst_wrk_dt").focusout(function(){
+                           if($("#lst_wrk_dt").val()!=''){
+                                $('#emp_sta').val('Inactive');
+                            }
+                            else{
+                                 $('#emp_sta').val('Active');
+                            }
+                        });
+
+                        $('#clust_nm').change(function(){
+                            var cluster_name = {
+                                'cluster_name' : $('#clust_nm').find(':selected').val()
+                            }
+                            var base_url = window.location.origin;  
+                            $.ajax({
+                                 dataType :'html',
+                                 type :'post',
+                                 data : cluster_name,
+                                 url : base_url+$("#basepath").attr('value')+'/index.php/MIS/clustre_head_list',
+                                 success : function(data) {   
+                               // alert(data)           ;
+                                    $('#clust_hd').html(data);                              
+                                }
+                            });
+                        });
+
                     });
      
   </script>
@@ -2091,7 +2138,7 @@ $(document).ready(function(){
                                                                                     ">Oleo Non Mfg
                                                                                     </option>
                                                                                 </select> -->
-                                                                                <?php 
+                                                                           <!--      <?php 
                                                                                      $cluster_name_models = new ClusterForm();
                                                                                      $cluster_name_model = new EmployeeForm();
                                                                                    
@@ -2106,7 +2153,24 @@ $(document).ready(function(){
                                                                                      else{
                                                                                         echo CHtml::activeDropDownList($cluster_name_model,'cluster_name',$list,array('id'=>"clust_nm",'class'=>'form-control cluster_name','options'=>$arr_clus)); 
                                                                                      }
-                                                                                     ?>
+                                                                                     ?> -->
+                                                                                     <select class="form-control" id="clust_nm">
+                                                                                    <option value="">Select</option>
+                                                                                    <option value="R&amp;D">R&amp;D</option>
+                                                                                    <option value="Oleo Non Mfg">Oleo Non Mfg</option>
+                                                                                    <option value="Sewree Operations">Sewree Operations</option>
+                                                                                    <option value="HR/Security/Admin">HR/Security/Admin</option>
+                                                                                    <option value="Finance / IT / Indirect Tax/Excise/EXIM">Finance / IT / Indirect Tax/Excise/EXIM</option>
+                                                                                    <option value="Strategic Procurement">Strategic Procurement</option>
+                                                                                    <option value="CMB Non Mfg">CMB Non Mfg</option>
+                                                                                    <option value="Oleo Mfg">Oleo Mfg</option>
+                                                                                    <option value="SMC Cluster">SMC Cluster</option>
+                                                                                    <option value="Miscellaneous">Miscellaneous</option>
+                                                                                    <option value="CPD">CPD</option>
+                                                                                    <option value="CMB Manufacturing">CMB Manufacturing</option>
+                                                                                    <option value="PCP Quality">PCP Quality</option>
+                                                                                    <option value="Promoters">Promoters</option>
+                                                                                </select>
                                                                                 <span class="help-block"> Select Cluster Name </span>
                                                                     </div>
                                                                 </div>

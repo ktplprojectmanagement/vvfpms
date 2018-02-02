@@ -94,14 +94,14 @@ and before any other scripts. Your first data will appear
 automatically in just a few seconds.
 -->
 <script type="text/javascript">
-  var appInsights=window.appInsights||function(config){
-    function i(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=config.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{t.cookie=u.cookie}catch(p){}for(t.queue=[],t.version="1.0",r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)i("track"+r.pop());return i("set"+s),i("clear"+s),i(h+a),i(c+a),i(h+v),i(c+v),i("flush"),config.disableExceptionTracking||(r="onerror",i("_"+r),f=e[r],e[r]=function(config,i,u,e,o){var s=f&&f(config,i,u,e,o);return s!==!0&&t["_"+r](config,i,u,e,o),s}),t
-    }({
-        instrumentationKey:"67ce25de-bdd5-419f-babc-dd23f18c662f"
-    });
+  // var appInsights=window.appInsights||function(config){
+  //   function i(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=config.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{t.cookie=u.cookie}catch(p){}for(t.queue=[],t.version="1.0",r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)i("track"+r.pop());return i("set"+s),i("clear"+s),i(h+a),i(c+a),i(h+v),i(c+v),i("flush"),config.disableExceptionTracking||(r="onerror",i("_"+r),f=e[r],e[r]=function(config,i,u,e,o){var s=f&&f(config,i,u,e,o);return s!==!0&&t["_"+r](config,i,u,e,o),s}),t
+  //   }({
+  //       instrumentationKey:"67ce25de-bdd5-419f-babc-dd23f18c662f"
+  //   });
        
-    window.appInsights=appInsights;
-    appInsights.trackPageView();
+  //   window.appInsights=appInsights;
+  //   appInsights.trackPageView();
 </script>
         </head>
         <input type="text" value="/pms" id="basepath" style="display:none">
@@ -166,14 +166,25 @@ var basepath = $("#basepath").attr('value');
         //print_r($menu_settings_data1);die();
     ?>
     <body class="page-container-bg-solid">
+<label style="color:green;display:none" id="redirect" ><?php print_r(Yii::app()->user->getState("Employee_name")); ?></label>
 
+<script type="text/javascript">
+$(document).ready(function(){
+    var redirect=$('#redirect').text();
+
+   if(redirect == ''){
+    var base_url = window.location.origin;
+    window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Login';
+   }
+});
+</script>
 <?php
-require_once 'vendor/autoload.php';
-$telemetryClient = new \ApplicationInsights\Telemetry_Client();
-$telemetryClient->getContext()->setInstrumentationKey('67ce25de-bdd5-419f-babc-dd23f18c662f');
-$telemetryClient->trackEvent('name of your event');
-$telemetryClient->trackMetric('myMetric', 42.0, \ApplicationInsights\Channel\Contracts\Data_Point_Type::Aggregation, 5, 0, 1, 0.2, ['InlineProperty' => 'test_value']);
-$telemetryClient->flush();
+// require_once 'vendor/autoload.php';
+// $telemetryClient = new \ApplicationInsights\Telemetry_Client();
+// $telemetryClient->getContext()->setInstrumentationKey('67ce25de-bdd5-419f-babc-dd23f18c662f');
+// $telemetryClient->trackEvent('name of your event');
+// $telemetryClient->trackMetric('myMetric', 42.0, \ApplicationInsights\Channel\Contracts\Data_Point_Type::Aggregation, 5, 0, 1, 0.2, ['InlineProperty' => 'test_value']);
+// $telemetryClient->flush();
 ?>
 <style>
 .fixed {
@@ -295,6 +306,7 @@ $(document).ready(function(){
             <script type="text/javascript">
             function log_out_chk()
             {
+                //alert("hiii");
                 var base_url = window.location.origin;
                 window.location.href=base_url+$("#basepath").attr('value')+'/index.php/Login/employee_logout';
             }

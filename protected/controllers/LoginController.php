@@ -418,7 +418,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 			$mail->Host = 'smtp.office365.com';  
 			$mail->SMTPAuth = true;                         
 			$mail->Username = 'vvf.pms@vvfltd.com';            
-			$mail->Password = 'Dream@200';                      
+			$mail->Password = 'Kritva@5Jan';                   
 			$mail->SMTPSecure = 'tls';                          
 			$mail->Port = 587;     
 			$mail->setFrom('vvf.pms@vvfltd.com', 'Admin'); 
@@ -491,6 +491,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 		$data = array('PMS_display_format',date('Y'));             
 		$settings_data = $setting_date->get_setting_data($where,$data,$list); 
 		$prev_date = date('Y').'-'.date('Y',strtotime('+1 year'));
+		$prev_date='2017-2018';
 		//print_r($prev_date);die();
 	    Yii::app()->user->setState('financial_year_check',$prev_date);
 		if (isset($_POST)) {
@@ -507,7 +508,7 @@ public function actionarray_column(array $input, $columnKey, $indexKey = null) {
 					$update = Yii::app()->db->createCommand()->update('login',$data,'username=:username and password=:password',array(':username'=>$role_id_array['username'],':password'=>$role_id_array['password']));				
 					$result = $model->check_login($_POST);
 //print_r($result);die();
-if ($result['reporting_1_change'] != '' && strtotime($result['reporting_1_effective_date'])==strtotime(date('Y-m-d'))) {
+					if ($result['reporting_1_change'] != '' && strtotime($result['reporting_1_effective_date'])==strtotime(date('Y-m-d'))) {
 						$data = array(
 						'Reporting_officer1_id' => $result['reporting_1_change'], 
 						);

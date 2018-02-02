@@ -41,7 +41,7 @@ class Admin_DashboardController extends Controller
 		$list = array('setting_content','year');
 		$data = array('PMS_display_format',date('Y'));             
 		$settings_data = $setting_date->get_setting_data($where,$data,$list);
-
+		//print_r($settings_data);die();
 		if (isset($settings_data['0']['setting_type'])) {
 			$year1=$settings_data['0']['setting_type'];
 		}

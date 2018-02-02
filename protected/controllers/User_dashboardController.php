@@ -31,7 +31,7 @@ class User_dashboardController extends Controller
 	{
 
 
-	    //print_r(Yii::app()->user->getState('financial_year_check'));die();
+	   //print_r(Yii::app()->user->getState('financial_year_check'));die();
 		$set_dates=new SettingsForm;$Reporting_officer1_id='';
 
 		$set_dates=$set_dates->get_all_data();

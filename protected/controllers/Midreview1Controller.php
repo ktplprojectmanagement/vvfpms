@@ -2,7 +2,95 @@
 
 class Midreview1Controller extends Controller
 {
+	// function actionIndex()
+	// {
+	// 	Yii::app()->user->setState('emp_id_3','');
+	// 	$model=new KpiAutoSaveForm;
+	// 	$emploee_data =new EmployeeForm;
+	// 	$id = Yii::app()->user->getState("employee_email");
+	// 	//print_r($id);die();
+	// 	$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status';
+	// 	$list = array('appraisal_id1','mid_KRA_final_status');
+	// 	$data = array($id,'Approved');
+	// 	$kpi_data = $model->get_kpi_list($where,$data,$list);
 
+	// 	// $where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_status = :mid_KRA_status';
+	// 	// $list = array('appraisal_id1','mid_KRA_status');
+	// 	// $data = array($id,'');
+	// 	// $emp_data = $model->get_emp_id_list($where,$data,$list);
+
+	// 	$where1 = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list1 = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data1 = array($id,'Approved',Yii::app()->user->getState('financial_year_check'));
+	// 	$kpi_data_aprv = $model->get_kpi_list($where1,$data1,$list1);
+		
+
+	// 	$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status != :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data =  array($id,'',Yii::app()->user->getState('financial_year_check'));
+	// 	$emp_data1 = $model->get_emp_id_list($where,$data,$list);
+
+	// 	$cnt = 0;$kpi_emp_data = '';$kpi_data_aprv = '';$kpi_emp_data_aprv = '';$kpi_data_aprv1 = '';
+	// 	print_r($kpi_data);die();
+	// 	if (isset($emp_data1) && count($emp_data1)>0) {
+	// 			foreach ($emp_data1 as $row) {
+	// 			$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+	// 			$list1 = array('Employee_id','goal_set_year');
+	// 			$data1 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
+	// 			$kpi_data_aprv1[$cnt] = $model->get_kpi_list($where1,$data1,$list1);
+
+	// 			$where1 = 'where Employee_id = :Employee_id';
+	// 			$list1 = array('Employee_id');
+	// 			$data1 = array($row['Employee_id']);
+	// 			$kpi_emp_data_aprv[$cnt] = $emploee_data->get_employee_data($where1,$data1,$list1);
+	// 			//print_r($row['Employee_id']);echo "<br>";
+	// 			$cnt++;
+	// 		}
+			
+	// 	}
+
+	// 	$where1 = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list1 = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data1 = array($id,'Approved',Yii::app()->user->getState('financial_year_check'));
+	// 	$kpi_data_aprv = $model->get_kpi_list($where1,$data1,$list1);
+		
+
+	// 	$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status != :mid_KRA_final_status AND goal_set_year =:goal_set_year';
+	// 	$list = array('appraisal_id1','mid_KRA_final_status','goal_set_year');
+	// 	$data =  array($id,'',Yii::app()->user->getState('financial_year_check'));
+	// 	$emp_data1 = $model->get_emp_id_list($where,$data,$list);
+	// 	$cnt = 0;
+	// 	//print_r($emp_data1);die();
+	// 	if (isset($emp_data1) && count($emp_data1)>0) {
+	// 			foreach ($emp_data1 as $row) {
+	// 			$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+	// 			$list1 = array('Employee_id','goal_set_year');
+	// 			$data1 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
+	// 			$kpi_data_aprv1[$cnt] = $model->get_kpi_list($where1,$data1,$list1);
+
+	// 			$where1 = 'where Employee_id = :Employee_id';
+	// 			$list1 = array('Employee_id');
+	// 			$data1 = array($row['Employee_id']);
+	// 			$kpi_emp_data_aprv[$cnt] = $emploee_data->get_employee_data($where1,$data1,$list1);
+	// 			//print_r($row['Employee_id']);echo "<br>";
+	// 			$cnt++;
+	// 		}
+			
+	// 	}
+		
+	// 	//print_r($id);die();
+	// 	//$mid_review = '1';
+	// 	$selected_option = 'Mid_review';
+	// 	//die();
+	// 	$this->render('//site/script_file');
+	// 	$this->render('//site/session_check_view');
+	// 	$this->render('//site/baseurl');
+	// 	$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+	// 	$this->render('//site/mid_review_emp_list',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
+	// 	$this->render('//site/footer_view_layout');
+
+		
+	// }
 
 	function actionIndex()
 	{
@@ -36,14 +124,16 @@ class Midreview1Controller extends Controller
 
 		$where1 = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status';
 		$list1 = array('appraisal_id1','mid_KRA_final_status');
-		$data1 = array($id,'');
+		$data1 = array($id,'Approved');
 		$kpi_data_aprv = $model->get_kpi_list($where1,$data1,$list1);
 		
-//print_r($kpi_data_aprv);die();
-		$where = 'where appraisal_id1 = :appraisal_id1 and (mid_KRA_final_status != :mid_KRA_final_status )';
-		$list = array('appraisal_id1','mid_KRA_final_status');
-		$data = array($id,'');
+
+		$where = 'where appraisal_id1 = :appraisal_id1 AND goal_set_year =:goal_set_year and (mid_KRA_final_status != :mid_KRA_final_status )';
+		$list = array('appraisal_id1','goal_set_year','mid_KRA_final_status');
+		$data = array($id,Yii::app()->user->getState('financial_year_check'),'');
 		$emp_data1 = $model->get_emp_id_list($where,$data,$list);
+
+
 		$cnt = 0;
 		//print_r($emp_data1);die();
 		if (isset($emp_data1) && count($emp_data1)>0) {
@@ -63,15 +153,15 @@ class Midreview1Controller extends Controller
 			}
 			
 		}
-		// echo "<pre>";
-		// print_r($kpi_data_aprv1);die();
+		
+		//print_r($kpi_data_aprv1);die();
 		//$mid_review = '1';
 		$selected_option = 'Mid_review';
-		
+		//die();
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
-		$this->render('//site/mid_review_emp_list1',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
+		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
+		$this->render('//site/mid_review_emp_list',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
 		$this->render('//site/footer_view_layout');
 
 		
@@ -91,7 +181,7 @@ public function actionIDP_review()
 			Yii::app()->user->setState('emp_id_3',$_POST['emp_id']);
                         $employee_id = Yii::app()->user->getState('emp_id_3');
 		}
-else if(Yii::app()->user->getState('emp_id_3')!= '')
+		else if(Yii::app()->user->getState('emp_id_3')!= '')
 		{
 			$employee_id = Yii::app()->user->getState('emp_id_3');
 		}
@@ -126,74 +216,73 @@ else if(Yii::app()->user->getState('emp_id_3')!= '')
 			$data = array($employee_data['0']['Reporting_officer1_id']);
 			$mgr_data = $emploee_data->get_employee_data($where,$data,$list);
 		//print_r($employee_data);die();
-                if(isset($employee_data['0']['Reporting_officer1_id']) && ($employee_data['0']['Reporting_officer1_id'] != Yii::app()->user->getState("employee_email")))
-{
-     if (count($settings_data)>0) {
-        		$where = 'where appraisal_id1 = :appraisal_id1 and Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-				$list = array('appraisal_id1','Employee_id','goal_set_year');
-				$data = array($id,$employee_id,$settings_data['0']['setting_type']);
-				$kpi_data = $model->get_kpi_list($where,$data,$list);
-				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
-				$list = array('Employee_id','goal_set_year','midyear_status_flag');
-				$data = array($employee_id,$settings_data['0']['setting_type'],'Approved');
-				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
-				
-				if(isset($program_data_detail) && count($program_data_detail)>0)
-				{
-				$prg_cnt = 1;
-				}
-		}
-		else
-		{
-			$where = 'where appraisal_id1 = :appraisal_id1 and Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-				$list = array('appraisal_id1','Employee_id','goal_set_year');
-				$data = array($id,$employee_id,date('Y'));
-				$kpi_data = $model->get_kpi_list($where,$data,$list);
-				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
-				$list = array('Employee_id','goal_set_year','midyear_status_flag');
-				$data = array($employee_id,date('Y'),'Approved');
-				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
-				if(isset($program_data_detail) && count($program_data_detail)>0)
-				{
-				$prg_cnt = 1;
-				}
-		}
-}
-else
-{
-     if (count($settings_data)>0) {
-        		$where = 'where appraisal_id1 = :appraisal_id1 and Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-				$list = array('appraisal_id1','Employee_id','goal_set_year');
-				$data = array($id,$employee_id,$settings_data['0']['setting_type']);
-				$kpi_data = $model->get_kpi_list($where,$data,$list);
-				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
-				$list = array('Employee_id','goal_set_year','midyear_status_flag');
-				$data = array($employee_id,$settings_data['0']['setting_type'],'Approved');
-				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
-				
-				if(isset($program_data_detail) && count($program_data_detail)>0)
-				{
-				$prg_cnt = 1;
-				}
-		}
-		else
-		{
-			$where = 'where appraisal_id1 = :appraisal_id1 and Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
-				$list = array('appraisal_id1','Employee_id','goal_set_year');
-				$data = array($id,$employee_id,date('Y'));
-				$kpi_data = $model->get_kpi_list($where,$data,$list);
-				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
-				$list = array('Employee_id','goal_set_year','midyear_status_flag');
-				$data = array($employee_id,date('Y'),'Approved');
-				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
-				if(isset($program_data_detail) && count($program_data_detail)>0)
-				{
-				$prg_cnt = 1;
-				}
-		}
-}
 
-                $where = 'where Employee_id = :Employee_id and Reporting_officer1_id =:Reporting_officer1_id';
+     if (count($settings_data)>0) {
+        		$where = 'where appraisal_id1 = :appraisal_id1 and Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+				$list = array('appraisal_id1','Employee_id','goal_set_year');
+				$data = array($id,$employee_id,$settings_data['0']['setting_type']);
+				$kpi_data = $model->get_kpi_list($where,$data,$list);
+				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
+				$list = array('Employee_id','goal_set_year','midyear_status_flag');
+				$data = array($employee_id,$settings_data['0']['setting_type'],'Approved');
+				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
+				
+				if(isset($program_data_detail) && count($program_data_detail)>0)
+				{
+				$prg_cnt = 1;
+				}
+		}
+		else
+		{
+			$where = 'where appraisal_id1 = :appraisal_id1 and Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+				$list = array('appraisal_id1','Employee_id','goal_set_year');
+				$data = array($id,$employee_id,date('Y'));
+				$kpi_data = $model->get_kpi_list($where,$data,$list);
+				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
+				$list = array('Employee_id','goal_set_year','midyear_status_flag');
+				$data = array($employee_id,date('Y'),'Approved');
+				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
+				if(isset($program_data_detail) && count($program_data_detail)>0)
+				{
+				$prg_cnt = 1;
+				}
+		}
+// }
+// else
+// {
+//      if (count($settings_data)>0) {
+//         		$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+// 				$list = array('Employee_id','goal_set_year');
+// 				$data = array($employee_id,$settings_data['0']['setting_type']);
+// 				$kpi_data = $model->get_kpi_list($where,$data,$list);
+// 				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
+// 				$list = array('Employee_id','goal_set_year','midyear_status_flag');
+// 				$data = array($employee_id,$settings_data['0']['setting_type'],'Approved');
+// 				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
+				
+// 				if(isset($program_data_detail) && count($program_data_detail)>0)
+// 				{
+// 				$prg_cnt = 1;
+// 				}
+// 		}
+// 		else
+// 		{
+// 			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year ORDER BY target DESC ';
+// 				$list = array('Employee_id','goal_set_year');
+// 				$data = array($employee_id,date('Y'));
+// 				$kpi_data = $model->get_kpi_list($where,$data,$list);
+// 				$where = 'where Employee_id = :Employee_id and goal_set_year =:goal_set_year and midyear_status_flag =:midyear_status_flag';
+// 				$list = array('Employee_id','goal_set_year','midyear_status_flag');
+// 				$data = array($employee_id,date('Y'),'Approved');
+// 				$program_data_detail = $get_idp_data->get_idp_data($where,$data,$list);
+// 				if(isset($program_data_detail) && count($program_data_detail)>0)
+// 				{
+// 				$prg_cnt = 1;
+// 				}
+// 		}
+// }
+
+        $where = 'where Employee_id = :Employee_id and Reporting_officer1_id =:Reporting_officer1_id';
 		$list = array('Employee_id','Reporting_officer1_id');
 		$data = array($employee_id,Yii::app()->user->getState("employee_email"));
 		$show_idp = $get_idp_data->get_idp_data($where,$data,$list);
@@ -202,7 +291,7 @@ else
 		//$mid_review = 1;
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout');
+		$this->render('//site/header_view_layout2');
 		$this->render('//site/goal_sheet1',array('kpi_data'=>$kpi_data,'employee_data'=>$employee_data,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp,'mgr_data'=>$mgr_data));
 		$this->render('//site/footer_view_layout');
 	}
@@ -307,7 +396,6 @@ else
 //print_r(Yii::app()->user->getState('financial_year_check'));die();
 		$Employee_id = Yii::app()->user->getState("Employee_id");		
 		if (count($settings_data)>0) {
-			//echo "hi";die();
 			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
 			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
 			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','0');
@@ -317,17 +405,8 @@ else
 			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
 			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','1');
 			$kpi_data2 = $model->get_kpi_list($where,$data,$list);
-
-
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
-			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','0');
-			$kpi_data = $model->get_kpi_list($where,$data,$list);
-			$kpi_all_data=$model->get_kpi_list($where,$data,$list);
-
 		}
 		else if (count($settings_data1)>0) {
-			//echo "hiiiii";die();
         	$year =  date("Y",strtotime("-1 year")).'-'.date('Y');
 				if ($settings_data1['0']['setting_type'] == $year) {
 								$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
@@ -337,17 +416,11 @@ else
 			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
 			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
 			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending','1');
-			$kpi_data2 = $model->get_kpi_list($where,$data,$list);		
-
-			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status ORDER BY target DESC ';
-			$list = array('Employee_id','goal_set_year','KRA_status');
-			$data = array($Employee_id,Yii::app()->user->getState('financial_year_check'),'Pending');
-			$kpi_all_data=$model->get_kpi_list($where,$data,$list);	
+			$kpi_data2 = $model->get_kpi_list($where,$data,$list);			
 				} 
         	}
 		else
 		{
-			//echo "hieeeeee";die();
 			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status';
 			$list = array('Employee_id','goal_set_year','KRA_status');
 			$data = array($Employee_id,date('Y'),'Pending');
@@ -402,8 +475,8 @@ else
 		$selected_option = 'Mid_review';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
-		$this->render('//site/employee_mid_review1',array('kpi_all_data' => $kpi_all_data ,'kpi_data'=>$kpi_data,'mid_review'=>$mid_review,'mid_review_by_employee'=>$mid_review_by_employee,'employee_data'=>$employee_data,'program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag,'kpi_data2'=>$kpi_data2));
+		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
+		$this->render('//site/employee_mid_review1',array('kpi_data'=>$kpi_data,'mid_review'=>$mid_review,'mid_review_by_employee'=>$mid_review_by_employee,'employee_data'=>$employee_data,'program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag,'kpi_data2'=>$kpi_data2));
 		$this->render('//site/footer_view_layout');
 	}
 
@@ -617,6 +690,7 @@ $data1 = array(
 		//print_r($_POST['KPI_id_value']);die();
 
 		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id and goal_set_year=:goal_set_year',array(':KPI_id'=>$_POST['KPI_id_value'],':goal_set_year'=>"2017-2018"));
+//print_r($update);die();
 $data1 = array(			
 			'program_review_by_emp' => $_POST['program_review_by_emp'],
 			'extra_program_review_by_emp' => $_POST['extra_program_review_by_emp'],
@@ -627,8 +701,17 @@ $data1 = array(
 			'mid_rel_prg_rev_emp' => $_POST['rel_program_review_status_emp'],
 		
 		);
-//print_r($IDPForm->mid_year_idp_doc);die();
-		$update1 = Yii::app()->db->createCommand()->update('IDP',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['correct_emp_id'],':goal_set_year'=>"2017-2018"));
+//print_r($data1);die();
+if (isset($_POST['correct_emp_id'])) {
+	//print_r($_POST['correct_emp_id']);die();
+	$emp_value = trim($_POST['correct_emp_id']);
+}
+else
+{
+	$emp_value = '';
+}
+//print_r($emp_value);die();
+	$update1 = Yii::app()->db->createCommand()->update('IDP',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$emp_value,':goal_set_year'=>"2017-2018"));	
 		//print_r($update1);die();
 		if ($update==1) {
 
@@ -1113,7 +1196,7 @@ $notification_data->notification_type = 'Midyear Review Approval Request';
 			);
 		
 $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data_new,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$emp_id,':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
-		 // print_r($update);die();
+		  //print_r(Yii::app()->user->getState('financial_year_check'));die();
 		 //  if ($update != 0) {
 		  	
 			//   		echo "Notification Send";die();

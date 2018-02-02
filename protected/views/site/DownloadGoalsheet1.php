@@ -29,6 +29,7 @@
                 </tr>
             </thead>
             <tbody id="dept_based_emp">
+                
 <lable id="total_emp_count" style="display:none"><?php if (isset($employee_list) && count($employee_list)>0) { echo count($employee_list); } ?></lable>
                 
                   <?php

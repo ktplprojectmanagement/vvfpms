@@ -94,6 +94,14 @@ class MidreviewController extends Controller
 
 	function actionIndex()
 	{
+		
+		$model11 = new LoginForm;	
+		if(Yii::app()->user->getState("Employee_name")==''){
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login',array('model'=>$model11));
+		}
+		else{
+
 		Yii::app()->user->setState('emp_id_3','');
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
@@ -160,13 +168,13 @@ class MidreviewController extends Controller
 		//die();
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
+		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 		$this->render('//site/mid_review_emp_list',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
 		$this->render('//site/footer_view_layout');
 
 		
 	}
-
+}
 
 public function actionIDP_review()
 	{			
@@ -176,6 +184,12 @@ public function actionIDP_review()
 		function actionmidreview_emp_data()
 	{
 
+		$model11 = new LoginForm;	
+		if(Yii::app()->user->getState("Employee_name")==''){
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login',array('model'=>$model11));
+		}
+		else{
 
 		if (isset($_POST['emp_id'])) {
 			Yii::app()->user->setState('emp_id_3',$_POST['emp_id']);
@@ -292,11 +306,11 @@ else
 		//$mid_review = 1;
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout2');
+		$this->render('//site/header_view_layout');
 		$this->render('//site/goal_sheet',array('kpi_data'=>$kpi_data,'employee_data'=>$employee_data,'prg_cnt'=>$prg_cnt,'show_idp'=>$show_idp,'mgr_data'=>$mgr_data));
 		$this->render('//site/footer_view_layout');
 	}
-
+}
 	function actionmidupdategoal()
 	{
 
@@ -382,6 +396,13 @@ else
 	function actionsetbyemployee()
 	{
 //	echo "hi";die();
+		$model11 = new LoginForm;	
+		if(Yii::app()->user->getState("Employee_name")==''){
+			$this->render('//site/baseurl');
+			$this->render('//site/admin_login',array('model'=>$model11));
+		}
+		else{
+
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
 		$setting_date=new SettingsForm;
@@ -476,11 +497,11 @@ else
 		$selected_option = 'Mid_review';
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
+		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
 		$this->render('//site/employee_mid_review',array('kpi_data'=>$kpi_data,'mid_review'=>$mid_review,'mid_review_by_employee'=>$mid_review_by_employee,'employee_data'=>$employee_data,'program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag,'kpi_data2'=>$kpi_data2));
 		$this->render('//site/footer_view_layout');
 	}
-
+}
 	function actionmidreview_layout()
 	{
 		$employee_email = '';$appriaser_1 = '';
@@ -994,7 +1015,7 @@ if (count($settings_data)>0) {
 			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
 			$mail->SMTPAuth = true;                               // Enable SMTP authentication
 			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
-			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->Password = 'Kritva@5Jan';                         // SMTP password
 			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 			$mail->Port = 587;                                    // TCP port to connect to
 
@@ -1236,7 +1257,7 @@ $update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data_new,'Emp
 			$mail->Host = 'smtp.office365.com';  // Specify main and backup SMTP servers
 			$mail->SMTPAuth = true;                               // Enable SMTP authentication
 			$mail->Username = 'vvf.pms@vvfltd.com';                 // SMTP username
-			$mail->Password = 'Dream@200';                           // SMTP password
+			$mail->Password = 'Kritva@5Jan';                    // SMTP password
 			$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
 			$mail->Port = 587;                                    // TCP port to connect to
 
