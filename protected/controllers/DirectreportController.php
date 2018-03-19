@@ -92,62 +92,79 @@ class DirectreportController extends Controller
         $list = array('Reporting_officer1_id');
         $data = array($email);
         $apr_data_details = $employee->get_employee_data($where,$data,$list);
-        
+        $apr_data_details=(array_filter($apr_data_details));
         $where = 'where Email_id = :Email_id';
         $list = array('Email_id');
         $data = array($email);
         $apr_data_details1 = $employee->get_employee_data($where,$data,$list);
+        $apr_data_details1=(array_filter($apr_data_details1));
         $style = 'margin-left: 49px';$color = "color:red";
-        
-             if($apr_data_details !='' && count($apr_data_details)>0)
+        //print_r($apr_data_details);die();
+             if(isset($apr_data_details) && $apr_data_details !='' && count($apr_data_details)>0)
             {
+                //echo "hi";die();
                 for($j=0;$j<count($apr_data_details);$j++)
                 {
-                        
+                        //echo "hiw";
                         $where = 'where Reporting_officer1_id = :Reporting_officer1_id';
                         $list = array('Reporting_officer1_id');
                         $data = array($apr_data_details[$j]['Email_id']);
                         $apr_data_details2 = $employee->get_employee_data($where,$data,$list);
-                        //echo "<lable style='color:green'>".$apr_data_details['0']['Emp_fname']." ".$apr_data_details['0']['Emp_lname']."</lable>";  echo "<br>"; 
+                        // //echo "<lable style='color:green'>".$apr_data_details['0']['Emp_fname']." ".$apr_data_details['0']['Emp_lname']."</lable>";  echo "<br>"; 
+                        $apr_data_details2=(array_filter($apr_data_details2));
                         if($apr_data_details2 !='' && count($apr_data_details2)>0)
                         {
-                         	$model1=new KpiAutoSaveForm;	
+                          echo "hi";
+                          $model1=new KpiAutoSaveForm;	
                             $where = 'where Employee_id = :Employee_id';
                             $list = array('Employee_id');
                             $data = array($apr_data_details[$j]['Email_id']);
                             $kpi_data_details = $model1->get_kpi_list($where,$data,$list);
-
+                            $kpi_data_details = (array_filter($kpi_data_details));
                             $color = "color:red";
-                            if($kpi_data_details['0']['final_kra_status'] == 'Approved')
-                            {
-                               $color = "color:green";
-                            }
+                            if(isset($kpi_data_details['0']['final_kra_status']) && $kpi_data_details['0']['final_kra_status'] !='' ){
+	                            if($kpi_data_details['0']['final_kra_status'] == 'Approved')
+	                            {
+	                               $color = "color:green";
+	                            }
+	                            }
+	                            if($apr_data_details[$j]['Email_id'] != $apr_data_details1['0']['Email_id'])
+	                            {
+	                                
+	                                echo "<a href='".Yii::app()->createUrl('index.php/Directreport/appraiser_end_review',array('Employee_id'=>$apr_data_details[$j]['Employee_id'],'apr_data'=>$apr_data_details[$j]['Reporting_officer1_id']))."'  target='_new' style='".$color."'><lable style='".$style."'>".$apr_data_details[$j]['Emp_fname']." ".$apr_data_details[$j]['Emp_lname']."</a></lable>";  echo "<br>"; 
+	                            }
                             
-                            if($apr_data_details[$j]['Email_id'] != $apr_data_details1['0']['Email_id'])
-                            {
-                                
-                                echo "<a href='".Yii::app()->createUrl('index.php/Directreport/appraiser_end_review',array('Employee_id'=>$apr_data_details[$j]['Employee_id'],'apr_data'=>$apr_data_details[$j]['Reporting_officer1_id']))."'  target='_new' style='".$color."'><lable style='".$style."'>".$apr_data_details[$j]['Emp_fname']." ".$apr_data_details[$j]['Emp_lname']."</a></lable>";  echo "<br>"; 
-                            }
-                            
-                            //print_r($apr_data_details2);die();
+                            //print_r(count($apr_data_details2));die();
                             for($l=0;$l<count($apr_data_details2);$l++)
                             {
+                               //  echo $apr_data_details2[$l]['Employee_id'];die();
+                                if(isset($apr_data_details2) && count($apr_data_details2)>0 && $apr_data_details2 != ''){
                                 $val = 1;
-                                //echo $apr_data_details2[$l]['Emp_fname']." ".$apr_data_details2[$l]['Emp_lname']; echo "<br>"; 
-                                $this->actionchart($apr_data_details2[$l]['Email_id'],$apr_data_details2[$l]['Employee_id'],$val);  
-                            }
+                           		$this->actionchart('employee.kritva@gmail.com','123456',$val); 
+
+                                }
+                                 //employee.kritva@gmail.com
+                                 //demo.appraisel@gmail.com
+                                 //drtey@gffg.gh
+                                 //manish.gudekar@kritva.com
+                                 //123456
+                                 //456789
+                                 //dddd
+                                 //1004
+                            }die();
                             
                         }
-                        else
-                        {
+                        // else
+                        // {
                             
-                            //echo $apr_data_details[$j]['Emp_fname']." ".$apr_data_details[$j]['Emp_lname']; echo "<br>";
-                            $this->actionchart($apr_data_details[$j]['Email_id'],$apr_data_details[$j]['Employee_id'],$val);  
-                        }
+                        //     //echo $apr_data_details[$j]['Emp_fname']." ".$apr_data_details[$j]['Emp_lname']; echo "<br>";
+                        //     $this->actionchart($apr_data_details[$j]['Email_id'],$apr_data_details[$j]['Employee_id'],$val);  
+                        // }
                 }
             }
             else if($apr_data_details1 !='' && count($apr_data_details1)>0)
             {
+            	echo "hwwi";die();
                 $model1=new KpiAutoSaveForm;	
                 $where = 'where Employee_id = :Employee_id';
                 $list = array('Employee_id');

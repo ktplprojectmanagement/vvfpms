@@ -539,8 +539,8 @@ function actionsave_data1()
 				'set_status' => "Pending",
 			);
 			//print_r($detail);die();
-			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_code']));
-
+			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_code'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+			//$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_code'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 			if($update>0)
 		  	{
 		  		echo "Successfully Saved";die();	
@@ -604,7 +604,8 @@ $detail = array(
 				'goal_set_year' => date('Y').'-'.date('Y', strtotime('+1 year'))
 			);
 			
-			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));	  		
+			//$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));	  		
+			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_code'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 			  		echo "Successfully Saved";die();
        }
        else
@@ -647,8 +648,8 @@ $detail = array(
 				'set_status' => "Pending",
 			);
 			//print_r($detail);die();	
-			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_code']));
-
+			//$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_code']));
+			  $update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_code'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 			if($update>0)
 		  	{
 		  		print_r("Successfully Saved");die();
@@ -763,7 +764,8 @@ $detail = array(
 				'midyear_status_flag' => "Approved",
 			);
 			//print_r($detail);die();
-			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));	
+			//$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));	
+			$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 $notification_data->notification_type = 'Midyear IDP approved';
 		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
 		  $notification_data->date = date('Y-m-d');
@@ -924,7 +926,9 @@ if($employee_data['0']['invalid_email'] != '1')
 				);
 			}
 			//print_r($update_detail);die();
-			$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$kra_data['0']['Employee_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+			//$update = Yii::app()->db->createCommand()->update('IDP',$detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+
 		}
 		else if(count($settings_data1)>0)
 		{
@@ -951,7 +955,9 @@ if($employee_data['0']['invalid_email'] != '1')
 					}
 				}
 				
-				$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+				//$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+        	    $update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$kra_data['0']['Employee_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+        		
         	} 
 		}
 		else
@@ -976,7 +982,8 @@ if($employee_data['0']['invalid_email'] != '1')
 				}
 			}
 			
-			$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			//$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			$update = Yii::app()->db->createCommand()->update('IDP',$update_detail,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$kra_data['0']['Employee_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 		}
 		if ($update>0) {
 			print_r("updated");
@@ -1124,7 +1131,8 @@ if($employee_data['0']['invalid_email'] != '1')
 			$data = array(
 				'set_status' => 'Approved'
 			);
-			$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			//$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$kra_data['0']['Employee_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 		}
 		else if(count($settings_data1)>0)
 		{
@@ -1138,7 +1146,8 @@ if($employee_data['0']['invalid_email'] != '1')
 				$data = array(
 				'set_status' => 'Approved'
 				);
-				$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+				//$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+				$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$kra_data['0']['Employee_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
         	} 
 		}
 		else
@@ -1150,7 +1159,8 @@ if($employee_data['0']['invalid_email'] != '1')
 			$data = array(
 				'set_status' => 'Approved'
 			);
-			$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			//$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$kra_data['0']['Employee_id']));
+			$update = Yii::app()->db->createCommand()->update('IDP',$data,'Employee_id=:Employee_id AND goal_set_year=:goal_set_year',array(':Employee_id'=>$kra_data['0']['Employee_id'],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 		}
 		if ($update>0) {
 			$notification_data =new NotificationsForm;

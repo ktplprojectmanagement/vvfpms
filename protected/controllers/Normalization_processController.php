@@ -94,20 +94,20 @@ date_default_timezone_set('Asia/Calcutta');
 	//print_r($comments);die();
 $date1 = date("Y-m-d H:i:s"); 
 
-//print_r($_POST['user']);die();
+//print_r($_POST['emp_id_list']);die();
 
-//print_r(Yii::app()->user->getState("employee_email"));die();
+//print_r(Yii::app()->user->getState('financial_year_check'));die();
 if(Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com' || Yii::app()->user->getState("employee_email") == 'mohit.sharma@vvfltd.com')
 {
 $other_comments = explode(';',$_POST['other_comments']);
          for($i=0;$i<count($employee_id_list);$i++)
           { 
               $normalize_rating =new NormalizeRatingForm;
-$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating  ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id','bu_rating');
-$data2 = array($employee_id_list[$i],'');
+$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+$list1 = array('Employee_id','bu_rating','goal_set_year');
+$data2 = array($employee_id_list[$i],'',Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
-//print_r($normalize_rating_data1);die();
+//print_r($employee_id_list[$i]);die();
 if(count($normalize_rating_data1)>0)
 {
 
@@ -118,8 +118,9 @@ $data = array(
 'bu_head' => Yii::app()->user->getState("employee_email"),
 'changes_date' => $date1,
 			);
-			//print_r($comments);die();
-			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$employee_id_list[$i]));
+			//print_r($data);die();
+			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$employee_id_list[$i],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
+			//print_r($update);die();
 }
 else
 {
@@ -129,6 +130,7 @@ else
             $normalize_rating->bu_comments = $comments[$i];
             $normalize_rating->bu_head = Yii::app()->user->getState("employee_email");$normalize_rating->other_comments = $other_comments[$i];
             $normalize_rating->changes_date = $date1;
+             $normalize_rating->goal_set_year = Yii::app()->user->getState('financial_year_check');
 if($i == 10)
 {
 //print_r($employee_id_list);die();
@@ -148,9 +150,9 @@ $other_comments = explode(';',$_POST['other_comments']);
          for($i=0;$i<count($employee_id_list);$i++)
           { 
                $normalize_rating =new NormalizeRatingForm;
-$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating  ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id','bu_rating');
-$data2 = array($employee_id_list[$i],'');
+$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating AND goal_set_year =:goal_set_year  ORDER BY `changes_date` DESC';
+$list1 = array('Employee_id','bu_rating','goal_set_year');
+$data2 = array($employee_id_list[$i],'',Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 
 if(count($normalize_rating_data1)>0)
@@ -162,7 +164,7 @@ $data = array(
 'bu_head' => Yii::app()->user->getState("employee_email"),
 'changes_date' => $date1,
 			);
-			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$employee_id_list[$i]));
+			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$employee_id_list[$i],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 }
 else
 {
@@ -172,6 +174,7 @@ else
             $normalize_rating->bu_comments = $comments[$i];
             $normalize_rating->bu_head = Yii::app()->user->getState("employee_email");$normalize_rating->other_comments = $other_comments[$i];
             $normalize_rating->changes_date = $date1;
+            $normalize_rating->goal_set_year = Yii::app()->user->getState('financial_year_check');
 if($i == 10)
 {
 //print_r($employee_id_list);die();
@@ -189,9 +192,9 @@ else if($_POST['user'] == 'plant_head')
 for($i=0;$i<count($employee_id_list);$i++)
           { 
                $normalize_rating =new NormalizeRatingForm;
-$where1 = 'where Employee_id = :Employee_id and rating != :rating  ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id','rating');
-$data2 = array($employee_id_list[$i],'');
+$where1 = 'where Employee_id = :Employee_id and rating != :rating AND goal_set_year =:goal_set_year  ORDER BY `changes_date` DESC';
+$list1 = array('Employee_id','rating','goal_set_year');
+$data2 = array($employee_id_list[$i],'',Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 
 if(count($normalize_rating_data1)>0)
@@ -202,7 +205,7 @@ $data = array(
 'plant_head' => Yii::app()->user->getState("employee_email"),
 'changes_date' => $date1,
 			);
-			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$employee_id_list[$i]));
+			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$employee_id_list[$i],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 }
 else
 {
@@ -212,6 +215,7 @@ else
             $normalize_rating->plant_head_comment = $comments[$i];
             $normalize_rating->plant_head = Yii::app()->user->getState("employee_email");
             $normalize_rating->changes_date = $date1;
+            $normalize_rating->goal_set_year = Yii::app()->user->getState('financial_year_check');
 if($normalize_rating->save())
 		  {
 		  		echo "save";
@@ -227,9 +231,9 @@ else if($_POST['user'] == 'cluster_head')
 for($i=0;$i<count($employee_id_list);$i++)
           {
                $normalize_rating =new NormalizeRatingForm;
-$where1 = 'where Employee_id = :Employee_id and rating != :rating  ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id','rating');
-$data2 = array($employee_id_list[$i],'');
+$where1 = 'where Employee_id = :Employee_id and rating != :rating AND goal_set_year =:goal_set_year  ORDER BY `changes_date` DESC';
+$list1 = array('Employee_id','rating','goal_set_year');
+$data2 = array($employee_id_list[$i],'',Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 
 if(count($normalize_rating_data1)>0)
@@ -240,7 +244,7 @@ $data = array(
 'cluster_head_name' => Yii::app()->user->getState("employee_email"),
 'changes_date' => $date1,
 			);
-			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$employee_id_list[$i]));
+			$update = Yii::app()->db->createCommand()->update('normalize_rating',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$employee_id_list[$i],':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 }
 else
 {
@@ -407,9 +411,9 @@ if($normalize_rating->save())
 		foreach ($dept_vise_emp_data as $row) {
 $performance_rating = '';$Tota_score = '';
 $normalize_rating =new NormalizeRatingForm;
-$where1 = 'where Employee_id = :Employee_id';
-$list1 = array('Employee_id');
-$data2 = array($row['Employee_id']);
+$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+$list1 = array('Employee_id','goal_set_year');
+$data2 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1);
 if(isset($normalize_rating_data['0']['performance_rating']))
 { 

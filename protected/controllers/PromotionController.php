@@ -56,6 +56,30 @@ echo "sdfsd";
 		$this->render('//site/footer_view_layout');
 	}
 
+	function actionpromotion_form_dis($Employee_id = null)
+	{
+		//echo $Employee_id;die();
+		$emploee_data =new EmployeeForm;
+		$model = new PromotionForm;
+		$emp_data = '';
+		$where = 'where Employee_id = :Employee_id';
+		$list = array('Employee_id');
+		$data = array($Employee_id);
+		$emp_data = $emploee_data->get_employee_data($where,$data,$list);
+        
+		$where = 'where Employee_id = :Employee_id';
+		$list = array('Employee_id');
+		$data = array($Employee_id);
+		$emp_promotion_data = $model->get_employee_data($where,$data,$list);
+
+		$selected_option = 'year end review';
+		$this->render('//site/script_file');
+		$this->render('//site/session_check_view');
+		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+		$this->render('//site/promotion_form_dis',array('emp_data'=>$emp_data,'emp_promotion_data'=>$emp_promotion_data));
+		$this->render('//site/footer_view_layout');
+	}
+
 function actionlayout()
 {
 	

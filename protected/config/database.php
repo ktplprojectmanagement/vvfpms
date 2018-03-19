@@ -7,10 +7,8 @@ return array(
 	
 	'connectionString' => 'mysql:host=localhost;dbname=vvf_pmsstructure',
 	'emulatePrepare' => true,
-	'username' => 'root',
+	'username' => 'pmsaccess',
 	'password' => 'p@$$w0rD789',
-	// 'username' => 'pms',
-	// 'password' => 'p@$$w0rD789',
 	
 	'charset' => 'utf8',
 	

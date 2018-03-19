@@ -1,126 +1,133 @@
-
 <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/datatables.min.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
-        <!-- END PAGE LEVEL PLUGINS -->
-        <!-- BEGIN THEME GLOBAL STYLES -->
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
-        <link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css" rel="stylesheet" type="text/css" />
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN THEME GLOBAL STYLES -->
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+<link href="<?php echo Yii::app()->request->baseUrl; ?>/assets/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
 <html>
-  <head>
-<style>
-.DTFC_LeftBodyLiner
-{
-top: 2px;
-}
-#example_filter
-{
-float:left;
-z-index: 1000;
-margin-bottom: -58px;
-position: relative;
-}
+<head>
+  <style>
 
-</style>
+  .DTFC_LeftBodyLiner
+  {
+    top: 2px;
+  }
 
-       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+  #example_filter
+  {
+    float:left;
+    z-index: 1000;
+    margin-bottom: -58px;
+    position: relative;
+  }
+
+  </style>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+
 function standard_chart(f,g,h,i,j)
 {
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        
-        var data = google.visualization.arrayToDataTable([
-          ['Rating', 'Target Bell Curve'],
-          ['1',  +f],
-          ['2',  +g],
-          ['3',  +h],
-          ['4',  +i],
-          ['5',  +j]
-        ]);
+    function drawChart() {
 
-        var options = {
-          title: 'Normalization',
-          hAxis: {title: 'Rating',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0},
-'width':600,
-  'height':500
-        };
+      var data = google.visualization.arrayToDataTable([
+        ['Rating', 'Target Bell Curve'],
+        ['1',  +f],
+        ['2',  +g],
+        ['3',  +h],
+        ['4',  +i],
+        ['5',  +j]
+      ]);
 
-        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-}
-    </script>
-        <script type="text/javascript">
-function get_data(f,g,h,i,j,a,b,c,d,e)
-        { 
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+      var options = {
+        title: 'Normalization',
+        hAxis: {title: 'Rating',  titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        'width':600,
+        'height':500
+      };
 
-      function drawChart() {
-        var data1 = google.visualization.arrayToDataTable([
-          ['Rating', 'Target Bell Curve', 'Actual'],
-          ['1',   +f,   +a],
-          ['2',    +g,  +b],
-          ['3',   +h,    +c],
-          ['4',  +i,    +d],
-          ['5',   +j,   +e]
-        ]);
-
-        var options = {
-          title: 'Normalization',
-          hAxis: {title: 'Rating',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0},
-'width':600,
-  'height':500
-        };
-        var chart1 = new google.visualization.AreaChart(document.getElementById('chart_div'));
-        chart1.draw(data1, options);
-      }
+      var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
     }
+}
+</script>
 
-    </script>
-  </head>
-  <body>  
+
+<script type="text/javascript">
+function get_data(f,g,h,i,j,a,b,c,d,e)
+{ 
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() 
+    {
+        var data1 = google.visualization.arrayToDataTable([
+        ['Rating', 'Target Bell Curve', 'Actual'],
+        ['1',   +f,   +a],
+        ['2',    +g,  +b],
+        ['3',   +h,    +c],
+        ['4',  +i,    +d],
+        ['5',   +j,   +e]
+      ]);
+
+      var options = {
+        title: 'Normalization',
+        hAxis: {title: 'Rating',  titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        'width':600,
+        'height':500
+      };
+      var chart1 = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart1.draw(data1, options);
+    }
+}
+
+</script>
+</head>
+<body>  
 <lable id="pending_list" style="display:none"><?php if(isset($kpi_data_pending) && $kpi_data_pending>0){ echo '1'; } ?></lable>
 <?php
 
-  $BU_form = new BUHeadForm;
-        $plant_head = new PlantHeadForm;
-        $employee = new EmployeeForm;
+    $BU_form = new BUHeadForm;
+    $plant_head = new PlantHeadForm;
+    $employee = new EmployeeForm;
 
- if(Yii::app()->user->getState("employee_email") == "amit.sanas@vvfltd.com" || Yii::app()->user->getState("employee_email") == "mohit.sharma@vvfltd.com")
-        {
-            $where = 'where Email_id = :Email_id';
-            $list = array('Email_id');
-            $data = array(Yii::app()->user->getState("employee_email"));
-            $is_bu = $employee->get_employee_data($where,$data,$list);
-            //print_r($is_bu);die();
-        }
-        else
-        {
-            $where = 'where cluster_appraiser = :cluster_appraiser';
-          $list = array('cluster_appraiser');
-          $data = array(Yii::app()->user->getState("employee_email"));
-          $cluster_head = $employee->get_employee_data($where,$data,$list);
-          
-            $where = 'where bu_head_email = :bu_head_email';
-            $list = array('bu_head_email');
-            $data = array(Yii::app()->user->getState("employee_email"));
-            $is_bu = $employee->get_employee_data($where,$data,$list);
-            
-            $where = 'where email_id = :email_id';
-            $list = array('email_id');
-            $data = array(Yii::app()->user->getState("employee_email"));
-            $is_plant_head = $employee->get_employee_data($where,$data,$list);
-        }
+  if(Yii::app()->user->getState("employee_email") == "amit.sanas@vvfltd.com" || Yii::app()->user->getState("employee_email") == "mohit.sharma@vvfltd.com")
+  {
+    $where = 'where Email_id = :Email_id';
+    $list = array('Email_id');
+    $data = array(Yii::app()->user->getState("employee_email"));
+    $is_bu = $employee->get_employee_data($where,$data,$list);
+  
+  }
+  else
+  {
+    $where = 'where cluster_appraiser = :cluster_appraiser';
+    $list = array('cluster_appraiser');
+    $data = array(Yii::app()->user->getState("employee_email"));
+    $cluster_head = $employee->get_employee_data($where,$data,$list);
+
+    $where = 'where bu_head_email = :bu_head_email';
+    $list = array('bu_head_email');
+    $data = array(Yii::app()->user->getState("employee_email"));
+    $is_bu = $employee->get_employee_data($where,$data,$list);
+
+    $where = 'where email_id = :email_id';
+    $list = array('email_id');
+    $data = array(Yii::app()->user->getState("employee_email"));
+    $is_plant_head = $employee->get_employee_data($where,$data,$list);
+  }
+
 ?> 
 <style>
 .dataTables_scrollBody
 {
-height : '';
+  height : '';
 }
 #floater1 {
     position: absolute;
@@ -140,17 +147,17 @@ height : '';
 }
 #err_box {
     position: absolute; 
-       top: 0; right: 20; 
-       z-index: 10; 
-        width: 367px;
+    top: 0; right: 20; 
+    z-index: 10; 
+    width: 367px;
     height: 60px;
     border: 1px solid #4C9ED9;
     text-align: center;
     padding-top: 10px;
     right: 45%;
-background-color: #AB5454;
-color: #FFF;
-font-weight: bold;   
+    background-color: #AB5454;
+    color: #FFF;
+    font-weight: bold;   
 }
 </style>
 <div class="page-container">
@@ -172,178 +179,186 @@ font-weight: bold;
                                                    </div>
                                                 <div class="tools"> </div>
                                             </div>
-                                            <div class="portlet-body">
+<div class="portlet-body">
+
+
 <table class="table table-striped table-bordered table-hover dt-responsive sample_555"id="sample_5" style="display:none;width:100%">
-<thead>
-<tr role="row" style="height: 42px;background-color: #154593;color: #fff;">
-    <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Employee ID</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Employee Name</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Quantitative<br>Rating</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Qualitative<br>Rating</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Round <br>Rating</th>
-<?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($cluster_head) && count($cluster_head)>0) || (isset($is_plant_head) && count($is_plant_head)>0) || (isset($is_bu) && count($is_bu)>0)) { ?>
+    <thead>
+    <tr role="row" style="height: 42px;background-color: #154593;color: #fff;">
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Employee ID</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Employee Name</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Quantitative<br>Rating</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Qualitative<br>Rating</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Round <br>Rating</th>
+        <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($cluster_head) && count($cluster_head)>0) || (isset($is_plant_head) && count($is_plant_head)>0) || (isset($is_bu) && count($is_bu)>0)) { ?>
 
-<th style="width:90px;max-width:90px;min-width:90px;padding:0px">Plant <br>Head<br>Rating</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Plant Head <br>Comments</th>
-<?php } ?>
-<?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($cluster_head) && count($cluster_head)>0) || (isset($is_bu) && count($is_bu)>0)) { ?>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Cluster<br>Head<br> Rating</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Cluster Head<br> Comments</th>
-<?php } ?>
-<?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) { ?>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">BU<br>Rating</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">BU Head <br>Comments</th>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Special <br>Comments</th>
-<?php } ?>
-<th style="width:100px;max-width:100px;min-width:100px;padding:0px">Cluster Name</th>
-<th id="f1">Employee Name</th>
-<th class="">Reporting manager</th>
-<th class="">Promotion Recommended</th>
-</tr>
-</thead>
-<tbody id="dept_based_emp">
-<lable id="total_emp_count" style="display:none"><?php if (isset($employee_list) && count($employee_list)>0) { echo count($employee_list); } ?></lable>
-<?php
-if (isset($employee_list)) { ?>                                                        
-<?php 
+        <th style="width:90px;max-width:90px;min-width:90px;padding:0px">Plant <br>Head<br>Rating</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Plant Head <br>Comments</th>
+        <?php } ?>
+        <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($cluster_head) && count($cluster_head)>0) || (isset($is_bu) && count($is_bu)>0)) { ?>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Cluster<br>Head<br> Rating</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Cluster Head<br> Comments</th>
+        <?php } ?>
+        <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) { ?>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">BU<br>Rating</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">BU Head <br>Comments</th>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Special <br>Comments</th>
+        <?php } ?>
+        <th style="width:100px;max-width:100px;min-width:100px;padding:0px">Cluster Name</th>
+        <th id="f1">Employee Name</th>
+        <th class="">Reporting manager</th>
+        <th class="">Promotion Recommended</th>
+    </tr>
+    </thead>
 
+    <tbody id="dept_based_emp">
+    <lable id="total_emp_count" style="display:none"><?php if (isset($employee_list) && count($employee_list)>0) { echo count($employee_list); } ?></lable>
+    <?php
+    if (isset($employee_list)) 
+    { ?>                                                        
+    <?php 
+        $cnt = 0;
+        foreach ($employee_list as $row) {
+            $normalize_rating =new NormalizeRatingForm;
+            $employee = new EmployeeForm;
+            $where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+            $list1 = array('Employee_id','goal_set_year');
+            $data2 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
+            $normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1);
 
-$cnt = 0;
-foreach ($employee_list as $row) {
-//print_r($employee_list);die();
-    
-$normalize_rating =new NormalizeRatingForm;
-$employee = new EmployeeForm;
-$where1 = 'where Employee_id = :Employee_id ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id');
-$data2 = array($row['Employee_id']);
-$normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
-$promotion = new PromotionForm;
-$where1 = 'where Employee_id = :Employee_id';
-$list1 = array('Employee_id');
-$data2 = array($row['Employee_id']);
-$promo_data = $promotion->get_employee_data($where1,$data2,$list1); 
+            $promotion = new PromotionForm;
+            $where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+            $list1 = array('Employee_id','goal_set_year');
+            $data2 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
+            $promo_data = $promotion->get_employee_data($where1,$data2,$list1); 
 
+            $where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating and bu_rating != :bu_rating AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+            $list1 = array('Employee_id','bu_rating','bu_rating','goal_set_year');
+            $data2 = array($row['Employee_id'],'',0,Yii::app()->user->getState('financial_year_check'));
+            $normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 
-$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating and bu_rating != :bu_rating ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id','bu_rating','bu_rating');
-$data2 = array($row['Employee_id'],'',0);
-$normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
+            $where1 = 'where Employee_id = :Employee_id and other_comments != :other_comments and other_comments != :other_comments AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+            $list1 = array('Employee_id','other_comments','other_comments','goal_set_year');
+            $data2 = array($row['Employee_id'],'','undefined',Yii::app()->user->getState('financial_year_check'));
+            $normalize_rating_data2 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 
-$where1 = 'where Employee_id = :Employee_id and other_comments != :other_comments and other_comments != :other_comments ORDER BY `changes_date` DESC';
-$list1 = array('Employee_id','other_comments','other_comments');
-$data2 = array($row['Employee_id'],'','undefined');
-$normalize_rating_data2 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
-if($row['Employee_id'] == '10002386')
-{
-//print_r($IDPForm_data);die();
-}
-$where = 'where Email_id = :Email_id';
-$list = array('Email_id');
-$data = array($row['Reporting_officer1_id']);
-$apr_name = $employee->get_employee_data($where,$data,$list);
+            if($row['Employee_id'] == '10002386')
+            {
+            //print_r($IDPForm_data);die();
+            }
 
-if(isset($row['Reporting_officer2_id']) && $row['Reporting_officer2_id'] != '')
-{
-    if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (Yii::app()->user->getState("employee_email") == 'mohit.sharma@vvfltd.com'))
-    {
-       //$apr_name1 = '';
-    }
-    else
-    {
-        $where = 'where Email_id = :Email_id';
-        $list = array('Email_id');
-        $data = array($row['Reporting_officer2_id']);
-        $apr_name1 = $employee->get_employee_data($where,$data,$list);
-    }
+            $where = 'where Email_id = :Email_id';
+            $list = array('Email_id');
+            $data = array($row['Reporting_officer1_id']);
+            $apr_name = $employee->get_employee_data($where,$data,$list);
 
-}
-else
-{
-$apr_name1 = '';
-}
+            if(isset($row['Reporting_officer2_id']) && $row['Reporting_officer2_id'] != '')
+            {
+                if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (Yii::app()->user->getState("employee_email") == 'mohit.sharma@vvfltd.com'))
+                {
+                //$apr_name1 = '';
+                }
+                else
+                {
+                  $where = 'where Email_id = :Email_id';
+                  $list = array('Email_id');
+                  $data = array($row['Reporting_officer2_id']);
+                  $apr_name1 = $employee->get_employee_data($where,$data,$list);
+                }
+            }
+            else
+            {
+                $apr_name1 = '';
+            }
 
-$day = 31;
-$month = 03;
-$year = date('Y');
+            $day = 31;
+            $month = 03;
+            $year = date('Y');
 
-$date = mktime(12, 0, 0, $month, $day, $year);
-//print_r($IDPForm_data);die();
-?>    
-<lable id="emp_id-<?php echo $cnt; ?>" style="display:none"><?php echo $row['Employee_id']; ?></lable>                                                       
-<tr>  
-<td><?php echo $row['Employee_id']; ?></td>
-<td <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php echo $row['Emp_fname']." ".$row['Emp_lname']; ?></td> 
-<td id="qualrate-<?php echo $cnt; ?>"><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''){ echo $IDPForm_data[$cnt]['0']['manager_1_rate']+$IDPForm_data[$cnt]['0']['manager_2_rate']; }else{ echo $IDPForm_data[$cnt]['0']['performance_rating']; }?></td>
-<td><?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']!=''){ echo $IDPForm_data[$cnt]['0']['Tota_score']; }?></td>
-<td><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''){ echo round($IDPForm_data[$cnt]['0']['manager_1_rate']+$IDPForm_data[$cnt]['0']['manager_2_rate']); }else{ echo round($IDPForm_data[$cnt]['0']['performance_rating']); }?></td>
-<?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) { ?>
-<td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating']) && $normalize_rating_data[$cnt]['plant_head_rating'] != '' && $normalize_rating_data[$cnt]['plant_head_rating'] != '0') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating']) && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop comm1 plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
-<?php }else if((isset($is_plant_head) && count($is_plant_head)>0) && (date("Y",strtotime($row['rere_date']))==date("Y", $date))) { ?>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '' && $normalize_rating_data[$cnt]['plant_head_rating'] != '0') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
-<?php } else if(isset($is_plant_head) && count($is_plant_head)>0) { ?>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '' && $normalize_rating_data[$cnt]['plant_head_rating'] != '0') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
-<?php } ?>
-<?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) { ?>
-<td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '' && $normalize_rating_data['0']['rating'] != '0')) { echo round($normalize_rating_data['0']['rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop comm1 cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
-<?php }else if((isset($cluster_head) && count($cluster_head)>0) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { ?>
-<td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '' && $normalize_rating_data['0']['rating'] != '0')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><lable style="display:none" class="<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
+            $date = mktime(12, 0, 0, $month, $day, $year); ?>    
+            <lable id="emp_id-<?php echo $cnt; ?>" style="display:none"><?php echo $row['Employee_id']; ?></lable>                                                       
+            <tr>  
+            <td><?php echo $row['Employee_id']; ?></td>
+            <td <?php if(!isset($IDPForm_data[$cnt]['0']['Tota_score']) || isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']==''){ ?>style="color:red;"<?php } ?> ><?php echo $row['Emp_fname']." ".$row['Emp_lname']; ?></td> 
+            <td id="qualrate-<?php echo $cnt; ?>"><?php if(isset($row['reporting_1_change']) && isset($IDPForm_data[$cnt]['0']['manager_1_rate']) && isset($IDPForm_data[$cnt]['0']['manager_2_rate']) && isset($IDPForm_data[$cnt]['0']['performance_rating']) && $row['reporting_1_change'] != ''){ echo $IDPForm_data[$cnt]['0']['manager_1_rate']+$IDPForm_data[$cnt]['0']['manager_2_rate']; }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])){ echo $IDPForm_data[$cnt]['0']['performance_rating']; }?></td>
+            <td><?php if(isset($IDPForm_data[$cnt]['0']['Tota_score']) && $IDPForm_data[$cnt]['0']['Tota_score']!=''){ echo $IDPForm_data[$cnt]['0']['Tota_score']; }?></td>
+            <td><?php if(isset($row['reporting_1_change']) && $row['reporting_1_change'] != ''&& isset($IDPForm_data[$cnt]['0']['manager_1_rate']) && isset($IDPForm_data[$cnt]['0']['manager_2_rate'])){ echo round($IDPForm_data[$cnt]['0']['manager_1_rate']+$IDPForm_data[$cnt]['0']['manager_2_rate']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])){ echo round($IDPForm_data[$cnt]['0']['performance_rating']); }?></td>
+            <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) { ?>
+            <td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating']) && $normalize_rating_data[$cnt]['plant_head_rating'] != '' && $normalize_rating_data[$cnt]['plant_head_rating'] != '0') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating']) && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop comm1 plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
+            <?php }else if((isset($is_plant_head) && count($is_plant_head)>0) && (date("Y",strtotime($row['rere_date']))==date("Y", $date))) { ?>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '' && $normalize_rating_data[$cnt]['plant_head_rating'] != '0') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
+            <?php } else if(isset($is_plant_head) && count($is_plant_head)>0) { ?>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number normalize_rate-<?php echo $cnt; ?>" id="normalize_rate-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '' && $normalize_rating_data[$cnt]['plant_head_rating'] != '0') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_rating'])  && $normalize_rating_data[$cnt]['plant_head_rating'] != '') { echo round($normalize_rating_data[$cnt]['plant_head_rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop plant_head_comments" id="plant_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data[$cnt]['plant_head_comment'])) { echo $normalize_rating_data[$cnt]['plant_head_comment']; }else { echo ""; } ?></label></td>
+            <?php } ?>
+            <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0)) { ?>
+            <td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '' && $normalize_rating_data['0']['rating'] != '0')) { echo round($normalize_rating_data['0']['rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); } else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></label></td>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop comm1 cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text" disabled><label style="display:none"><?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
+            <?php }else if((isset($cluster_head) && count($cluster_head)>0) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { ?>
+            <td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '' && $normalize_rating_data['0']['rating'] != '0')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><lable style="display:none" class="<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
 
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
-<?php } else if(isset($cluster_head) && count($cluster_head)>0) { ?>
-<td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '' && $normalize_rating_data['0']['rating'] != '0')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><lable style="display:none" class="<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
+            <?php } else if(isset($cluster_head) && count($cluster_head)>0) { ?>
+            <td style="width: 85px;"><input style="width: 85px;"  class="form-control pop chk_number cluster_head_data-<?php echo $cnt; ?>" id="cluster_head_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '' && $normalize_rating_data['0']['rating'] != '0')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text"><lable style="display:none" class="<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data['0']['rating']) && ($normalize_rating_data['0']['rating'] != 'undefined' && $normalize_rating_data['0']['rating'] != '')) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
 
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
-<?php } ?>
+            <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop cluster_head_comment" id="cluster_head_comment-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_rating_data['0']['cluster_head_comments']) && $normalize_rating_data['0']['cluster_head_comments'] != 'undefined') { echo $normalize_rating_data['0']['cluster_head_comments']; }else { echo ""; } ?></label></td>
+            <?php } ?>
 
 
-<?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) { ?>
-<td style="width: 95px;"><input style="width: 85px;" disabled  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
+            <?php if(((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) && (date("Y",strtotime($row['retire_date']))==date("Y", $date))) 
+            { ?>
+                <td style="width: 95px;"><input style="width: 85px;" disabled  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
 
-<td style="width: 95px;"><input style="width: 85px;" disabled  class="form-control comm1 pop bu_head_comments" id="bu_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?></label></td>
+                <td style="width: 95px;"><input style="width: 85px;" disabled  class="form-control comm1 pop bu_head_comments" id="bu_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?></label></td>
 
-<td style="width: 95px;"><input style="width: 85px;" disabled type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
-<?php }else if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) {
-?>
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
+                <td style="width: 95px;"><input style="width: 85px;" disabled type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
+                <?php }else if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_bu) && count($is_bu)>0)) {
+                ?>
+                <td style="width: 95px;"><input style="width: 85px;"  class="form-control pop chk_number performance_data-<?php echo $cnt; ?>" id="performance_data-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?>" type="text" maxlength="1"><lable style="display:none" class="<?php echo $cnt; ?>" id="performance_data1-<?php echo $cnt; ?>"><?php if(isset($normalize_rating_data1['0']['bu_rating']) && ($normalize_rating_data['0']['bu_rating'] != 'undefined' && $normalize_rating_data['0']['bu_rating'] != '')) { echo round($normalize_rating_data1['0']['bu_rating']); }else if(isset($normalize_rating_data['0']['rating'])) { echo round($normalize_rating_data['0']['rating']); }else if(isset($IDPForm_data[$cnt]['0']['performance_rating'])) { echo round($IDPForm_data[$cnt]['0']['performance_rating']); }else { echo ""; } ?></lable></td>
 
-<td style="width: 95px;"><input style="width: 85px;"  class="form-control comm1 pop bu_head_comments" id="bu_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?></label></td>
+                <td style="width: 95px;"><input style="width: 85px;"  class="form-control comm1 pop bu_head_comments" id="bu_head_comments-<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom" value="<?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?>" type="text"><label style="display:none"><?php if(isset($normalize_comment_data['0']['bu_comments']) && $normalize_comment_data['0']['bu_comments'] != 'undefined') { echo $normalize_comment_data['0']['bu_comments']; }else { echo ""; } ?></label></td>
 
-<td style="width: 95px;"><input style="width: 85px;"  type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
-<?php
-} ?>
-<td><?php if(isset($row['cluster_name'])) { echo $row['cluster_name']; } ?></td>
-<td><?php if(isset($row['Emp_fname'])) { echo $row['Emp_fname']." ".$row['Emp_lname']; } ?></td>
-<td>
-<?php 
-$employee = new EmployeeForm;
-$where = 'where Email_id = :Email_id';
-$list = array('Email_id');
-$data = array($row['Reporting_officer1_id']);
-$apr_data_get = $employee->get_employee_data($where,$data,$list);
+                <td style="width: 95px;"><input style="width: 85px;"  type="text" class="form-control pop" id="other<?php echo $cnt; ?>" data-toggle="popover" data-trigger="hover"  data-placement="bottom"value="<?php if(isset($normalize_rating_data['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?>"><label style="display:none"><?php if(isset($normalize_rating_data2['0']['other_comments']) && $normalize_rating_data2['0']['other_comments'] != 'undefined') { echo $normalize_rating_data2['0']['other_comments']; }else { echo ""; } ?></label></td>
+                <?php 
+            } ?>
+            <td><?php if(isset($row['cluster_name'])) { echo $row['cluster_name']; } ?></td>
+            <td><?php if(isset($row['Emp_fname'])) { echo $row['Emp_fname']." ".$row['Emp_lname']; } ?></td>
+            <td>
+                <?php 
+                  $employee = new EmployeeForm;
+                  $where = 'where Email_id = :Email_id';
+                  $list = array('Email_id');
+                  $data = array($row['Reporting_officer1_id']);
+                  $apr_data_get = $employee->get_employee_data($where,$data,$list);
 
-if(isset($apr_data_get['0']['Emp_fname']) && isset($apr_data_get['0']['Emp_lname'])) { echo $apr_data_get['0']['Emp_fname']." ".$apr_data_get['0']['Emp_lname']; } ?>
-</td>
-<td><?php 
-if (isset($promo_data['0']['update_flag'])) {
-if($promo_data['0']['update_flag'] != '2') { echo "<br>";echo "Yes"; }else { echo "No"; } ?></td>
-</tr>                                                       
-<?php $cnt++;   }
-}
-}
-else
-{ ?>
-<tr>
-<td colspan='6'>No Record Found</td>
-</tr>
-<?php    }
-?>
-</tbody>
+                if(isset($apr_data_get['0']['Emp_fname']) && isset($apr_data_get['0']['Emp_lname'])) { echo $apr_data_get['0']['Emp_fname']." ".$apr_data_get['0']['Emp_lname']; } ?>
+            </td>
+           
+            <td><?php 
+              if (isset($promo_data['0']['update_flag'])) 
+              {
+                if($promo_data['0']['update_flag'] != '2') { echo "<br>";echo "Yes"; }else { echo "No"; } ?>
+                </td>
+                </tr>                                                       
+                <?php $cnt++;
+              }
+            }
+            }
+            else
+            { ?>
+              <tr>
+              <td colspan='6'>No Record Found</td>
+              </tr>
+            <?php 
+            }
+            ?>
+    </tbody>
 </table>
+
+
+
 <div class="modal fade" id="normalize_msg" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="width: 65%;">
           <div class="modal-content">
@@ -369,31 +384,38 @@ if(isset($pending_list) && count($pending_list)>0)
 {
 for($i=0;$i<count($pending_list);$i++)
 {
-if($pending_list[$i]['0'] != '')
+if(isset($pending_list[$i]['0']) && $pending_list[$i]['0'] != '')
 {
 ?>
 <tr>
 <td>
- <?php echo $pending_list[$i]['0']['Employee_id'] ;?>
+ <?php if(isset($pending_list[$i]['0']['Employee_id'])) { echo $pending_list[$i]['0']['Employee_id'] ; } ?>
 </td>
 <td>
-<?php echo $pending_list[$i]['0']['Emp_fname']." ".$pending_list[$i]['0']['Emp_lname']; ?>
+<?php if(isset($pending_list[$i]['0']['Emp_fname']) && isset($pending_list[$i]['0']['Emp_lname'])) { echo $pending_list[$i]['0']['Emp_fname']." ".$pending_list[$i]['0']['Emp_lname']; } ?>
 </td>
 <td>
-<?php echo $pending_list[$i]['0']['Designation'] ;?>
+<?php if(isset($pending_list[$i]['0']['Designation'])) { echo $pending_list[$i]['0']['Designation'] ; } ?>
 </td>
 <td>
-<?php echo $pending_list[$i]['0']['Department'] ;?>
+<?php if(isset($pending_list[$i]['0']['Department'])) { echo $pending_list[$i]['0']['Department']; } ?>
 </td>
 <td>
 <?php 
 $employee = new EmployeeForm;
-$where = 'where Email_id = :Email_id';
-$list = array('Email_id');
-$data = array($pending_list[$i]['0']['Reporting_officer1_id']);
-$apr_data_get1 = $employee->get_employee_data($where,$data,$list);
+if(isset($pending_list[$i]['0']['Reporting_officer1_id']))
+{
+  $where = 'where Email_id = :Email_id';
+  $list = array('Email_id');
+  $data = array($pending_list[$i]['0']['Reporting_officer1_id']);
+  $apr_data_get1 = $employee->get_employee_data($where,$data,$list);
+}
 
-echo $apr_data_get1['0']['Emp_fname']." ".$apr_data_get1['0']['Emp_lname'] ;
+if(isset($apr_data_get1['0']['Emp_fname']) && isset($apr_data_get1['0']['Emp_lname']))
+{
+  echo $apr_data_get1['0']['Emp_fname']." ".$apr_data_get1['0']['Emp_lname'];
+}
+
 ?>
 </td>
 </tr>
@@ -627,22 +649,7 @@ $('.sample_444').DataTable({
     });
     var table = $('#sample_4').DataTable();
 
-//alert("sf");
-//$('#search-empid').on('keyup', function(){
- //   $(this).css('color', 'red');
- //   table
- //   .column(0)
-  //  .search(this.value)
- //   .draw();
 
- // });
-//$('#search-empname').on('keyup', function(){
-   // $(this).css('color', 'red');
- //  table
-    //.column(2)
-  //  .search(this.value)
-  //  .draw();
-// });
 
     $('#search-cluster').on('keyup', function(){
     $(this).css('color', 'red');
@@ -812,6 +819,9 @@ $('#search-empnamechk2').on('keyup', function(){
     
 }
 .hidden
+{
+
+}
 </style>
 
 
@@ -828,7 +838,7 @@ $('#search-empnamechk2').on('keyup', function(){
 <th style="width:75px;min-width:75px;max-width:75px"><input  style="width:75px;min-width:75px;max-width:75px"type="text" id="search-qualitativerating" ><span class="glyphicon glyphicon-search"></th>
 <th style="width:75px;min-width:75px;max-width:75px"><input  style="width:75px;min-width:75px;max-width:75px"type="text" id="search-plantrate1" ><span class="glyphicon glyphicon-search"></th>
 <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($is_plant_head) && count($is_plant_head)>0) || (isset($cluster_head) && count($cluster_head)>0) || (isset($is_bu) && count($is_bu)>0)) { ?>
-<th style="width:75px;min-width:75px;max-width:75px"><input  style="width:75px;min-width:75px;max-width:75px"type="text" id="search-plantrate" ><span class="glyphicon glyphicon-search"></th>
+<th style="width:75px;min-width:75px;max-width:75px"><input  style="width:75px;min-width:75px;max-width:75px" type="text" id='search-plantrate' ><span class="glyphicon glyphicon-search"></th>
 <th style="width:75px;min-width:75px;max-width:75px"><input  style="width:75px;min-width:75px;max-width:75px" type="text" id="search-plantcmnt" ><span class="glyphicon glyphicon-search"></th>
 <?php } ?>
 <?php if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') || (isset($cluster_head) && count($cluster_head)>0) || (isset($is_bu) && count($is_bu)>0)) { ?>
@@ -902,66 +912,66 @@ $normalize_rating =new NormalizeRatingForm;
 $employee = new EmployeeForm;
 if((Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') ||  (isset($is_bu) && count($is_bu)>0))
 {
-    $where1 = 'where Employee_id = :Employee_id and bu_rating !=:bu_rating and bu_rating !=:bu_rating and bu_rating !=:bu_rating ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id','bu_rating','bu_rating','bu_rating');
-    $data2 = array($row['Employee_id'],'','undefined','0');
+    $where1 = 'where Employee_id = :Employee_id and bu_rating !=:bu_rating and bu_rating !=:bu_rating and bu_rating !=:bu_rating AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','bu_rating','bu_rating','bu_rating','goal_set_year');
+    $data2 = array($row['Employee_id'],'','undefined','0',Yii::app()->user->getState('financial_year_check'));
     $normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
     
-    $where1 = 'where Employee_id = :Employee_id and bu_comments !=:bu_comments and bu_comments !=:bu_comments and bu_comments !=:bu_comments ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id','bu_comments','bu_comments','bu_comments');
-    $data2 = array($row['Employee_id'],'','undefined','0');
+    $where1 = 'where Employee_id = :Employee_id and bu_comments !=:bu_comments and bu_comments !=:bu_comments and bu_comments !=:bu_comments AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','bu_comments','bu_comments','bu_comments','goal_set_year');
+    $data2 = array($row['Employee_id'],'','undefined','0',Yii::app()->user->getState('financial_year_check'));
     $normalize_comment_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 }
 else if((isset($cluster_head) && count($cluster_head)>0))
 {
-    $where1 = 'where Employee_id = :Employee_id and rating !=:rating and rating !=:rating and rating !=:rating ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id','rating','rating','rating');
-    $data2 = array($row['Employee_id'],'','undefined','0');
+    $where1 = 'where Employee_id = :Employee_id and rating !=:rating and rating !=:rating and rating !=:rating AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','rating','rating','rating','goal_set_year');
+    $data2 = array($row['Employee_id'],'','undefined','0',Yii::app()->user->getState('financial_year_check'));
     $normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
     
-    $where1 = 'where Employee_id = :Employee_id and cluster_head_comments !=:cluster_head_comments and cluster_head_comments !=:cluster_head_comments and cluster_head_comments !=:cluster_head_comments  ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id','cluster_head_comments','cluster_head_comments','cluster_head_comments');
-    $data2 = array($row['Employee_id'],'','undefined','0');
+    $where1 = 'where Employee_id = :Employee_id and cluster_head_comments !=:cluster_head_comments and cluster_head_comments !=:cluster_head_comments and cluster_head_comments !=:cluster_head_comments AND goal_set_year =:goal_set_year  ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','cluster_head_comments','cluster_head_comments','cluster_head_comments','goal_set_year');
+    $data2 = array($row['Employee_id'],'','undefined','0',Yii::app()->user->getState('financial_year_check'));
     $normalize_comment_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
     
    // print_r($normalize_rating_data);die();
 }
 else if((isset($cluster_head) && count($cluster_head)>0))
 {
-    $where1 = 'where Employee_id = :Employee_id and plant_head_rating !=:plant_head_rating and plant_head_rating and plant_head_rating !=:plant_head_rating and plant_head_rating !=:plant_head_rating ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id','plant_head_rating','plant_head_rating','plant_head_rating');
-    $data2 = array($row['Employee_id'],'','undefined','0');
+    $where1 = 'where Employee_id = :Employee_id and plant_head_rating !=:plant_head_rating and plant_head_rating and plant_head_rating !=:plant_head_rating and plant_head_rating !=:plant_head_rating AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','plant_head_rating','plant_head_rating','plant_head_rating','goal_set_year');
+    $data2 = array($row['Employee_id'],'','undefined','0',Yii::app()->user->getState('financial_year_check'));
     $normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
     
-    $where1 = 'where Employee_id = :Employee_id and plant_head_comment  !=:plant_head_comment  and plant_head_comment  !=:plant_head_comment  and plant_head_comment  !=:plant_head_comment  ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id','plant_head_comment ','plant_head_comment ','plant_head_comment ');
-    $data2 = array($row['Employee_id'],'','undefined','0');
+    $where1 = 'where Employee_id = :Employee_id and plant_head_comment  !=:plant_head_comment  and plant_head_comment  !=:plant_head_comment  and plant_head_comment  !=:plant_head_comment AND goal_set_year =:goal_set_year  ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','plant_head_comment ','plant_head_comment ','plant_head_comment','goal_set_year');
+    $data2 = array($row['Employee_id'],'','undefined','0',Yii::app()->user->getState('financial_year_check'));
     $normalize_comment_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 }
 else
 {
    
-    $where1 = 'where Employee_id = :Employee_id ORDER BY `changes_date` DESC';
-    $list1 = array('Employee_id');
-    $data2 = array($row['Employee_id']);
+    $where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year ORDER BY `changes_date` DESC';
+    $list1 = array('Employee_id','goal_set_year');
+    $data2 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
     $normalize_rating_data = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 }
 
 $promotion = new PromotionForm;
-$where1 = 'where Employee_id = :Employee_id';
-$list1 = array('Employee_id');
-$data2 = array($row['Employee_id']);
+$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+$list1 = array('Employee_id','goal_set_year');
+$data2 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
 $promo_data = $promotion->get_employee_data($where1,$data2,$list1); 
 
 
-$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating';
-$list1 = array('Employee_id','bu_rating');
-$data2 = array($row['Employee_id'],'');
+$where1 = 'where Employee_id = :Employee_id and bu_rating != :bu_rating AND goal_set_year =:goal_set_year';
+$list1 = array('Employee_id','bu_rating','goal_set_year');
+$data2 = array($row['Employee_id'],'',Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data1 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 
-$where1 = 'where Employee_id = :Employee_id';
-$list1 = array('Employee_id');
-$data2 = array($row['Employee_id']);
+$where1 = 'where Employee_id = :Employee_id AND goal_set_year =:goal_set_year';
+$list1 = array('Employee_id','goal_set_year');
+$data2 = array($row['Employee_id'],Yii::app()->user->getState('financial_year_check'));
 $normalize_rating_data2 = $normalize_rating->get_setting_data($where1,$data2,$list1); 
 if($row['Employee_id'] == '10002386')
 {
@@ -1768,6 +1778,7 @@ var id_value = $(this).next('lable').attr('id');
 var class_value = $(this).next('lable').attr('class');
 var rate1 = 0;var rate2 = 0;var rate3 = 0;var rate4 = 0;var rate5 = 0;var dev_chk = 0;
 var str = /^[1-5]$/; 
+//alert($(this).val());
 if($(this).val()>5 || $(this).val() == 0)
 {
 $("#err_box").css("display","block");
@@ -2298,7 +2309,7 @@ $("#err").text("");
                     type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=Normalization_process/normalize',
+                            url : base_url+'/pms/index.php?r=Normalization_process/normalize',
                             success : function(data)
                             {
 alert(data);
@@ -2360,7 +2371,9 @@ for (var i = 0; i < $("#total_emp_count").text(); i++) {
 
 if(e == "bu")
 {
-if(emp_id_list == '')
+  if($(".performance_data-"+i).val() != '' && $("#bu_head_comments-"+i).val() != '')
+  {
+    if(emp_id_list == '')
   {
     emp_id_list = $("#emp_id-"+i).text();
   }
@@ -2396,14 +2409,16 @@ if(other_comments == '')
   {
       //alert(comments);
   }
-  
+  }
+
 //alert(emp_id_list);
 //alert(emp_id_list);
 }
 else if(e == "cluster_head")
 {
-
-if(emp_id_list == '')
+if($(".cluster_head_data-"+i).val() != "" && $("#cluster_head_comment-"+i).val() != "")
+{
+  if(emp_id_list == '')
   {
     emp_id_list = $("#emp_id-"+i).text();
   }
@@ -2428,10 +2443,13 @@ if(emp_id_list == '')
     comments = comments+';'+$("#cluster_head_comment-"+i).val();
   }
 }
+
+}
 else if(e == "plant_head")
 {
-
-if(emp_id_list == '')
+if($(".cluster_head_data-"+i).val() != "" && $("#cluster_head_comment-"+i).val() != "")
+{
+  if(emp_id_list == '')
   {
     emp_id_list = $("#emp_id-"+i).text();
   }
@@ -2455,6 +2473,8 @@ if(emp_id_list == '')
   {
     comments = comments+';'+$("#cluster_head_comment-"+i).val();
   }
+}
+
 }
 
 }
@@ -2479,17 +2499,18 @@ flag = 0;
                     'flag' : flag,
                   };
                   var base_url = window.location.origin;
+                  //alert(base_url+'/pms/index.php?r=Normalization_process/normalize');
                   $.ajax({
                     type : 'post',
                             datatype : 'html',
                             data : data,
-                            url : base_url+'/index.php?r=Normalization_process/normalize',
+                            url : base_url+'/pms/index.php?r=Normalization_process/normalize',
                             success : function(data)
                             {
-                             // alert(data);
+                              //alert(data);
                             }
                   });
-standard_chart(f,g,h,i,j);get_data(f,g,h,i,j,rate1,rate2,rate3,rate4,rate5);
+//standard_chart(f,g,h,i,j);get_data(f,g,h,i,j,rate1,rate2,rate3,rate4,rate5);
 }
 </script>
  <script type="text/javascript">
@@ -2507,7 +2528,7 @@ standard_chart(f,g,h,i,j);get_data(f,g,h,i,j,rate1,rate2,rate3,rate4,rate5);
                     type : 'post',
                     datatype : 'html',
                     data : dept_name,
-                    url : base_url+'/index.php?r=Normalization/getdata',
+                    url : base_url+'/pms/index.php?r=Normalization/getdata',
                     success : function(data)
                     {
                         //alert(data);
@@ -2534,7 +2555,7 @@ standard_chart(f,g,h,i,j);get_data(f,g,h,i,j,rate1,rate2,rate3,rate4,rate5);
                     type : 'post',
                     datatype : 'html',
                     data : dept_name,
-                    url : base_url+'/index.php?r=Normalization/getdata',
+                    url : base_url+'/pms/index.php?r=Normalization/getdata',
                     success : function(data)
                     {
                         //alert(data);
@@ -2557,7 +2578,7 @@ standard_chart(f,g,h,i,j);get_data(f,g,h,i,j,rate1,rate2,rate3,rate4,rate5);
                     type : 'post',
                     datatype : 'html',
                     data : dept_name,
-                    url : base_url+'/index.php?r=Normalization/getdata',
+                    url : base_url+'/pms/index.php?r=Normalization/getdata',
                     success : function(data)
                     {
                         //alert(data);
@@ -2580,7 +2601,7 @@ standard_chart(f,g,h,i,j);get_data(f,g,h,i,j,rate1,rate2,rate3,rate4,rate5);
                 type : 'post',
                 datatype : 'html',
                 data : dept_name,
-                url : base_url+'/index.php?r=Normalization/getdata',
+                url : base_url+'/pms/index.php?r=Normalization/getdata',
                 success : function(data)
                 {
                     //alert("gfdgfd");
@@ -2629,7 +2650,7 @@ $("#normalize_msg").modal('hide');
 });
 $("body").on('click','#get_complete1',function(){
  var base_url = window.location.origin;
-window.location.href = base_url+'/index.php?r=User_dashboard';
+window.location.href = base_url+'/pms/index.php?r=User_dashboard';
 });
 }
 

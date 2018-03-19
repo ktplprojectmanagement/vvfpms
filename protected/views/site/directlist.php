@@ -94,47 +94,81 @@
   
 
                                                 <?php
+                                               // print_r($emp_data);die();
                                                     if (isset($emp_data) && count($emp_data)>0 && $emp_data!= '') {
+
                                                      for ($i=0; $i < count($emp_data); $i++) {
-                                                         if($i>0)
-                                                         {
-                                                             //$html .= "</ol>";
-                                                         }
-                                                            if($emp_data[$i]['0']['Email_id'] != '')
-                                                            {
-                                                                $email = $emp_data[$i]['0']['Email_id'];
-                                                                $model1=new KpiAutoSaveForm;	
+                                                       // print_r($emp_data);die();
+                                                          if (isset($emp_data[$i]['0']['Employee_id']) && isset($emp_data[$i]['0']['Email_id'])  && $emp_data[$i]['0']['Email_id']!=''){
+                                                            
+                                                            $email = $emp_data[$i]['0']['Email_id'];
+                                                            //print_r($email);die();
+                                                                $model1=new KpiAutoSaveForm;  
+                                                                if (isset($emp_data[$i]['0']['Email_id'])) {
                                                                 $where = 'where Employee_id = :Employee_id';
                                                                 $list = array('Employee_id');
                                                                 $data = array($emp_data[$i]['0']['Employee_id']);
                                                                 $kpi_data_details = $model1->get_kpi_list($where,$data,$list);
-                                                                $color = "color:red";
+                                                              }
+
+                                                                
+//print_r($kpi_data_details);die();
+                                                                 $color = "color:red";
                                                                 if($kpi_data_details['0']['final_kra_status'] == 'Approved')
                                                                 {
                                                                    $color = "color:green";
                                                                 }
                                                                $html = "<ol class='tree'>";
                                                                $html .= "<img src='https://52.172.210.251/pms/images/folder.png'> <label for='subfolder2'><a href='".Yii::app()->createUrl('index.php/Directreport/appraiser_end_review',array('Employee_id'=>$emp_data[$i]['0']['Employee_id'],'apr_data'=>$emp_data[$i]['0']['Reporting_officer1_id']))."'  target='_new' style='".$color."'>".$emp_data[$i]['0']['Emp_fname']." ".$emp_data[$i]['0']['Emp_lname']."</a></label> (".$emp_data[$i]['0']['Department'].")</li>"; 
-                                                                $html .= "</ol>";
-                                                                 echo $html;  
-                                                                 //$html .= "</li>";
-                                                                 $employee=new EmployeeForm;    
-                                                                $where = 'where Reporting_officer1_id = :Reporting_officer1_id';
-                                                                $list = array('Reporting_officer1_id');
-                                                                $data = array($emp_data[$i]['0']['Email_id']);
-                                                                $apr_data_details = $employee->get_employee_data($where,$data,$list);
-                                                                 if(count($apr_data_details)>0 && $apr_data_details != '')
+                                                               $html .= "</ol>";
+                                                               $employee=new EmployeeForm;    
+                                                               if (isset($emp_data[$i]['0']['Email_id'])) {
+                                                                  $where = 'where Reporting_officer1_id = :Reporting_officer1_id';
+                                                              $list = array('Reporting_officer1_id');
+                                                              $data = array($emp_data[$i]['0']['Email_id']);
+                                                              $apr_data_details = $employee->get_employee_data($where,$data,$list);
+                                                               }
+                                                             
+//                                                               if (isset($emp_data[$i]['0']['Email_id'])  && $emp_data[$i]['0']['Email_id']!='' && isset($emp_data[$i]['0']['Employee_id'])  && $emp_data[$i]['0']['Employee_id']!='') {
+//                                                               if(isset($emp_data[$i]) && count($emp_data[$i])>0)
+//                                                               {
+//                                                                 for($c=0;$c<count($emp_data);$c++)
+//                                                                 {
+//                                                                   if(isset($emp_data[$c]) && count($emp_data[$c])>0 && $emp_data[$c] !=" ")
+//                                                               {
+//                                                                   print_r($emp_data);
+//                                                                 }
+//                                                               }
+//                                                                 // //echo count($emp_data);
+//                                                                 // die();
+//                                                                 //$this->actionchart($emp_data[$i]['0']['Email_id'],$emp_data[$i]['0']['Employee_id'],0);
+//                                                               }
+                                                              
+// //                                                                  echo $i;
+// // echo $emp_data[$i]['0']['Email_id'];
+// // echo $emp_data[$i]['0']['Employee_id'];
+//                                                               }
+                                                              
+
+                                                              if(isset($apr_data_details) && count($apr_data_details)>0 && $apr_data_details != '')
                                                                  {
+                                                                  if(isset($email))
+                                                                  {
                                                                     $this->actionchart($email,$emp_data[$i]['0']['Employee_id'],0);
+                                                                  }
+                                                                    
                                                                  }
-                                                                 
-                                                                // $html .= "</ol>";
-                                                            }
-                                                        }
-                                                        
+                                                              // echo $i;
+
+                                                          }
+                                                          // else{
+                                                          //   echo "hhhhhhhh";
+                                                          // }
+                                                        } 
                                                     }
                                                     else
                                                     {
+
                                                 ?>
                                                 <tr>
                                                     <td colspan="4">No Record Found</td>

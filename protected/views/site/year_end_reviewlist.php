@@ -46,33 +46,31 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                <?php
-                                                    if (isset($emp_data) && count($emp_data)>0 && $emp_data!= '') {
-                                                        for ($i=0; $i < count($emp_data); $i++) {
-                                                            if($emp_data[$i]['0']['Employee_id'] != '')
-                                                            {
-                                                               
-$model=new KpiAutoSaveForm;	
-$where = 'where Employee_id = :Employee_id';
-$list = array('Employee_id');
-$data = array($emp_data[$i]['0']['Employee_id']);
-$kpi_data_details = $model->get_kpi_list($where,$data,$list);
-//print_r($kpi_data_details['0']);die();
-							$emp_id = '';
-							if(isset($emp_data[$i]['0']['Employee_id']))
-							{
-							$emp_id = $emp_data[$i]['0']['Employee_id'];
-							}
-							else
-							{
-							$emp_id = '';
-							}
-							?>
-                                                            <tr>
-                                                                <td><?php if(isset($emp_data[$i]['0']['Employee_id'])) { echo $emp_data[$i]['0']['Employee_id']; } ?></td>
-                                                                <td><?php if(isset($emp_data[$i]['0']['Emp_fname'])) { echo $emp_data[$i]['0']['Emp_fname'].' '.$emp_data[$i]['0']['Emp_lname']; } ?></td>
-                                                                <td><?php if(isset($emp_data[$i]['0']['Department'])) { echo $emp_data[$i]['0']['Department']; }?></td>
-                                                                <td><?php if(isset($emp_data[$i]['0']['Designation'])) { echo $emp_data[$i]['0']['Designation']; }?></td>
+<?php
+    if (isset($emp_data) && count($emp_data)>0 && $emp_data!= '') {
+        for ($i=0; $i < count($emp_data); $i++) {
+            if($emp_data[$i]['0']['Employee_id'] != '')
+            {
+            $model=new KpiAutoSaveForm;	
+            $where = 'where Employee_id = :Employee_id';
+            $list = array('Employee_id');
+            $data = array($emp_data[$i]['0']['Employee_id']);
+            $kpi_data_details = $model->get_kpi_list($where,$data,$list);
+            $emp_id = '';
+                if(isset($emp_data[$i]['0']['Employee_id']))
+                {
+                $emp_id = $emp_data[$i]['0']['Employee_id'];
+                }
+                else
+                {
+                $emp_id = '';
+                }
+?>
+<tr>
+    <td><?php if(isset($emp_data[$i]['0']['Employee_id'])) { echo $emp_data[$i]['0']['Employee_id']; } ?></td>
+    <td><?php if(isset($emp_data[$i]['0']['Emp_fname'])) { echo $emp_data[$i]['0']['Emp_fname'].' '.$emp_data[$i]['0']['Emp_lname']; } ?></td>
+    <td><?php if(isset($emp_data[$i]['0']['Department'])) { echo $emp_data[$i]['0']['Department']; }?></td>
+    <td><?php if(isset($emp_data[$i]['0']['Designation'])) { echo $emp_data[$i]['0']['Designation']; }?></td>
 <td><?php 
 $employee=new EmployeeForm;	
 $where = 'where Email_id = :Email_id';

@@ -93,15 +93,17 @@ class CheckattachController extends Controller
 
 public function actioncheck_view11()
 	{
+		
 		$notification_data =new NotificationsForm;
 		$emploee_data =new EmployeeForm;
 		$kra=new KpiAutoSaveForm;
 		$where = 'where Employee_id = :Employee_id';
 		$list = array('Employee_id');
 		$data = array($_POST['emp_id']);
+		// print_r($data);die();
 		$employee_data = $emploee_data->get_employee_data($where,$data,$list);
 		
-		$file_name = 'yearendgoalsheet'.'_'.$employee_data['0']['Emp_fname'].'_'.$employee_data['0']['Emp_lname'].'.pdf';
+		$file_name = 'yearendgoalsheet'.'_'.$employee_data['0']['Emp_fname'].'_'.$employee_data['0']['Emp_lname'].'2017-2018'.'.pdf';
 		
 	    $filename=Yii::getPathOfAlias('webroot').'/Goalsheet_docs/'.$file_name;
 		

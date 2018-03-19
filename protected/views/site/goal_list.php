@@ -1,3 +1,4 @@
+
 <?php
 Yii::app()->controller->renderPartial('//site/all_js');
 ?>

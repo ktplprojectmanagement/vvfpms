@@ -567,7 +567,7 @@ font-weight: bold;
                                             echo CHtml::activeDropDownList($cluster_name_model,'Designation',$list,array('class'=>'form-control bu','options'=>$arr_clus,'disabled'=> "true")); 
                                          }
                                          ?>
-                                        </div>
+                                        </div>  </div>
                              
 <div class="form-group">
                                        <label class="control-label col-md-3">BU Head<span class="required"> * </span></label>

@@ -1148,7 +1148,7 @@ else
 
 
 
-<label id='total_kpi_id_list' ><?php //if(isset($total_kpi_id_list)) { echo $total_kpi_id_list; } 
+<label id='total_kpi_id_list' style="display:none" ><?php //if(isset($total_kpi_id_list)) { echo $total_kpi_id_list; } 
 if(isset($total_kpi_id_list2) && $total_kpi_id_list2!='' && isset($total_kpi_id_list))
 {
       echo $total_kpi_id_list2.';'.$total_kpi_id_list;
@@ -2694,11 +2694,12 @@ $(document).ready(function(){
                     });
 
         $(".update_status").click(function(){ 
-            //alert("hi");
+           //alert("hi");
             $("#err").removeClass("alert-success"); 
             $("#err").removeClass("alert-danger");                        
             var id_value = $("#total_kpi_id_list").text();
-            var id = id_value.split(';');var mid_review = ''; var review_comments = ''; var error_count1 = 0;var error_count2 = '';
+            //alert(id_value);
+             var id = id_value.split(';');var mid_review = ''; var review_comments = ''; var error_count1 = 0;var error_count2 = '';
             var rel_program_review_by_emp = '';  var extra_program_review_by_emp = '';var program_review_by_emp = '';    var emp_project_mid_review = '';                   
             $(window).scroll(function()
             {
@@ -2860,7 +2861,7 @@ $(document).ready(function(){
 
                   //alert(err5);
                  //alert(err1);alert(err2);alert(err3);alert(err4);alert(err5);alert(err6);
-
+//
                   if(err1=="1" && err2=="2" && err3=="3"&& err4=="4"&& err5=="5"&& err6=="6")
                   {
                        $('#err').hide();
@@ -2900,172 +2901,9 @@ $(document).ready(function(){
                         
                         }
 
-                        // else
-                        // {
-                        //       $("#saving").css('display','block');
-                        //       //alert(review_comments);
-                        //       //$("#updation_spinner-"+id[l]).show();
-                        //       var e = document.getElementsByClassName('file-input');                                
-                        //       var file_data = $(e)[0].files[0]; 
-
-                        //       var e = document.getElementsByClassName('file-input1');                                
-                        //       var file_data1 = $(e)[0].files[0]; 
-
-                        //       var formData = new FormData();
-                        //       var data = {
-                        //       'KPI_id' : id[l],
-                        //       'review_comments' : review_comments,
-                        //       };
-                        //       formData.append("review_comments",review_comments);
-                        //       formData.append("program_review_by_emp",program_review_by_emp);
-                        //       formData.append("extra_program_review_by_emp",extra_program_review_by_emp);
-                        //       formData.append("rel_program_review_by_emp_name",rel_program_review_by_emp);
-                        //       //formData.append("demo","sdfds");
-                        //       //correct_emp_id
-                        //       formData.append("KPI_id_value",id[l]);
-                        //       formData.append("correct_emp_id",$("#correct_emp_id").text());
-                        //       formData.append("employee_csv",file_data);
-                        //       formData.append("employee_csv1",file_data1);
-                        //       formData.append("emp_project_mid_review",emp_project_mid_review);
-                        //       //formData.append("goalsheet_proof",emp_rating);
-                        //       //alert(file_data);
-                        //       //console.log(data);
-                        //       var base_url = window.location.origin;
-                        //       $.ajax({
-                        //           type : 'post',
-                        //           datatype : 'json',
-                        //           processData: false, 
-                        //           contentType: false,
-                        //           enctype : 'multipart/form-data',
-                        //           data : formData,
-                        //           url : base_url+'/pms/index.php/Midreview/employee_mid_review',
-                        //           success : function(data)
-                        //           { 
-                        //               save_detail_pdf();
-                        //               //alert(data);
-                        //               if(l == id.length)
-                        //               {
-                        //               //alert(l);
-                        //               }
-                        //               //alert(data);
-                        //               if(data == "error occured")
-                        //               {
-                        //                   $("#saving").css('display','none');
-                        //                   $("#err").show();  
-                        //                   $("#err").fadeOut(6000);
-                        //                   $("#err").text("No Changes Done");
-                        //                   $("#err").addClass("alert-success");
-                        //                   // get_notify("Mid year review updated successfully");
-                        //                   $("#updation_spinner-"+id[l]).hide();
-                        //               }
-                        //               else
-                        //               {
-                        //                   $("#saving").css('display','none');
-                        //                   $("#err").show();  
-                        //                   $("#err").fadeOut(6000);
-                        //                   $("#err").text("Mid year review updated successfully");
-                        //                   $("#err").addClass("alert-success");
-                        //                   // get_notify("Mid year review updated successfully");
-                        //                   $("#updation_spinner-"+id[l]).hide();   
-                        //               }
-                        //           }                    
-                        //       });
-                        // }
 
                   }
 
-            //     if (error != '') 
-            //     {
-            //         $("#err").show();  
-            //         $("#err").fadeOut(6000);
-            //         $("#err").text(error);
-            //         $("#err").addClass("alert-danger");
-            //         $(".employee_comment"+error_count1).css('border-color','red');
-            //         $('html, body').animate({
-            //         scrollTop: ($(".employee_comment"+error_count1).parent().offset().top)
-            //         },500);
-
-            //     }
-            //     else
-            //     {
-            //           if($("#term_condition:checked").val() != 'term_condition')
-            //           {
-            //           $("#blink_me").addClass('blink_me');
-            //           } 
-            //           else
-            //           {
-            //                 $("#saving").css('display','block');
-            //                 //alert(review_comments);
-            //                 //$("#updation_spinner-"+id[l]).show();
-            //                 var e = document.getElementsByClassName('file-input');                                
-            //                 var file_data = $(e)[0].files[0]; 
-
-            //                 var e = document.getElementsByClassName('file-input1');                                
-            //                 var file_data1 = $(e)[0].files[0]; 
-
-            //                 var formData = new FormData();
-            //                 var data = {
-            //                 'KPI_id' : id[l],
-            //                 'review_comments' : review_comments,
-            //                 };
-            //                 formData.append("review_comments",review_comments);
-            //                 formData.append("program_review_by_emp",program_review_by_emp);
-            //                 formData.append("extra_program_review_by_emp",extra_program_review_by_emp);
-            //                 formData.append("rel_program_review_by_emp_name",rel_program_review_by_emp);
-            //                 //formData.append("demo","sdfds");
-            //                 //correct_emp_id
-            //                 formData.append("KPI_id_value",id[l]);
-            //                 formData.append("correct_emp_id",$("#correct_emp_id").text());
-            //                 formData.append("employee_csv",file_data);
-            //                 formData.append("employee_csv1",file_data1);
-            //                 formData.append("emp_project_mid_review",emp_project_mid_review);
-            //                 //formData.append("goalsheet_proof",emp_rating);
-            //                 //alert(file_data);
-            //                 //console.log(data);
-            //                 var base_url = window.location.origin;
-            //                 $.ajax({
-            //                     type : 'post',
-            //                     datatype : 'json',
-            //                     processData: false, 
-            //                     contentType: false,
-            //                     enctype : 'multipart/form-data',
-            //                     data : formData,
-            //                     url : base_url+'/index.php?r=Midreview/employee_mid_review',
-            //                     success : function(data)
-            //                     { 
-            //                         save_detail_pdf();
-            //                         //alert(data);
-            //                         if(l == id.length)
-            //                         {
-            //                         //alert(l);
-            //                         }
-            //                         //alert(data);
-            //                         if(data == "error occured")
-            //                         {
-            //                             $("#saving").css('display','none');
-            //                             $("#err").show();  
-            //                             $("#err").fadeOut(6000);
-            //                             $("#err").text("No Changes Done");
-            //                             $("#err").addClass("alert-success");
-            //                             // get_notify("Mid year review updated successfully");
-            //                             $("#updation_spinner-"+id[l]).hide();
-            //                         }
-            //                         else
-            //                         {
-            //                             $("#saving").css('display','none');
-            //                             $("#err").show();  
-            //                             $("#err").fadeOut(6000);
-            //                             $("#err").text("Mid year review updated successfully");
-            //                             $("#err").addClass("alert-success");
-            //                             // get_notify("Mid year review updated successfully");
-            //                             $("#updation_spinner-"+id[l]).hide();   
-            //                         }
-            //                     }                    
-            //                 });
-            //           }
-
-            //     }
-            // }
         });
         });
                 </script>
