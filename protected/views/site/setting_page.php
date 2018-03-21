@@ -214,7 +214,7 @@ $("#tree ul li").unbind('click');
                     }
                     else
                     {
-                       
+                       //alert($('.mid_goal_set_tab_active'). prop("checked"));
                         if(string_data[i] == 'min_kra_required')
                         {
                             content_array[i] = 'min_kra_required';
@@ -227,6 +227,19 @@ $("#tree ul li").unbind('click');
                             {
                                 error = 'Please enter minimum kra.';
                             } 
+                        }
+                        if(string_data[i] == 'goal_set_tab_active')
+                        {
+                            content_array[i] = 'goal_set_tab_active';
+                            if ($('.goal_set_tab_active'). prop("checked") == true) 
+                            {
+                                content_value[i] = 1;
+                                error = '';
+                            }
+                            else if($('.goal_set_tab_active'). prop("checked") == false)
+                            {
+                                content_value[i] = 0;
+                            }                    
                         }
                         if(string_data[i] == 'goal_sub_date')
                         {
@@ -241,6 +254,20 @@ $("#tree ul li").unbind('click');
                                 error = 'Please enter final date To submit goal.';
                             } 
                         }
+                        if(string_data[i] == 'mid_goal_set_tab_active')
+                        {
+                            content_array[i] = 'mid_goal_set_tab_active';
+                            if ($('.mid_goal_set_tab_active'). prop("checked") == true) 
+                            {
+                                content_value[i] = 1;
+                                error = '';
+                            }
+                            else if($('.mid_goal_set_tab_active'). prop("checked") == false)
+                            {
+                                content_value[i] = 0;
+                            }   
+                            //alert(content_value[i])                          
+                        }
                         if(string_data[i] == 'mid_goal_set_tab_active-date')
                         {
                             content_array[i] = 'mid_goal_set_tab_active-date';
@@ -254,6 +281,19 @@ $("#tree ul li").unbind('click');
                                 error = 'Please enter date To submit mid year review.';
                             }                             
                         }
+                        if(string_data[i] == 'final_goal_set_tab_active')
+                        {
+                            content_array[i] = 'final_goal_set_tab_active';
+                            if ($('.final_goal_set_tab_active'). prop("checked") == true) 
+                            {
+                                content_value[i] = 1;
+                                error = '';
+                            }
+                            else if($('.final_goal_set_tab_active'). prop("checked") == false)
+                            {
+                                content_value[i] = 0;
+                            }                    
+                        }
                         if(string_data[i] == 'final_goal_set_tab_active-date')
                         {
                              content_array[i] = 'final_goal_set_tab_active-date';
@@ -266,6 +306,19 @@ $("#tree ul li").unbind('click');
                             {
                                 error = 'Please enter date To submit final year review.';
                             } 
+                        }
+                        if(string_data[i] == 'norm_set_tab_active')
+                        {
+                            content_array[i] = 'norm_set_tab_active';
+                            if ($('.norm_set_tab_active'). prop("checked") == true) 
+                            {
+                                content_value[i] = 1;
+                                error = '';
+                            }
+                            else if($('.norm_set_tab_active'). prop("checked") == false)
+                            {
+                                content_value[i] = 0;
+                            }                    
                         }
 if(string_data[i] == 'norm_set_tab_active-date')
                         {
@@ -306,11 +359,12 @@ if(string_data[i] == 'dis_set_tab_active-date')
                                 error = 'Please enter cut off date for year end review.';
                             } 
                         }
-                        if(string_data[i] != 'min_kra_required' && string_data[i] != 'goal_sub_date' && string_data[i] != 'mid_goal_set_tab_active-date' && string_data[i] != 'final_goal_set_tab_active-date' && string_data[i] != 'norm_set_tab_active-date' && string_data[i] != 'promo_set_tab_active-date' && string_data[i] != 'dis_set_tab_active-date')
-                        {
-                            content_array[i] = string_data[i];
-                            content_value[i] = 1;
-                        }
+
+                        // if(string_data[i] != 'min_kra_required' && string_data[i] != 'goal_sub_date' && string_data[i] != 'mid_goal_set_tab_active-date' && string_data[i] != 'final_goal_set_tab_active-date' && string_data[i] != 'norm_set_tab_active-date' && string_data[i] != 'promo_set_tab_active-date' && string_data[i] != 'dis_set_tab_active-date')
+                        // {
+                        //     content_array[i] = string_data[i];
+                        //     content_value[i] = 1;
+                        // }
                         
                     }
                 }
@@ -329,13 +383,14 @@ if(string_data[i] == 'dis_set_tab_active-date')
             //{content_array:content_array,content_value:content_value},
            if (error == '') 
             {
-               //alert(string_data);
+              console.log(content_value)
                 var base_url = window.location.origin;
                 $.ajax({
                    type: "POST",
                    data: {content_value:content_value,content_array:content_array},
-                   url: base_url+'/index.php?r=Settings/set_setting',
+                   url: base_url+'/pms/index.php?r=Settings/set_setting',
                    success: function(data){
+                    //alert(data);
                      $("#err").show();  
                         $("#err").fadeOut(6000);
                         $("#err").text("Settings saved");
@@ -555,11 +610,17 @@ text-decoration : underline;
                                                     <label style="cursor: pointer;" class="text_style">
                                                     <input name="goal_setting" type="checkbox"  value="main_menu"  style="display: none"/>
                                                     Goal Setting</label>
-                                                        <ul class="new" id="goal_setting" style="display: none;">                                                            
+                                                        <ul class="new" id="goal_setting" style="display: none;">   
                                                             <li>
-                                                            <label>
-                                                                <input name="goal_set_tab_active" type="checkbox" value="goal_set_tab_active"/>
-                                                                Set active goalset tab for employee</label>                   
+                                                                <label class="text_style1">
+                                                                <input name="goal_set_tab_active" type="checkbox" id="goal_set_tab_active" value="goal_set_tab_active"/>
+                                                                 Set active goalset tab for employee</label>
+                                                                <ul class="new" style="display: none;">
+                                                                    <li>
+                                                                           <input type="radio" class="goal_set_tab_active" name="goal_set_tab_active" value="1" <?php if(isset($settings_goal_data['0']['setting_type']) && $settings_goal_data['0']['setting_type'] == 1) { echo "checked='checked'"; } ?>/>Active
+                                                                           <input type="radio" class="goal_set_tab_active" name="goal_set_tab_active" value="0" <?php if(isset($settings_goal_data['0']['setting_type']) && $settings_goal_data['0']['setting_type'] == 0) { echo "checked='checked'"; } ?>/>Inactive
+                                                                    </li>
+                                                                </ul>
                                                             </li>
                                                             <li>
                                                                 <label class="text_style1">
@@ -572,9 +633,15 @@ text-decoration : underline;
                                                                 </ul>
                                                             </li>   
                                                             <li>
-                                                                <label>
-                                                                <input name="mid_goal_set_tab_active" type="checkbox" value="mid_goal_set_tab_active"/>
+                                                                <label class="text_style1">
+                                                                <input name="mid_goal_set_tab_active" type="checkbox" id="mid_goal_set_tab_active" value="mid_goal_set_tab_active"/>
                                                                 Set active Mid Year tab for employee</label>
+                                                                <ul class="new" style="display: none;">
+                                                                    <li>
+                                                                           <input type="radio" class="mid_goal_set_tab_active" name="mid_goal_set_tab_active" value="1" <?php if(isset($settings_mid_data['0']['setting_type']) && $settings_mid_data['0']['setting_type'] == 1) { echo "checked='checked'"; } ?>/>Active
+                                                                           <input type="radio" class="mid_goal_set_tab_active" name="mid_goal_set_tab_active" value="0" <?php if(isset($settings_mid_data['0']['setting_type']) && $settings_mid_data['0']['setting_type'] == 0) { echo "checked='checked'"; } ?>/>Inactive
+                                                                    </li>
+                                                                </ul>
                                                             </li>   
                                                             <li>
                                                                 <label class="text_style1">
@@ -585,12 +652,18 @@ text-decoration : underline;
                                                                        <input name="sublevel-2-1" class="form-control date_select" type="text" id="mid_goal_set_tab_active-date"/>
                                                                     </li>
                                                                 </ul>
-                                                            </li>   
+                                                            </li> 
                                                             <li>
-                                                                <label>
-                                                                <input name="final_goal_set_tab_active" type="checkbox" value="final_goal_set_tab_active"/>
-                                                                Set active Final Year tab for employee</label>
-                                                            </li>   
+                                                                <label class="text_style1">
+                                                                <input name="final_goal_set_tab_active" type="checkbox" id="final_goal_set_tab_active" value="final_goal_set_tab_active"/>
+                                                                 Set active Final Year tab for employee</label>
+                                                                <ul class="new" style="display: none;">
+                                                                    <li>
+                                                                           <input type="radio" class="final_goal_set_tab_active" name="final_goal_set_tab_active" value="1" <?php if(isset($settings_final_data['0']['setting_type']) && $settings_final_data['0']['setting_type'] == 1) { echo "checked='checked'"; } ?>/>Active
+                                                                           <input type="radio" class="final_goal_set_tab_active" name="final_goal_set_tab_active" value="0" <?php if(isset($settings_final_data['0']['setting_type']) && $settings_final_data['0']['setting_type'] == 0) { echo "checked='checked'"; } ?>/>Inactive
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
                                                             <li>
                                                                 <label class="text_style1">
                                                                 <input name="final_goal_set_tab_active-date" type="checkbox" value="final_goal_set_tab_active-date"/>
@@ -601,7 +674,18 @@ text-decoration : underline;
                                                                     </li>
                                                                 </ul>
                                                             </li>
- <li>
+                                                            <li>
+                                                                <label class="text_style1">
+                                                                <input name="norm_set_tab_active" type="checkbox" id="norm_set_tab_active" value="norm_set_tab_active"/>
+                                                                 Set active normalization tab for employee</label>
+                                                                <ul class="new" style="display: none;">
+                                                                    <li>
+                                                                           <input type="radio" class="norm_set_tab_active" name="norm_set_tab_active" value="1" <?php if(isset($settings_final_data['0']['setting_type']) && $settings_final_data['0']['setting_type'] == 1) { echo "checked='checked'"; } ?>/>Active
+                                                                           <input type="radio" class="norm_set_tab_active" name="norm_set_tab_active" value="0" <?php if(isset($settings_final_data['0']['setting_type']) && $settings_final_data['0']['setting_type'] == 0) { echo "checked='checked'"; } ?>/>Inactive
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
                                                                 <label class="text_style1">
                                                                 <input name="norm_active-date" type="checkbox" value="norm_set_tab_active-date"/>
                                                                  Cut Off date for normalization </label>
@@ -709,7 +793,7 @@ text-decoration : underline;
                         //         dataType :'html',
                         //          type :'post',
                         //          data : data,
-                        //          url : base_url+'/pmsapp/pmsuser/index.php?r=Settings/setting_update',
+                        //          url : base_url+'/pms/index.php?r=Settings/setting_update',
                         //          success : function(data) {              
                         //             alert(data);                                
                         //         }
@@ -743,7 +827,7 @@ text-decoration : underline;
                         dataType :'html',
                          type :'post',
                          data : data,
-                         url : base_url+'/pmsapp/pmsuser/index.php?r=Settings/setting_update',
+                         url : base_url+'/pms/index.php?r=Settings/setting_update',
                          success : function(data) {              
                             alert(data);                                 
                         }
@@ -759,7 +843,7 @@ text-decoration : underline;
                         dataType :'html',
                          type :'post',
                          data : data,
-                         url : base_url+'/pmsapp/pmsuser/index.php?r=Settings/setting_update',
+                         url : base_url+'/pms/index.php?r=Settings/setting_update',
                          success : function(data) {              
                             alert(data);                                  
                         }
@@ -775,7 +859,7 @@ text-decoration : underline;
                         dataType :'html',
                          type :'post',
                          data : data,
-                         url : base_url+'/pmsapp/pmsuser/index.php?r=Settings/setting_update',
+                         url : base_url+'/pms/index.php?r=Settings/setting_update',
                          success : function(data) {              
                             alert(data);                                  
                         }
@@ -791,7 +875,7 @@ text-decoration : underline;
                         dataType :'html',
                          type :'post',
                          data : data,
-                         url : base_url+'/pmsapp/pmsuser/index.php?r=Settings/setting_update',
+                         url : base_url+'/pms/index.php?r=Settings/setting_update',
                          success : function(data) {              
                             alert(data);                                 
                         }
@@ -852,7 +936,7 @@ text-decoration : underline;
                     //             dataType :'html',
                     //              type :'post',
                     //              data : content,
-                    //              url : base_url+'/pmsapp/pmsuser/index.php?r=Settingpage/save',
+                    //              url : base_url+'/pms/index.php?r=Settingpage/save',
                     //              'success' : function(data) {              
                     //                 if (click == 0) 
                     //                 {
@@ -875,7 +959,7 @@ text-decoration : underline;
                     //             dataType :'html',
                     //              type :'post',
                     //              data : content,
-                    //              url : base_url+'/pmsapp/pmsuser/index.php?r=Settingpage/save',
+                    //              url : base_url+'/pms/index.php?r=Settingpage/save',
                     //              'success' : function(data) {              
                     //                 if (click == 0) 
                     //                 {

@@ -33,15 +33,15 @@
                                         <div class="portlet-body">
                                             <div class="table-responsive">
                                                 <table class="table table-striped table-bordered table-hover">
-                                                    <thead class='bg-blue-soft' style="color: white;">
+                                                   <thead class="bg-blue-soft" style="color: white;background-color: #154592;border:1px solid #154592">
                                                     <tr>
                                                         <th class="all">Employee ID</th>
                                                         <th class="min-phone-l">Employee Name</th>
                                                         <th class="min-tablet">Department</th>
                                                         <th class="none">Designation</th>
-<th class="none">Reporting Manager</th>
-<th class="none">Dotted Line Manager</th>
-<th class="none">Status</th>
+                                                        <th class="none">Reporting Manager</th>
+                                                        <th class="none">Dotted Line Manager</th>
+                                                        <th class="none">Status</th>
                                                         <th class="none">Check</th>                                                            
                                                     </tr>
                                                 </thead>

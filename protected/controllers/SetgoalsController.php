@@ -91,7 +91,7 @@ if ($emp_data['0']['reporting_1_change'] != '' && strtotime($emp_data['0']['repo
 				$goal_sub_check_flag = $model1->get_kpi_list($where,$data,$list);
 			}
 		}
-
+//// print_r($kpi_data_saved);die();
 		if (count($kpi_data)>0) {
 		$where = 'where KRA_category = :KRA_category';
 		$list = array('KRA_category');
@@ -868,16 +868,12 @@ function actionsavekpi1()
 			$mail->Port = 587;                                    // TCP port to connect to
 
 			$mail->setFrom('vvf.pms@vvfltd.com', 'Mailer');
-			// $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
-			// $mail->addAddress('ellen@example.com');    
+			
 			$message = $this->renderPartial('//site/mail/account_verification',$params,TRUE);           // Name is optional
 			$mail->addReplyTo('demo.appraisel@gmail.com', 'Information');
 			$mail->addCC('demo.appraisel@gmail.com');
 			$mail->msgHTML($message);
-			//$mail->addBCC('bcc@example.com');
-			//echo "dfsdf";die();
-			// $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-			// $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+			
 			$mail->isHTML(true);                                  // Set email format to HTML
 
 			$mail->Subject = 'Here is the subject';
@@ -1973,7 +1969,7 @@ $notification_data->notification_type = 'Goal Approval';
 		  $notification_data->Employee_id = $employee_data['0']['Employee_id'];
 		  $notification_data->date = date('Y-m-d');
 		  $notification_data->save();
-if($employee_data['0']['invalid_email'] != '1')
+		if($employee_data['0']['invalid_email'] != '1')
        {
        			require 'PHPMailer-master/PHPMailerAutoload.php';
        			$mail = new PHPMailer;
@@ -2065,7 +2061,7 @@ $notification_data->notification_type = 'Goal Approval_pending';
       	 
 		  if($mail->send())
 		  {	 
-		  		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));		  		
+		  		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>Yii::app()->user->getState("Employee_id"),':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
 		  		echo "Notification Send";die();
 		  }    
 
@@ -2075,7 +2071,7 @@ $notification_data->notification_type = 'Goal Approval_pending';
 			$kra_update = array(
 					  	'KRA_status_flag' => '1', 
 					  );
-			$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id',array(':Employee_id'=>Yii::app()->user->getState("Employee_id")));
+			$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$kra_update,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>Yii::app()->user->getState("Employee_id"),':goal_set_year'=>Yii::app()->user->getState('financial_year_check')));
           echo "Notification Send";die();
        }
  

@@ -70,6 +70,18 @@ class KpiAutoSaveForm extends CActiveRecord
 		return $rows;
 	}
 	
+		function get_emp_list11($email1 ,$year1)
+	{
+	    //$email = str_replace(' ', '',Yii::app()->user->getState("employee_email"));
+		$email = trim(Yii::app()->user->getState("employee_email"));
+		$connection=Yii::app()->db;
+		$sql = "select distinct `Employee_id` from `kpi_auto_save` use index (emp_index) where appraisal_id1 = '".$email."' and (final_kra_status !='') AND (`goal_set_year`='".$year1."') ";
+		$command=$connection->createCommand($sql);
+		$rows=$command->queryAll();		
+		return $rows;
+	}
+
+
 	function get_emp_list_new($email1)
 	{
 		$email1 = Yii::app()->user->getState("employee_email");

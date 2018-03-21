@@ -1626,10 +1626,10 @@ $("#dev_actual5").text((($("#dev5").text()/$("#actual_cnt5").text())*20).toFixed
 }
 
 
-var dev = parseFloat($("#dev_allow1").text())+parseFloat($("#dev_allow3").text())+parseFloat($("#dev_allow4").text());
+var dev = parseFloat($("#dev_allow1").text())+parseFloat($("#dev_allow2").text())+parseFloat($("#dev_allow3").text())+parseFloat($("#dev_allow4").text())+parseFloat($("#dev_allow5").text());
 $("#total_dev1").text(dev.toFixed(2));
-$("#total_dev2").text((parseFloat($("#dev_actual1").text())+parseFloat($("#dev_actual3").text())+parseFloat($("#dev_actual4").text())).toFixed(2));
-$("#total_dev").text((parseFloat($("#dev1").text())+parseFloat($("#dev3").text())+parseFloat($("#dev4").text())).toFixed(2));
+$("#total_dev2").text((parseFloat($("#dev_actual1").text())+parseFloat($("#dev_actual2").text())+parseFloat($("#dev_actual3").text())+parseFloat($("#dev_actual4").text())+parseFloat($("#dev_actual5").text())).toFixed(2));
+$("#total_dev").text((parseFloat($("#dev1").text())+parseFloat($("#dev2").text())+parseFloat($("#dev3").text())+parseFloat($("#dev4").text())+parseFloat($("#dev5").text())).toFixed(2));
 //alert(dev_chk);alert($("#total_dev").text());
 if($("#total_dev").text()>dev_chk)
 {
@@ -1675,7 +1675,7 @@ $("#performance_data-"+f).removeAttr('disabled');
 $("#bu_head_comments-"+f).removeAttr('disabled');
 }
 }
-else if($(".final_normalize").attr('id') == 'bu' && $("#bu_head_comments-"+id_val1[1]).val().length>5)
+else if($(".final_normalize").attr('id') == 'bu' && $("#bu_head_comments-"+id_val1[1]).val().length>500)
 {
 //alert("check");
 $("#err_box").css("display","block");
@@ -1710,7 +1710,7 @@ $("#normalize_rate-"+f).removeAttr('disabled');
 $("#plant_head_comments-"+f).removeAttr('disabled');
 }
 }
-else if($(".final_normalize").attr('id') == 'plant_head' && $("#plant_head_comments-"+id_val1[1]).val().length>5)
+else if($(".final_normalize").attr('id') == 'plant_head' && $("#plant_head_comments-"+id_val1[1]).val().length>500)
 {
 //alert("check");
 $("#err_box").css("display","block");
@@ -1745,7 +1745,7 @@ for(var f=0;f<$("#total_emp_count").text();f++)
     $("#cluster_head_comment-"+f).removeAttr('disabled');
 }
 }
-else if($(".final_normalize").attr('id') == 'cluster_head' && $("#cluster_head_comment-"+id_val1[1]).val().length>5)
+else if($(".final_normalize").attr('id') == 'cluster_head' && $("#cluster_head_comment-"+id_val1[1]).val().length>500)
 {
 //alert("check");
 $("#err_box").css("display","block");
@@ -2754,12 +2754,12 @@ $(document).ready(function () {
     }
    });
    $("body").on('keyup','.comm1',function(){
-     if($(".final_normalize").attr('id') == 'bu' && $(this).val().length >5)
+     if($(".final_normalize").attr('id') == 'bu' && $(this).val().length >500)
 {
 $("#err_box").css("display","block");
 $("#err_box").text("Maximum 500 characters are allowed");
 }
-else if($(".final_normalize").attr('id') == 'bu' && ($(this).val().length < 5 && $(this).val() != ''))
+else if($(".final_normalize").attr('id') == 'bu' && ($(this).val().length < 500 && $(this).val() != ''))
 {
 $("#err_box").css("display","none");
 for(var f=0;f<$("#total_emp_count").text();f++)
@@ -2768,12 +2768,12 @@ $("#performance_data-"+f).removeAttr('disabled');
 $("#bu_head_comments-"+f).removeAttr('disabled');
 }
 }
-else if($(".final_normalize").attr('id') == 'plant_head' && $(this).val().length >5)
+else if($(".final_normalize").attr('id') == 'plant_head' && $(this).val().length >500)
 {
 $("#err_box").css("display","block");
 $("#err_box").text("Maximum 500 characters are allowed");
 }
-else if($(".final_normalize").attr('id') == "plant_head" && ($(this).val().length < 5 && $(this).val() != ''))
+else if($(".final_normalize").attr('id') == "plant_head" && ($(this).val().length < 500 && $(this).val() != ''))
 {
 $("#err_box").css("display","none");
 for(var f=0;f<$("#total_emp_count").text();f++)
@@ -2782,12 +2782,12 @@ $("#normalize_rate-"+f).removeAttr('disabled');
 $("#plant_head_comments-"+f).removeAttr('disabled');
 }
 }
-else if($(".final_normalize").attr('id') == 'cluster_head' && $(this).val().length >5)
+else if($(".final_normalize").attr('id') == 'cluster_head' && $(this).val().length >500)
 {
 $("#err_box").css("display","block");
 $("#err_box").text("Maximum 500 characters are allowed");
 }
-else if($(".final_normalize").attr('id') == "cluster_head" && ($(this).val().length < 5 && $(this).val() != ''))
+else if($(".final_normalize").attr('id') == "cluster_head" && ($(this).val().length < 500 && $(this).val() != ''))
 {
 $("#err_box").css("display","none");
 for(var f=0;f<$("#total_emp_count").text();f++)

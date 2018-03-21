@@ -21,6 +21,11 @@ class Year_endreview1Controller extends Controller
 		$settings_data1 = $setting_date->get_setting_data($where,$data,$list);
 		$Employee_id = Yii::app()->user->getState("Employee_id");
 
+		$where = 'where Employee_id = :Employee_id and KRA_status = :KRA_status AND goal_set_year =:goal_set_year';
+		$list = array('Employee_id','KRA_status','goal_set_year');
+		$data = array($Employee_id,'Approved',Yii::app()->user->getState('financial_year_check'));
+		$goal_set_track = $model->get_kpi_list($where,$data,$list);
+
 		if (count($settings_data)>0) {
                 $where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year';
 				$list = array('Employee_id','goal_set_year');
@@ -86,8 +91,16 @@ class Year_endreview1Controller extends Controller
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
 		$this->render('//site/header_view_layout3',array('selected_option'=>$selected_option));
-		$this->render('//site/year_end_reviewa1',array('program_data_result'=>$program_data_result,'kpi_data' => $kpi_data,'emp_data' => $emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag));
-		$this->render('//site/footer_view_layout');	
+		if(isset($goal_set_track) && count($goal_set_track)>0)
+		{
+			$this->render('//site/year_end_reviewa1',array('program_data_result'=>$program_data_result,'kpi_data' => $kpi_data,'emp_data' => $emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag));
+			$this->render('//site/footer_view_layout');	
+		}
+		else
+		{
+			$this->render('//site/blank_view',array('window_msg'=>'It seems your goalshhet for this year has not been approved by your manager'));
+		}
+		
 
 	    }
 	    else
@@ -414,13 +427,13 @@ $num_days = floor($datediff / (60 * 60 * 24));
 	{
 	    if(Yii::app()->user->getState("Employee_id"))
 	    {
-	        	$model=new KpiAutoSaveForm;	
+	    $model=new KpiAutoSaveForm;	
 		$employee=new EmployeeForm;
 		$KRA_status_flag = '3';
 		$emp_data = '';
 		$selected_option = 'year end review';
-		$kpi_data = $model->get_emp_list(Yii::app()->user->getState("employee_email"));
-		
+		$kpi_data = $model->get_emp_list11(Yii::app()->user->getState("employee_email"),Yii::app()->user->getState('financial_year_check'));
+		//print_r($kpi_data);die();
 		$id = Yii::app()->user->getState("employee_email");
 
 		for ($i=0; $i < count($kpi_data); $i++) { 
@@ -486,15 +499,7 @@ $kra_year_end = array();
 			Yii::app()->user->getState("Employee_id")
 		);
 		$employee_data = $emploee_data->get_employee_data($where1, $data2, $list1);
-		// $total_upload = array();
-		// if (isset($_POST['kpi_file_value']) && $_POST['kpi_file_value'] != '')
-		// 	{
-		// 	$total_upload = explode(';', $_POST['kpi_file_value']);
-		// 	}
-		//   else
-		// 	{
-		// 	$total_upload = array();
-		// 	}
+		
 
 		$kpi_total_list = explode(';', $_POST['kpi_value_id']);
 		$year_end_rva = explode('^', $_POST['year_end_reviewa']);
@@ -514,7 +519,7 @@ $kra_year_end = array();
 			$kpi_list = explode(';', $kpi_data['0']['kpi_list']);
 
 			
-//print_r($kpi_list);die();
+
 			$num = array();$num_file = array();
 			if($kpi_data['0']['document_proof'] != '')
 			{
@@ -718,13 +723,12 @@ $kra_year_end = array();
 					);
 				}
 //print_r($data);			
-//print_r($data);
+// print_r($data);die();
 			$kra_year_end[$j] = $data;
 			
 			
 
-			$update = Yii::app()->db->createCommand()->update('kpi_auto_save', $data, 'KPI_id=:KPI_id', array(
-				':KPI_id' => $kpi_total_list[$j]
+			$update = Yii::app()->db->createCommand()->update('kpi_auto_save', $data, 'KPI_id=:KPI_id', array(':KPI_id' => $kpi_total_list[$j]
 			));
 			
 			// $squ_number = '';
@@ -735,7 +739,7 @@ $kra_year_end = array();
 //die();
 			
 		
-//die();
+// echo $kpi_data['0']['Employee_id'];die();
 		$IDPForm = new IDPForm;
 		$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year';
 		$list = array(
@@ -767,7 +771,7 @@ $kra_year_end = array();
 				$IDPForm->proof3 = '';
 				}
 			}
-
+//print_r($$_POST['correct_emp_id']);die();
 		$data = array(
 			'proof3' => $IDPForm->proof3,
 			'Year_end_prg_status' => $_POST['Year_end_prg_status'],
@@ -779,12 +783,11 @@ $kra_year_end = array();
 			'Year_end_prog_status' => $_POST['Year_end_prog_status'],
 			'Year_end_prog_comments' => $_POST['Year_end_prog_comments']
 		);
-		$update = Yii::app()->db->createCommand()->update('IDP', $data, 'Employee_id=:Employee_id', array(
-			':Employee_id' => $kpi_data['0']['Employee_id']
-		));
-
-		
-
+		// $update = Yii::app()->db->createCommand()->update('IDP', $data, 'Employee_id=:Employee_id', array(':Employee_id' => $kpi_data['0']['Employee_id']
+		// ));
+		//print_r($data);die();
+		$update = Yii::app()->db->createCommand()->update('IDP', $data, 'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$kpi_data['0']['Employee_id'],':goal_set_year'=>"2017-2018"));
+		//print_r($update);die();
 		$model1 = new Yearend_reviewbForm;
 		$employee1 = new EmployeeForm;
 		$model1->Employee_id = Yii::app()->user->getState("Employee_id");
@@ -797,14 +800,16 @@ $kra_year_end = array();
 			Yii::app()->user->getState("Employee_id")
 		);
 		$employee_data = $employee1->get_employee_data($where, $data, $list);
-		$where = 'where Employee_id = :Employee_id';
+		//print_r($employee_data);die();
+		$where = 'where Employee_id = :Employee_id AND goal_set_year = :goal_set_year';
 		$list = array(
-			'Employee_id'
+			'Employee_id','goal_set_year'
 		);
 		$data = array(
-			Yii::app()->user->getState("Employee_id")
+			Yii::app()->user->getState("Employee_id"),'2017-2018'
 		);
 		$employee_review_data = $model1->get_employee_data($where, $data, $list);
+		//print_r($employee_review_data);die();
 		if (isset($_FILES['proof2']['name']))
 			{
 			$filenamekey = $employee_review_data['0']['Employee_id'] . "-" . "proof2";
@@ -891,14 +896,15 @@ $kra_year_end = array();
 
 		
 
-		$where = 'where Employee_id = :Employee_id';
+		$where = 'where Employee_id = :Employee_id AND goal_set_year = :goal_set_year';
 		$list = array(
-			'Employee_id'
+			'Employee_id','goal_set_year'
 		);
 		$data = array(
-			Yii::app()->user->getState("Employee_id")
+			Yii::app()->user->getState("Employee_id"),'2017-2018'
 		);
 		$employee_review_data = $model1->get_employee_data($where, $data, $list);
+		//print_r($employee_review_data);die();
 		if (count($employee_review_data) > 0)
 			{
 			$review_data = array(
@@ -1193,7 +1199,9 @@ function actionfinal_goal_review1()
 				'field8' => $_POST['field8'],
 			);
 
-			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data1,'Employee_id=:Employee_id',array(':Employee_id'=>$Employee_id));
+			//$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data1,'Employee_id=:Employee_id',array(':Employee_id'=>$Employee_id));
+			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
+			
                 }
 
 		if(isset($kpi_data1) && isset($kpi_data))
@@ -1290,8 +1298,9 @@ $data = array(
 				'update_flag' => '2'
 			);
 			
-			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));			
-                 
+			// $update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));	
+			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>"2017-2018"));
+             //'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));    
 }
 else
 {
@@ -1299,7 +1308,8 @@ $data = array(
 				'update_flag' => '0'
 			);
 			
-			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));	
+			//$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));
+			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>"2017-2018"));	
 }
 
 
@@ -1430,8 +1440,8 @@ $update_flag1 = array(
                 $update_flag2 = array(
 			'year_end_b_appr_status' => '1',
 		);
-		$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$update_flag2,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));
-
+		$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$update_flag2,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>"2017-2018"));
+//$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>"2017-2018"));
     	$Employee_id = Yii::app()->user->getState("employee_email");
     	Yii::import('ext.yii-mail.YiiMailMessage');
 		
@@ -1494,6 +1504,7 @@ Yii::app()->mail->send($message);
 							'final_kra_status' => 'Pending',
 							);
 							$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$update_flag,'KPI_id=:KPI_id',array(':KPI_id'=>$kpi_data[$i]['KPI_id'])); 
+						//print_r($update);die();
 						} 
 					}	
 				}
@@ -1540,37 +1551,75 @@ Yii::app()->mail->send($message);
 					}			
 				}
 				$update_flag1 = array('idp_final_status' => 'Pending',);
-				$update = Yii::app()->db->createCommand()->update('IDP',$update_flag1,'Employee_id=:Employee_id',array(':Employee_id'=>$Employee_id)); 
+				$update = Yii::app()->db->createCommand()->update('IDP',$update_flag1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
+				//'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>"2017-2018"));
 				$update_flag2 = array('year_end_reviewb_status' => '1',);
-				$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$update_flag2,'Employee_id=:Employee_id',array(':Employee_id'=>$Employee_id));
+				$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$update_flag2,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
+				//print_r($update);die();
 				Yii::import('ext.yii-mail.YiiMailMessage');
 				$where1 = 'where Email_id = :Email_id';
 				$list1 = array('Email_id');
 				$data2 = array($Employee_id);
 				$employee_data1 = $emploee_data->get_employee_data($where1,$data2,$list1);
-
+				//print_r($employee_data1);die();
 				$where1 = 'where Email_id = :Email_id';
 				$list1 = array('Email_id');
 				$data2 = array($employee_data1['0']['Reporting_officer1_id']);
 				$employee_data_rqt = $emploee_data->get_employee_data($where1,$data2,$list1); 
+//print_r($employee_data_rqt);die();
+				// $message = new YiiMailMessage;
+				// $message->view = "year_end_approval_pending";
+				// $params = array('mail_data'=>$employee_data1,'mail_data1'=>$employee_data_rqt);
+				// $message->setBody($params, 'text/html');
+				// $message->subject = 'Year end review approval pending';
+				// $message->addTo($employee_data1['0']['Reporting_officer1_id']);
+				// $message->addCC($Employee_id);  
+				// $message->from = $Employee_id;
+				// Yii::app()->mail->send($message);
+				// $where1 = 'where Email_id = :Email_id';
+				// $list1 = array('Email_id');
+				// $data2 = array($employee_data1['0']['Reporting_officer1_id']);
+				// $employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
+				// $notification_data->notification_type = 'Year end review(A) submitted.';
+				// $notification_data->Employee_id = $employee_data1['0']['Employee_id'];
+				// $notification_data->date = date('Y-m-d');
+				// $notification_data->save();
 
-				$message = new YiiMailMessage;
-				$message->view = "year_end_approval_pending";
-				$params = array('mail_data'=>$employee_data1,'mail_data1'=>$employee_data_rqt);
-				$message->setBody($params, 'text/html');
-				$message->subject = 'Year end review approval pending';
-				$message->addTo($employee_data1['0']['Reporting_officer1_id']);
-				$message->addCC($Employee_id);  
-				$message->from = $Employee_id;
-				Yii::app()->mail->send($message);
-				$where1 = 'where Email_id = :Email_id';
-				$list1 = array('Email_id');
-				$data2 = array($employee_data1['0']['Reporting_officer1_id']);
-				$employee_data = $emploee_data->get_employee_data($where1,$data2,$list1);
-				$notification_data->notification_type = 'Year end review(A) submitted.';
-				$notification_data->Employee_id = $employee_data1['0']['Employee_id'];
-				$notification_data->date = date('Y-m-d');
-				$notification_data->save();
+		$Employee_id = Yii::app()->user->getState("employee_email");
+
+		if($employee_data1['0']['invalid_email'] != '1')
+       {
+       	//echo "if";die();
+       			require 'PHPMailer-master/PHPMailerAutoload.php';
+       			$mail = new PHPMailer;
+				$mail->isSMTP();                
+				$mail->Host = 'smtp.office365.com'; 
+				$mail->SMTPAuth = true;                          
+				$mail->Username = 'vvf.pms@vvfltd.com';    
+				$mail->Password = 'Kritva@5Jan';                    
+				$mail->SMTPSecure = 'tls';                          
+				$mail->Port = 587; 
+              	$params = array('mail_data'=>$employee_data);
+               	$message = $this->renderPartial('//site/mail/year_end_approval_pending',$params,TRUE);
+               	$mail->Subject = 'Year end review approval pending';
+				$mail->Body    = $message;
+              	$mail->addReplyTo($employee_data1['0']['Reporting_officer1_id'], 'Goal Approve1');
+              	$mail->setFrom($Employee_id,$employee_data1['0']['Emp_fname'].' '.$employee_data1['0']['Emp_lname']);
+              	$mail->isHTML(true);     
+              	
+    			  if($mail->send())
+    			  {	  		
+    			  		echo "Notification Send";die();
+    			  }
+    			  else{
+    			  	echo "Notification Send2";die();
+    			  }
+    			        
+       }
+       else
+       {
+          echo "Notification Send1";die();
+       }
 
 		}
 
@@ -1760,7 +1809,9 @@ $IDPForm =new IDPForm;
 $data = array(
 			$_POST['id'] => '',
 			);
-			$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$Employee_id));
+			// $update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data,'Employee_id=:Employee_id',array(':Employee_id'=>$Employee_id));
+$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
+			//'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
 
 }
 function actionupdatereview_delfile()
@@ -1856,13 +1907,14 @@ else
 				$list1 = array('KPI_id');
 				$data2 = array($kra_id_list[$i]);
 				$kpi_data = $model->get_kpi_list($where1,$data2,$list1);
+				//print_r($_POST['state']);die();
 		if($_POST['state'] != '')
 		{
 		$data = array(
 					'appraiser_end_review' => $apr_comment[$i], 
 					'appraiser_end_rating' => $apr_rate[$i],
-					'appraiser_avrage_end' => $sum_score[$i]
-
+					'appraiser_avrage_end' => $sum_score[$i],
+					'final_kra_status' => 'Approved'
 				);
 		}
 		else
@@ -1897,7 +1949,9 @@ $data_yearB=array(
 			'year_end_b_appr_status'=>1,
 		);
 
-        $update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data_yearB,'Employee_id=:Employee_id',array(':Employee_id'=>$kpi_data['0']['Employee_id']));  
+        //$update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data_yearB,'Employee_id=:Employee_id',array(':Employee_id'=>$kpi_data['0']['Employee_id']));  
+        $update = Yii::app()->db->createCommand()->update('yearend_reviewb',$data_yearB,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$kpi_data['0']['Employee_id'],':goal_set_year'=>"2017-2018"));  
+        //'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
 if(isset($_POST['manager_1_rate']) && $_POST['manager_1_rate'] != '')
 {
 $data = array(			
@@ -2108,7 +2162,8 @@ function actionsubmit_data()
                  'goal_set_year'=>$_POST['goal_set_year'],
                                 
 			);
-			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data1,'Employee_id=:Employee_id',array(':Employee_id'=>$_POST['emp_id']));
+			$update = Yii::app()->db->createCommand()->update('promotion_form_data',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['emp_id'],':goal_set_year'=>"2017-2018"));
+			//'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$Employee_id,':goal_set_year'=>"2017-2018"));
 			if ($update == 1) {
 				echo "update";
 			}

@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
-      setInterval(save_final_year_data1,5000);  
+     // setInterval(save_final_year_data1,5000);  
     });
 </script>
 
@@ -1038,7 +1038,7 @@ This form captures the <span style="font-weight: bold; text-decoration: underlin
 1. I feel my goals were very challenging and stretched because:<span style="color:red">*</span> <br>
 <span style="font-weight: initial;color: #8d8c8c;">(In case if you have any document proof please use 'Upload' file button)</span>
 
-<?php 
+<?php  
 if(isset($employee_review_data['0']['proof_1']) && $employee_review_data['0']['proof_1'] != '')
 {
 
@@ -1067,8 +1067,9 @@ if(isset($employee_review_data['0']['proof_1']) && $employee_review_data['0']['p
 
 <tr>
 <td colspan="2">
-<?php
+<?php 
 if (isset($employee_review_data) && count($employee_review_data)>0) {
+    //echo "hjghj";die();
 $employee_review1 = $employee_review_data['0']['employee_review1'];
 $employee_review2 = $employee_review_data['0']['employee_review2']; 
 $review1_example1 = $employee_review_data['0']['review1_example1'];
@@ -1088,11 +1089,10 @@ $review2_example2 = '';
 
 if(isset($settings_data_new['0']['setting_type']) && strtotime(date('Y-M-d-d'))>strtotime($settings_data_new['0']['setting_type']))
 {
-
 echo CHtml::textArea('employee_review1',$employee_review1,array('class'=>'form-control','id'=>'target1','disabled'=>'true',"maxlength"=>"1000"));
 }
 else
-{
+{ 
 echo CHtml::textArea('employee_review1',$employee_review1,array('class'=>'form-control','id'=>'target1',"maxlength"=>"1000"));
 }
 ?>
@@ -1464,7 +1464,6 @@ if(isset($program_data_result) && count($program_data_result)>0) {
 </thead>
 <tbody>
 <?php 
-
 $compulsory = '';$program_state = '';$program_cmnt = '';$state = 0;$review_state = '';$program_state1 = '';$not_undefine = '';$prg_list = '';
 
 if (isset($program_data_result) && count($program_data_result)>0) 
@@ -1480,7 +1479,7 @@ $cmnt = '';
         {
             $cmt1 = explode('?', $cmt2[$j]);
             //print_r($cmt1);die();
-                if ($i == $cmt1[0]) {                                                            
+                if (isset($cmt1[0]) && isset($cmt1[1]) && $i == $cmt1[0]) {                                                            
                     $cmnt = $cmt1[1];
                 }
         }
@@ -1527,47 +1526,27 @@ $cmnt = '';
         } 
     }
 
-    if (isset($IDP_data['0']['Year_end_prg_status']) && $IDP_data['0']['Year_end_prg_status'] != '') 
+    if (isset($IDP_data['0']['Year_end_prg_status']) && isset($IDP_data['0']['Year_end_prg_comments']) && $IDP_data['0']['Year_end_prg_comments'] != '' && $IDP_data['0']['Year_end_prg_status'] != '') 
     { 
         //echo "if";die();
-
+        
         $year_program_state = explode('^',$IDP_data['0']['Year_end_prg_status']);
         $year_program_cmnt = explode('^',$IDP_data['0']['Year_end_prg_comments']);
-        if (isset($year_program_cmnt[1])) 
+        if (isset($year_program_cmnt[$state]) && isset($year_program_state[$state])) 
         {
-            echo "if";die();
-            $year_program_state1 = $year_program_state[1];
+            $year_review_state = $year_program_cmnt[$state];
+            $year_program_state1 = $year_program_state[$state];
         }
-        else
-        {
-            
-            echo "else";die();
-            $year_program_state1 = 'abc1111111';
-        } 
-
-        if (isset($year_program_state[1])) 
-        {
-            
-            $year_program_state = $year_program_state[1];
-        }
-        else
-        {
-            
-           
-            $year_program_state = 'abc22222222';
-        }
-
 
     }
     else
     {
-        
-        $year_review_state = 'abc';
-        $year_program_state1 = 'abc1';
+        //echo "ifff";die();
+
+        $year_review_state = '';
+        $year_program_state1 = '';
     }   
 
-echo $year_review_state ;
- echo $year_program_state1 ; die();
 
     if ($cmnt != '' && $cmnt != 'undefined') 
     {
@@ -1588,20 +1567,20 @@ echo $year_review_state ;
 
     <tr class="error_row_chk">                                                               
         <td class="prog_name" id="<?php echo $i; ?>"> 
-            <?php echo $program_data_result[$i]['program_name']; ?>
-             <?php if($program_data_result[$i]['need'] == 1) { ?>
+            <?php if(isset($program_data_result[$i]['program_name'])) { echo $program_data_result[$i]['program_name']; } ?>
+             <?php if(isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 1) { ?>
                 <label style="color: red">*</label>
              <?php }
-             else if($program_data_result[$i]['need'] == 2) { ?>
+             else if(isset($program_data_result[$i]['need']) && $program_data_result[$i]['need'] == 2) { ?>
                 <label style="color: red">**</label><?php } ?>
          </td>
         <td> 
-            <?php echo $program_data_result[$i]['faculty_name']; 
+            <?php if(isset($program_data_result[$i]['faculty_name'])) { echo $program_data_result[$i]['faculty_name']; } 
 // print_r($program_data_result);die();
             ?> 
         </td>
         <td> 
-            <?php echo $program_data_result[$i]['training_days']; ?> 
+            <?php if(isset($program_data_result[$i]['training_days'])) { echo $program_data_result[$i]['training_days']; } ?> 
         </td>
         <td>
         <?php 
@@ -1614,7 +1593,7 @@ echo $year_review_state ;
         <td>
             <div id="yearAcompleteion_type_sta<?php echo $i; ?>"> 
                 <input type="radio" name='yearAcompleteion_type1<?php echo $i; ?>' 
-                <?php  
+                <?php 
                 if(isset($settings_data_new['0']['setting_type']) && strtotime(date('Y-M-d'))>strtotime($settings_data_new['0']['setting_type']))
                     { ?>
                         disabled="true"
@@ -1666,9 +1645,9 @@ echo $year_review_state ;
 }
 }
 ?>
-<label id="program_count" style="display: none"><?php echo $not_undefine; ?></label>
-<label id="compulsory_id" style="display: none"><?php echo $compulsory; ?></label>
-<label id="prg_list_defined" style="display:none"><?php echo $prg_list;  ?></label>
+<label id="program_count" style="display: none"><?php if(isset($not_undefine)) { echo $not_undefine; } ?></label>
+<label id="compulsory_id" style="display: none"><?php if(isset($compulsory)) { echo $compulsory; } ?></label>
+<label id="prg_list_defined" style="display:none"><?php if(isset($prg_list)) { echo $prg_list; }  ?></label>
 </tbody>
 
 </table>     
@@ -1718,15 +1697,41 @@ for ($m=0; $m < count($count); $m++) {
 
 if ($count[$m] != 'undefined') {
 $count_value++;
+if(isset($IDP_data['0']['extra_topic'])){
 $topic1 = explode(';',$IDP_data['0']['extra_topic']);
+}
+if(isset($IDP_data['0']['extra_days'])){
 $day1 = explode(';',$IDP_data['0']['extra_days']);
+}
+if(isset($IDP_data['0']['extra_faculty'])){
 $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
-$extra_prgrm_cmd = explode(';',$IDP_data['0']['extra_prgrm_cmd']);
-$extra_program_status = explode(';',$IDP_data['0']['extra_program_status']);
-$rel_program_status2 = explode(';',$IDP_data['0']['rel_program_review_status']);
-$rel_program_status3 = explode(';',$IDP_data['0']['rel_program_review']);
-$year_extra_prg_stat=explode('^', $IDP_data['0']['Extra_year_end_prg_status']);
-$year_extra_prg_cmt=explode('^', $IDP_data['0']['Extra_year_end_prg_comments']);
+}
+
+
+if(isset($IDP_data['0']['extra_prgrm_cmd'])){
+$faculty2 = explode(';',$IDP_data['0']['extra_prgrm_cmd']);
+}
+if(isset($IDP_data['0']['extra_program_status'])){
+$faculty2 = explode(';',$IDP_data['0']['extra_program_status']);
+}
+if(isset($IDP_data['0']['rel_program_review_status'])){
+$faculty2 = explode(';',$IDP_data['0']['rel_program_review_status']);
+}
+if(isset($IDP_data['0']['rel_program_review'])){
+$faculty2 = explode(';',$IDP_data['0']['rel_program_review']);
+}
+if(isset($IDP_data['0']['Extra_year_end_prg_status'])){
+$faculty2 = explode(';',$IDP_data['0']['Extra_year_end_prg_status']);
+}
+if(isset($IDP_data['0']['Extra_year_end_prg_comments'])){
+$faculty2 = explode(';',$IDP_data['0']['Extra_year_end_prg_comments']);
+}
+// $extra_prgrm_cmd = explode(';',$IDP_data['0']['extra_prgrm_cmd']);
+// $extra_program_status = explode(';',$IDP_data['0']['extra_program_status']);
+// $rel_program_status2 = explode(';',$IDP_data['0']['rel_program_review_status']);
+// $rel_program_status3 = explode(';',$IDP_data['0']['rel_program_review']);
+// $year_extra_prg_stat=explode('^', $IDP_data['0']['Extra_year_end_prg_status']);
+// $year_extra_prg_cmt=explode('^', $IDP_data['0']['Extra_year_end_prg_comments']);
 
 if($extra_list == '')
 {
@@ -1879,8 +1884,8 @@ echo CHtml::textField('yearAextraprogram_cmt',$year_extra_prg_comt,$htmlOptions=
 }
 ?>
 
-<label id="program_count" style="display: none"><?php echo $not_undefine; ?></label>
-<label id="ext_program_count" style="display: none"><?php echo $extra_list; ?></label>
+<label id="program_count" style="display: none"><?php if(isset($not_undefine)) { echo $not_undefine; } ?></label>
+<label id="ext_program_count" style="display: none"><?php if(isset($extra_list)) { echo $extra_list; } ?></label>
 </div>
 <div id="new_topic">
 </div>
@@ -2481,68 +2486,68 @@ else
                             </div>
                         </div>
                     </div> 
-                    <script type="text/javascript">
-                     $(function(){
-                    $("body").on('click','.send_for_appraisal',function(){
-                    $("#err").removeClass("alert-success"); 
-                            $("#err").removeClass("alert-danger");
-                             var emp_id = {
-                              emp_id : $(this).attr('id'),
-                            };
-                            $(window).scroll(function()
-                            {
-                                $('#err').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});  
-                            });
+//                     <script type="text/javascript">
+//                      $(function(){
+//                     $("body").on('click','.send_for_appraisal',function(){
+//                     $("#err").removeClass("alert-success"); 
+//                             $("#err").removeClass("alert-danger");
+//                              var emp_id = {
+//                               emp_id : $(this).attr('id'),
+//                             };
+//                             $(window).scroll(function()
+//                             {
+//                                 $('#err').animate({top:$(window).scrollTop()+"px" },{queue: false, duration: 350});  
+//                             });
                             
-                             var base_url = window.location.origin;
-                              $.ajax({
-                                  type : 'post',
-                                  datatype : 'html',
-                                  data : emp_id,
-                                  url : base_url+'/pms/index.php/Year_endreview1/final_goal_review',
-                                  success : function(data)
-                                  {
+//                              var base_url = window.location.origin;
+//                               $.ajax({
+//                                   type : 'post',
+//                                   datatype : 'html',
+//                                   data : emp_id,
+//                                   url : base_url+'/pms/index.php/Year_endreview1/final_goal_review',
+//                                   success : function(data)
+//                                   {
                                       
-                                       if (data == 1) 
-                                      {
-                                        $("#err").hide(); 
-                                          jQuery("#static").modal('show');
-                                          $("#continue_goal_set").click(function(){
-                                              $("#show_spin").show();
-                                                  $.ajax({
-                                                      type : 'post',
-                                                      datatype : 'html',
-                                                      url : base_url+'/pms/index.php/Year_endreview1/goalnotification1',
-                                                      success : function(data)
-                                                      {
+//                                        if (data == 1) 
+//                                       {
+//                                         $("#err").hide(); 
+//                                           jQuery("#static").modal('show');
+//                                           $("#continue_goal_set").click(function(){
+//                                               $("#show_spin").show();
+//                                                   $.ajax({
+//                                                       type : 'post',
+//                                                       datatype : 'html',
+//                                                       url : base_url+'/pms/index.php/Year_endreview1/goalnotification1',
+//                                                       success : function(data)
+//                                                       {
                                                        
-                                                          jQuery("#static").modal('toggle');
-                                                          $("#show_spin").hide(); 
+//                                                           jQuery("#static").modal('toggle');
+//                                                           $("#show_spin").hide(); 
                                                          
-                                                          $("#err").text("Notification Sent to appraiser");
+//                                                           $("#err").text("Notification Sent to appraiser");
 
-                                                          $("#err").show();  
-                                                          $("#err").fadeOut(6000);
+//                                                           $("#err").show();  
+//                                                           $("#err").fadeOut(6000);
                                                           
-                                                          $("#err").addClass("alert-success");                       
-                                                      }
-                                                  });
-                                          });
-                                      } 
-                                      else
-                                      {
-                                            $("#err").show(); 
+//                                                           $("#err").addClass("alert-success");                       
+//                                                       }
+//                                                   });
+//                                           });
+//                                       } 
+//                                       else
+//                                       {
+//                                             $("#err").show(); 
                                             
-                                            $("#err").text("Please submit final year review for all KRA before final Submission");
-                                            $("#err").addClass("alert-danger");
-                                      }             
-                                  }
-                              });                          
+//                                             $("#err").text("Please submit final year review for all KRA before final Submission");
+//                                             $("#err").addClass("alert-danger");
+//                                       }             
+//                                   }
+//                               });                          
                             
-                            });
-                        });
+//                             });
+//                         });
 
-</script>
+// </script>
 <script>
 
                         $(function(){
@@ -3178,7 +3183,7 @@ $(function() {
                                 url: base_url + '/pms/index.php/Year_endreview1/updatereview',
                                 success: function(data) {
 
-                                    //alert(data);
+                                    alert(data);
                                     //$("#wait_lable").attr('disabled',false);
                                     $("#wait_lable").attr('style','display:none');
                                     jQuery("#static").modal('show');
@@ -3189,7 +3194,7 @@ $(function() {
                                             datatype: 'html',
                                             url: base_url + '/pms/index.php/Year_endreview1/goalnotification1',
                                             success: function(data) {
-
+                                                alert(data);
                                                 jQuery("#static").modal('toggle');
                                                 $("#show_spin").hide();
                                                 $("#err").text("Notification Sent to appraiser");
@@ -3320,7 +3325,7 @@ function save_detail_pdf()
                     url : base_url+'/pms/index.php/Checkattach/check_view11',
                     success : function(data)
                     {
-                        alert(data);
+                        //alert(data);
                         location.href = base_url+'/pms/Goalsheet_docs/yearendgoalsheet'+'_'+$("#femp_name").text()+'_'+$("#lemp_name").text()+'2017-2018'+'.pdf'; 
                     }
                     });                 
@@ -3551,7 +3556,7 @@ function save_detail_pdf()
 <?php 
 
        ?>  
-<div id="year_end_emppdf" style="display:none">
+<div id="year_end_emppdf"  style="display:none">
 <?php
 $notification_data =new NotificationsForm;
         $emploee_data =new EmployeeForm;
@@ -3593,7 +3598,7 @@ $where = 'where Email_id = :Email_id';
                                                     <label id="total_<?php echo $cnt_num; ?>" style="display: none"><?php echo $row['target']; ?></label>
                                                    </div>
                                                 <div class="tools" style="font-weight:bold; font-size:8px; color: black;">
-                                                    <?php echo "KRA Category : ".$row['KRA_category']; ?><br>
+                                                    <?php echo "KRA Category : ".$row['KRA_category'];   ?><br>
                                                     <?php echo "KRA Weightage : ".$row['target']; ?>
                                                     <a href="javascript:;" class="collapse">
 </a>
@@ -3653,7 +3658,7 @@ $where = 'where Email_id = :Email_id';
                                                            <?php
                                                                 $cnt = 0;
                                                                 for ($i=0; $i < count($kpi_list_data); $i++) { if ($kpi_list_data[$i]!='') { $cnt++;
-                                if (!isset($KPI_target_value[$i])) {
+                                                                if (!isset($KPI_target_value[$i])) {
                                                                         $KPI_target_value[$i] = '';                                                                       
                                                                     }
                                                                 }
@@ -3679,7 +3684,8 @@ $where = 'where Email_id = :Email_id';
                                                                                 <td style="border: 1px solid black;font-size: 5px;"></td>
                                                                                 <td style="border: 1px solid black;font-size: 5px;"><?php echo $KPI_target_value[$i]; ?></td>
                                                                                 <?php
-                                                                                $value_data = explode('-', $kpi_list_target[$i]);
+                                                                                if(isset($kpi_list_target[$i])){$value_data = explode('-', $kpi_list_target[$i]); }
+                                                                                
                                                                                 for ($j=0; $j < 5; $j++) { 
                                                                                     if (isset($value_data[$j])) {?>
                                                                                      <td style="border: 1px solid black;font-size: 5px;"><?php echo $value_data[$j]; ?></td>
@@ -3696,8 +3702,8 @@ $where = 'where Email_id = :Email_id';
                                                                         <?php
                                                                             }
                                                                         ?>
-<td style="height: 30px;border: 1px solid black;font-size: 5px;"><?php echo $year_end_achive[$i]; ?></td>
-<td style="height: 30px;border: 1px solid black;font-size: 5px;"><?php echo $year_end_achive1[$i]; ?></td>
+<td style="height: 30px;border: 1px solid black;font-size: 5px;"><?php if(isset( $year_end_achive[$i])){ echo $year_end_achive[$i]; }?></td>
+<td style="height: 30px;border: 1px solid black;font-size: 5px;"><?php if(isset($year_end_achive1[$i])){ echo $year_end_achive1[$i]; } ?></td>
                                                                 </tr>
                                                                 <?php
                                                                    } }
@@ -3783,7 +3789,7 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
 //print_r($emp_data);die();
 
    ?>
-   <lable id='emp_id' style="display: none"><?php echo 'vvf57e264fd8d3ef'; ?></lable>
+  
 <div id="target_idp" >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"></script>
@@ -3807,7 +3813,8 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
         <tr ><td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;"><b>Answer:-</b>
             <?php  //if(isset($settings_data_new['0']['setting_type']) && strtotime(date('Y-m-d'))>strtotime($settings_data_new['0']['setting_type']))
 //{
-                                echo $employee_review1;
+            if(isset($employee_review1)){
+                          echo $employee_review1;}
                      //        }
                             ?></td></tr>
         <tr><td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">2. I have gone the extra mile to help my colleagues/team/organization by:</td></tr>
@@ -3815,9 +3822,9 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
 
                                 // if(isset($settings_data_new['0']['setting_type']) && strtotime(date('Y-m-d'))>strtotime($settings_data_new['0']['setting_type']))
 
-                                //  {
-                                   echo $employee_review2;
-                                 //}
+                                  if(isset($employee_review2)){
+                                 echo $employee_review2;
+                                 }
                                      
                                 ?></td></tr>
         <tr><td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">3. I have lived the   VVF values (Openness, Integrity, Respect, Trust, Innovation, Agility) in an exemplary fashion in the following way:<br>
@@ -3826,22 +3833,22 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
 </tr>
 <tr>
     <td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">
-    <b>Example1:-</b><?php echo $review1_example1;?></td>
+    <b>Example1:-</b><?php  if(isset($review1_example1)){ echo $review1_example1; }?></td>
 </tr>
 <tr>
     <td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">
-    <b>Example2:-</b><?php echo $review1_example2;?></td>
+    <b>Example2:-</b><?php if(isset($review1_example2)){ echo $review1_example2; }?></td>
 </tr>
 
         <tr><td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">4. I have demonstrated the VVF leadership competencies (Teamwork, Customer Orientation, Result Orientation, Developing self and team, Strategic thinking, Ownership and accountability)  in the following way:</td>
 </tr>
 <tr>
     <td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">
-    <b>Example1:-</b><?php echo $review2_example1;?></td>
+    <b>Example1:-</b><?php if(isset($review2_example1)){ echo $review2_example1; }?></td>
 </tr>
 <tr>
     <td style="border: 1px solid #00000a; padding-top: 6px; padding-bottom: 6px; padding-left: 0.2cm; padding-right: 0.19cm;margin-top: 0px;">
-    <b>Example2:-</b><?php echo $review2_example2;?></td>
+    <b>Example2:-</b><?php if(isset($review2_example2)){ echo $review2_example2;}?></td>
 </tr>
     </table>
     
@@ -3893,7 +3900,7 @@ $emp_id_goal1 = $emp_data['0']['Employee_id'];
       <p><br/>
         <?php 
                    $today = date('d-m-Y'); 
-                 echo '2016-2017';?>
+                 echo '2017-2018';?>
       </p>
     </td>
   </tr>
@@ -3956,15 +3963,24 @@ A: Development through Instructor led training in Classroom</b></span></font></p
             <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
             <?php 
             $cmnt = '';$prg_state1 = '';$prg_state_com1 = '';
-            if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['program_comment'])) {
+            if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['program_comment']) && isset($IDP_data['0']['Year_end_prg_status']) && isset($IDP_data['0']['Year_end_prg_comments'])) {
                 $cmt2 = explode(';', $IDP_data['0']['program_comment']);
-                $prg_state = explode('^', $IDP_data['0']['Year_end_prg_status']);
+                if(isset($IDP_data['0']['Year_end_prg_status'])){ $prg_state = explode('^', $IDP_data['0']['Year_end_prg_status']);}
+                
                 $prg_state_com = explode('^', $IDP_data['0']['Year_end_prg_comments']);
                 for ($j=0; $j < count($cmt2); $j++) {
-                    $cmt1 = explode('?', $cmt2[$j]);
-                    if ($i == $cmt1[0]) {                                                            
-                         $cmnt = $cmt1[1];$prg_state1 = $prg_state[$j];$prg_state_com1 = $prg_state_com[$j];
-                    }
+                    if(isset($cmt2[$j]))
+                    {
+                        $cmt1 = explode('?', $cmt2[$j]);
+                        if (isset($cmt1[0]) && isset($cmt1[1]) && $i == $cmt1[0]) {                                                            
+                             $cmnt = $cmt1[1];
+                             if(isset($prg_state[$j]) && isset($prg_state_com[$j]))
+                             {
+                                $prg_state1 = $prg_state[$j];
+                                $prg_state_com1 = $prg_state_com[$j];
+                             }                             
+                        }
+                    }                    
                 }
             }
             else
@@ -3974,9 +3990,9 @@ A: Development through Instructor led training in Classroom</b></span></font></p
 
                 echo $cmnt;
             ?> </td>
-<td width="50" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"><?php echo $prg_state1; ?>
+<td width="50" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"><?php if(isset($prg_state1)){ echo $prg_state1; } ?>
 </td>
-<td width="100" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"><?php echo $prg_state_com1; ?>
+<td width="100" style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm"><?php if(isset($prg_state_com1)){ echo $prg_state_com1;  } ?>
 </td>
       </tr>
       <?php 
@@ -4016,49 +4032,51 @@ request for it. </i></font>
       <p><font face="Cambria, serif"><b>Reviews</b></font></p>
     </td>
   </tr>
-  <?php
+<?php
     $topic = '';$day = '';$faculty = '';
-       if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
-              $topic1 = explode(';',$IDP_data['0']['extra_topic']);
-              $topic = $topic1[0];
-              $day1 = explode(';',$IDP_data['0']['extra_days']);
-$finaltopic = explode('^',$IDP_data['0']['Extra_year_end_prg_status']);
-$finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
-if(isset($day1[0]))
-{
-$day = $day1[0];
-}
-              
-              $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
-              // $faculty1 = explode('?',$faculty2[0]); 
-if(isset($faculty2[0]))
-{
-$faculty[$faculty2[0]] = array('selected' => 'selected');
- $reporting_list = new EmployeeForm();
-             $records = $reporting_list->get_appraiser_list1();
-             
+    if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic']) && isset($topic1[0]) && isset($IDP_data['0']['extra_days']) && isset($IDP_data['0']['Extra_year_end_prg_status']) && isset($IDP_data['0']['Extra_year_end_prg_comments']) && isset($IDP_data['0']['extra_faculty'])) {
+
+            $topic1 = explode(';',$IDP_data['0']['extra_topic']);
+            $topic = $topic1[0];
+            $day1 = explode(';',$IDP_data['0']['extra_days']);
+            $finaltopic = explode('^',$IDP_data['0']['Extra_year_end_prg_status']);
+            $finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
+
+            if(isset($day1[0]))
+            {
+                $day = $day1[0];
+            }
+
+            $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
+            
+            if(isset($faculty2[0]))
+            {
+                $faculty[$faculty2[0]] = array('selected' => 'selected');
+                $reporting_list = new EmployeeForm();
+                $records = $reporting_list->get_appraiser_list1();
+
                 $where = 'where Email_id = :Email_id';
                 $list = array('Email_id');
                 $data = array($faculty2[0]);
                 $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-}                         
-                          
-             
-             
-       }
-  ?>
+            }                         
+
+
+
+    }
+?>
   <tr valign="top">
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><font face="Cambria, serif">1</font></p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php echo $topic; ?>
+      <?php if(isset($topic)){ echo $topic; }?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php echo $day; ?>
+      <?php if(isset($day)){ echo $day; }?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
@@ -4077,51 +4095,51 @@ $faculty[$faculty2[0]] = array('selected' => 'selected');
       </p>
     </td>
   </tr>
-  <?php
+<?php
     $topic = '';$day = '';$faculty = '';$finaltopic1 = '';$finaltopic_cmt1 = '';
     if (isset($IDP_data) && count($IDP_data)>0 && isset($IDP_data['0']['extra_topic'])) {
         $topic1 = explode(';',$IDP_data['0']['extra_topic']);
-$finaltopic = explode('^',$IDP_data['0']['Extra_year_end_prg_status']);
-$finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
-//print_r($IDP_data);die();
+        $finaltopic = explode('^',$IDP_data['0']['Extra_year_end_prg_status']);
+        $finaltopic_cmt = explode('^',$IDP_data['0']['Extra_year_end_prg_comments']);
+        
         if (isset($topic1[1])) {
-           $topic = $topic1[1];
+            $topic = $topic1[1];
             $day1 = explode(';',$IDP_data['0']['extra_days']);
-if(isset($day1[1]))
-{
-$day = $day1[1];
-}
-            
+            if(isset($day1[1]))
+            {
+                $day = $day1[1];
+            }
+
             $faculty2 = explode(';',$IDP_data['0']['extra_faculty']);
-            // $faculty1 = explode('?',$faculty2[0]);  
-if(isset($faculty2[1]))
-{
-$faculty[$faculty2[1]] = array('selected' => 'selected');
- $reporting_list = new EmployeeForm();
-             $records = $reporting_list->get_appraiser_list1();
-             
+            
+            if(isset($faculty2[1]))
+            {
+                $faculty[$faculty2[1]] = array('selected' => 'selected');
+                $reporting_list = new EmployeeForm();
+                $records = $reporting_list->get_appraiser_list1();
+
                 $where = 'where Email_id = :Email_id';
                 $list = array('Email_id');
                 $data = array($faculty2[1]);
                 $Reporting_officer_data = $reporting_list->get_employee_data($where,$data,$list);
-}                         
-            
+            }                         
+
         }
-       
+
     }
-  ?>
+?>
   <tr valign="top">
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><font face="Cambria, serif">2</font></p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php echo $topic; ?>
+      <?php if(isset($topic)){ echo $topic; } ?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php echo $day; ?>
+      <?php if(isset($day)){ echo $day; }?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
@@ -4146,18 +4164,18 @@ Part B and Part C are to be filled by only AGM and above employees.</b></u></i><
 <p style="margin-bottom: 0.35cm; line-height: 115%"><font face="Cambria, serif"><b>Part
 B: Development through developmental relationships</b></font></p>
 <table cellpadding="3" cellspacing="0">
-  <?php
+    <?php
     $faculty3 = '';
-        if (isset($IDP_data['0']['leader_name'])) {
-          $faclty = explode(';',$IDP_data['0']['leader_name']);
-$relfinaltopic = explode('^',$IDP_data['0']['Relationship_year_end_status']);
-$relfinaltopic_cmt = explode('^',$IDP_data['0']['Relationship_year_end_comments']);
-          if (isset($faclty[0])) {
+    if (isset($IDP_data['0']['leader_name'])) {
+        $faclty = explode(';',$IDP_data['0']['leader_name']);
+            $relfinaltopic = explode('^',$IDP_data['0']['Relationship_year_end_status']);
+            $relfinaltopic_cmt = explode('^',$IDP_data['0']['Relationship_year_end_comments']);
+        if (isset($faclty[0])) {
             $faculty3 = $faclty[0];
-          }
-          //$faculty3[$faclty[0]] = array('selected' => 'selected');
         }
-  ?>
+        //$faculty3[$faclty[0]] = array('selected' => 'selected');
+    }
+    ?>
   <tr valign="top">
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><font face="Cambria, serif"><b>No</b></font></p>
@@ -4192,7 +4210,7 @@ $relfinaltopic_cmt = explode('^',$IDP_data['0']['Relationship_year_end_comments'
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php echo $faculty3; ?>
+      <?php if(isset($faculty3)){echo $faculty3; }?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
@@ -4202,9 +4220,9 @@ $relfinaltopic_cmt = explode('^',$IDP_data['0']['Relationship_year_end_comments'
               if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
                 $meet = explode(';',$IDP_data['0']['meeting_planned']);
                 if(isset($meet[0]))
-{
-$meet = $meet[0];
-}
+                {
+                $meet = $meet[0];
+                }
                 
               }
               else
@@ -4261,26 +4279,26 @@ $meet = $meet[0];
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php echo $faculty4; ?>
+      <?php if(isset($faculty4)){ echo $faculty4; } ?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">
       <p><br/>
-      <?php
-        $meet = '';
-              if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
+        <?php
+            $meet = '';
+            if (isset($IDP_data['0']['meeting_planned']) && $IDP_data['0']['meeting_planned']!='') {
                 $meet = explode(';',$IDP_data['0']['meeting_planned']);
                 if(isset($meet[1]))
-{
-$meet = $meet[1];
-}
-              }
-              else
-              {
+                {
+                    $meet = $meet[1];
+                }
+            }
+            else
+            {
                 $meet = '';
-              }
-      ?>
-      <?php echo $meet; ?>
+            }
+        ?>
+      <?php if(isset($meet)){echo $meet;} ?>
       </p>
     </td>
     <td style="border: 1px solid #00000a; padding-top: 0cm; padding-bottom: 0cm; padding-left: 0.2cm; padding-right: 0.19cm">

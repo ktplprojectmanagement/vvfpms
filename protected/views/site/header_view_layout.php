@@ -164,6 +164,24 @@ var basepath = $("#basepath").attr('value');
         $data2 = array($id,0);
         $notifications_pending = $notification_data->get_notifications($where1,$data2,$list1);
         //print_r($menu_settings_data1);die();
+
+        $settings_form=new SettingsForm;
+        $where = 'where setting_content = :setting_content and year = :year';
+        $list = array('setting_content','year');
+        $data = array('goal_set_tab_active',date('Y'));             
+        $settings_goal_data = $settings_form->get_setting_data($where,$data,$list);
+        $where = 'where setting_content = :setting_content and year = :year';
+        $list = array('setting_content','year');
+        $data = array('mid_goal_set_tab_active',date('Y'));             
+        $settings_mid_data = $settings_form->get_setting_data($where,$data,$list);
+        $where = 'where setting_content = :setting_content and year = :year';
+        $list = array('setting_content','year');
+        $data = array('final_goal_set_tab_active',date('Y'));             
+        $settings_final_data = $settings_form->get_setting_data($where,$data,$list);
+        $where = 'where setting_content = :setting_content and year = :year';
+        $list = array('setting_content','year');
+        $data = array('norm_set_tab_active',date('Y'));             
+        $settings_normalization_data = $settings_form->get_setting_data($where,$data,$list);
     ?>
     <body class="page-container-bg-solid">
 <label style="color:green;display:none" id="redirect" ><?php print_r(Yii::app()->user->getState("Employee_name")); ?></label>
@@ -344,7 +362,7 @@ $(document).ready(function(){
                                 </a>
                             </li>                               
                             
-                        <li class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'Goals') { echo 'active';
+                        <li <?php if(isset($settings_goal_data['0']['setting_type']) && $settings_goal_data['0']['setting_type'] == 1) { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?> class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'Goals') { echo 'active';
                             } ?>">
                                         <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Rules"> Goalsheet & IDP
                                             <span class="arrow"></span>
@@ -373,7 +391,7 @@ $(document).ready(function(){
                                        
                                     </li>
                            
-                                    <li style="display:none" class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'Mid_review') { echo 'active';
+                                    <li <?php if(isset($settings_mid_data['0']['setting_type']) && $settings_mid_data['0']['setting_type'] == 1) { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?> class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'Mid_review') { echo 'active';
                             } ?>">
                                         <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Midreview/setbyemployee"> Mid-Year Review
                                             <span class="arrow"></span>
@@ -400,7 +418,7 @@ $(document).ready(function(){
                                         
                                     </li>
                             
-                               <li  style="display:none" class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'year end review') { echo 'active';
+                               <li  <?php if(isset($settings_final_data['0']['setting_type']) && $settings_final_data['0']['setting_type'] == 1) { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?> class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'year end review') { echo 'active';
                             } ?>">
                                 <a href="#"> Year-End Review
                                     <span class="arrow"></span>
@@ -438,7 +456,7 @@ $(document).ready(function(){
                             </li>
                         
                             <li class="menu-dropdown classic-menu-dropdown <?php if (isset($selected_option) && $selected_option == 'Dashboard') { echo 'active';
-                            } ?>" <?php if(Yii::app()->user->getState("employee_email") == 'mohit.sharma@vvfltd.com' || Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') { ?>style="display:block"<?php }else{ ?>style="display:none"<?php } ?>>
+                            } ?>" <?php if(Yii::app()->user->getState("employee_email") == 'mohit.sharma@vvfltd.com' || Yii::app()->user->getState("employee_email") == 'amit.sanas@vvfltd.com') { ?>style="display:block"<?php }else if(isset($settings_normalization_data['0']['setting_type']) && $settings_normalization_data['0']['setting_type'] == 1) { ?>style="display:block"<?php }else { ?>style="display:none"<?php } ?>>
                                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php?r=Normalized"> Normalization Discussion
                                     <span class="arrow"></span>
                                 </a>

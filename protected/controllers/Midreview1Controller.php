@@ -98,11 +98,15 @@ class Midreview1Controller extends Controller
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
 		$id = Yii::app()->user->getState("employee_email");
+		$where = 'where appraisal_id1 = :appraisal_id1 and KRA_status_flag = :KRA_status_flag AND goal_set_year =:goal_set_year';
+		$list = array('appraisal_id1','KRA_status_flag','goal_set_year');
+		$data = array($id,'Approved',Yii::app()->user->getState('financial_year_check'));
+		$goal_set_track = $model->get_kpi_list($where,$data,$list);
 		$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status = :mid_KRA_final_status';
 		$list = array('appraisal_id1','mid_KRA_final_status');
 		$data = array($id,'Approved');
 		$kpi_data = $model->get_kpi_list($where,$data,$list);
-	//print_r(Yii::app()->user->getState("employee_email"));die();
+	//print_r($goal_set_track);die();
 		$where = 'where appraisal_id1 = :appraisal_id1 and mid_KRA_final_status != :mid_KRA_final_status';
 		$list = array('appraisal_id1','mid_KRA_final_status');
 		$data = array($id,'');
@@ -384,6 +388,12 @@ public function actionIDP_review()
 		$model=new KpiAutoSaveForm;
 		$emploee_data =new EmployeeForm;
 		$setting_date=new SettingsForm;
+		$Employee_id = Yii::app()->user->getState("Employee_id");
+		$where = 'where Employee_id = :Employee_id and KRA_status = :KRA_status AND goal_set_year =:goal_set_year';
+		$list = array('Employee_id','KRA_status','goal_set_year');
+		$data = array($Employee_id,'Approved',Yii::app()->user->getState('financial_year_check'));
+		$goal_set_track = $model->get_kpi_list($where,$data,$list);
+		//print_r($goal_set_track);die();
 		$where = 'where setting_content = :setting_content and year = :year';
 		$list = array('setting_content','year');
 		$data = array('PMS_display_format',date('Y'));             
@@ -394,7 +404,7 @@ public function actionIDP_review()
 		$data = array('PMS_display_format',date("Y",strtotime("-1 year")));             
 		$settings_data1 = $setting_date->get_setting_data($where,$data,$list);
 //print_r(Yii::app()->user->getState('financial_year_check'));die();
-		$Employee_id = Yii::app()->user->getState("Employee_id");		
+				
 		if (count($settings_data)>0) {
 			$where = 'where Employee_id = :Employee_id and goal_set_year = :goal_set_year and KRA_status != :KRA_status and new_goalsheet_state =:new_goalsheet_state ORDER BY target DESC ';
 			$list = array('Employee_id','goal_set_year','KRA_status','new_goalsheet_state');
@@ -476,8 +486,17 @@ public function actionIDP_review()
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
 		$this->render('//site/header_view_layout2',array('selected_option'=>$selected_option));
-		$this->render('//site/employee_mid_review1',array('kpi_data'=>$kpi_data,'mid_review'=>$mid_review,'mid_review_by_employee'=>$mid_review_by_employee,'employee_data'=>$employee_data,'program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag,'kpi_data2'=>$kpi_data2));
-		$this->render('//site/footer_view_layout');
+		if(isset($goal_set_track) && count($goal_set_track)>0)
+		{
+			$this->render('//site/employee_mid_review1',array('kpi_data'=>$kpi_data,'mid_review'=>$mid_review,'mid_review_by_employee'=>$mid_review_by_employee,'employee_data'=>$employee_data,'program_data_result'=>$program_data_result,'emp_data'=>$emp_data,'mgr_data'=>$mgr_data,'IDP_data'=>$IDP_data,'designation_flag'=>$designation_flag,'kpi_data2'=>$kpi_data2));
+			$this->render('//site/footer_view_layout');
+		}
+		else
+		{
+			$this->render('//site/blank_view',array('window_msg'=>'It seems your goalshhet for this year has not been approved by your manager'));
+		}
+		
+		
 	}
 
 	function actionmidreview_layout()
@@ -591,7 +610,7 @@ public function actionIDP_review()
 		
 		//print_r($_POST['correct_emp_id']);die();
 
-		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id and goal_set_year=:goal_set_year',array(':KPI_id'=>$_POST['KPI_id_value'],':goal_set_year'=>"2016-2017"));
+		$update = Yii::app()->db->createCommand()->update('kpi_auto_save',$data,'KPI_id=:KPI_id and goal_set_year=:goal_set_year',array(':KPI_id'=>$_POST['KPI_id_value'],':goal_set_year'=>"2017-2018"));
 $data1 = array(			
 			'program_review_by_emp' => $_POST['program_review_by_emp'],
 			'extra_program_review_by_emp' => $_POST['extra_program_review_by_emp'],
@@ -599,7 +618,7 @@ $data1 = array(
 			'project_mid_review_by_emp' => $_POST['emp_project_mid_review'],
 			'mid_year_idp_doc' =>	$IDPForm->mid_year_idp_doc,
 		);
-		$update1 = Yii::app()->db->createCommand()->update('IDP',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['correct_emp_id'],':goal_set_year'=>"2016-2017"));
+		$update1 = Yii::app()->db->createCommand()->update('IDP',$data1,'Employee_id=:Employee_id and goal_set_year=:goal_set_year',array(':Employee_id'=>$_POST['correct_emp_id'],':goal_set_year'=>"2017-2018"));
 		//print_r($update1);die();
 		if ($update==1) {
 

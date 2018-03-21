@@ -719,7 +719,7 @@ Average rating for KRA :
 <lable id="kra_total_value1"></lable></lable> -->
  <div style="background-color: rgba(38, 70, 109, 0.77);border:1px solid #26466D;height:41px;">  <lable style="font-size: 18px;padding-left:10px;padding-top:5px;color:#fff">
 Manager's quantitative rating for  <?php if(isset($emp_data['0']['Emp_fname'])) { echo $emp_data['0']['Emp_fname']." ".$emp_data['0']['Emp_lname']; } ?> =
-<lable style="font-size: 22px;padding-left:10px;padding-top:5px;color:#fff;font-weight: bold;" id="kra_total_value"><?php if(isset($IDP_datam['0']['performance_rating'])) { echo $IDP_data['0']['performance_rating']; } ?></lable></lable> </div>  
+<lable style="font-size: 22px;padding-left:10px;padding-top:5px;color:#fff;font-weight: bold;" id="kra_total_value"><?php if(isset($IDP_data['0']['performance_rating'])) { echo $IDP_data['0']['performance_rating']; } ?></lable></lable> </div>  
                                          </div> 
 
                                      <?php   }

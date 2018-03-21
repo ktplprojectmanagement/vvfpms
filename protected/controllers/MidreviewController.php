@@ -161,14 +161,30 @@ class MidreviewController extends Controller
 			}
 			
 		}
-		
-		//print_r($kpi_data_aprv1);die();
+		$settings_form=new SettingsForm;
+	    $where = 'where setting_content = :setting_content and year = :year';
+	    $list = array('setting_content','year');
+	    $data = array('goal_set_tab_active',date('Y'));             
+	    $settings_goal_data = $settings_form->get_setting_data($where,$data,$list);
+	    $where = 'where setting_content = :setting_content and year = :year';
+	    $list = array('setting_content','year');
+	    $data = array('mid_goal_set_tab_active',date('Y'));             
+	    $settings_mid_data = $settings_form->get_setting_data($where,$data,$list);
+	    $where = 'where setting_content = :setting_content and year = :year';
+	    $list = array('setting_content','year');
+	    $data = array('mid_goal_set_tab_active',date('Y'));             
+	    $settings_final_data = $settings_form->get_setting_data($where,$data,$list);
+	    $where = 'where setting_content = :setting_content and year = :year';
+	    $list = array('setting_content','year');
+	    $data = array('norm_active-date',date('Y'));             
+	    $settings_normalization_data = $settings_form->get_setting_data($where,$data,$list);
+		//print_r($settings_goal_data);die();
 		//$mid_review = '1';
 		$selected_option = 'Mid_review';
 		//die();
 		$this->render('//site/script_file');
 		$this->render('//site/session_check_view');
-		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option));
+		$this->render('//site/header_view_layout',array('selected_option'=>$selected_option,'settings_goal_data'=>$settings_goal_data,'settings_mid_data'=>$settings_mid_data,'settings_final_data'=>$settings_final_data,'settings_normalization_data'=>$settings_normalization_data));
 		$this->render('//site/mid_review_emp_list',array('kpi_data'=>$kpi_data,'kpi_emp_data'=>$kpi_emp_data,'kpi_data_aprv'=>$kpi_data_aprv1,'kpi_emp_data_aprv'=>$kpi_emp_data_aprv));
 		$this->render('//site/footer_view_layout');
 
